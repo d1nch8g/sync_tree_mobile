@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:wallet_app/_reusable/colors.dart';
+import 'package:sync_tree_mobile/_reusable/colors.dart';
 
 StreamController<String> likeStreamController = StreamController<String>();
 Stream likeStream = likeStreamController.stream.asBroadcastStream();
@@ -12,8 +12,8 @@ class MarketButtonStar extends StatefulWidget {
   final Key key;
 
   MarketButtonStar({
-    required this.assetName,
-    required this.key,
+    String this.assetName,
+    Key this.key,
   });
   @override
   _MarketButtonStarState createState() => _MarketButtonStarState(
@@ -23,7 +23,7 @@ class MarketButtonStar extends StatefulWidget {
 
 class _MarketButtonStarState extends State<MarketButtonStar> {
   final String assetName;
-  _MarketButtonStarState({required this.assetName});
+  _MarketButtonStarState({String this.assetName});
 
   Color starColor = palette.starsOffColor;
 

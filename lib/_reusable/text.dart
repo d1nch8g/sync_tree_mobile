@@ -5,7 +5,7 @@ class Rtext extends StatelessWidget {
   final double fontSize;
   final Color color;
   Rtext({
-    required this.text,
+    String this.text,
     this.fontSize = 18,
     this.color = Colors.white,
   });

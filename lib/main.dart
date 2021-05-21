@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_app/balance/balancePage.dart';
+import 'package:sync_tree_mobile/balance/balancePage.dart';
 import '_reusable/colors.dart';
 import 'market/marketPage.dart';
 import 'wallet/walletPage.dart';
@@ -50,7 +50,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-                Icons.insert_chart_outlined_sharp,
+              Icons.insert_chart_outlined_sharp,
             ),
             backgroundColor: appBarColor,
             label: 'market',

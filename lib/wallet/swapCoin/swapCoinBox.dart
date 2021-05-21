@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_app/_reusable/colors.dart';
+import 'package:sync_tree_mobile/_reusable/colors.dart';
 import 'revieveSendButton/swapCoinButton.dart';
-import 'package:wallet_app/_reusable/dialogueTab.dart';
+import 'package:sync_tree_mobile/_reusable/dialogueTab.dart';
 import 'recievingAlert/recievingAlert.dart';
 import 'sendingAlert/sendingAlert.dart';
-
 
 class SwapCoinContainer extends StatelessWidget {
   @override

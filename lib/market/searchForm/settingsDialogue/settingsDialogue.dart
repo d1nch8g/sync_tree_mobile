@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:wallet_app/_reusable/colors.dart';
-import 'package:wallet_app/_reusable/iconTextButton.dart';
-import 'package:wallet_app/_reusable/dialogueTab.dart';
+import 'package:sync_tree_mobile/_reusable/colors.dart';
+import 'package:sync_tree_mobile/_reusable/iconTextButton.dart';
+import 'package:sync_tree_mobile/_reusable/dialogueTab.dart';
 
 StreamController<Map> settingsController = StreamController<Map>();
 Stream settingStream = settingsController.stream.asBroadcastStream();

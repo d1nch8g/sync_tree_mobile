@@ -1,7 +1,7 @@
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
 
-import 'package:wallet_app/_reusable/textField.dart';
+import 'package:sync_tree_mobile/_reusable/textField.dart';
 
 /*
     Данная секция предназначена для бэкдроп меню на странице кошелька
@@ -19,7 +19,6 @@ import 'package:wallet_app/_reusable/textField.dart';
 2 - Добавить обменник в подключенные ассеты
 
 */
-
 
 class SearchWalletsList extends StatelessWidget {
   final controller = TextEditingController();

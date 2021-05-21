@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:wallet_app/_reusable/colors.dart';
-import 'package:wallet_app/_reusable/toRemoveLoadedData.dart';
+import 'package:sync_tree_mobile/_reusable/colors.dart';
+import 'package:sync_tree_mobile/_reusable/toRemoveLoadedData.dart';
 
 import '../../_reusable/buttonImage.dart';
 import 'modalAssetPage/modalPage.dart';
 import '../../_reusable/buttonStar.dart';
 
 class MarketButton extends StatefulWidget {
-  final String assetName;
-  final Key key;
+  String assetName;
+  Key key;
 
   MarketButton({
-    required this.assetName,
-    required this.key,
+    String this.assetName,
+    Key this.key,
   });
 
   @override
@@ -25,11 +25,11 @@ class _MarketButtonState extends State<MarketButton> {
   final Color backgroundColor = palette.buttonsColor;
   final Color itemColor = palette.smallItemsColor;
   final Color textColor = palette.textColor;
-  late String exchange = '-';
-  late String price = '0';
-  late String rate = 'loading';
-  late String withdrawal = '0';
-  late String deposit = '0';
+  String exchange = '-';
+  String price = '0';
+  String rate = 'loading';
+  String withdrawal = '0';
+  String deposit = '0';
 
   setParameters() {
     var data = assetData[widget.assetName] ??

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_app/_reusable/colors.dart';
+import 'package:sync_tree_mobile/_reusable/colors.dart';
 import 'package:clipboard/clipboard.dart';
-import 'package:wallet_app/_reusable/dialogueTab.dart';
+import 'package:sync_tree_mobile/_reusable/dialogueTab.dart';
+
 class SendingDialogueBox extends StatelessWidget {
   final TextEditingController controller = TextEditingController();
   @override

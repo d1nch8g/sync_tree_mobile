@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_app/_reusable/colors.dart';
+import 'package:sync_tree_mobile/_reusable/colors.dart';
 import 'package:clipboard/clipboard.dart';
-import 'package:wallet_app/_reusable/dialogueTab.dart';
+import 'package:sync_tree_mobile/_reusable/dialogueTab.dart';
 
 class RecievingDialogueBox extends StatelessWidget {
   final String ownerPublicKey = '1231asdkjhaklajfhd8u1238687ysadfkasudhf';

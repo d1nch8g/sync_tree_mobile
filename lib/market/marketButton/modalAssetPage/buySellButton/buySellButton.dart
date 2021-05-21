@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_app/_reusable/colors.dart';
+import 'package:sync_tree_mobile/_reusable/colors.dart';
 
 class BuySellButton extends StatelessWidget {
   final String text;
@@ -7,9 +7,9 @@ class BuySellButton extends StatelessWidget {
   final Function() onPressed;
 
   BuySellButton({
-    required this.text,
-    required this.color,
-    required this.onPressed,
+    String this.text,
+    Color this.color,
+    Function() this.onPressed,
   });
 
   @override

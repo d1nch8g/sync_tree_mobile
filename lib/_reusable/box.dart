@@ -6,7 +6,7 @@ class Rbox extends StatelessWidget {
   final double borderRadius;
   final EdgeInsets padding;
   Rbox({
-    required this.child,
+    Widget this.child,
     this.color = Colors.black,
     this.borderRadius = 12,
     this.padding = EdgeInsets.zero,

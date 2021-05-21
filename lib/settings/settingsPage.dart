@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:wallet_app/_reusable/text.dart';
+import 'package:sync_tree_mobile/_reusable/text.dart';
 
 import 'avatarSettings/avatarSettings.dart';
 import 'nameSettings/nameSettings.dart';

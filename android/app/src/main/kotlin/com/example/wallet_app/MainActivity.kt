@@ -1,4 +1,4 @@
-package com.example.wallet_app
+package com.example.sync_tree_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

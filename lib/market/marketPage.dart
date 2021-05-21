@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:wallet_app/_reusable/toRemoveLoadedData.dart';
+import 'package:sync_tree_mobile/_reusable/toRemoveLoadedData.dart';
 
 import 'searchForm/searchForm.dart';
 import 'marketButton/marketButton.dart';

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:wallet_app/_reusable/colors.dart';
+import 'package:sync_tree_mobile/_reusable/colors.dart';
 
 import 'buySellButton/buySellButton.dart';
 import 'assetInfo/assetInfo.dart';
 import 'marketChart/marketChart.dart';
 
 //non horizontal inheritances
-import 'package:wallet_app/_reusable/buttonStar.dart';
-import 'package:wallet_app/_reusable/buttonImage.dart';
-import 'package:wallet_app/_reusable/dialogueTab.dart';
+import 'package:sync_tree_mobile/_reusable/buttonStar.dart';
+import 'package:sync_tree_mobile/_reusable/buttonImage.dart';
+import 'package:sync_tree_mobile/_reusable/dialogueTab.dart';
 
 class ModalMarketPage extends StatelessWidget {
   final String assetName;
   ModalMarketPage({
-    required this.assetName,
+    String this.assetName,
   });
   @override
   Widget build(BuildContext context) {

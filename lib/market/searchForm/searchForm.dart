@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import 'package:wallet_app/_reusable/colors.dart';
-import 'package:wallet_app/_reusable/dialogueTab.dart';
+import 'package:sync_tree_mobile/_reusable/colors.dart';
+import 'package:sync_tree_mobile/_reusable/dialogueTab.dart';
 
 import 'settingsDialogue/settingsDialogue.dart';
 
 class SearchForm extends StatelessWidget {
   final TextEditingController textController;
-  final dynamic onItemChanged;
+  final Function(String) onItemChanged;
   SearchForm({
-    required this.textController,
-    required this.onItemChanged,
+    TextEditingController this.textController,
+    Function(String) this.onItemChanged,
   });
 
   @override

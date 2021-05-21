@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:wallet_app/_reusable/text.dart';
-import 'package:wallet_app/_reusable/box.dart';
-import 'package:wallet_app/_reusable/iconTextButton.dart';
+import 'package:sync_tree_mobile/_reusable/text.dart';
+import 'package:sync_tree_mobile/_reusable/box.dart';
+import 'package:sync_tree_mobile/_reusable/iconTextButton.dart';
 
 class PinSettings extends StatefulWidget {
   @override

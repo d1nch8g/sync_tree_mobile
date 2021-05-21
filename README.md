@@ -1,4 +1,4 @@
-# wallet_app
+# sync_tree_mobile
 
 Mobile app that allow to accuumulate possibileties of:
 - market stock

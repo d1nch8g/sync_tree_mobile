@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import '../../../_reusable/colors.dart';
 
 class SwapCoinButton extends StatelessWidget {
-  final String text;
-  final IconData iconData;
-  final Function() onPressed;
+  String text;
+  IconData iconData;
+  Function() onPressed;
   SwapCoinButton({
-    required this.text,
-    required this.iconData,
-    required this.onPressed,
+    String this.text,
+    IconData this.iconData,
+    Function() this.onPressed,
   });
   @override
   Widget build(BuildContext context) {

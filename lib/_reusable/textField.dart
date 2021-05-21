@@ -21,11 +21,11 @@ class RtextField extends StatelessWidget {
   final EdgeInsets padding;
 
   RtextField({
-    required this.controller,
+    TextEditingController this.controller,
     // required this.onItemChanged,
-    required this.mainText,
-    required this.typeText,
-    required this.suffixWidget,
+    String this.mainText,
+    String this.typeText,
+    Widget this.suffixWidget,
     this.selectTextOnTap = false,
     this.padding = EdgeInsets.zero,
   });

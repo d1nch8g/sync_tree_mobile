@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:wallet_app/_reusable/colors.dart';
-import 'package:wallet_app/_reusable/text.dart';
-import 'package:wallet_app/_reusable/moadlTab.dart';
+import 'package:sync_tree_mobile/_reusable/colors.dart';
+import 'package:sync_tree_mobile/_reusable/text.dart';
+import 'package:sync_tree_mobile/_reusable/moadlTab.dart';
 
 import 'swapCoin/swapCoinBox.dart';
 import 'connectedWallets/connectedWallets.dart';
