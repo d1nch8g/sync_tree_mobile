@@ -7,9 +7,9 @@ class BuySellButton extends StatelessWidget {
   final Function() onPressed;
 
   BuySellButton({
-    String this.text,
-    Color this.color,
-    Function() this.onPressed,
+    this.text,
+    this.color,
+    this.onPressed,
   });
 
   @override

@@ -12,8 +12,8 @@ class MarketButtonStar extends StatefulWidget {
   final Key key;
 
   MarketButtonStar({
-    String this.assetName,
-    Key this.key,
+    this.assetName,
+    this.key,
   });
   @override
   _MarketButtonStarState createState() => _MarketButtonStarState(
@@ -23,7 +23,7 @@ class MarketButtonStar extends StatefulWidget {
 
 class _MarketButtonStarState extends State<MarketButtonStar> {
   final String assetName;
-  _MarketButtonStarState({String this.assetName});
+  _MarketButtonStarState({this.assetName});
 
   Color starColor = palette.starsOffColor;
 

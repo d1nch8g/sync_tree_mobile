@@ -15,9 +15,9 @@ class RbuttonIconText extends StatelessWidget {
   final double borderWidth;
   final double spaceBetweenIconAndText;
   RbuttonIconText({
-    String this.text,
-    IconData this.icon,
-    Function() this.onPressed,
+    this.text,
+    this.icon,
+    this.onPressed,
     this.buttonColor = Colors.grey,
     this.borderColor = Colors.white,
     this.textColor = Colors.white,

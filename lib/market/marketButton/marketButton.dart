@@ -9,12 +9,12 @@ import 'modalAssetPage/modalPage.dart';
 import '../../_reusable/buttonStar.dart';
 
 class MarketButton extends StatefulWidget {
-  String assetName;
-  Key key;
+  final String assetName;
+  final Key key;
 
   MarketButton({
-    String this.assetName,
-    Key this.key,
+    this.assetName,
+    this.key,
   });
 
   @override
@@ -118,8 +118,7 @@ class _MarketButtonState extends State<MarketButton> {
                               fontSize: 16,
                               color: palette.smallItemsColor,
                             ),
-                          ),
-                          //TODO запулить цену внесения и вынесения активов
+                          ), //TODO запулить цену внесения и вынесения активов
                           Text(
                             'D: ' + deposit + '%/ W: ' + withdrawal + '%',
                             style: TextStyle(

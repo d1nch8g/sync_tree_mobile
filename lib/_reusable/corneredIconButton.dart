@@ -9,8 +9,8 @@ class RcorneredIconButton extends StatelessWidget {
   final double size;
 
   RcorneredIconButton({
-    IconData this.icon,
-    Function() this.onPressed,
+    this.icon,
+    this.onPressed,
     this.backGroundColor = Colors.grey,
     this.iconColor = Colors.white,
     this.splashColor = Colors.white,

@@ -11,8 +11,8 @@ class RbuttonText extends StatelessWidget {
   final double borderWidth;
   final Function() onPressed;
   RbuttonText({
-    String this.text,
-    Function() this.onPressed,
+    this.text,
+    this.onPressed,
     this.buttonColor = Colors.grey,
     this.buttonBorderColor = Colors.white,
     this.textColor = Colors.white,

@@ -13,7 +13,7 @@ import 'package:sync_tree_mobile/_reusable/dialogueTab.dart';
 class ModalMarketPage extends StatelessWidget {
   final String assetName;
   ModalMarketPage({
-    String this.assetName,
+    this.assetName,
   });
   @override
   Widget build(BuildContext context) {

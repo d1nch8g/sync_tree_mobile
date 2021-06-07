@@ -9,8 +9,8 @@ class SearchForm extends StatelessWidget {
   final TextEditingController textController;
   final Function(String) onItemChanged;
   SearchForm({
-    TextEditingController this.textController,
-    Function(String) this.onItemChanged,
+    this.textController,
+    this.onItemChanged,
   });
 
   @override

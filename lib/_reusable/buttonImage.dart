@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MarketButtonImage extends StatelessWidget {
   final String assetName;
-  MarketButtonImage({String this.assetName});
+  MarketButtonImage({this.assetName});
   @override
   Widget build(BuildContext context) {
     final String assetImage = 'assets/' + assetName + '.png';

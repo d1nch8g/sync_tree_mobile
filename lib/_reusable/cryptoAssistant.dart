@@ -1,6 +1,5 @@
 import 'package:ffi/ffi.dart';
 import 'dart:ffi';
-import 'package:ffi/src/utf8.dart';
 
 DynamicLibrary _lib = DynamicLibrary.open('assets/crypto_assistant.so');
 
