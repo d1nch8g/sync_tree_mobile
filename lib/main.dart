@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile/balance/balancePage.dart';
-import '_reusable/colors.dart';
+import 'widgets/e.dart';
 import 'market/marketPage.dart';
 import 'wallet/walletPage.dart';
 import 'settings/settingsPage.dart';

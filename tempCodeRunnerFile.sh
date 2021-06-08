@@ -1,2 +1,0 @@
-xattr -lr .
-xattr -cr .
