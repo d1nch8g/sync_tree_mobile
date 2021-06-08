@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/balance/balancePage.dart';
 import 'widgets/e.dart';
-import 'market/marketPage.dart';
-import 'wallet/walletPage.dart';
-import 'settings/settingsPage.dart';
-import 'balance/balancePage.dart';
+import 'market/main.dart';
+import 'wallet/main.dart';
+import 'settings/main.dart';
+import 'balance/main.dart';
 
 void main() {
   runApp(
