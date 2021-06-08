@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Rbox extends StatelessWidget {
+class Wbox extends StatelessWidget {
   final Widget child;
   final Color color;
   final double borderRadius;
   final EdgeInsets padding;
-  Rbox({
+  Wbox({
     this.child,
     this.color = Colors.black,
     this.borderRadius = 12,
@@ -23,7 +23,9 @@ class Rbox extends StatelessWidget {
             color: Colors.grey.shade700,
             width: 1.2,
           ),
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius: BorderRadius.circular(
+            borderRadius,
+          ),
         ),
       ),
     );
