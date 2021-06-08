@@ -11,4 +11,8 @@ All of these elements are already prestyled for current application.
 
 Listing:
 
-- 
+- WText
+- WStar
+- WIconButton
+- WTextButton
+-  
