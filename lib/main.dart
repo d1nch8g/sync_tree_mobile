@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'market/main.dart';
 import 'wallet/main.dart';
 import 'settings/main.dart';
@@ -10,7 +11,6 @@ void main() {
 }
 
 class App extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,9 +21,10 @@ class App extends StatelessWidget {
         hoverColor: Color.fromRGBO(0, 159, 253, 1.0),
         buttonColor: Color.fromRGBO(42, 42, 114, 1.0),
       ),
-      home: IntroPage(),
+      home: PrimaryPage(),
       routes: <String, WidgetBuilder>{
-        '/app': (BuildContext context) => PrimaryPage()
+        '/': (BuildContext context) => PrimaryPage(),
+        '/firstLaunch': (BuildContext context) => IntroPage(),
       },
     );
   }
@@ -37,6 +38,13 @@ class PrimaryPage extends StatefulWidget {
 class _PrimaryPageState extends State<PrimaryPage> {
   int _selectedIndex = 0;
   PageController _pageController;
+
+  Future<bool> firstLaunch() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var firstLaunch = prefs.getBool('firstLaunch');
+    prefs.setBool('firstLaunch', false);
+    return firstLaunch ?? true;
+  }
 
   @override
   void initState() {
@@ -52,6 +60,11 @@ class _PrimaryPageState extends State<PrimaryPage> {
 
   @override
   Widget build(BuildContext context) {
+    firstLaunch().then(
+      (firstLaunch) => {
+        if (firstLaunch) {Navigator.pushNamed(context, '/firstLaunch')}
+      },
+    );
     return Scaffold(
       body: SizedBox.expand(
         child: PageView(

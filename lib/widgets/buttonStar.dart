@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:sync_tree_mobile/widgets/e.dart';
-
 StreamController<String> likeStreamController = StreamController<String>();
 Stream likeStream = likeStreamController.stream.asBroadcastStream();
 
