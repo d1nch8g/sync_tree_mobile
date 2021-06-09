@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
-import 'widgets/e.dart';
 import 'market/main.dart';
 import 'wallet/main.dart';
 import 'settings/main.dart';
 import 'balance/main.dart';
+import 'package:animations/animations.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
+  runApp(App());
+}
+
+class App extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       theme: ThemeData(
-        iconTheme: IconThemeData(color: Colors.amber),
+        brightness: Brightness.dark,
+        primarySwatch: Colors.yellow,
       ),
       home: BottomNavigation(),
-    ),
-  );
+    );
+  }
 }
 
 class BottomNavigation extends StatefulWidget {
