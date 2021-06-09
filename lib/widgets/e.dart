@@ -1,7 +1,6 @@
 export 'box.dart';
 export 'buttonImage.dart';
 export 'buttonStar.dart';
-export 'colors.dart';
 export 'corneredIconButton.dart';
 export 'cryptoAssistant.dart';
 export 'dialogueTab.dart';

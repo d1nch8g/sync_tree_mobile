@@ -9,11 +9,7 @@ void main() {
   runApp(
     MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.black,
-        textTheme: TextTheme(
-          headline1: TextStyle(color: Colors.white),
-          headline2: TextStyle(color: Colors.white),
-        ),
+        iconTheme: IconThemeData(color: Colors.amber),
       ),
       home: BottomNavigation(),
     ),
@@ -35,18 +31,11 @@ final List<Widget> tabs = [
 class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 3;
 
-  Color itemColor = palette.smallItemsColor;
-  Color backgroundColor = palette.backgroundFillColor;
-  Color appBarColor = palette.appBarColor;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
       body: tabs[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        fixedColor: itemColor,
-        unselectedItemColor: itemColor,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
@@ -58,28 +47,24 @@ class _BottomNavigationState extends State<BottomNavigation> {
             icon: Icon(
               Icons.insert_chart_outlined_sharp,
             ),
-            backgroundColor: appBarColor,
             label: 'market',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.autorenew_sharp,
             ),
-            backgroundColor: appBarColor,
             label: 'balance',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.account_balance_wallet_outlined,
             ),
-            backgroundColor: appBarColor,
             label: 'wallet',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.settings,
             ),
-            backgroundColor: appBarColor,
             label: 'account',
           ),
         ],

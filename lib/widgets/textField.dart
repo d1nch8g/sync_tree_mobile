@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
 
 /*
 Добавить следующие опции:
@@ -47,32 +46,20 @@ class RtextField extends StatelessWidget {
         child: TextField(
           controller: controller,
           onTap: onTapFunction,
-          style: TextStyle(
-            color: palette.textColor,
-          ),
           // onChanged: onItemChanged,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: palette.smallItemsColor),
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: palette.smallItemsColor),
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
             border: OutlineInputBorder(
-              borderSide: BorderSide(color: palette.smallItemsColor),
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
             suffixIcon: suffixWidget,
             hintText: mainText,
             labelText: typeText,
-            hintStyle: TextStyle(
-              color: palette.textColor,
-            ),
-            labelStyle: TextStyle(
-              color: palette.textColor,
-            ),
           ),
         ),
       ),

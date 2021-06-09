@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
 
 /*
 CALL EXAMPLE
@@ -26,7 +25,6 @@ class ModalTab {
         return Container(
           height: MediaQuery.of(context).size.height * screenTaken,
           decoration: new BoxDecoration(
-            color: palette.appBarColor,
             borderRadius: new BorderRadius.only(
               topLeft: const Radius.circular(25.0),
               topRight: const Radius.circular(25.0),

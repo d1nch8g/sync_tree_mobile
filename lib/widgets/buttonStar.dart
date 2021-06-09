@@ -25,7 +25,7 @@ class _MarketButtonStarState extends State<MarketButtonStar> {
   final String assetName;
   _MarketButtonStarState({this.assetName});
 
-  Color starColor = palette.starsOffColor;
+  Color starColor = Colors.white;
 
   Future<void> switchLikeInPreferences() async {
     var prefs = await SharedPreferences.getInstance();
@@ -40,9 +40,9 @@ class _MarketButtonStarState extends State<MarketButtonStar> {
     var prefs = await SharedPreferences.getInstance();
     setState(() {
       if (prefs.getBool(assetName + '_liked') == true) {
-        starColor = palette.starsOnColor;
+        starColor = Colors.yellow;
       } else {
-        starColor = palette.starsOffColor;
+        starColor = Colors.white;
       }
     });
   }
@@ -53,9 +53,9 @@ class _MarketButtonStarState extends State<MarketButtonStar> {
     if (streamAssetName == assetName) {
       Color currentTrueAssetColor;
       if (streamLikeState == 'true') {
-        currentTrueAssetColor = palette.starsOnColor;
+        currentTrueAssetColor = Colors.yellow;
       } else {
-        currentTrueAssetColor = palette.starsOffColor;
+        currentTrueAssetColor = Colors.white;
       }
       if (starColor != currentTrueAssetColor) {
         setState(() {
@@ -84,11 +84,11 @@ class _MarketButtonStarState extends State<MarketButtonStar> {
       ),
       onPressed: () {
         setState(() {
-          if (starColor == palette.starsOffColor) {
-            starColor = palette.starsOnColor;
+          if (starColor == Colors.white) {
+            starColor = Colors.yellow;
             likeStreamController.add(assetName + '|true');
           } else {
-            starColor = palette.starsOffColor;
+            starColor = Colors.white;
             likeStreamController.add(assetName + '|false');
           }
         });

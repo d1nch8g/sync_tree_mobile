@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'colors.dart';
 
 /*
 CALL EXAMPLE:
@@ -27,7 +26,6 @@ class Dialogue {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          backgroundColor: palette.backgroundFillColor,
           content: Container(
             decoration: BoxDecoration(
               border: Border.all(
