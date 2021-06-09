@@ -3,17 +3,13 @@ import 'market/main.dart';
 import 'wallet/main.dart';
 import 'settings/main.dart';
 import 'balance/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'start/main.dart';
 
 void main() {
   runApp(App());
 }
 
 class App extends StatelessWidget {
-  Future<bool> firstLaunched() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool("firstLaunch");
-  }
 
   @override
   Widget build(BuildContext context) {
