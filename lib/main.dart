@@ -8,6 +8,13 @@ import 'balance/main.dart';
 void main() {
   runApp(
     MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.black,
+        textTheme: TextTheme(
+          headline1: TextStyle(color: Colors.white),
+          headline2: TextStyle(color: Colors.white),
+        ),
+      ),
       home: BottomNavigation(),
     ),
   );

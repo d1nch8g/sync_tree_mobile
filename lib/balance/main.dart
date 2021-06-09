@@ -6,6 +6,8 @@ class BalancePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('balance');
+    return Center(
+      child: Text('balance'),
+    );
   }
 }
