@@ -3,78 +3,110 @@ import 'market/main.dart';
 import 'wallet/main.dart';
 import 'settings/main.dart';
 import 'balance/main.dart';
-import 'package:animations/animations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(App());
 }
 
 class App extends StatelessWidget {
+  Future<bool> firstLaunched() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("firstLaunch");
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.yellow,
+        primaryColor: Color.fromRGBO(35, 37, 40, 1.0),
+        focusColor: Color.fromRGBO(234, 246, 255, 1.0),
+        hintColor: Color.fromRGBO(255, 164, 0, 1.0),
+        hoverColor: Color.fromRGBO(0, 159, 253, 1.0),
+        buttonColor: Color.fromRGBO(42, 42, 114, 1.0),
       ),
-      home: BottomNavigation(),
+      home: IntroPage(),
+      routes: <String, WidgetBuilder>{
+        '/app': (BuildContext context) => PrimaryPage()
+      },
     );
   }
 }
 
-class BottomNavigation extends StatefulWidget {
+class PrimaryPage extends StatefulWidget {
   @override
-  _BottomNavigationState createState() => _BottomNavigationState();
+  _PrimaryPageState createState() => _PrimaryPageState();
 }
 
-final List<Widget> tabs = [
-  MarketPage(),
-  BalancePage(),
-  WalletPage(),
-  SettingsPage(),
-];
+class _PrimaryPageState extends State<PrimaryPage> {
+  int _selectedIndex = 0;
+  PageController _pageController;
 
-class _BottomNavigationState extends State<BottomNavigation> {
-  int _currentIndex = 3;
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: tabs[_currentIndex],
+      body: SizedBox.expand(
+        child: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() => _selectedIndex = index);
+          },
+          children: <Widget>[
+            MarketPage(),
+            BalancePage(),
+            WalletPage(),
+            SettingsPage(),
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        currentIndex: _currentIndex,
-        items: [
+        fixedColor: Theme.of(context).focusColor,
+        unselectedItemColor: Theme.of(context).focusColor,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.insert_chart_outlined_sharp,
-            ),
-            label: 'market',
+            label: 'markets',
+            icon: Icon(Icons.insert_chart_outlined_sharp),
+            backgroundColor: Theme.of(context).primaryColor,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.autorenew_sharp,
-            ),
             label: 'balance',
+            icon: Icon(Icons.autorenew_sharp),
+            backgroundColor: Theme.of(context).primaryColor,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_balance_wallet_outlined,
-            ),
             label: 'wallet',
+            icon: Icon(Icons.account_balance_wallet_outlined),
+            backgroundColor: Theme.of(context).primaryColor,
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-            ),
-            label: 'account',
+            label: 'settings',
+            icon: Icon(Icons.settings),
+            backgroundColor: Theme.of(context).primaryColor,
           ),
         ],
       ),
     );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      _pageController.animateToPage(index,
+          duration: Duration(milliseconds: 320), curve: Curves.easeOut);
+    });
   }
 }
