@@ -13,6 +13,9 @@ class GoogleAuth extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              style: TextStyle(
+                color: Theme.of(context).focusColor,
+              ),
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -41,6 +44,9 @@ class GoogleAuth extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              style: TextStyle(
+                color: Theme.of(context).focusColor,
+              ),
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
