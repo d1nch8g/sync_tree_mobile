@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'primary.dart';
 import 'start/start.dart';
 import 'start/google.dart';
+import 'start/keySave.dart';
 
 void main() {
   runApp(App());
@@ -12,7 +13,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Color.fromRGBO(35, 37, 40, 1.0),
+        backgroundColor: Color.fromRGBO(35, 37, 40, 1.0),
         focusColor: Color.fromRGBO(234, 246, 255, 1.0),
         hintColor: Color.fromRGBO(255, 164, 0, 1.0),
         hoverColor: Color.fromRGBO(0, 159, 253, 1.0),

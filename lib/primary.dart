@@ -42,7 +42,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
       },
     );
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SizedBox.expand(
         child: PageView(
           controller: _pageController,
@@ -66,22 +66,22 @@ class _PrimaryPageState extends State<PrimaryPage> {
           BottomNavigationBarItem(
             label: 'markets',
             icon: Icon(Icons.insert_chart_outlined_sharp),
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(
             label: 'balance',
             icon: Icon(Icons.autorenew_sharp),
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(
             label: 'wallet',
             icon: Icon(Icons.account_balance_wallet_outlined),
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(
             label: 'settings',
             icon: Icon(Icons.settings),
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).backgroundColor,
           ),
         ],
       ),
