@@ -5,8 +5,6 @@ import 'wallet/main.dart';
 import 'settings/main.dart';
 import 'balance/main.dart';
 
-
-
 class PrimaryPage extends StatefulWidget {
   @override
   _PrimaryPageState createState() => _PrimaryPageState();
@@ -19,7 +17,8 @@ class _PrimaryPageState extends State<PrimaryPage> {
   Future<bool> firstLaunch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var firstLaunch = prefs.getBool('firstLaunch');
-    prefs.setBool('firstLaunch', false);
+    prefs.setBool('firstLaunch', true); // change to false on release
+    print(firstLaunch);
     return firstLaunch ?? true;
   }
 
