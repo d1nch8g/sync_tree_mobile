@@ -51,7 +51,6 @@ class App extends StatelessWidget {
             ),
           ),
         ),
-        fixTextFieldOutlineLabel: true,
       ),
       home: PrimaryPage(),
       routes: <String, WidgetBuilder>{
