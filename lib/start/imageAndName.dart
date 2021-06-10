@@ -10,7 +10,7 @@ class GoogleAuth extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'name and image',
+            'public data',
             style: Theme.of(context).textTheme.headline1,
           ),
           SizedBox(height: 24),

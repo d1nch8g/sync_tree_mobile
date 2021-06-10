@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'navigator.dart';
-import 'start/hello.dart';
-import 'start/imageAndName.dart';
-import 'start/keys.dart';
+import 'navigator.dart';
 
 class App extends StatelessWidget {
   @override
@@ -49,12 +47,7 @@ class App extends StatelessWidget {
         ),
       ),
       home: PrimaryPage(),
-      routes: <String, WidgetBuilder>{
-        '/main': (BuildContext context) => PrimaryPage(),
-        '/firstLaunch': (BuildContext context) => IntroPage(),
-        '/googleSign': (BuildContext context) => GoogleAuth(),
-        '/keySave': (BuildContext context) => KeySave(),
-      },
+      routes: routeMap,
     );
   }
 }

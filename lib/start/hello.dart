@@ -17,9 +17,8 @@ class IntroPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(22.0),
               child: Text(
-                'Sign in with google to use public name and image. '
-                'Your private keys are generating, time depends on a phone '
-                'computing power.',
+                'We are building your private keys, you can fill public data '
+                'untill process is finished.',
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),

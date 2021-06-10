@@ -4,6 +4,16 @@ import 'market/main.dart';
 import 'wallet/main.dart';
 import 'settings/main.dart';
 import 'balance/main.dart';
+import 'start/hello.dart';
+import 'start/imageAndName.dart';
+import 'start/keys.dart';
+
+var routeMap = <String, WidgetBuilder>{
+  '/main': (BuildContext context) => PrimaryPage(),
+  '/firstLaunch': (BuildContext context) => IntroPage(),
+  '/googleSign': (BuildContext context) => GoogleAuth(),
+  '/keySave': (BuildContext context) => KeySave(),
+};
 
 class PrimaryPage extends StatefulWidget {
   @override
