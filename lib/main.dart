@@ -16,12 +16,12 @@ class App extends StatelessWidget {
         hintColor: Color.fromRGBO(255, 164, 0, 1.0),
         hoverColor: Color.fromRGBO(0, 159, 253, 1.0),
         buttonColor: Color.fromRGBO(42, 42, 114, 1.0),
-        // pageTransitionsTheme: PageTransitionsTheme(
-        //   builders: {
-        //     TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
-        //     TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-        //   },
-        // ),
+        pageTransitionsTheme: PageTransitionsTheme(
+          builders: {
+            TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          },
+        ),
       ),
       home: PrimaryPage(),
       routes: <String, WidgetBuilder>{

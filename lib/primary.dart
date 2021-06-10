@@ -42,6 +42,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
       },
     );
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       body: SizedBox.expand(
         child: PageView(
           controller: _pageController,

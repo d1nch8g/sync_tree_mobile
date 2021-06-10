@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 
 class IntroPage extends StatelessWidget {
-
+  // Navigator.pushNamed(context, '/main');
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Scaffold(
-        body: Center(
-          child: TextButton(
-            child: Text('hello'),
-            onPressed: () {
-              Navigator.pushNamed(context, '/main');
-            },
-          ),
-        ),
+        backgroundColor: Theme.of(context).primaryColor,
+        body: 
       ),
     );
   }
