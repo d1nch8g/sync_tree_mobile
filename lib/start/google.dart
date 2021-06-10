@@ -11,12 +11,24 @@ class GoogleAuth extends StatelessWidget {
           TextField(),
           SizedBox(height: 23),
           TextField(),
-          TextButton(
-            child: Text('toMain'),
-            onPressed: () {
-              Navigator.pushNamed(context, '/keySave');
-            },
-          ),
+          SizedBox(height: 23),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                  child: Text('skip'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/keySave');
+                  },
+                ),
+                TextButton(
+                  child: Text('sign'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/googleSign');
+                  },
+                )
+              ],
+            ),
         ],
       ),
     );

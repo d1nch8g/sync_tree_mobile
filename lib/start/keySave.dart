@@ -6,11 +6,22 @@ class KeySave extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
-        child: TextButton(
-          child: Text('continue'),
-          onPressed: () {
-            Navigator.pushNamed(context, '/main');
-          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Save your keys!',
+              style: Theme.of(context).textTheme.headline1,
+            ),
+            SizedBox(height: 250),
+            TextButton(
+              child: Text('continue'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/main');
+              },
+            ),
+          ],
         ),
       ),
     );

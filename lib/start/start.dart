@@ -39,7 +39,7 @@ class IntroPage extends StatelessWidget {
                   },
                 )
               ],
-            )
+            ),
           ],
         ),
       ),
