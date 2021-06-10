@@ -84,18 +84,21 @@ class GoogleAuth extends StatelessWidget {
               TextButton(
                 child: Text('skip'),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/keySave');
+                  Navigator.pushNamed(context, '/keys');
                 },
               ),
               TextButton(
                 child: Text('sign'),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/googleSign');
+                  // TODO add logic to check name profanity
+                  // TODO add logic to check image profanity
+                  // TODO add logic to save public name and image
+                  Navigator.pushNamed(context, '/keys');
                 },
               )
             ],
           ),
-          SizedBox(height: 68),
+          SizedBox(height: 192),
         ],
       ),
     );
