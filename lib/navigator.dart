@@ -5,13 +5,13 @@ import 'wallet/main.dart';
 import 'settings/main.dart';
 import 'balance/main.dart';
 import 'start/hello.dart';
-import 'start/imageAndName.dart';
+import 'start/name.dart';
 import 'start/keys.dart';
 
 var routeMap = <String, WidgetBuilder>{
   '/main': (BuildContext context) => PrimaryPage(),
   '/hello': (BuildContext context) => IntroPage(),
-  '/imgName': (BuildContext context) => GoogleAuth(),
+  '/name': (BuildContext context) => GoogleAuth(),
   '/keys': (BuildContext context) => KeySave(),
 };
 

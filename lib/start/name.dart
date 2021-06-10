@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:bad_words/bad_words.dart';
-import 'package:image_picker/image_picker.dart';
 
-class GoogleAuth extends StatelessWidget {
+class GoogleAuth extends StatefulWidget {
+  @override
+  _GoogleAuthState createState() => _GoogleAuthState();
+}
+
+class _GoogleAuthState extends State<GoogleAuth> {
   final nameController = TextEditingController();
   final filter = Filter();
 
@@ -15,7 +19,7 @@ class GoogleAuth extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'public data',
+            'Pick a name.',
             style: Theme.of(context).textTheme.headline1,
           ),
           SizedBox(height: 24),
@@ -51,9 +55,6 @@ class GoogleAuth extends StatelessWidget {
             ),
           ),
           SizedBox(height: 23),
-          //place for image picker
-          
-          SizedBox(height: 23),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -82,7 +83,6 @@ class GoogleAuth extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 192),
         ],
       ),
     );
