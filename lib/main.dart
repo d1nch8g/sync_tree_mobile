@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'primary.dart';
+import 'start/main.dart';
 
 void main() {
   runApp(App());
 }
-
 
 class App extends StatelessWidget {
   @override
@@ -19,7 +19,7 @@ class App extends StatelessWidget {
       ),
       home: PrimaryPage(),
       routes: <String, WidgetBuilder>{
-        '/': (BuildContext context) => PrimaryPage(),
+        '/main': (BuildContext context) => PrimaryPage(),
         '/firstLaunch': (BuildContext context) => IntroPage(),
       },
     );

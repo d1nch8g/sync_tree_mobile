@@ -10,7 +10,7 @@ class IntroPage extends StatelessWidget {
           child: TextButton(
             child: Text('hello'),
             onPressed: () {
-              Navigator.pushNamed(context, '/');
+              Navigator.pushNamed(context, '/main');
             },
           ),
         ),

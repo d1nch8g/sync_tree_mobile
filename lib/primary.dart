@@ -4,7 +4,6 @@ import 'market/main.dart';
 import 'wallet/main.dart';
 import 'settings/main.dart';
 import 'balance/main.dart';
-import 'start/main.dart';
 
 
 
