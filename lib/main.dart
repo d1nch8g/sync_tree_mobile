@@ -22,6 +22,16 @@ class App extends StatelessWidget {
             TargetPlatform.android: CupertinoPageTransitionsBuilder(),
           },
         ),
+        textTheme: TextTheme(
+          headline1: TextStyle(
+            color: Color.fromRGBO(234, 246, 255, 1.0),
+            fontSize: 42,
+          ),
+          headline2: TextStyle(
+            color: Color.fromRGBO(234, 246, 255, 1.0),
+            fontSize: 28,
+          )
+        ),
       ),
       home: PrimaryPage(),
       routes: <String, WidgetBuilder>{
