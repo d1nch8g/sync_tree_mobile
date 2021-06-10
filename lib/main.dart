@@ -40,7 +40,7 @@ class App extends StatelessWidget {
             primary: Color.fromRGBO(234, 246, 255, 1.0),
             side: BorderSide(
               color: Color.fromRGBO(234, 246, 255, 1.0),
-              width: 0.62,
+              width: 0.58,
             ),
             textStyle: TextStyle(
               fontSize: 24.4,
@@ -54,6 +54,7 @@ class App extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/main': (BuildContext context) => PrimaryPage(),
         '/firstLaunch': (BuildContext context) => IntroPage(),
+        '/googleSign': (BuildContext context) => IntroPage(),
       },
     );
   }
