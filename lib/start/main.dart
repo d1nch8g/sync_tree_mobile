@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class IntroPage extends StatelessWidget {
-  // Navigator.pushNamed(context, '/main');
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -15,16 +14,31 @@ class IntroPage extends StatelessWidget {
                 'Hello',
                 style: Theme.of(context).textTheme.headline1,
               ),
-              Divider(),
+              SizedBox(height: 22),
               Padding(
-                padding: const EdgeInsets.all(14.0),
+                padding: const EdgeInsets.all(22.0),
                 child: Text(
                   'You can use your public name and picture signing with your '
-                  'google account, or stay anonymous. We are working hard to'
-                  'build a secure keys for you.',
+                  'google account, or stay anonymous.',
                   style: Theme.of(context).textTheme.headline2,
                 ),
               ),
+              SizedBox(height: 22),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextButton(
+                    child: Text('skip'),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/main');
+                    },
+                  ),
+                  TextButton(
+                    child: Text('sign'),
+                    onPressed: () {},
+                  )
+                ],
+              )
             ],
           ),
         ),

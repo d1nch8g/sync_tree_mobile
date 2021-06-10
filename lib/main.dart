@@ -25,12 +25,29 @@ class App extends StatelessWidget {
         textTheme: TextTheme(
           headline1: TextStyle(
             color: Color.fromRGBO(234, 246, 255, 1.0),
-            fontSize: 42,
+            fontSize: 44,
+            fontFamily: 'Hind',
           ),
           headline2: TextStyle(
             color: Color.fromRGBO(234, 246, 255, 1.0),
-            fontSize: 28,
-          )
+            fontSize: 26.2,
+            fontFamily: 'Hind',
+            fontWeight: FontWeight.w200,
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: Color.fromRGBO(234, 246, 255, 1.0),
+            side: BorderSide(
+              color: Color.fromRGBO(234, 246, 255, 1.0),
+              width: 0.8,
+            ),
+            textStyle: TextStyle(
+              fontSize: 27.4,
+              fontFamily: 'Hind',
+              fontWeight: FontWeight.w300,
+            ),
+          ),
         ),
       ),
       home: PrimaryPage(),
