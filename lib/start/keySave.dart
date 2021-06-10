@@ -7,7 +7,7 @@ class KeySave extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
         child: TextButton(
-          child: Text('main'),
+          child: Text('continue'),
           onPressed: () {
             Navigator.pushNamed(context, '/main');
           },
