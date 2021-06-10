@@ -76,8 +76,6 @@ class _GoogleAuthState extends State<GoogleAuth> {
                     );
                     return;
                   }
-                  // TODO add logic to check image profanity
-                  // TODO add logic to save public name and image
                   Navigator.pushNamed(context, '/keys');
                 },
               )
