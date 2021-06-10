@@ -8,12 +8,13 @@ environment:
   sdk: ">=2.3.0 <3.0.0"
 
 dependencies:
-  profanity_filter: ^1.0.4
+  bad_words: ^0.2.2
   shared_preferences: ^2.0.5
   ffi: ^1.0.0
   flutter:
     sdk: flutter
   animations: ^2.0.0
+  image_picker: ^0.8.0+3
 
 dev_dependencies:
   flutter_test:

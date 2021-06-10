@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:bad_words/bad_words.dart';
+import 'package:image_picker/image_picker.dart';
 
 class GoogleAuth extends StatelessWidget {
   final nameController = TextEditingController();
-  final imageController = TextEditingController();
+  final filter = Filter();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +22,7 @@ class GoogleAuth extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              controller: nameController,
               style: TextStyle(
                 color: Theme.of(context).focusColor,
               ),
@@ -38,7 +42,7 @@ class GoogleAuth extends StatelessWidget {
                 labelStyle: TextStyle(
                   color: Theme.of(context).focusColor,
                 ),
-                labelText: 'public name',
+                labelText: 'name',
                 hoverColor: Theme.of(context).focusColor,
                 fillColor: Theme.of(context).focusColor,
                 focusColor: Theme.of(context).focusColor,
@@ -47,36 +51,8 @@ class GoogleAuth extends StatelessWidget {
             ),
           ),
           SizedBox(height: 23),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              style: TextStyle(
-                color: Theme.of(context).focusColor,
-              ),
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  borderSide: BorderSide(color: Theme.of(context).focusColor),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  borderSide: BorderSide(color: Theme.of(context).focusColor),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  borderSide: BorderSide(color: Theme.of(context).focusColor),
-                ),
-                labelStyle: TextStyle(
-                  color: Theme.of(context).focusColor,
-                ),
-                labelText: 'image link',
-                hoverColor: Theme.of(context).focusColor,
-                fillColor: Theme.of(context).focusColor,
-                focusColor: Theme.of(context).focusColor,
-              ),
-              cursorColor: Theme.of(context).focusColor,
-            ),
-          ),
+          //place for image picker
+          
           SizedBox(height: 23),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -90,7 +66,15 @@ class GoogleAuth extends StatelessWidget {
               TextButton(
                 child: Text('sign'),
                 onPressed: () {
-                  // TODO add logic to check name profanity
+                  print(nameController.text);
+                  if (filter.isProfane(nameController.text)) {
+                    nameController.text = '';
+                    showDialog(
+                      context: context,
+                      builder: (_) => FunkyOverlay(),
+                    );
+                    return;
+                  }
                   // TODO add logic to check image profanity
                   // TODO add logic to save public name and image
                   Navigator.pushNamed(context, '/keys');
@@ -100,6 +84,60 @@ class GoogleAuth extends StatelessWidget {
           ),
           SizedBox(height: 192),
         ],
+      ),
+    );
+  }
+}
+
+class FunkyOverlay extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => FunkyOverlayState();
+}
+
+class FunkyOverlayState extends State<FunkyOverlay>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 320));
+    scaleAnimation =
+        CurvedAnimation(parent: controller, curve: Curves.decelerate);
+
+    controller.addListener(() {
+      setState(() {});
+    });
+
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: Container(
+            decoration: ShapeDecoration(
+              color: Theme.of(context).backgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Text(
+                'Name contains \nprofane words.',
+                style: Theme.of(context).textTheme.headline2,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
