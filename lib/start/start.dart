@@ -29,12 +29,14 @@ class IntroPage extends StatelessWidget {
                 TextButton(
                   child: Text('skip'),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/main');
+                    Navigator.pushNamed(context, '/keySave');
                   },
                 ),
                 TextButton(
                   child: Text('sign in'),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/googleSign');
+                  },
                 )
               ],
             )
