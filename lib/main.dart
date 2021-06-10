@@ -57,7 +57,7 @@ class App extends StatelessWidget {
         '/main': (BuildContext context) => PrimaryPage(),
         '/firstLaunch': (BuildContext context) => IntroPage(),
         '/googleSign': (BuildContext context) => GoogleAuth(),
-        '/keySave': (BuildContext context) => IntroPage(),
+        '/keySave': (BuildContext context) => KeySave(),
       },
     );
   }

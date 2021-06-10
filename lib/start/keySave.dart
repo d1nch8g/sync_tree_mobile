@@ -8,7 +8,9 @@ class KeySave extends StatelessWidget {
       body: Center(
         child: TextButton(
           child: Text('main'),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/main');
+          },
         ),
       ),
     );

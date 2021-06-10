@@ -9,7 +9,14 @@ class GoogleAuth extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextField(),
+          SizedBox(height: 23),
           TextField(),
+          TextButton(
+            child: Text('toMain'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/keySave');
+            },
+          ),
         ],
       ),
     );
