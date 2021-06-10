@@ -11,7 +11,7 @@ class IntroPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Hello',
+                'Hello!',
                 style: Theme.of(context).textTheme.headline1,
               ),
               SizedBox(height: 22),
@@ -34,7 +34,7 @@ class IntroPage extends StatelessWidget {
                     },
                   ),
                   TextButton(
-                    child: Text('sign'),
+                    child: Text('sign in'),
                     onPressed: () {},
                   )
                 ],

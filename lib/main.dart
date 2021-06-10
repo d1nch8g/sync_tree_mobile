@@ -40,10 +40,10 @@ class App extends StatelessWidget {
             primary: Color.fromRGBO(234, 246, 255, 1.0),
             side: BorderSide(
               color: Color.fromRGBO(234, 246, 255, 1.0),
-              width: 0.8,
+              width: 0.62,
             ),
             textStyle: TextStyle(
-              fontSize: 27.4,
+              fontSize: 24.4,
               fontFamily: 'Hind',
               fontWeight: FontWeight.w300,
             ),
