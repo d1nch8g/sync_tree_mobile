@@ -4,6 +4,7 @@ class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
         child: Column(
@@ -23,22 +24,11 @@ class IntroPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 22),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                TextButton(
-                  child: Text('skip'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/keySave');
-                  },
-                ),
-                TextButton(
-                  child: Text('sign in'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/googleSign');
-                  },
-                )
-              ],
+            TextButton(
+              child: Text('continue'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/imgName');
+              },
             ),
           ],
         ),

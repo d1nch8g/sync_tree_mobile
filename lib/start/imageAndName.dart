@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GoogleAuth extends StatelessWidget {
+  final nameController = TextEditingController();
+  final imageController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

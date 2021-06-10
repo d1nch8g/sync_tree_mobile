@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'navigator.dart';
-import 'navigator.dart';
 
 class App extends StatelessWidget {
   @override

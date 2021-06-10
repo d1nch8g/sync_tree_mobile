@@ -10,9 +10,9 @@ import 'start/keys.dart';
 
 var routeMap = <String, WidgetBuilder>{
   '/main': (BuildContext context) => PrimaryPage(),
-  '/firstLaunch': (BuildContext context) => IntroPage(),
-  '/googleSign': (BuildContext context) => GoogleAuth(),
-  '/keySave': (BuildContext context) => KeySave(),
+  '/hello': (BuildContext context) => IntroPage(),
+  '/imgName': (BuildContext context) => GoogleAuth(),
+  '/keys': (BuildContext context) => KeySave(),
 };
 
 class PrimaryPage extends StatefulWidget {
@@ -48,7 +48,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
   Widget build(BuildContext context) {
     firstLaunch().then(
       (firstLaunch) => {
-        if (firstLaunch) {Navigator.pushNamed(context, '/firstLaunch')}
+        if (firstLaunch) {Navigator.pushNamed(context, '/hello')}
       },
     );
     return Scaffold(
