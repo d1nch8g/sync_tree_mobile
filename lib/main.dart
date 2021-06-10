@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'primary.dart';
 import 'start/start.dart';
+import 'start/google.dart';
 
 void main() {
   runApp(App());
@@ -54,7 +55,8 @@ class App extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/main': (BuildContext context) => PrimaryPage(),
         '/firstLaunch': (BuildContext context) => IntroPage(),
-        '/googleSign': (BuildContext context) => IntroPage(),
+        '/googleSign': (BuildContext context) => GoogleAuth(),
+        '/keySave': (BuildContext context) => IntroPage(),
       },
     );
   }
