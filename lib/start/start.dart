@@ -17,8 +17,8 @@ class IntroPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(22.0),
               child: Text(
-                'You can use public name and image signing with your '
-                'google account, or stay anonymous.',
+                'Sign in with google to use public name and image.'
+                'Your private keys are generating, so ',
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),
