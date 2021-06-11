@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
 class IntroPage extends StatelessWidget {
+  generateKeys() {
+    
+  }
+
   @override
   Widget build(BuildContext context) {
+    // TODO call key generation function, when it ends display key save page if
+    // current route is not on hello or name
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
