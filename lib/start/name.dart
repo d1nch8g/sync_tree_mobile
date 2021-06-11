@@ -19,7 +19,7 @@ class _GoogleAuthState extends State<GoogleAuth> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Pick a name.',
+            'pick a name',
             style: Theme.of(context).textTheme.headline1,
           ),
           SizedBox(height: 24),
@@ -76,6 +76,7 @@ class _GoogleAuthState extends State<GoogleAuth> {
                     );
                     return;
                   }
+                  
                   Navigator.pushNamed(context, '/keys');
                 },
               )

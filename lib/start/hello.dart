@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import '/widgets/crypt.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatelessWidget {
-  generateKeys() {
-    
+  var crypt = Crypt();
+
+  keyGen() async {
+    var allKeys = crypt.keys();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('persPriv', allKeys[0]);
+    prefs.setString('presPub', allKeys[1]);
+    prefs.setString('mesPriv', allKeys[2]);
+    prefs.setString('mesPub', allKeys[3]);
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO call key generation function, when it ends display key save page if
-    // current route is not on hello or name
-
+    keyGen();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
