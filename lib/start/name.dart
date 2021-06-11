@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bad_words/bad_words.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GoogleAuth extends StatefulWidget {
   @override
@@ -9,6 +10,11 @@ class GoogleAuth extends StatefulWidget {
 class _GoogleAuthState extends State<GoogleAuth> {
   final nameController = TextEditingController();
   final filter = Filter();
+
+  saveName(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('pubName', name);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,15 @@ class _GoogleAuthState extends State<GoogleAuth> {
             'pick a name',
             style: Theme.of(context).textTheme.headline1,
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.all(22.0),
+            child: Text(
+              'You can pick another one later in the settings.',
+              style: Theme.of(context).textTheme.headline2,
+            ),
+          ),
+          SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -76,12 +90,15 @@ class _GoogleAuthState extends State<GoogleAuth> {
                     );
                     return;
                   }
-                  
+                  saveName(nameController.text);
                   Navigator.pushNamed(context, '/keys');
                 },
               )
             ],
           ),
+          SizedBox(
+            height: 125,
+          )
         ],
       ),
     );

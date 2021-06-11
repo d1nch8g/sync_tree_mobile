@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+// import 'package:loading_animations/loading_animations.dart';
 
-class KeySave extends StatelessWidget {
+class KeySave extends StatefulWidget {
+  @override
+  _KeySaveState createState() => _KeySaveState();
+}
+
+class _KeySaveState extends State<KeySave> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +26,7 @@ class KeySave extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(22.0),
               child: Text(
-                'This is your private key, so keep it in secret place. All '
+                'This text is private key. Keep it in secret place. All '
                 'assets in this app are related to this key. You can change '
                 'it later in settings.',
                 style: Theme.of(context).textTheme.headline2,
