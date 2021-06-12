@@ -8,62 +8,10 @@ class KeySave extends StatefulWidget {
 }
 
 class _KeySaveState extends State<KeySave> {
-  Widget currentWidget;
-
-  Future sleep10ms() {
-    return new Future.delayed(const Duration(milliseconds: 10), () => "1");
-  }
-
-  changeCurrentWidget(context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var firstLaunch = prefs.getString('persPriv');
-    if (firstLaunch == null) {
-      sleep10ms();
-      changeCurrentWidget(context);
-    }
-    var keyController = TextEditingController(text: firstLaunch);
-    setState(() {
-      currentWidget = Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextField(
-          controller: keyController,
-          style: TextStyle(
-            color: Theme.of(context).focusColor,
-          ),
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-              borderSide: BorderSide(color: Theme.of(context).focusColor),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-              borderSide: BorderSide(color: Theme.of(context).focusColor),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20.0)),
-              borderSide: BorderSide(color: Theme.of(context).focusColor),
-            ),
-            labelStyle: TextStyle(
-              color: Theme.of(context).focusColor,
-            ),
-            labelText: 'name',
-            hoverColor: Theme.of(context).focusColor,
-            fillColor: Theme.of(context).focusColor,
-            focusColor: Theme.of(context).focusColor,
-          ),
-          cursorColor: Theme.of(context).focusColor,
-        ),
-      );
-    });
-  }
+  Widget currentWidget = KeysNotReady();
 
   @override
   Widget build(BuildContext context) {
-    currentWidget = SpinKitFadingCircle(
-      color: Theme.of(context).focusColor,
-      size: 78.0,
-      duration: const Duration(milliseconds: 1124),
-    );
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
@@ -87,14 +35,44 @@ class _KeySaveState extends State<KeySave> {
             ),
             SizedBox(height: 12),
             currentWidget,
-            SizedBox(height: 12),
-            TextButton(
-              child: Text('continue'),
-              onPressed: () {
-                Navigator.pushNamed(context, '/main');
-              },
-            ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class KeysNotReady extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 200,
+      child: Center(
+        child: SpinKitCubeGrid(
+          color: Theme.of(context).focusColor,
+          size: 192.0,
+          duration: const Duration(milliseconds: 1124),
+        ),
+      ),
+    );
+  }
+}
+
+class KeysReadyToGoFurther extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 200,
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextButton(
+            child: Text('continue'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/main');
+            },
+          ),
         ),
       ),
     );
