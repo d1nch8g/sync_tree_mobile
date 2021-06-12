@@ -12,7 +12,7 @@ class _KeySaveState extends State<KeySave> {
   Widget currentWidget = KeysNotReady();
 
   Future sleep1() {
-    return new Future.delayed(const Duration(seconds: 45), () => "1");
+    return new Future.delayed(const Duration(seconds: 12), () => "1");
   }
 
   checkingKeysToBeReady() async {
@@ -20,7 +20,6 @@ class _KeySaveState extends State<KeySave> {
     var key = prefs.getString('persPriv');
     if (key == null) {
       sleep1();
-      return;
     }
     FlutterClipboard.copy(key);
     setState(() {

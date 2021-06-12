@@ -23,4 +23,6 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - lib.h
+    - lib.so
   uses-material-design: true

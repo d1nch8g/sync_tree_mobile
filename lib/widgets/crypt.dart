@@ -2,22 +2,22 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'package:ffi/ffi.dart';
 
-DynamicLibrary dynamic_c_lib = DynamicLibrary.open('assets/lib.so');
+final DynamicLibrary dynamicGoLibrary = DynamicLibrary.open('lib.so');
 
 typedef Hash = Pointer<Utf8> Function(Pointer<Utf8>);
 typedef HashFunc = Pointer<Utf8> Function(Pointer<Utf8>);
 final Hash hashFFI =
-    dynamic_c_lib.lookup<NativeFunction<HashFunc>>('Hash').asFunction();
+    dynamicGoLibrary.lookup<NativeFunction<HashFunc>>('Hash').asFunction();
 
 typedef Sign = Pointer<Utf8> Function(Pointer<Utf8>);
 typedef SignFunc = Pointer<Utf8> Function(Pointer<Utf8>);
 final Sign signFFI =
-    dynamic_c_lib.lookup<NativeFunction<SignFunc>>('Sign').asFunction();
+    dynamicGoLibrary.lookup<NativeFunction<SignFunc>>('Sign').asFunction();
 
 typedef Keys = Pointer<Utf8> Function();
 typedef KeysFunc = Pointer<Utf8> Function();
 final Keys keysFFI =
-    dynamic_c_lib.lookup<NativeFunction<KeysFunc>>('Keys').asFunction();
+    dynamicGoLibrary.lookup<NativeFunction<KeysFunc>>('Keys').asFunction();
 
 class Crypt {
   String hash(String message) {
