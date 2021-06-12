@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:clipboard/clipboard.dart';
 
 class KeySave extends StatefulWidget {
   @override
@@ -8,10 +9,28 @@ class KeySave extends StatefulWidget {
 }
 
 class _KeySaveState extends State<KeySave> {
-  Widget currentWidget = CopyKeysSection();
+  Widget currentWidget = KeysNotReady();
+
+  Future sleep1() {
+    return new Future.delayed(const Duration(seconds: 45), () => "1");
+  }
+
+  checkingKeysToBeReady() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var key = prefs.getString('persPriv');
+    if (key == null) {
+      sleep1();
+      return;
+    }
+    FlutterClipboard.copy(key);
+    setState(() {
+      currentWidget = CopyKeysSection();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    checkingKeysToBeReady();
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
