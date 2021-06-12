@@ -50,8 +50,23 @@ class KeysNotReady extends StatelessWidget {
       child: Center(
         child: SpinKitCubeGrid(
           color: Theme.of(context).focusColor,
-          size: 192.0,
+          size: 142.0,
           duration: const Duration(milliseconds: 1124),
+        ),
+      ),
+    );
+  }
+}
+
+class CopyKeysSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Padding(
+        padding: EdgeInsets.all(8),
+        child: IconButton(
+          icon: Icon(Icons.copy),
+          iconSize: 48,
         ),
       ),
     );
