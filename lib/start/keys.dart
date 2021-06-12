@@ -8,7 +8,7 @@ class KeySave extends StatefulWidget {
 }
 
 class _KeySaveState extends State<KeySave> {
-  Widget currentWidget = KeysNotReady();
+  Widget currentWidget = CopyKeysSection();
 
   @override
   Widget build(BuildContext context) {
@@ -66,27 +66,81 @@ class CopyKeysSection extends StatelessWidget {
         padding: EdgeInsets.all(8),
         child: IconButton(
           icon: Icon(Icons.copy),
+          color: Theme.of(context).focusColor,
           iconSize: 48,
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) => FunkyOverlay(),
+            );
+          },
         ),
       ),
     );
   }
 }
 
-class KeysReadyToGoFurther extends StatelessWidget {
+class FunkyOverlay extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => FunkyOverlayState();
+}
+
+class FunkyOverlayState extends State<FunkyOverlay>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 320));
+    scaleAnimation =
+        CurvedAnimation(parent: controller, curve: Curves.decelerate);
+
+    controller.addListener(() {
+      setState(() {});
+    });
+
+    controller.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextButton(
-            child: Text('continue'),
-            onPressed: () {
-              Navigator.pushNamed(context, '/main');
-            },
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: Container(
+            decoration: ShapeDecoration(
+              color: Theme.of(context).backgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(42, 42, 42, 14),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Key is copied to\nclipboard. Save it\n in safe place!',
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                      child: Text('continue'),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/main');
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
