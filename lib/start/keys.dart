@@ -82,16 +82,21 @@ class CopyKeysSection extends StatelessWidget {
     return SizedBox(
       child: Padding(
         padding: EdgeInsets.all(8),
-        child: IconButton(
-          icon: Icon(Icons.copy),
-          color: Theme.of(context).focusColor,
-          iconSize: 48,
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (_) => FunkyOverlay(),
-            );
-          },
+        child: CircleAvatar(
+          radius: 34,
+          backgroundColor: Theme.of(context).focusColor,
+          child: IconButton(
+            icon: Icon(Icons.copy),
+            splashRadius: 52,
+            color: Theme.of(context).backgroundColor,
+            iconSize: 48,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => FunkyOverlay(),
+              );
+            },
+          ),
         ),
       ),
     );
