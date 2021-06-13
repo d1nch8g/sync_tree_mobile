@@ -21,7 +21,7 @@ class _KeySaveState extends State<KeySave> {
     if (key == null) {
       sleep1();
     }
-    FlutterClipboard.copy(key);
+    FlutterClipboard.copy('key');
     setState(() {
       currentWidget = CopyKeysSection();
     });

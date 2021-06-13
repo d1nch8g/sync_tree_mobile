@@ -14,6 +14,12 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		F7BC884B26760DE500C0D643 /* lib.so in Frameworks */ = {isa = PBXBuildFile; fileRef = F7BC884926760DE500C0D643 /* lib.so */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F7BC884C26760E2A00C0D643 /* lib.h in Resources */ = {isa = PBXBuildFile; fileRef = F7BC884A26760DE500C0D643 /* lib.h */; };
+		F7BC884D26760E2A00C0D643 /* lib.so in Resources */ = {isa = PBXBuildFile; fileRef = F7BC884926760DE500C0D643 /* lib.so */; };
+		F7BC884E26760E7C00C0D643 /* lib.h in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F7BC884A26760DE500C0D643 /* lib.h */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		F7BC884F26760E7C00C0D643 /* lib.so in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F7BC884926760DE500C0D643 /* lib.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		F7BC885026760F8000C0D643 /* lib.so in Frameworks */ = {isa = PBXBuildFile; fileRef = F7BC884926760DE500C0D643 /* lib.so */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,6 +29,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F7BC884E26760E7C00C0D643 /* lib.h in Embed Frameworks */,
+				F7BC884F26760E7C00C0D643 /* lib.so in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -46,6 +54,8 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4DBD7D6B877AB3A8DA7B0C5 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		F7BC884926760DE500C0D643 /* lib.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = lib.so; path = ../lib.so; sourceTree = "<group>"; };
+		F7BC884A26760DE500C0D643 /* lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lib.h; path = ../lib.h; sourceTree = "<group>"; };
 		FC1B7A8E535A218A701A9D24 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -55,6 +65,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C44E066967713E29F39AE98 /* Pods_Runner.framework in Frameworks */,
+				F7BC884B26760DE500C0D643 /* lib.so in Frameworks */,
+				F7BC885026760F8000C0D643 /* lib.so in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +76,8 @@
 		4DF61421F6D0A9D0D676D8F4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F7BC884A26760DE500C0D643 /* lib.h */,
+				F7BC884926760DE500C0D643 /* lib.so */,
 				43D725EF54436D0A888B0239 /* Pods_Runner.framework */,
 			);
 			name = Frameworks;
@@ -187,6 +201,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7BC884C26760E2A00C0D643 /* lib.h in Resources */,
+				F7BC884D26760E2A00C0D643 /* lib.so in Resources */,
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
@@ -209,7 +225,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin\n";
 		};
 		45450EB76596B060E92F1A2C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
