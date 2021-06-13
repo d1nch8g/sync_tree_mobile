@@ -11,7 +11,7 @@ class KeySave extends StatefulWidget {
 class _KeySaveState extends State<KeySave> {
   Widget currentWidget = KeysNotReady();
 
-  Future sleep1() {
+  Future sleep() {
     return new Future.delayed(const Duration(seconds: 12), () => "1");
   }
 
@@ -19,7 +19,7 @@ class _KeySaveState extends State<KeySave> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var key = prefs.getString('persPriv');
     if (key == null) {
-      sleep1();
+      sleep();
     }
     FlutterClipboard.copy('key');
     setState(() {
@@ -82,21 +82,17 @@ class CopyKeysSection extends StatelessWidget {
     return SizedBox(
       child: Padding(
         padding: EdgeInsets.all(8),
-        child: CircleAvatar(
-          radius: 34,
-          backgroundColor: Theme.of(context).focusColor,
-          child: IconButton(
-            icon: Icon(Icons.copy),
-            splashRadius: 52,
-            color: Theme.of(context).backgroundColor,
-            iconSize: 48,
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) => FunkyOverlay(),
-              );
-            },
-          ),
+        child: IconButton(
+          icon: Icon(Icons.copy),
+          splashRadius: 52,
+          color: Theme.of(context).focusColor,
+          iconSize: 48,
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) => FunkyOverlay(),
+            );
+          },
         ),
       ),
     );

@@ -13,8 +13,8 @@ class App extends StatelessWidget {
         buttonColor: Color.fromRGBO(42, 42, 114, 1.0),
         pageTransitionsTheme: PageTransitionsTheme(
           builders: {
-            TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
-            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
           },
         ),
         textTheme: TextTheme(
