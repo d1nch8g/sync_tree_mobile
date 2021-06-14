@@ -2,27 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:crypto_export/crypto_export.dart';
 
 class IntroPage extends StatelessWidget {
-  var crypt = Crypt();
 
-  keyGen() async {
-    var allKeys = crypt.keys();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('persPriv', allKeys[0]);
-    prefs.setString('presPub', allKeys[1]);
-    prefs.setString('mesPriv', allKeys[2]);
-    prefs.setString('mesPub', allKeys[3]);
-    Directory dir = Directory('.');
-    dir.list(recursive: false).forEach((f) {
-      print(f);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    keyGen();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
