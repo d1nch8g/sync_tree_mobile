@@ -1,19 +1,25 @@
 PODS:
+  - crypto_export (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - shared_preferences (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - crypto_export (from `.symlinks/plugins/crypto_export/ios`)
   - Flutter (from `Flutter`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
 
 EXTERNAL SOURCES:
+  crypto_export:
+    :path: ".symlinks/plugins/crypto_export/ios"
   Flutter:
     :path: Flutter
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
 
 SPEC CHECKSUMS:
+  crypto_export: 4f8c053b6876cafd3d93a77e3eb443b89865a164
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
 
