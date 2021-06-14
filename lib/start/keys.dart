@@ -11,6 +11,26 @@ class KeySave extends StatefulWidget {
 class _KeySaveState extends State<KeySave> {
   Widget currentWidget = KeysNotReady();
 
+  checkingKeysToBeReady() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // var key = prefs.getString('persPriv');
+    // if (key == null) {
+    //   sleep();
+    // }
+    // FlutterClipboard.copy('key');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(
+        const Duration(seconds: 5),
+        () => {
+              setState(() {
+                currentWidget = CopyKeysSection();
+              })
+            });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +84,7 @@ class CopyKeysSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: 200,
       child: Padding(
         padding: EdgeInsets.all(8),
         child: IconButton(
