@@ -11,25 +11,9 @@ class KeySave extends StatefulWidget {
 class _KeySaveState extends State<KeySave> {
   Widget currentWidget = KeysNotReady();
 
-  Future sleep() {
-    return new Future.delayed(const Duration(seconds: 12), () => "1");
-  }
-
-  checkingKeysToBeReady() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var key = prefs.getString('persPriv');
-    if (key == null) {
-      sleep();
-    }
-    FlutterClipboard.copy('key');
-    setState(() {
-      currentWidget = CopyKeysSection();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    checkingKeysToBeReady();
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
