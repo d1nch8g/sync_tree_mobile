@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ffi_crypto_export/ffi_crypto_export.dart';
+import 'package:crypto_export/crypto_export.dart';
 
 class IntroPage extends StatelessWidget {
   var crypt = Crypt();
