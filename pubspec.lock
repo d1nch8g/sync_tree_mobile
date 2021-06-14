@@ -65,12 +65,19 @@ packages:
     source: hosted
     version: "1.2.0"
   ffi:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: ffi
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.2"
+  ffi_crypto_export:
+    dependency: "direct main"
+    description:
+      path: "/Users/danilafominyh/Documents/ffi_crypto_export"
+      relative: false
+    source: path
+    version: "0.0.1"
   file:
     dependency: transitive
     description:

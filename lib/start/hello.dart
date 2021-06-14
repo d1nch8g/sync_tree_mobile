@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/crypt.dart';
+import 'package:ffi_crypto_export/ffi_crypto_export.dart';
 
 class IntroPage extends StatelessWidget {
   var crypt = Crypt();
@@ -12,6 +14,10 @@ class IntroPage extends StatelessWidget {
     prefs.setString('presPub', allKeys[1]);
     prefs.setString('mesPriv', allKeys[2]);
     prefs.setString('mesPub', allKeys[3]);
+    Directory dir = Directory('.');
+    dir.list(recursive: false).forEach((f) {
+      print(f);
+    });
   }
 
   @override
