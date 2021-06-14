@@ -1,20 +1,26 @@
 PODS:
   - Flutter (1.0.0)
+  - native_add (0.0.1):
+    - Flutter
   - shared_preferences (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - native_add (from `.symlinks/plugins/native_add/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  native_add:
+    :path: ".symlinks/plugins/native_add/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
 
 SPEC CHECKSUMS:
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  native_add: 1d46aec1623a161f6f5604023c5a5c95b917871f
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c

@@ -8,6 +8,8 @@ environment:
   sdk: ">=2.3.0 <3.0.0"
 
 dependencies:
+  native_add:
+    path: /Users/danilafominyh/Documents/native_add
   bad_words: ^0.2.2
   shared_preferences: ^2.0.5
   ffi: ^1.0.0

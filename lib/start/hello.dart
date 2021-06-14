@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/widgets/crypt.dart';
+import 'package:native_add/native_add.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatelessWidget {

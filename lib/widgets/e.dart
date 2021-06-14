@@ -2,7 +2,6 @@ export 'box.dart';
 export 'buttonImage.dart';
 export 'buttonStar.dart';
 export 'corneredIconButton.dart';
-export 'crypt.dart';
 export 'dialogueTab.dart';
 export 'iconTextButton.dart';
 export 'modalTab.dart';
