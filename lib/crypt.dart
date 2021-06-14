@@ -24,9 +24,7 @@ class Crypt {
     return hashFFI(message.toNativeUtf8()).toDartString();
   }
 
-  // than add function to rebuild the message to list of bytes
   String sign(String message, String key) {
-    // add this function over here
     var unifiedMessage = base64.encode(utf8.encode(message)) + '|' + key;
     return signFFI(unifiedMessage.toNativeUtf8()).toDartString();
   }
