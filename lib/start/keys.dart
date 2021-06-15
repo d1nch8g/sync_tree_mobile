@@ -30,7 +30,7 @@ class _KeySaveState extends State<KeySave> {
     var key = prefs.getString('persPriv');
     if (key == null) {
       Future.delayed(
-        const Duration(seconds: 2),
+        const Duration(seconds: 4),
         () => {
           checkingKeysToBeReady(),
         },
