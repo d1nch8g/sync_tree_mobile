@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'market/main.dart';
 import 'wallet/main.dart';
-import 'settings/main.dart';
+import 'settings/settings.dart';
 import 'balance/main.dart';
 import 'start/hello.dart';
 import 'start/name.dart';
@@ -27,7 +27,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
   Future<bool> firstLaunch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var firstLaunch = prefs.getBool('firstLaunch');
-    prefs.setBool('firstLaunch', true); // change to false on release
+    prefs.setBool('firstLaunch', false); // change to false on release
     print(firstLaunch);
     return firstLaunch ?? true;
   }
