@@ -8,10 +8,7 @@ class SettingsPage extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
-          Text(
-            'User settings',
-            style: Theme.of(context).textTheme.headline1,
-          ),
+          
         ],
       ),
     );
