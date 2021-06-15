@@ -6,11 +6,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        backgroundColor: Color.fromRGBO(35, 37, 40, 1.0),
+        backgroundColor: Color.fromRGBO(42, 42, 114, 1.0),
         focusColor: Color.fromRGBO(234, 246, 255, 1.0),
         hintColor: Color.fromRGBO(255, 164, 0, 1.0),
         hoverColor: Color.fromRGBO(0, 159, 253, 1.0),
-        buttonColor: Color.fromRGBO(42, 42, 114, 1.0),
+        buttonColor: Color.fromRGBO(35, 37, 40, 1.0),
         pageTransitionsTheme: PageTransitionsTheme(
           builders: {
             TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),

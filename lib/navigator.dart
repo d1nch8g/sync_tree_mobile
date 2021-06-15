@@ -52,6 +52,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
       },
     );
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
       body: SizedBox.expand(
         child: PageView(
