@@ -13,7 +13,7 @@ class _KeySaveState extends State<KeySave> {
 
   checkingKeysToBeReady() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // var key = prefs.getString('persPriv');
+    var key = prefs.getString('persPriv');
     // if (key == null) {
     //   sleep();
     // }
