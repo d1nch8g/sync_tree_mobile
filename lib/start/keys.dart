@@ -56,7 +56,18 @@ class _KeySaveState extends State<KeySave> {
               ),
             ),
             SizedBox(height: 12),
-            currentWidget,
+            AnimatedSwitcher(
+              duration: Duration(milliseconds: 720),
+              child: currentWidget,
+              transitionBuilder: (
+                Widget child,
+                Animation<double> animation,
+              ) =>
+                  ScaleTransition(
+                scale: animation,
+                child: child,
+              ),
+            ),
           ],
         ),
       ),
