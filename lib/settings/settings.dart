@@ -8,7 +8,11 @@ class SettingsPage extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
-          
+          Icon(
+            Icons.settings_applications,
+            size: 134,
+            color: Theme.of(context).hoverColor,
+          ),
         ],
       ),
     );
