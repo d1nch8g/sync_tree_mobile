@@ -24,6 +24,7 @@ class _KeySaveState extends State<KeySave> {
       },
     );
   }
+
   Widget currentWidget = KeysNotReady();
 
   checkingKeysToBeReady() async {
@@ -46,12 +47,17 @@ class _KeySaveState extends State<KeySave> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () => {
+        createKeys(),
+      },
+    );
     checkingKeysToBeReady();
   }
 
   @override
   Widget build(BuildContext context) {
-    createKeys();
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
