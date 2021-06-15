@@ -33,11 +33,8 @@ class Crypt {
   }
 
   List<String> generateKeys() {
-    Isolate.spawn((message) {
-      var persKeys = _keys(bitLength: 4096);
-      var mesKeys = _keys(bitLength: 2048);
-    }, message)
-    
+    var persKeys = _keys(bitLength: 4096);
+    var mesKeys = _keys(bitLength: 2048);
     return [
       persKeys[0],
       persKeys[1],

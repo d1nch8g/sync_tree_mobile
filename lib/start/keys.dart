@@ -17,7 +17,7 @@ class _KeySaveState extends State<KeySave> {
 
   createKeys() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var keys = await crypt.generateKeys();
+    var keys = crypt.generateKeys();
     prefs.setString('persPriv', keys[0]);
     prefs.setString('persPub', keys[1]);
     prefs.setString('mesPriv', keys[2]);
