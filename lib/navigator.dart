@@ -21,7 +21,7 @@ class PrimaryPage extends StatefulWidget {
 }
 
 class _PrimaryPageState extends State<PrimaryPage> {
-  int _selectedIndex = 3;
+  int _selectedIndex = 0;
   PageController _pageController;
 
   Future<bool> firstLaunch() async {
