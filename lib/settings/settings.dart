@@ -21,16 +21,34 @@ class SettingsPage extends StatelessWidget {
               size: 42,
             ),
             title: Text(
-              'Manage personal key',
+              'get private key',
               style: Theme.of(context).textTheme.headline4,
             ),
-            trailing: Icon(
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(
               Icons.lock,
               color: Theme.of(context).hoverColor,
               size: 42,
             ),
+            title: Text(
+              'change private key',
+              style: Theme.of(context).textTheme.headline4,
+            ),
           ),
           Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.shield,
+              color: Theme.of(context).hoverColor,
+              size: 42,
+            ),
+            title: Text(
+              'set pin',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ),
         ],
       ),
     );
