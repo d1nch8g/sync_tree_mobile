@@ -7,7 +7,7 @@ class IntroPage extends StatelessWidget {
 
   createKeys() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // var keys = crypt.keys();
+    var keys = crypt.keys();
     // print(keys[0]);
     // prefs.setString('persPriv', keys[0]);
     // prefs.setString('persPub', keys[1]);

@@ -5,8 +5,13 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      
+    return SafeArea(
+      child: Column(
+        children: [
+          Text('User settings', style: Theme.of(context).textTheme.headline1,),
+    
+        ],
+      ),
     );
   }
 }
