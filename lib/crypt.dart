@@ -1,3 +1,4 @@
+import 'dart:isolate';
 import 'dart:math';
 
 import 'package:pointycastle/key_generators/rsa_key_generator.dart';
@@ -31,9 +32,12 @@ class Crypt {
     return [priv, pub];
   }
 
-  Future<List<String>> generateKeys() async {
-    var persKeys = _keys(bitLength: 4096);
-    var mesKeys = _keys(bitLength: 2048);
+  List<String> generateKeys() {
+    Isolate.spawn((message) {
+      var persKeys = _keys(bitLength: 4096);
+      var mesKeys = _keys(bitLength: 2048);
+    }, message)
+    
     return [
       persKeys[0],
       persKeys[1],
@@ -41,5 +45,4 @@ class Crypt {
       mesKeys[1],
     ];
   }
-
 }

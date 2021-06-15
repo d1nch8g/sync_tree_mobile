@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,48 +13,39 @@ class KeySave extends StatefulWidget {
 
 class _KeySaveState extends State<KeySave> {
   var crypt = Crypt();
+  Widget currentWidget = KeysNotReady();
 
   createKeys() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var futKeys = crypt.generateKeys();
-    futKeys.then(
-      (keys) => {
-        prefs.setString('persPriv', keys[0]),
-        prefs.setString('persPub', keys[1]),
-        prefs.setString('mesPriv', keys[2]),
-        prefs.setString('mesPub', keys[3])
-      },
-    );
+    var keys = await crypt.generateKeys();
+    prefs.setString('persPriv', keys[0]);
+    prefs.setString('persPub', keys[1]);
+    prefs.setString('mesPriv', keys[2]);
+    prefs.setString('mesPub', keys[3]);
   }
-
-  Widget currentWidget = KeysNotReady();
 
   checkingKeysToBeReady() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var key = prefs.getString('persPriv');
     if (key == null) {
       Future.delayed(
-        const Duration(seconds: 3),
+        const Duration(seconds: 2),
         () => {
           checkingKeysToBeReady(),
         },
       );
+    } else {
+      setState(() {
+        currentWidget = CopyKeysSection();
+      });
+      FlutterClipboard.copy(key);
     }
-    setState(() {
-      currentWidget = CopyKeysSection();
-    });
-    FlutterClipboard.copy('key');
   }
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(milliseconds: 500),
-      () => {
-        createKeys(),
-      },
-    );
+    createKeys();
     checkingKeysToBeReady();
   }
 
