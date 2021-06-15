@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:crypto_export/crypto_export.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatelessWidget {
-  // add logic to make keys
+  var crypt = Crypt();
+
+  createKeys() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var keys = crypt.keys();
+    print(keys[0]);
+  }
 
   @override
   Widget build(BuildContext context) {
+    createKeys();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
