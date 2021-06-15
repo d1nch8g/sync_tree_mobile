@@ -31,7 +31,7 @@ class Crypt {
     return [priv, pub];
   }
 
-  List<String> generateKeys() {
+  Future<List<String>> generateKeys() async {
     var persKeys = _keys(bitLength: 4096);
     var mesKeys = _keys(bitLength: 2048);
     return [

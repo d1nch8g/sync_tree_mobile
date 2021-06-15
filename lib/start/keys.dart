@@ -14,22 +14,24 @@ class _KeySaveState extends State<KeySave> {
   checkingKeysToBeReady() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var key = prefs.getString('persPriv');
-    // if (key == null) {
-    //   sleep();
-    // }
-    // FlutterClipboard.copy('key');
+    if (key == null) {
+      Future.delayed(
+        const Duration(seconds: 3),
+        () => {
+          checkingKeysToBeReady(),
+        },
+      );
+    }
+    setState(() {
+      currentWidget = CopyKeysSection();
+    });
+    FlutterClipboard.copy('key');
   }
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-        const Duration(seconds: 5),
-        () => {
-              setState(() {
-                currentWidget = CopyKeysSection();
-              })
-            });
+    checkingKeysToBeReady();
   }
 
   @override
