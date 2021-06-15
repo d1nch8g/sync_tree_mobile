@@ -13,7 +13,12 @@ class SettingsPage extends StatelessWidget {
             size: 134,
             color: Theme.of(context).hoverColor,
           ),
-          ListTile(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              
+            ),
+          ),
         ],
       ),
     );
