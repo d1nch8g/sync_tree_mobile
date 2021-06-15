@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:crypto_export/crypto_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroPage extends StatelessWidget {
-  var crypt = Crypt();
 
   createKeys() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var keys = crypt.keys();
-    // print(keys[0]);
-    // prefs.setString('persPriv', keys[0]);
-    // prefs.setString('persPub', keys[1]);
-    // prefs.setString('mesPriv', keys[2]);
-    // prefs.setString('mesPub', keys[3]);
+    
   }
 
   @override
