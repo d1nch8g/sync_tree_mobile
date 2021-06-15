@@ -21,13 +21,13 @@ class PrimaryPage extends StatefulWidget {
 }
 
 class _PrimaryPageState extends State<PrimaryPage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
   PageController _pageController;
 
   Future<bool> firstLaunch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var firstLaunch = prefs.getBool('firstLaunch');
-    prefs.setBool('firstLaunch', true); // change to false on release
+    prefs.setBool('firstLaunch', false); // change to false on release
     print(firstLaunch);
     return firstLaunch ?? true;
   }

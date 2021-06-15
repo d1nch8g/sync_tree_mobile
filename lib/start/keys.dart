@@ -16,7 +16,7 @@ class _KeySaveState extends State<KeySave> {
   var crypt = Crypt();
   Widget currentWidget = KeysNotReady();
 
-  createKeys() async {
+  void createKeys() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var keys = crypt.generateKeys();
     prefs.setString('persPriv', keys[0]);
