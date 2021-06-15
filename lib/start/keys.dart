@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:clipboard/clipboard.dart';
+import 'package:sync_tree_mobile/crypt.dart';
 
 class KeySave extends StatefulWidget {
   @override
@@ -9,6 +10,20 @@ class KeySave extends StatefulWidget {
 }
 
 class _KeySaveState extends State<KeySave> {
+  var crypt = Crypt();
+
+  createKeys() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var futKeys = crypt.generateKeys();
+    futKeys.then(
+      (keys) => {
+        prefs.setString('persPriv', keys[0]),
+        prefs.setString('persPub', keys[1]),
+        prefs.setString('mesPriv', keys[2]),
+        prefs.setString('mesPub', keys[3])
+      },
+    );
+  }
   Widget currentWidget = KeysNotReady();
 
   checkingKeysToBeReady() async {
@@ -36,6 +51,7 @@ class _KeySaveState extends State<KeySave> {
 
   @override
   Widget build(BuildContext context) {
+    createKeys();
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(

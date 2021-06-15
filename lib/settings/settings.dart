@@ -13,6 +13,11 @@ class SettingsPage extends StatelessWidget {
             size: 134,
             color: Theme.of(context).hoverColor,
           ),
+          ListView(
+            children: [
+              
+            ],
+          ),
         ],
       ),
     );

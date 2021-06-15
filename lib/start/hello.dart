@@ -1,26 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/crypt.dart';
 
 class IntroPage extends StatelessWidget {
-  var crypt = Crypt();
-
-  createKeys() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var futKeys = crypt.generateKeys();
-    futKeys.then(
-      (keys) => {
-        prefs.setString('persPriv', keys[0]),
-        prefs.setString('persPub', keys[1]),
-        prefs.setString('mesPriv', keys[2]),
-        prefs.setString('mesPub', keys[3])
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    createKeys();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
