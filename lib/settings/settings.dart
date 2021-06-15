@@ -11,14 +11,26 @@ class SettingsPage extends StatelessWidget {
           Icon(
             Icons.settings_applications,
             size: 134,
-            color: Theme.of(context).hoverColor,
+            color: Theme.of(context).hintColor,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              
+          Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.vpn_key,
+              color: Theme.of(context).hoverColor,
+              size: 42,
+            ),
+            title: Text(
+              'Manage personal key',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            trailing: Icon(
+              Icons.lock,
+              color: Theme.of(context).hoverColor,
+              size: 42,
             ),
           ),
+          Divider(),
         ],
       ),
     );

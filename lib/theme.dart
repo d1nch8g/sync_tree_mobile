@@ -40,6 +40,7 @@ class App extends StatelessWidget {
             fontFamily: 'Hind',
             fontWeight: FontWeight.w200,
           ),
+          
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
