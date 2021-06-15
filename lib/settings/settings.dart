@@ -18,11 +18,11 @@ class SettingsPage extends StatelessWidget {
             leading: Icon(
               Icons.vpn_key,
               color: Theme.of(context).hoverColor,
-              size: 42,
+              size: 34,
             ),
             title: Text(
               'get private key',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headline5,
             ),
           ),
           Divider(),
@@ -30,11 +30,23 @@ class SettingsPage extends StatelessWidget {
             leading: Icon(
               Icons.lock,
               color: Theme.of(context).hoverColor,
-              size: 42,
+              size: 34,
             ),
             title: Text(
               'change private key',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headline5,
+            ),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.handyman_sharp,
+              color: Theme.of(context).hoverColor,
+              size: 34,
+            ),
+            title: Text(
+              'generate new keys',
+              style: Theme.of(context).textTheme.headline5,
             ),
           ),
           Divider(),
@@ -42,13 +54,14 @@ class SettingsPage extends StatelessWidget {
             leading: Icon(
               Icons.shield,
               color: Theme.of(context).hoverColor,
-              size: 42,
+              size: 34,
             ),
             title: Text(
               'set pin',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headline5,
             ),
           ),
+          Divider(),
         ],
       ),
     );
