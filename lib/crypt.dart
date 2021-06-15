@@ -1,6 +1,7 @@
 import 'dart:isolate';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:pointycastle/key_generators/rsa_key_generator.dart';
 import 'package:pointycastle/pointycastle.dart';
 import 'dart:typed_data';
@@ -8,7 +9,7 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:pointycastle/random/fortuna_random.dart';
 
 class Crypt {
-  List<String> _keys({int bitLength = 2048}) {
+  List<String> _keys(int bitLength) {
     final secureRandom = FortunaRandom();
 
     final seedSource = Random.secure();
@@ -32,9 +33,9 @@ class Crypt {
     return [priv, pub];
   }
 
-  List<String> generateKeys() {
-    var persKeys = _keys(bitLength: 4096);
-    var mesKeys = _keys(bitLength: 2048);
+  Future<List<String>> generateKeys() async {
+    var persKeys = await compute(_keys, 4096);
+    var mesKeys = await compute(_keys, 2048);
     return [
       persKeys[0],
       persKeys[1],
