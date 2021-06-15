@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences/ios"
 
 SPEC CHECKSUMS:
-  crypto_export: 4f8c053b6876cafd3d93a77e3eb443b89865a164
+  crypto_export: c009fd1bdb0aae4551d2bffa612f2626984601a1
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
 
