@@ -122,7 +122,7 @@ class CopyKeysSection extends StatelessWidget {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (_) => MessageOverlay(),
+              builder: (_) => ButtonOverlay(),
             );
           },
         ),
