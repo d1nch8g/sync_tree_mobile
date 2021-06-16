@@ -37,8 +37,12 @@ class SettingsPage extends StatelessWidget {
               size: 29,
             ),
             title: Text(
-              'change private key',
+              'Change private key',
               style: Theme.of(context).textTheme.headline5,
+            ),
+            subtitle: Text(
+              'When you use another private key current one will be lost.',
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
           Divider(),
