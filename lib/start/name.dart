@@ -91,17 +91,18 @@ class _GoogleAuthState extends State<GoogleAuth> {
                 );
                 return;
               }
-              if (nameController.text == 'dancheg97') {
+              
+              if (nameController.text == 'Dancheg97') {
                 nameController.text = '';
                 showDialog(
                   context: context,
                   builder: (_) =>
-                      FunkyOverlay(message: 'no <3'),
+                      FunkyOverlay(message: 'no :D'),
                 );
                 return;
               }
-              if (nameController.text == 'dancheg97 ') {
-                nameController.text = 'dancheg97';
+              if (nameController.text == 'Dancheg97 ') {
+                nameController.text = 'Dancheg97';
               }
               saveName(nameController.text);
               Navigator.pushNamed(context, '/keys');
