@@ -53,9 +53,7 @@ class _KeySaveState extends State<KeySave> {
             Padding(
               padding: const EdgeInsets.all(22.0),
               child: Text(
-                'This text is private key. Keep it in secret place. All '
-                'assets in this app are related to this key. You can change '
-                'it later in settings.',
+                'Button below will copy your private key. Keep it in secret place. All assets in this app are related to this key. You can change it later in settings.',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2,
               ),

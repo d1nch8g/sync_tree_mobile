@@ -46,6 +46,7 @@ class MessageOverlayState extends State<MessageOverlay>
               padding: const EdgeInsets.all(50.0),
               child: Text(
                 this.widget.message,
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),
