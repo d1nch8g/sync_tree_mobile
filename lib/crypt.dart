@@ -41,4 +41,24 @@ class Crypt {
       mesKeys[1],
     ];
   }
+
+  Uint8List keyToBytes(String key) {
+    return CryptoUtils.getBytesFromPEMString(key);
+  }
+
+  String bytesToPrivate(Uint8List bytes) {
+    var key = CryptoUtils.rsaPrivateKeyFromDERBytesPkcs1(bytes);
+    return CryptoUtils.encodeRSAPrivateKeyToPemPkcs1(key);
+  }
+
+  String bytesToPublic(Uint8List bytes) {
+    var key = CryptoUtils.rsaPublicKeyFromDERBytesPkcs1(bytes);
+    return CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
+  }
+
+  Uint8List SignMessage(String privKey, Uint8List data) {
+    var key = CryptoUtils.rsaPrivateKeyFromPemPkcs1(privKey);
+    var sign = CryptoUtils.rsaSign(key, data, algorithmName: 'SHA-512/RSA');
+    return sign;
+  }
 }
