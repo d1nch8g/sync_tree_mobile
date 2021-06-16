@@ -69,32 +69,43 @@ class _GoogleAuthState extends State<GoogleAuth> {
             ),
           ),
           SizedBox(height: 23),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                child: Text('skip'),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/keys');
-                },
-              ),
-              TextButton(
-                child: Text('sign'),
-                onPressed: () {
-                  print(nameController.text);
-                  if (filter.isProfane(nameController.text)) {
-                    nameController.text = '';
-                    showDialog(
-                      context: context,
-                      builder: (_) => FunkyOverlay(),
-                    );
-                    return;
-                  }
-                  saveName(nameController.text);
-                  Navigator.pushNamed(context, '/keys');
-                },
-              )
-            ],
+          TextButton(
+            child: Text('continue'),
+            onPressed: () {
+              print(nameController.text);
+              if (filter.isProfane(nameController.text)) {
+                nameController.text = '';
+                showDialog(
+                  context: context,
+                  builder: (_) =>
+                      FunkyOverlay(message: 'name contains\nprofane words'),
+                );
+                return;
+              }
+              if (nameController.text.length < 4) {
+                nameController.text = '';
+                showDialog(
+                  context: context,
+                  builder: (_) =>
+                      FunkyOverlay(message: ' name is\ntoo short'),
+                );
+                return;
+              }
+              if (nameController.text == 'dancheg97') {
+                nameController.text = '';
+                showDialog(
+                  context: context,
+                  builder: (_) =>
+                      FunkyOverlay(message: 'no <3'),
+                );
+                return;
+              }
+              if (nameController.text == 'dancheg97 ') {
+                nameController.text = 'dancheg97';
+              }
+              saveName(nameController.text);
+              Navigator.pushNamed(context, '/keys');
+            },
           ),
           SizedBox(
             height: 125,
@@ -106,6 +117,8 @@ class _GoogleAuthState extends State<GoogleAuth> {
 }
 
 class FunkyOverlay extends StatefulWidget {
+  final String message;
+  FunkyOverlay({this.message = 'name error'});
   @override
   State<StatefulWidget> createState() => FunkyOverlayState();
 }
@@ -148,7 +161,7 @@ class FunkyOverlayState extends State<FunkyOverlay>
             child: Padding(
               padding: const EdgeInsets.all(50.0),
               child: Text(
-                'Name contains \nprofane words.',
+                this.widget.message,
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),
