@@ -107,17 +107,24 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
                     onPressed: () async {
                       var key = await FlutterClipboard.paste();
                       if (crypt.checkPrivateKey(key)) {
-                        
-
-                        // Logic to change key
-                        // Logic to remind user of that
-                        // Logic to close overlays
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.setString('persPriv', key);
                         showDialog(
                           context: context,
                           builder: (_) => MessageOverlay(
                             mainText: 'key changed',
                           ),
                         );
+                        Future.delayed(Duration(seconds: 1), () {
+                          Navigator.pop(context);
+                          Future.delayed(Duration(milliseconds: 220), () {
+                            Navigator.pop(context);
+                            Future.delayed(Duration(milliseconds: 80), () {
+                              Navigator.pop(context);
+                            });
+                          });
+                        });
                       } else {
                         showDialog(
                           context: context,
