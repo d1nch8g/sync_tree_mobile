@@ -53,8 +53,12 @@ class SettingsPage extends StatelessWidget {
               size: 29,
             ),
             title: Text(
-              'generate new keys',
+              'Generate new keys',
               style: Theme.of(context).textTheme.headline5,
+            ),
+            subtitle: Text(
+              'If you generate new keys, current keys will be deleted. Save them in safe place.',
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
           Divider(),
@@ -65,8 +69,28 @@ class SettingsPage extends StatelessWidget {
               size: 29,
             ),
             title: Text(
-              'set pin',
+              'Set pin code',
               style: Theme.of(context).textTheme.headline5,
+            ),
+            subtitle: Text(
+              'When you set a pin, it will be required for each wallet action.',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.person_pin_sharp,
+              color: Theme.of(context).hoverColor,
+              size: 29,
+            ),
+            title: Text(
+              'Change public name',
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            subtitle: Text(
+              'You can simply change public name, using single request.',
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
           Divider(),
