@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MessageOverlay extends StatefulWidget {
-  final String message;
-  MessageOverlay({this.message = 'error'});
+  final String mainText;
+  MessageOverlay({this.mainText = 'error'});
   @override
   State<StatefulWidget> createState() => MessageOverlayState();
 }
@@ -45,7 +45,7 @@ class MessageOverlayState extends State<MessageOverlay>
             child: Padding(
               padding: const EdgeInsets.all(50.0),
               child: Text(
-                this.widget.message,
+                this.widget.mainText,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2,
               ),

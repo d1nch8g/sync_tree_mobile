@@ -12,9 +12,9 @@ class ChangeKeyTile extends StatelessWidget {
           context: context,
           builder: (_) => ButtonOverlay(
             () {
-              
+
             },
-            messageText: 'Are you sure?\n'
+            mainText: 'Are you sure?\n'
                 'current key will\n'
                 'be deleted',
             buttonText: 'yes',

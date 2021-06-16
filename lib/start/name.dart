@@ -81,7 +81,7 @@ class _GoogleAuthState extends State<GoogleAuth> {
                 showDialog(
                   context: context,
                   builder: (_) =>
-                      MessageOverlay(message: 'name contains\nprofane words'),
+                      MessageOverlay(mainText: 'name contains\nprofane words'),
                 );
                 return;
               }
@@ -90,7 +90,7 @@ class _GoogleAuthState extends State<GoogleAuth> {
                 showDialog(
                   context: context,
                   builder: (_) =>
-                      MessageOverlay(message: ' name is\ntoo short'),
+                      MessageOverlay(mainText: ' name is\ntoo short'),
                 );
                 return;
               }

@@ -113,7 +113,7 @@ class CopyKeysSection extends StatelessWidget {
                 () {
                   Navigator.pushNamed(context, '/main');
                 },
-                messageText:
+                mainText:
                     'Key is copied to\nclipboard. Save it\n in safe place!',
                 buttonText: 'continue',
               ),

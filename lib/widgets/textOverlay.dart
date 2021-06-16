@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class ButtonOverlay extends StatefulWidget {
-  final String mainText;
+class TextOverlay extends StatefulWidget {
+  final String textOnTop;
   final String buttonText;
   final Function onPressed;
-  ButtonOverlay(
+  TextOverlay(
     this.onPressed, {
-    this.mainText = 'error',
+    this.textOnTop = 'error',
     this.buttonText = 'continue',
   });
   @override
-  State<StatefulWidget> createState() => ButtonOverlayState();
+  State<StatefulWidget> createState() => TextOverlayState();
 }
 
-class ButtonOverlayState extends State<ButtonOverlay>
+class TextOverlayState extends State<TextOverlay>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> scaleAnimation;
@@ -54,7 +54,7 @@ class ButtonOverlayState extends State<ButtonOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    this.widget.mainText,
+                    this.widget.textOnTop,
                     style: Theme.of(context).textTheme.headline2,
                     textAlign: TextAlign.center,
                   ),

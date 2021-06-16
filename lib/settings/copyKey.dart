@@ -20,7 +20,7 @@ class CopyKeyTile extends StatelessWidget {
           showDialog(
             context: context,
             builder: (_) => MessageOverlay(
-              message: 'key is copied\n to clipboard',
+              mainText: 'key is copied\n to clipboard',
             ),
           );
         });
