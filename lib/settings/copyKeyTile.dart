@@ -13,6 +13,7 @@ class CopyKeyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      enableFeedback: true,
       onTap: () {
         getPrivKey().then((privateKeyPem) {
           FlutterClipboard.copy(privateKeyPem);
