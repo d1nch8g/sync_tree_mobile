@@ -106,6 +106,22 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
+              Divider(),
+              ListTile(
+                leading: Icon(
+                  Icons.save_rounded,
+                  color: Theme.of(context).hoverColor,
+                  size: 29,
+                ),
+                title: Text(
+                  'Save changes to server',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                subtitle: Text(
+                  'This button is made to .',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+              ),
             ],
           ),
           Divider(),
