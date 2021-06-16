@@ -1,7 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key key}) : super(key: key);
+class SettingsPage extends StatefulWidget {
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  String _currentName = 'loading';
+
+  setStartName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var name = prefs.get('pubName');
+    setState(() {
+      _currentName = name;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setStartName();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +32,21 @@ class SettingsPage extends StatelessWidget {
             Icons.settings_applications,
             size: 129,
             color: Theme.of(context).hintColor,
+          ),
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 720),
+            child: Text(
+              _currentName,
+              style: Theme.of(context).textTheme.headline3,
+            ),
+            transitionBuilder: (
+              Widget child,
+              Animation<double> animation,
+            ) =>
+                ScaleTransition(
+              scale: animation,
+              child: child,
+            ),
           ),
           Divider(),
           ListTile(
