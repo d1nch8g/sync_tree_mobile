@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ButtonOverlay extends StatefulWidget {
-  String messageText = 'error';
-  String buttonText = 'continue';
+  String messageText;
+  String buttonText;
   Function onPressed = () {};
   ButtonOverlay({
-    this.messageText,
-    this.buttonText,
+    this.messageText = 'error',
+    this.buttonText = 'continue',
     this.onPressed,
   });
   @override

@@ -56,7 +56,7 @@ class Crypt {
     return CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
   }
 
-  Uint8List SignMessage(String privKey, Uint8List data) {
+  Uint8List signMessage(String privKey, Uint8List data) {
     var key = CryptoUtils.rsaPrivateKeyFromPemPkcs1(privKey);
     var sign = CryptoUtils.rsaSign(key, data, algorithmName: 'SHA-512/RSA');
     return sign;
