@@ -56,7 +56,7 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               // Copy key widget
               GestureDetector(
-                onTap: copyPrivateKey(context),
+                onTap: copyPrivateKey,
                 child: ListTile(
                   leading: Icon(
                     Icons.vpn_key,
