@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ButtonOverlay extends StatefulWidget {
-  String messageText;
-  String buttonText;
-  Function onPressed = () {};
-  ButtonOverlay({
+  final String messageText;
+  final String buttonText;
+  final Function onPressed;
+  ButtonOverlay(
+    this.onPressed, {
     this.messageText = 'error',
     this.buttonText = 'continue',
-    this.onPressed,
   });
   @override
   State<StatefulWidget> createState() => ButtonOverlayState();

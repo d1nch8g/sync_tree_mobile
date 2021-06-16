@@ -12,8 +12,6 @@ class KeySave extends StatefulWidget {
 class _KeySaveState extends State<KeySave> {
   Widget currentWidget = KeysNotReady();
 
-  
-
   checkingKeysToBeReady() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var key = prefs.getString('persPriv');
@@ -113,12 +111,12 @@ class CopyKeysSection extends StatelessWidget {
             showDialog(
               context: context,
               builder: (_) => ButtonOverlay(
+                () {
+                  Navigator.pushNamed(context, '/main');
+                },
                 messageText:
                     'Key is copied to\nclipboard. Save it\n in safe place!',
                 buttonText: 'continue',
-                onPressed: () {
-                  Navigator.pushNamed(context, '/main');
-                },
               ),
             );
           },
