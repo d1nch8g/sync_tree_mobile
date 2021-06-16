@@ -74,7 +74,7 @@ class _GoogleAuthState extends State<GoogleAuth> {
             child: Text('continue'),
             onPressed: () {
               //TODO remove that stuff later on
-              if (nameController.text == 'Dancheg97   ') {
+              if (nameController.text == 'Dancheg97 ') {
                 nameController.text = 'Dancheg97';
                 saveName(nameController.text);
                 Navigator.pushNamed(context, '/keys');
