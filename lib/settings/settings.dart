@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/settings/copyKey.dart';
+import 'package:sync_tree_mobile/settings/changePriv.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -56,6 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               CopyKeyTile(),
               Divider(),
+              ChangeKeyTile(),
               Divider(),
               ListTile(
                 leading: Icon(

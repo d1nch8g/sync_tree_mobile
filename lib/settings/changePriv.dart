@@ -7,6 +7,16 @@ class ChangeKeyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (_) => ButtonOverlay(
+            () {},
+            messageText: '  Are you sure?\nCurrent key will\n  be deleted.',
+            buttonText: 'ok',
+          ),
+        );
+      },
       leading: Icon(
         Icons.lock,
         color: Theme.of(context).hoverColor,
