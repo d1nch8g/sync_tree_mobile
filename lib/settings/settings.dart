@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/settings/copyKeyTile.dart';
+import 'package:sync_tree_mobile/settings/copyKey.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -54,24 +54,8 @@ class _SettingsPageState extends State<SettingsPage> {
             padding: EdgeInsets.all(8.0),
             shrinkWrap: true,
             children: [
-              // Copy key widget
               CopyKeyTile(),
               Divider(),
-              ListTile(
-                leading: Icon(
-                  Icons.lock,
-                  color: Theme.of(context).hoverColor,
-                  size: 29,
-                ),
-                title: Text(
-                  'Change private key',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                subtitle: Text(
-                  'When you use another private key current one will be lost.',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ),
               Divider(),
               ListTile(
                 leading: Icon(
