@@ -12,15 +12,9 @@ class ChangeKeyTile extends StatelessWidget {
           context: context,
           builder: (_) => ButtonOverlay(
             () {
-              var controller = TextEditingController();
               showDialog(
                 context: context,
-                builder: (_) => KeyInputOverlay(
-                  () {},
-                  controller,
-                  textOnTop: 'put your key here',
-                  textFieldText: '',
-                ),
+                builder: (_) => KeyInputOverlay(),
               );
             },
             mainText: 'Are you sure?\n'
@@ -47,21 +41,7 @@ class ChangeKeyTile extends StatelessWidget {
   }
 }
 
-
-
 class KeyInputOverlay extends StatefulWidget {
-  final String textOnTop;
-  final String buttonText;
-  final String textFieldText;
-  final Function onPressed;
-  final TextEditingController controller;
-  KeyInputOverlay(
-    this.onPressed,
-    this.controller, {
-    this.textFieldText = 'type',
-    this.textOnTop = 'error',
-    this.buttonText = 'continue',
-  });
   @override
   State<StatefulWidget> createState() => KeyInputOverlayState();
 }
@@ -107,56 +87,19 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    this.widget.textOnTop,
+                    'Press this button\n'
+                    'to paste a key\n'
+                    'from clipboard',
                     style: Theme.of(context).textTheme.headline2,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: TextField(
-                      controller: this.widget.controller,
-                      style: TextStyle(
-                        color: Theme.of(context).focusColor,
-                      ),
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide:
-                              BorderSide(color: Theme.of(context).focusColor),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide:
-                              BorderSide(color: Theme.of(context).focusColor),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide:
-                              BorderSide(color: Theme.of(context).focusColor),
-                        ),
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).focusColor,
-                        ),
-                        labelText: this.widget.textFieldText,
-                        hoverColor: Theme.of(context).focusColor,
-                        fillColor: Theme.of(context).focusColor,
-                        focusColor: Theme.of(context).focusColor,
-                      ),
-                      cursorColor: Theme.of(context).focusColor,
+                  IconButton(
+                    icon: Icon(
+                      Icons.paste_sharp,
                     ),
                   ),
                   SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextButton(
-                      child: Text(
-                        this.widget.buttonText,
-                        textAlign: TextAlign.center,
-                      ),
-                      onPressed: this.widget.onPressed,
-                    ),
-                  ),
                 ],
               ),
             ),
