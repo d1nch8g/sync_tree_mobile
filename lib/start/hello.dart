@@ -25,6 +25,7 @@ class IntroPage extends StatelessWidget {
           children: [
             Text(
               'Hello!',
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline1,
             ),
             SizedBox(height: 12),
@@ -33,6 +34,7 @@ class IntroPage extends StatelessWidget {
               child: Text(
                 'We are building your private keys, you can pick public name '
                 'that will be displayed to other users.',
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),

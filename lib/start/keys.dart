@@ -56,6 +56,7 @@ class _KeySaveState extends State<KeySave> {
                 'This text is private key. Keep it in secret place. All '
                 'assets in this app are related to this key. You can change '
                 'it later in settings.',
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),

@@ -56,11 +56,15 @@ class ButtonOverlayState extends State<ButtonOverlay>
                   Text(
                     this.widget.messageText,
                     style: Theme.of(context).textTheme.headline2,
+                    textAlign: TextAlign.center,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
-                      child: Text(this.widget.buttonText),
+                      child: Text(
+                        this.widget.buttonText,
+                        textAlign: TextAlign.center,
+                      ),
                       onPressed: this.widget.onPressed,
                     ),
                   ),

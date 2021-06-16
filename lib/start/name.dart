@@ -33,7 +33,9 @@ class _GoogleAuthState extends State<GoogleAuth> {
           Padding(
             padding: const EdgeInsets.all(22.0),
             child: Text(
-              'You can pick another one later in the settings.',
+              'You can set another one '
+              'later in the settings.',
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline2,
             ),
           ),
@@ -73,13 +75,6 @@ class _GoogleAuthState extends State<GoogleAuth> {
           TextButton(
             child: Text('continue'),
             onPressed: () {
-              //TODO remove that stuff later on
-              if (nameController.text == 'Dancheg97 ') {
-                nameController.text = 'Dancheg97';
-                saveName(nameController.text);
-                Navigator.pushNamed(context, '/keys');
-                return;
-              }
               print(nameController.text);
               if (filter.isProfane(nameController.text)) {
                 nameController.text = '';
@@ -100,14 +95,6 @@ class _GoogleAuthState extends State<GoogleAuth> {
                 return;
               }
               //TODO add check for name to be characters and numbers
-              if (nameController.text == 'Dancheg97') {
-                nameController.text = '';
-                showDialog(
-                  context: context,
-                  builder: (_) => MessageOverlay(message: 'no :D'),
-                );
-                return;
-              }
               saveName(nameController.text);
               Navigator.pushNamed(context, '/keys');
             },
