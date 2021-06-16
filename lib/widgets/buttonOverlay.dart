@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
-
 class ButtonOverlay extends StatefulWidget {
-  
+  String messageText = 'error';
+  String buttonText = 'continue';
+  Function onPressed = () {};
+  ButtonOverlay({
+    this.messageText,
+    this.buttonText,
+    this.onPressed,
+  });
   @override
   State<StatefulWidget> createState() => ButtonOverlayState();
 }
@@ -48,16 +54,14 @@ class ButtonOverlayState extends State<ButtonOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Key is copied to\nclipboard. Save it\n in safe place!',
+                    this.widget.messageText,
                     style: Theme.of(context).textTheme.headline2,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
-                      child: Text('continue'),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/main');
-                      },
+                      child: Text(this.widget.buttonText),
+                      onPressed: this.widget.onPressed,
                     ),
                   ),
                 ],

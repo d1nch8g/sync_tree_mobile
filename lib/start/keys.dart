@@ -122,7 +122,14 @@ class CopyKeysSection extends StatelessWidget {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (_) => ButtonOverlay(),
+              builder: (_) => ButtonOverlay(
+                messageText:
+                    'Key is copied to\nclipboard. Save it\n in safe place!',
+                buttonText: 'continue',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/main');
+                },
+              ),
             );
           },
         ),
