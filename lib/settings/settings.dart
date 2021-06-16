@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'copyPriv.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -53,19 +54,23 @@ class _SettingsPageState extends State<SettingsPage> {
             padding: EdgeInsets.all(8.0),
             shrinkWrap: true,
             children: [
-              ListTile(
-                leading: Icon(
-                  Icons.vpn_key,
-                  color: Theme.of(context).hoverColor,
-                  size: 29,
-                ),
-                title: Text(
-                  'Copy private key',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                subtitle: Text(
-                  'Get copy of your private key saved on your device and copy it to clipboard.',
-                  style: Theme.of(context).textTheme.headline6,
+              // Copy key widget
+              GestureDetector(
+                onTap: copyPrivateKey(context),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.vpn_key,
+                    color: Theme.of(context).hoverColor,
+                    size: 29,
+                  ),
+                  title: Text(
+                    'Copy private key',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  subtitle: Text(
+                    'Get copy of your private key saved on your device and copy it to clipboard.',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                 ),
               ),
               Divider(),
