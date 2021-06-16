@@ -56,6 +56,17 @@ class Crypt {
     return CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
   }
 
+  bool checkPrivateKey(String key) {
+    try {
+      CryptoUtils.rsaPrivateKeyFromPemPkcs1(key);
+      print('key is ok');
+      return true;
+    } catch (exc) {
+      print('key is not ok');
+      return false;
+    }
+  }
+
   Uint8List signMessage(String privKey, Uint8List data) {
     var key = CryptoUtils.rsaPrivateKeyFromPemPkcs1(privKey);
     var sign = CryptoUtils.rsaSign(key, data, algorithmName: 'SHA-512/RSA');

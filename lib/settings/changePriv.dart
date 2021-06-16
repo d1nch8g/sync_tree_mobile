@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/widgets/all.dart';
+import '/crypt.dart';
 
 class ChangeKeyTile extends StatelessWidget {
   @override
@@ -67,6 +68,8 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
     controller.forward();
   }
 
+  var crypt = Crypt();
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -95,9 +98,28 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
                   ),
                   SizedBox(height: 10),
                   IconButton(
+                    splashRadius: 52,
+                    color: Theme.of(context).focusColor,
+                    iconSize: 48,
                     icon: Icon(
                       Icons.paste_sharp,
                     ),
+                    onPressed: () async {
+                      var key = await FlutterClipboard.paste();
+                      if (crypt.checkPrivateKey(key)) {
+                        
+                        // Logic to change key
+                        // Logic to remind user of that
+                        // Logic to close overlays
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (_) => MessageOverlay(
+                            mainText: 'invalid key',
+                          ),
+                        );
+                      }
+                    },
                   ),
                   SizedBox(height: 10),
                 ],
