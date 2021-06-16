@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'copyPriv.dart';
+import 'package:clipboard/clipboard.dart';
+import '/widgets/all.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -9,6 +10,18 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   String _currentName = 'loading';
+
+  copyPrivateKey() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var key = prefs.getString('persPriv');
+    FlutterClipboard.copy(key);
+    showDialog(
+      context: context,
+      builder: (_) => MessageOverlay(
+        message: 'key is copied\nto clipboard',
+      ),
+    );
+  }
 
   setStartName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
