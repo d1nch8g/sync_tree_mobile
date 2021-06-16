@@ -10,7 +10,7 @@ class SettingsPage extends StatelessWidget {
         children: [
           Icon(
             Icons.settings_applications,
-            size: 134,
+            size: 129,
             color: Theme.of(context).hintColor,
           ),
           Divider(),
@@ -18,11 +18,15 @@ class SettingsPage extends StatelessWidget {
             leading: Icon(
               Icons.vpn_key,
               color: Theme.of(context).hoverColor,
-              size: 34,
+              size: 29,
             ),
             title: Text(
-              'get private key',
+              'Copy private key',
               style: Theme.of(context).textTheme.headline5,
+            ),
+            subtitle: Text(
+              'Get copy of your private key saved on your device and copy it to clipboard.',
+              style: Theme.of(context).textTheme.headline6,
             ),
           ),
           Divider(),
@@ -30,7 +34,7 @@ class SettingsPage extends StatelessWidget {
             leading: Icon(
               Icons.lock,
               color: Theme.of(context).hoverColor,
-              size: 34,
+              size: 29,
             ),
             title: Text(
               'change private key',
@@ -42,7 +46,7 @@ class SettingsPage extends StatelessWidget {
             leading: Icon(
               Icons.handyman_sharp,
               color: Theme.of(context).hoverColor,
-              size: 34,
+              size: 29,
             ),
             title: Text(
               'generate new keys',
@@ -54,7 +58,7 @@ class SettingsPage extends StatelessWidget {
             leading: Icon(
               Icons.shield,
               color: Theme.of(context).hoverColor,
-              size: 34,
+              size: 29,
             ),
             title: Text(
               'set pin',

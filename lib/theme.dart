@@ -42,9 +42,15 @@ class App extends StatelessWidget {
           ),
           headline5: TextStyle(
             color: Color.fromRGBO(35, 37, 40, 1.0),
-            fontSize: 18.2,
+            fontSize: 16.2,
             fontFamily: 'Hind',
-            fontWeight: FontWeight.w200,
+            fontWeight: FontWeight.w500,
+          ),
+          headline6: TextStyle(
+            color: Color.fromRGBO(35, 37, 40, 1.0),
+            fontSize: 14.2,
+            fontFamily: 'Hind',
+            fontWeight: FontWeight.w400,
           ),
         ),
         textButtonTheme: TextButtonThemeData(
