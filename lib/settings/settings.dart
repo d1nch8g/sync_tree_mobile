@@ -11,16 +11,10 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   String _currentName = 'loading';
 
-  copyPrivateKey() async {
+  Future<String> getPrivKey() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var key = prefs.getString('persPriv');
-    FlutterClipboard.copy(key);
-    showDialog(
-      context: context,
-      builder: (_) => MessageOverlay(
-        message: 'key is copied\nto clipboard',
-      ),
-    );
+    return key;
   }
 
   setStartName() async {
@@ -68,22 +62,30 @@ class _SettingsPageState extends State<SettingsPage> {
             shrinkWrap: true,
             children: [
               // Copy key widget
-              GestureDetector(
-                onTap: copyPrivateKey,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.vpn_key,
-                    color: Theme.of(context).hoverColor,
-                    size: 29,
-                  ),
-                  title: Text(
-                    'Copy private key',
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                  subtitle: Text(
-                    'Get copy of your private key saved on your device and copy it to clipboard.',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
+              ListTile(
+                onTap: () {
+                  getPrivKey().then((privateKeyPem) {
+                    FlutterClipboard.copy(privateKeyPem);
+                    showDialog(
+                      context: context,
+                      builder: (_) => MessageOverlay(
+                        message: 'key is copied\nto clipboard',
+                      ),
+                    );
+                  });
+                },
+                leading: Icon(
+                  Icons.vpn_key,
+                  color: Theme.of(context).hoverColor,
+                  size: 29,
+                ),
+                title: Text(
+                  'Copy private key',
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                subtitle: Text(
+                  'Get copy of your private key saved on your device and copy it to clipboard.',
+                  style: Theme.of(context).textTheme.headline6,
                 ),
               ),
               Divider(),
