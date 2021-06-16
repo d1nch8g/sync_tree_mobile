@@ -12,8 +12,8 @@ class ChangeKeyTile extends StatelessWidget {
           context: context,
           builder: (_) => ButtonOverlay(
             () {},
-            messageText: '  Are you sure?\nCurrent key will\n  be deleted.',
-            buttonText: 'ok',
+            messageText: ' Are you sure?\nCurrent key will\n  be deleted.',
+            buttonText: 'continue',
           ),
         );
       },
