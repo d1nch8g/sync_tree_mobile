@@ -108,9 +108,16 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
                       var key = await FlutterClipboard.paste();
                       if (crypt.checkPrivateKey(key)) {
                         
+
                         // Logic to change key
                         // Logic to remind user of that
                         // Logic to close overlays
+                        showDialog(
+                          context: context,
+                          builder: (_) => MessageOverlay(
+                            mainText: 'key changed',
+                          ),
+                        );
                       } else {
                         showDialog(
                           context: context,
