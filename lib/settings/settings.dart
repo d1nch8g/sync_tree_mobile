@@ -68,7 +68,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 Divider(),
                 GenerateKeyTile(),
                 Divider(),
-                ChangePinTile(),
+                setPasswordTile(),
                 Divider(),
                 PublicNameTile(),
                 Divider(),
