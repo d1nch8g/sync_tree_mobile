@@ -91,7 +91,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     setState(() {
       currentWidget = KeysAreReady();
     });
-    Future.delayed(Duration(milliseconds: 610), () {
+    Future.delayed(Duration(milliseconds: 377), () {
       Navigator.pop(context);
       Future.delayed(Duration(milliseconds: 144), () {
         Navigator.pop(context);
@@ -125,7 +125,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
                   ),
                   SizedBox(height: 10),
                   AnimatedSwitcher(
-                    duration: Duration(milliseconds: 377),
+                    duration: Duration(milliseconds: 233),
                     child: currentWidget,
                     transitionBuilder: (
                       Widget child,
