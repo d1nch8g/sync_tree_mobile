@@ -60,8 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
           Divider(),
           Expanded(
             child: ListView(
-              padding: EdgeInsets.all(8.0),
-              shrinkWrap: true,
+              padding: EdgeInsets.all(3.0),
               children: [
                 CopyKeyTile(),
                 Divider(),

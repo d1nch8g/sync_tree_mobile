@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '/widgets/all.dart';
 
 class ChangePinTile extends StatelessWidget {
   @override
@@ -11,7 +12,12 @@ class ChangePinTile extends StatelessWidget {
         size: 29,
       ),
       onTap: () {
-        
+        showDialog(
+          context: context,
+          builder: (_) => PinOverlay(
+            () {},
+          ),
+        );
       },
       title: Text(
         'Set local pin',
