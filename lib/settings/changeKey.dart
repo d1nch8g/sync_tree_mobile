@@ -24,7 +24,7 @@ class ChangeKeyTile extends StatelessWidget {
             mainText: 'Sure?\n'
                 'current key will\n'
                 'be deleted',
-            buttonText: 'ok',
+            buttonText: 'continue',
           ),
         );
       },

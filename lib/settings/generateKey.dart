@@ -9,10 +9,24 @@ import '/crypt.dart';
 
 class GenerateNewKeys extends StatelessWidget {
   var crypt = Crypt();
-  
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (_) => ButtonOverlay(
+                  () {
+                    
+                  },
+                  mainText: 'Sure?\n'
+                      'current key will\n'
+                      'be replaced with\n'
+                      'generated',
+                  buttonText: 'continue',
+                ));
+      },
       leading: Icon(
         Icons.handyman_sharp,
         color: Theme.of(context).hoverColor,
