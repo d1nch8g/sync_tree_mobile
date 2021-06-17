@@ -1,8 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:clipboard/clipboard.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:clipboard/clipboard.dart';
+
 import '/widgets/all.dart';
 
 class CopyKeyTile extends StatelessWidget {

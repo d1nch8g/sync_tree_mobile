@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/settings/copyKey.dart';
-import 'package:sync_tree_mobile/settings/changeKey.dart';
+
+import 'copyKey.dart';
+import 'changeKey.dart';
+import 'generateKey.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
