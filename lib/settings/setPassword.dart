@@ -14,7 +14,7 @@ class ChangePinTile extends StatelessWidget {
       onTap: () {
         showDialog(
           context: context,
-          builder: (_) => PinOverlay(),
+          builder: (_) => PasswordOverlay(),
         );
       },
       title: Text(

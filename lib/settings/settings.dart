@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'copyKey.dart';
 import 'changeKey.dart';
 import 'generateKey.dart';
-import 'changePin.dart';
+import 'setPassword.dart';
 import 'licenses.dart';
 import 'pubName.dart';
 import 'sendChanges.dart';
