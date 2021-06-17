@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'copyKey.dart';
 import 'changeKey.dart';
 import 'generateKey.dart';
+import 'pin.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -64,21 +65,7 @@ class _SettingsPageState extends State<SettingsPage> {
               Divider(),
               GenerateNewKeys(),
               Divider(),
-              ListTile(
-                leading: Icon(
-                  Icons.shield,
-                  color: Theme.of(context).hoverColor,
-                  size: 29,
-                ),
-                title: Text(
-                  'Set pin code',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                subtitle: Text(
-                  'When you set a pin, it will be required for each wallet action.',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ),
+              SetPinCode(),
               Divider(),
               ListTile(
                 leading: Icon(
