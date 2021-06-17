@@ -1,6 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'messageOverlay.dart';
+
 class PasswordOverlay extends StatefulWidget {
+  final Function onSucess;
+  PasswordOverlay(this.onSucess);
   @override
   State<StatefulWidget> createState() => PasswordOverlayState();
 }
@@ -28,7 +36,25 @@ class PasswordOverlayState extends State<PasswordOverlay>
     controller.forward();
   }
 
-
+  void checkPassword() async {
+    var prefs = await SharedPreferences.getInstance();
+    if (textController.text == prefs.getString('pwd')) {
+    } else {
+      var _timer = Timer(Duration(milliseconds: 987), () {
+        Navigator.of(context).pop();
+      });
+      showDialog(
+        context: context,
+        builder: (_) => MessageOverlay(
+          mainText: 'wrong',
+        ),
+      ).then(
+        (value) => {
+          if (_timer.isActive) {_timer.cancel()}
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +85,9 @@ class PasswordOverlayState extends State<PasswordOverlay>
                     TextField(
                       obscureText: true,
                       autofocus: true,
-                      onEditingComplete: () {},
+                      onEditingComplete: () {
+                        checkPassword();
+                      },
                       style: TextStyle(
                         color: Theme.of(context).focusColor,
                       ),
