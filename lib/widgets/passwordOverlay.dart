@@ -45,32 +45,6 @@ class PasswordOverlayState extends State<PasswordOverlay>
     controller.forward();
   }
 
-  void checkPassword() async {
-    var prefs = await SharedPreferences.getInstance();
-    var realPassword = prefs.getString('pwd');
-    var inputPassword = textController.text;
-    print(realPassword);
-    print(inputPassword);
-    if (realPassword == inputPassword) {
-      Navigator.pop(context);
-      this.widget.onSucess();
-    } else {
-      var _timer = Timer(Duration(milliseconds: 987), () {
-        Navigator.of(context).pop();
-      });
-      showDialog(
-        context: context,
-        builder: (_) => MessageOverlay(
-          mainText: 'wrong',
-        ),
-      ).then(
-        (value) => {
-          if (_timer.isActive) {_timer.cancel()}
-        },
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -100,8 +74,11 @@ class PasswordOverlayState extends State<PasswordOverlay>
                     TextField(
                       obscureText: true,
                       autofocus: true,
-                      onEditingComplete: () {
-                        checkPassword();
+                      onEditingComplete: () async {
+                        var prefs = await SharedPreferences.getInstance();
+                        if (prefs.getString('pwd')==textController.text) {
+                          
+                        }
                       },
                       style: TextStyle(
                         color: Theme.of(context).focusColor,
