@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'copyKey.dart';
 import 'changeKey.dart';
 import 'generateKey.dart';
-import 'pin.dart';
+import 'pinSet.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
