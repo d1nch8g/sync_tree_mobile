@@ -5,10 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'copyKey.dart';
 import 'changeKey.dart';
 import 'generateKey.dart';
-import 'pinSet.dart';
-import 'aboutDialog.dart';
-import 'publicName.dart';
-import 'saveToServer.dart';
+import 'changePin.dart';
+import 'licenses.dart';
+import 'pubName.dart';
+import 'sendChanges.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -67,15 +67,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 Divider(),
                 ChangeKeyTile(),
                 Divider(),
-                GenerateNewKeys(),
+                GenerateKeyTile(),
                 Divider(),
-                SetPinCode(),
+                ChangePinTile(),
                 Divider(),
-                PublicName(),
+                PublicNameTile(),
                 Divider(),
-                SaveToServer(),
+                SendChangesTile(),
                 Divider(),
-                AboutDialogTile(),
+                LicensesTile(),
               ],
             ),
           ),

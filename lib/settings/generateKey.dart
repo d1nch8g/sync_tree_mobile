@@ -8,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '/widgets/all.dart';
 import '/crypt.dart';
 
-class GenerateNewKeys extends StatelessWidget {
+class GenerateKeyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(

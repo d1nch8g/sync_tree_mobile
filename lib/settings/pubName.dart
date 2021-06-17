@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 
-
-class SetPinCode extends StatelessWidget {
+class PublicNameTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-        Icons.shield,
+        Icons.person_pin_sharp,
         color: Theme.of(context).hoverColor,
         size: 29,
       ),
-      onTap: () {
-        
-      },
       title: Text(
-        'Set local pin',
+        'Change public name',
         style: Theme.of(context).textTheme.headline5,
       ),
       subtitle: Text(
-        'When you set a pin, it will be required for each wallet action.',
+        'You can simply change public name, using single request.',
         style: Theme.of(context).textTheme.headline6,
       ),
     );

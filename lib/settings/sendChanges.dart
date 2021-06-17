@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 
-class AboutDialogTile extends StatelessWidget {
+class SendChangesTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-        Icons.ad_units,
+        Icons.save_rounded,
         color: Theme.of(context).hoverColor,
         size: 29,
       ),
-      onTap: () {
-        showAboutDialog(context: context);
-      },
       title: Text(
-        'Show licenses',
+        'Save changes to server',
         style: Theme.of(context).textTheme.headline5,
       ),
       subtitle: Text(
-        'This dialog shows all licenses used on application build.',
+        'Send all local changes to network. ',
         style: Theme.of(context).textTheme.headline6,
       ),
     );
