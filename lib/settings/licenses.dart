@@ -5,7 +5,7 @@ class LicensesTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-        Icons.ad_units,
+        Icons.post_add_sharp,
         color: Theme.of(context).hoverColor,
         size: 29,
       ),

@@ -11,7 +11,7 @@ class setPasswordTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-        Icons.shield,
+        Icons.shield_outlined,
         color: Theme.of(context).hoverColor,
         size: 29,
       ),

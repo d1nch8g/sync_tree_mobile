@@ -27,7 +27,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
   Future<bool> firstLaunch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var firstLaunch = prefs.getBool('firstLaunch');
-    prefs.setBool('firstLaunch', false);
+    prefs.setBool('firstLaunch', false); // change to true to go to start
     return firstLaunch ?? true;
   }
 

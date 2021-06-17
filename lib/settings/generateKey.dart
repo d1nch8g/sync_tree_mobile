@@ -22,7 +22,7 @@ class GenerateKeyTile extends StatelessWidget {
                 builder: (_) => GenerateKeyOverlay(),
               );
             },
-            mainText: 'Sure?\n'
+            mainText: 'Are you sure?\n'
                 'current key will\n'
                 'be replaced with\n'
                 'generated',
