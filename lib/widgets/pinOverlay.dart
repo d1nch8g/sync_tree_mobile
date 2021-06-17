@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PinOverlay extends StatefulWidget {
-  final String newText;
-  PinOverlay({this.newText = 'enter pin'});
+  final String text;
+  PinOverlay({this.text = 'enter pin'});
   @override
   State<StatefulWidget> createState() => PinOverlayState();
 }
@@ -49,7 +49,11 @@ class PinOverlayState extends State<PinOverlay>
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(''),
+                    Text(
+                      this.widget.text,
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    
                   ],
                 ),
               ),
