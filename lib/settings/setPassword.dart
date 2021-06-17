@@ -63,7 +63,10 @@ class SetPasswordState extends State<SetPassword>
       setState(() {});
     });
     controller.forward();
-    currentWidget = PasswordTextField(setPassword);
+    currentWidget = PasswordTextField(
+      setPassword,
+      textController,
+    );
   }
 
   void setPassword() async {
@@ -132,11 +135,16 @@ class SetPasswordState extends State<SetPassword>
 
 class PasswordTextField extends StatelessWidget {
   final Function setPassword;
-  PasswordTextField(this.setPassword);
+  final TextEditingController controller;
+  PasswordTextField(
+    this.setPassword,
+    this.controller,
+  );
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       obscureText: true,
       autofocus: true,
       onEditingComplete: () {

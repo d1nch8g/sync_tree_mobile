@@ -11,7 +11,10 @@ void checkPwd(context, Function onSucess) async {
   if (prefs.getString('pwd') == null) {
     onSucess();
   } else {
-    showDialog(context: context, builder: (_) => PasswordOverlay(onSucess));
+    showDialog(
+      context: context,
+      builder: (_) => PasswordOverlay(onSucess),
+    );
   }
 }
 
@@ -27,6 +30,32 @@ class PasswordOverlayState extends State<PasswordOverlay>
   AnimationController controller;
   Animation<double> scaleAnimation;
   TextEditingController textController = TextEditingController();
+  String currentPassword;
+
+  void checkInputPassword() async {
+    var prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('pwd'));
+    if (prefs.getString('pwd') != textController.text) {
+      var _timer = Timer(Duration(milliseconds: 610), () {
+        Navigator.of(context).pop();
+      });
+      showDialog(
+        context: context,
+        builder: (_) => MessageOverlay(
+          mainText: 'wrong password',
+        ),
+      ).then(
+        (value) => {
+          if (_timer.isActive) {_timer.cancel()}
+        },
+      );
+    } else {
+      Navigator.of(context).pop();
+      Future.delayed(Duration(milliseconds: 377), () {
+        this.widget.onSucess();
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -72,13 +101,11 @@ class PasswordOverlayState extends State<PasswordOverlay>
                     ),
                     SizedBox(height: 12),
                     TextField(
+                      controller: textController,
                       obscureText: true,
                       autofocus: true,
-                      onEditingComplete: () async {
-                        var prefs = await SharedPreferences.getInstance();
-                        if (prefs.getString('pwd')==textController.text) {
-                          
-                        }
+                      onEditingComplete: () {
+                        checkInputPassword();
                       },
                       style: TextStyle(
                         color: Theme.of(context).focusColor,
