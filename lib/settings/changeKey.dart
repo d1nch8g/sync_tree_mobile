@@ -24,9 +24,9 @@ class ChangeKeyTile extends StatelessWidget {
                 );
               });
             },
-            mainText: 'Sure?\n'
+            mainText: 'Are you sure?\n'
                 'current key will\n'
-                'be deleted',
+                'be forever lost',
             buttonText: 'continue',
           ),
         );
@@ -68,8 +68,7 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
         CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
     controller.addListener(() {
-      setState(() {
-      });
+      setState(() {});
     });
 
     controller.forward();

@@ -29,9 +29,11 @@ class CopyKeyTile extends StatelessWidget {
               mainText: 'key is copied\n'
                   'to clipboard',
             ),
-          ).then((value) => {
-                if (_timer.isActive) {_timer.cancel()}
-              });
+          ).then(
+            (value) => {
+              if (_timer.isActive) {_timer.cancel()}
+            },
+          );
         });
       },
       leading: Icon(

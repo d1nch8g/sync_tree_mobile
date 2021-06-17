@@ -6,6 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'messageOverlay.dart';
 
+void checkPwd() {
+  
+}
+
 class PasswordOverlay extends StatefulWidget {
   final Function onSucess;
   PasswordOverlay(this.onSucess);
@@ -39,6 +43,8 @@ class PasswordOverlayState extends State<PasswordOverlay>
   void checkPassword() async {
     var prefs = await SharedPreferences.getInstance();
     if (textController.text == prefs.getString('pwd')) {
+      Navigator.pop(context);
+      this.widget.onSucess();
     } else {
       var _timer = Timer(Duration(milliseconds: 987), () {
         Navigator.of(context).pop();
