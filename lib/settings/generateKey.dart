@@ -8,6 +8,8 @@ import '/widgets/all.dart';
 import '/crypt.dart';
 
 class GenerateNewKeys extends StatelessWidget {
+  var crypt = Crypt();
+  
   @override
   Widget build(BuildContext context) {
     return ListTile(
