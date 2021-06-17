@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/settings/copyKey.dart';
-import 'package:sync_tree_mobile/settings/changePriv.dart';
+import 'package:sync_tree_mobile/settings/changeKey.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -59,21 +59,7 @@ class _SettingsPageState extends State<SettingsPage> {
               Divider(),
               ChangeKeyTile(),
               Divider(),
-              ListTile(
-                leading: Icon(
-                  Icons.handyman_sharp,
-                  color: Theme.of(context).hoverColor,
-                  size: 29,
-                ),
-                title: Text(
-                  'Generate new keys',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                subtitle: Text(
-                  'If you generate new keys, current keys will be deleted. Save them in safe place.',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ),
+              GenerateNewKeys(),
               Divider(),
               ListTile(
                 leading: Icon(

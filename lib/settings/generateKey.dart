@@ -1,0 +1,28 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:clipboard/clipboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '/widgets/all.dart';
+import '/crypt.dart';
+
+class GenerateNewKeys extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(
+        Icons.handyman_sharp,
+        color: Theme.of(context).hoverColor,
+        size: 29,
+      ),
+      title: Text(
+        'Generate new keys',
+        style: Theme.of(context).textTheme.headline5,
+      ),
+      subtitle: Text(
+        'If you generate new keys, current keys will be deleted. Save them in safe place.',
+        style: Theme.of(context).textTheme.headline6,
+      ),
+    );
+  }
+}
