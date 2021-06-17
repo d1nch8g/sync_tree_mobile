@@ -9,9 +9,10 @@ import 'messageOverlay.dart';
 void checkPwd(context, Function onSucess) async {
   var prefs = await SharedPreferences.getInstance();
   if (prefs.getString('pwd') == null) {
-    return;
-  } else {
     onSucess();
+  } else {
+    print('checking pass');
+    
   }
 }
 

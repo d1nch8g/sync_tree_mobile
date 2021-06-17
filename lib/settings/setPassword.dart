@@ -64,25 +64,9 @@ class SetPasswordState extends State<SetPassword>
     controller.forward();
   }
 
-  void checkPassword() async {
+  void setPassword() async {
     var prefs = await SharedPreferences.getInstance();
-    if (textController.text == prefs.getString('pwd')) {
-      Navigator.pop(context);
-    } else {
-      var _timer = Timer(Duration(milliseconds: 987), () {
-        Navigator.of(context).pop();
-      });
-      showDialog(
-        context: context,
-        builder: (_) => MessageOverlay(
-          mainText: 'wrong',
-        ),
-      ).then(
-        (value) => {
-          if (_timer.isActive) {_timer.cancel()}
-        },
-      );
-    }
+    prefs.setString('pwd', textController.text);
   }
 
   @override
@@ -107,49 +91,21 @@ class SetPasswordState extends State<SetPassword>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'set a password',
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'you can leave that'
-                      '',
+                      'set password',
                       style: Theme.of(context).textTheme.headline2,
                     ),
                     SizedBox(height: 12),
-                    TextField(
-                      obscureText: true,
-                      autofocus: true,
-                      onEditingComplete: () {
-                        checkPassword();
-                      },
-                      style: TextStyle(
-                        color: Theme.of(context).focusColor,
+                    AnimatedSwitcher(
+                      duration: Duration(milliseconds: 233),
+                      child: PasswordTextField(setPassword),
+                      transitionBuilder: (
+                        Widget child,
+                        Animation<double> animation,
+                      ) =>
+                          ScaleTransition(
+                        scale: animation,
+                        child: child,
                       ),
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide:
-                              BorderSide(color: Theme.of(context).focusColor),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide:
-                              BorderSide(color: Theme.of(context).focusColor),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide:
-                              BorderSide(color: Theme.of(context).focusColor),
-                        ),
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).focusColor,
-                        ),
-                        hoverColor: Theme.of(context).focusColor,
-                        fillColor: Theme.of(context).focusColor,
-                        focusColor: Theme.of(context).focusColor,
-                      ),
-                      cursorColor: Theme.of(context).focusColor,
                     ),
                   ],
                 ),
@@ -158,6 +114,46 @@ class SetPasswordState extends State<SetPassword>
           ),
         ),
       ),
+    );
+  }
+}
+
+class PasswordTextField extends StatelessWidget {
+  final Function setPassword;
+  PasswordTextField(this.setPassword);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      obscureText: true,
+      autofocus: true,
+      onEditingComplete: () {
+        setPassword();
+      },
+      style: TextStyle(
+        color: Theme.of(context).focusColor,
+      ),
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        labelStyle: TextStyle(
+          color: Theme.of(context).focusColor,
+        ),
+        hoverColor: Theme.of(context).focusColor,
+        fillColor: Theme.of(context).focusColor,
+        focusColor: Theme.of(context).focusColor,
+      ),
+      cursorColor: Theme.of(context).focusColor,
     );
   }
 }
