@@ -11,6 +11,7 @@ class SetPinCode extends StatelessWidget {
         size: 29,
       ),
       onTap: () {
+        
       },
       title: Text(
         'Set local pin',
