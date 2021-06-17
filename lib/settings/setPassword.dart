@@ -18,11 +18,11 @@ class ChangePinTile extends StatelessWidget {
         );
       },
       title: Text(
-        'Set local pin',
+        'Set app password',
         style: Theme.of(context).textTheme.headline5,
       ),
       subtitle: Text(
-        'When you set a pin, it will be required for each wallet action.',
+        'When you set a password, it will be required for some operations.',
         style: Theme.of(context).textTheme.headline6,
       ),
     );
