@@ -20,7 +20,7 @@ class ChangeKeyTile extends StatelessWidget {
                 builder: (_) => KeyInputOverlay(),
               );
             },
-            mainText: 'Are you sure?\n'
+            mainText: 'Sure?\n'
                 'current key will\n'
                 'be deleted',
             buttonText: 'ok',
@@ -122,9 +122,9 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
                           ),
                         ).then((value) => {
                               if (_timer.isActive) {_timer.cancel()},
-                              Future.delayed(Duration(milliseconds: 144), () {
+                              Future.delayed(Duration(milliseconds: 233), () {
                                 Navigator.pop(context);
-                                Future.delayed(Duration(milliseconds: 89), () {
+                                Future.delayed(Duration(milliseconds: 144), () {
                                   Navigator.pop(context);
                                 });
                               }),
