@@ -73,7 +73,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     super.initState();
 
     controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 320));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 233));
     scaleAnimation =
         CurvedAnimation(parent: controller, curve: Curves.decelerate);
 

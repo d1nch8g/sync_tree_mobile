@@ -12,6 +12,9 @@ class SetPinCode extends StatelessWidget {
         color: Theme.of(context).hoverColor,
         size: 29,
       ),
+      onTap: () {
+
+      },
       title: Text(
         'Set local pin',
         style: Theme.of(context).textTheme.headline5,
@@ -23,3 +26,5 @@ class SetPinCode extends StatelessWidget {
     );
   }
 }
+
+

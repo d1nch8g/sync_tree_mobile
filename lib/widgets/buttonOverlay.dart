@@ -23,7 +23,7 @@ class ButtonOverlayState extends State<ButtonOverlay>
     super.initState();
 
     controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 320));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 233));
     scaleAnimation =
         CurvedAnimation(parent: controller, curve: Curves.decelerate);
 

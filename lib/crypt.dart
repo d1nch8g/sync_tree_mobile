@@ -59,10 +59,8 @@ class Crypt {
   bool checkPrivateKey(String key) {
     try {
       CryptoUtils.rsaPrivateKeyFromPemPkcs1(key);
-      print('key is ok');
       return true;
     } catch (exc) {
-      print('key is not ok');
       return false;
     }
   }

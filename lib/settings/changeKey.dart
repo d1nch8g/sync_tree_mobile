@@ -63,7 +63,7 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
     super.initState();
 
     controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 377));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 233));
     scaleAnimation =
         CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
