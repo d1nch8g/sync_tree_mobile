@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,13 +19,18 @@ class CopyKeyTile extends StatelessWidget {
       onTap: () {
         getPrivKey().then((privateKeyPem) {
           FlutterClipboard.copy(privateKeyPem);
+          var _timer = Timer(Duration(milliseconds: 1597), () {
+            Navigator.of(context).pop();
+          });
           showDialog(
             context: context,
             builder: (_) => MessageOverlay(
               mainText: 'key is copied\n'
                   'to clipboard',
             ),
-          );
+          ).then((value) => {
+                if (_timer.isActive) {_timer.cancel()}
+              });
         });
       },
       leading: Icon(

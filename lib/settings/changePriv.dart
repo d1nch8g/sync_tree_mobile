@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -110,21 +112,23 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         prefs.setString('persPriv', key);
+                        var _timer = Timer(Duration(milliseconds: 610), () {
+                          Navigator.of(context).pop();
+                        });
                         showDialog(
                           context: context,
                           builder: (_) => MessageOverlay(
                             mainText: 'key changed',
                           ),
-                        );
-                        Future.delayed(Duration(seconds: 1), () {
-                          Navigator.pop(context);
-                          Future.delayed(Duration(milliseconds: 220), () {
-                            Navigator.pop(context);
-                            Future.delayed(Duration(milliseconds: 80), () {
-                              Navigator.pop(context);
+                        ).then((value) => {
+                              if (_timer.isActive) {_timer.cancel()},
+                              Future.delayed(Duration(milliseconds: 144), () {
+                                Navigator.pop(context);
+                                Future.delayed(Duration(milliseconds: 89), () {
+                                  Navigator.pop(context);
+                                });
+                              }),
                             });
-                          });
-                        });
                       } else {
                         showDialog(
                           context: context,
