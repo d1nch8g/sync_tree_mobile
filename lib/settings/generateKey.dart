@@ -18,7 +18,10 @@ class GenerateNewKeys extends StatelessWidget {
             context: context,
             builder: (_) => ButtonOverlay(
                   () {
-                    
+                    var futKeys = crypt.generateKeys();
+                    futKeys.then((keys) => {
+                      
+                    });
                   },
                   mainText: 'Sure?\n'
                       'current key will\n'
