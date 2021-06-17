@@ -45,6 +45,7 @@ class SetPasswordState extends State<SetPassword>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> scaleAnimation;
+  Widget currentWidget;
   TextEditingController textController = TextEditingController();
 
   @override
@@ -52,7 +53,7 @@ class SetPasswordState extends State<SetPassword>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 233),
+      duration: Duration(milliseconds: 610),
     );
     scaleAnimation = CurvedAnimation(
       parent: controller,
@@ -62,11 +63,22 @@ class SetPasswordState extends State<SetPassword>
       setState(() {});
     });
     controller.forward();
+    currentWidget = PasswordTextField(setPassword);
   }
 
   void setPassword() async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString('pwd', textController.text);
+    setState(() {
+      currentWidget = Icon(
+        Icons.lock_outline_rounded,
+        color: Theme.of(context).focusColor,
+        size: 89,
+      );
+      Future.delayed(Duration(milliseconds: 610 + 233), () {
+        Navigator.pop(context);
+      });
+    });
   }
 
   @override
@@ -97,7 +109,7 @@ class SetPasswordState extends State<SetPassword>
                     SizedBox(height: 12),
                     AnimatedSwitcher(
                       duration: Duration(milliseconds: 233),
-                      child: PasswordTextField(setPassword),
+                      child: currentWidget,
                       transitionBuilder: (
                         Widget child,
                         Animation<double> animation,

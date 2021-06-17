@@ -11,8 +11,7 @@ void checkPwd(context, Function onSucess) async {
   if (prefs.getString('pwd') == null) {
     onSucess();
   } else {
-    print('checking pass');
-    
+    showDialog(context: context, builder: (_) => PasswordOverlay(onSucess));
   }
 }
 
@@ -90,8 +89,8 @@ class PasswordOverlayState extends State<PasswordOverlay>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'password',
-                      style: Theme.of(context).textTheme.headline1,
+                      'enter password',
+                      style: Theme.of(context).textTheme.headline2,
                     ),
                     SizedBox(height: 12),
                     TextField(
