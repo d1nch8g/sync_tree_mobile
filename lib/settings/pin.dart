@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:pinput/pin_put/pin_put.dart';
+import 'package:pinput/pin_put/pin_put_state.dart';
 
 class SetPinCode extends StatelessWidget {
   @override
