@@ -68,7 +68,8 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
         CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
     controller.addListener(() {
-      setState(() {});
+      setState(() {
+      });
     });
 
     controller.forward();
