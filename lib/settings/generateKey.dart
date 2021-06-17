@@ -14,15 +14,21 @@ class GenerateNewKeys extends StatelessWidget {
     return ListTile(
       onTap: () {
         showDialog(
-            context: context,
-            builder: (_) => ButtonOverlay(
-                  () {},
-                  mainText: 'Sure?\n'
-                      'current key will\n'
-                      'be replaced with\n'
-                      'generated',
-                  buttonText: 'continue',
-                ));
+          context: context,
+          builder: (_) => ButtonOverlay(
+            () {
+              showDialog(
+                context: context,
+                builder: (_) => GenerateKeyOverlay(),
+              );
+            },
+            mainText: 'Sure?\n'
+                'current key will\n'
+                'be replaced with\n'
+                'generated',
+            buttonText: 'continue',
+          ),
+        );
       },
       leading: Icon(
         Icons.handyman_sharp,
@@ -51,6 +57,17 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
   AnimationController controller;
   Animation<double> scaleAnimation;
 
+  buildKeys() async {
+    var crypt = Crypt();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var futKeys = crypt.generateKeys();
+    futKeys.then((keys) => {
+          prefs.setString('persPriv', keys[0]),
+          prefs.setString('persPub', keys[1]),
+          changeWidget(),
+        });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -65,11 +82,22 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     });
 
     controller.forward();
+    buildKeys();
   }
 
-  var crypt = Crypt();
-
   Widget currentWidget = KeysNotReady();
+
+  changeWidget() {
+    setState(() {
+      currentWidget = KeysAreReady();
+    });
+    Future.delayed(Duration(milliseconds: 610), () {
+      Navigator.pop(context);
+      Future.delayed(Duration(milliseconds: 144), () {
+        Navigator.pop(context);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,15 +119,13 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Press this button\n'
-                    'to paste a key\n'
-                    'from clipboard',
+                    'Building new keys\n',
                     style: Theme.of(context).textTheme.headline2,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),
                   AnimatedSwitcher(
-                    duration: Duration(milliseconds: 720),
+                    duration: Duration(milliseconds: 377),
                     child: currentWidget,
                     transitionBuilder: (
                       Widget child,
@@ -125,12 +151,30 @@ class KeysNotReady extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: 200,
       height: 200,
       child: Center(
         child: SpinKitCubeGrid(
           color: Theme.of(context).focusColor,
           size: 142.0,
           duration: const Duration(milliseconds: 1124),
+        ),
+      ),
+    );
+  }
+}
+
+class KeysAreReady extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 200,
+      height: 200,
+      child: Center(
+        child: Icon(
+          Icons.check_box_outlined,
+          size: 180,
+          color: Theme.of(context).focusColor,
         ),
       ),
     );
