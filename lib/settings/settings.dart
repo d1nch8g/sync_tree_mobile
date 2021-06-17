@@ -94,7 +94,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 subtitle: Text(
-                  'This button is made to .',
+                  'Send all local changes to network. ',
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),

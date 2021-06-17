@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '/pin.dart';
 
 class SetPinCode extends StatelessWidget {
   @override
@@ -11,7 +10,8 @@ class SetPinCode extends StatelessWidget {
         color: Theme.of(context).hoverColor,
         size: 29,
       ),
-      onTap: () {},
+      onTap: () {
+      },
       title: Text(
         'Set local pin',
         style: Theme.of(context).textTheme.headline5,

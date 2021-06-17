@@ -36,7 +36,7 @@ class GenerateNewKeys extends StatelessWidget {
         size: 29,
       ),
       title: Text(
-        'Generate new keys',
+        'Generate new key',
         style: Theme.of(context).textTheme.headline5,
       ),
       subtitle: Text(
