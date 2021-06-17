@@ -20,7 +20,7 @@ class CopyKeyTile extends StatelessWidget {
       onTap: () {
         getPrivKey().then((privateKeyPem) {
           FlutterClipboard.copy(privateKeyPem);
-          var _timer = Timer(Duration(milliseconds: 1597), () {
+          var _timer = Timer(Duration(milliseconds: 987), () {
             Navigator.of(context).pop();
           });
           showDialog(
