@@ -6,6 +6,8 @@ import 'copyKey.dart';
 import 'changeKey.dart';
 import 'generateKey.dart';
 import 'pinSet.dart';
+import 'aboutDialog.dart';
+import 'publicName.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -55,52 +57,40 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
           Divider(),
-          ListView(
-            padding: EdgeInsets.all(8.0),
-            shrinkWrap: true,
-            children: [
-              CopyKeyTile(),
-              Divider(),
-              ChangeKeyTile(),
-              Divider(),
-              GenerateNewKeys(),
-              Divider(),
-              SetPinCode(),
-              Divider(),
-              ListTile(
-                leading: Icon(
-                  Icons.person_pin_sharp,
-                  color: Theme.of(context).hoverColor,
-                  size: 29,
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.all(8.0),
+              shrinkWrap: true,
+              children: [
+                CopyKeyTile(),
+                Divider(),
+                ChangeKeyTile(),
+                Divider(),
+                GenerateNewKeys(),
+                Divider(),
+                SetPinCode(),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.person_pin_sharp,
+                    color: Theme.of(context).hoverColor,
+                    size: 29,
+                  ),
+                  title: Text(
+                    'Change public name',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  subtitle: Text(
+                    'You can simply change public name, using single request.',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                 ),
-                title: Text(
-                  'Change public name',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                subtitle: Text(
-                  'You can simply change public name, using single request.',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ),
-              Divider(),
-              ListTile(
-                leading: Icon(
-                  Icons.save_rounded,
-                  color: Theme.of(context).hoverColor,
-                  size: 29,
-                ),
-                title: Text(
-                  'Save changes to server',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                subtitle: Text(
-                  'Send all local changes to network. ',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ),
-            ],
+                Divider(),
+                Divider(),
+                AboutDialogTile(),
+              ],
+            ),
           ),
-          Divider(),
         ],
       ),
     );
