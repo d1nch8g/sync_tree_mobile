@@ -47,7 +47,11 @@ class PasswordOverlayState extends State<PasswordOverlay>
 
   void checkPassword() async {
     var prefs = await SharedPreferences.getInstance();
-    if (textController.text == prefs.getString('pwd')) {
+    var realPassword = prefs.getString('pwd');
+    var inputPassword = textController.text;
+    print(realPassword);
+    print(inputPassword);
+    if (realPassword == inputPassword) {
       Navigator.pop(context);
       this.widget.onSucess();
     } else {
