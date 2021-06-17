@@ -10,7 +10,13 @@ class LicensesTile extends StatelessWidget {
         size: 29,
       ),
       onTap: () {
-        showAboutDialog(context: context);
+        showAboutDialog(
+          context: context,
+          applicationName: 'name: sync tree mobile',
+          applicationVersion: 'version: 0.0.1',
+          applicationLegalese: 'made with love and flutter',
+          applicationIcon: FlutterLogo(),
+        );
       },
       title: Text(
         'Show licenses',
