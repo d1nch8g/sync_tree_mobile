@@ -16,10 +16,13 @@ class ChangeKeyTile extends StatelessWidget {
           context: context,
           builder: (_) => ButtonOverlay(
             () {
-              showDialog(
-                context: context,
-                builder: (_) => KeyInputOverlay(),
-              );
+              Navigator.pop(context);
+              Future.delayed(Duration(milliseconds: 233), () {
+                showDialog(
+                  context: context,
+                  builder: (_) => KeyInputOverlay(),
+                );
+              });
             },
             mainText: 'Sure?\n'
                 'current key will\n'
@@ -60,7 +63,7 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
     super.initState();
 
     controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 320));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 377));
     scaleAnimation =
         CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
@@ -113,23 +116,22 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         prefs.setString('persPriv', key);
-                        var _timer = Timer(Duration(milliseconds: 610), () {
-                          Navigator.of(context).pop();
-                        });
-                        showDialog(
-                          context: context,
-                          builder: (_) => MessageOverlay(
-                            mainText: 'key changed',
-                          ),
-                        ).then((value) => {
+                        Navigator.pop(context);
+                        Future.delayed(Duration(milliseconds: 233), () {
+                          var _timer = Timer(Duration(milliseconds: 610), () {
+                            Navigator.of(context).pop();
+                          });
+                          showDialog(
+                            context: context,
+                            builder: (_) => MessageOverlay(
+                              mainText: 'key changed',
+                            ),
+                          ).then(
+                            (value) => {
                               if (_timer.isActive) {_timer.cancel()},
-                              Future.delayed(Duration(milliseconds: 233), () {
-                                Navigator.pop(context);
-                                Future.delayed(Duration(milliseconds: 144), () {
-                                  Navigator.pop(context);
-                                });
-                              }),
-                            });
+                            },
+                          );
+                        });
                       } else {
                         showDialog(
                           context: context,
