@@ -12,7 +12,7 @@ class SetPinCode extends StatelessWidget {
         size: 29,
       ),
       title: Text(
-        'Set pin code',
+        'Set local pin',
         style: Theme.of(context).textTheme.headline5,
       ),
       subtitle: Text(

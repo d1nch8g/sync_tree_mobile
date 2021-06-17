@@ -116,28 +116,35 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         prefs.setString('persPriv', key);
-                        Navigator.pop(context);
-                        Future.delayed(Duration(milliseconds: 233), () {
-                          var _timer = Timer(Duration(milliseconds: 610), () {
-                            Navigator.of(context).pop();
+                        var _timer = Timer(Duration(milliseconds: 610), () {
+                          Navigator.pop(context);
+                          Future.delayed(Duration(milliseconds: 144), () {
+                            Navigator.pop(context);
                           });
-                          showDialog(
-                            context: context,
-                            builder: (_) => MessageOverlay(
-                              mainText: 'key changed',
-                            ),
-                          ).then(
-                            (value) => {
-                              if (_timer.isActive) {_timer.cancel()},
-                            },
-                          );
                         });
+                        showDialog(
+                          context: context,
+                          builder: (_) => MessageOverlay(
+                            mainText: 'key changed',
+                          ),
+                        ).then(
+                          (value) => {
+                            if (_timer.isActive) {_timer.cancel()},
+                          },
+                        );
                       } else {
+                        var _timer = Timer(Duration(milliseconds: 987), () {
+                          Navigator.pop(context);
+                        });
                         showDialog(
                           context: context,
                           builder: (_) => MessageOverlay(
                             mainText: 'invalid key',
                           ),
+                        ).then(
+                          (value) => {
+                            if (_timer.isActive) {_timer.cancel()},
+                          },
                         );
                       }
                     },
