@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../security/pin.dart';
+import '/security/pin.dart';
 
 class SecuritySetTile extends StatelessWidget {
   @override
@@ -32,22 +32,66 @@ class SecuritySetTile extends StatelessWidget {
   }
 }
 
-/*
-  Which actions will be using pin 100%:
-1 - Changing pin
-2 - Accesing security settings
+class GenerateKeyOverlay extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => GenerateKeyOverlayState();
+}
 
-  Which actions can be configurable with pin:
-Settings:
-1 - Copy private key
-2 - Change private key
-3 - Generate new keys
-4 - Change public name
-5 - Save changes to server
-Wallet:
-1 - 
-Balance:
-1 - 
-Markets:
-1 - 
-*/
+class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> scaleAnimation;
+  Widget currentWidget;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 233),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
+    controller.addListener(() {
+      setState(() {});
+    });
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: Container(
+            decoration: ShapeDecoration(
+              color: Theme.of(context).backgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(42, 42, 42, 14),
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 377),
+                child: Text('yo'),
+                transitionBuilder: (
+                  Widget child,
+                  Animation<double> animation,
+                ) =>
+                    ScaleTransition(
+                  scale: animation,
+                  child: child,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
