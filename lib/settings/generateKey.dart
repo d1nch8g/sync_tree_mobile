@@ -87,7 +87,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
             child: Padding(
               padding: const EdgeInsets.fromLTRB(42, 42, 42, 14),
               child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 233),
+                duration: Duration(milliseconds: 377),
                 child: currentWidget,
                 transitionBuilder: (
                   Widget child,

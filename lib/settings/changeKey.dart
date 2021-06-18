@@ -169,7 +169,7 @@ class PasteButton extends StatelessWidget {
         splashRadius: 52,
         color: Theme.of(context).focusColor,
         iconSize: 48,
-        icon: Icon(Icons.paste_sharp),
+        icon: Icon(Icons.copy),
         onPressed: onPressed,
       ),
     );
