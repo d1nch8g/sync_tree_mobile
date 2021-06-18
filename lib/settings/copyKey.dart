@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:clipboard/clipboard.dart';
 
 import '/widgets/all.dart';
+import '/pin/pin.dart';
 
 class CopyKeyTile extends StatelessWidget {
   Future<String> getPrivKey() async {
@@ -18,23 +19,25 @@ class CopyKeyTile extends StatelessWidget {
     return ListTile(
       enableFeedback: true,
       onTap: () {
-        getPrivKey().then((privateKeyPem) {
-          FlutterClipboard.copy(privateKeyPem);
-          var _timer = Timer(Duration(milliseconds: 987), () {
-            Navigator.of(context).pop();
+        checkPwd(context, () {
+          getPrivKey().then((privateKeyPem) {
+            FlutterClipboard.copy(privateKeyPem);
+            var _timer = Timer(Duration(milliseconds: 987), () {
+              Navigator.of(context).pop();
+            });
+            showDialog(
+              context: context,
+              builder: (_) => MessageOverlay(
+                mainText: 'key is copied\n'
+                    'to clipboard',
+              ),
+            ).then(
+              (value) => {
+                if (_timer.isActive) {_timer.cancel()}
+              },
+            );
           });
-          showDialog(
-            context: context,
-            builder: (_) => MessageOverlay(
-              mainText: 'key is copied\n'
-                  'to clipboard',
-            ),
-          ).then(
-            (value) => {
-              if (_timer.isActive) {_timer.cancel()}
-            },
-          );
-        });
+        }, PinEnum.copyPrivate);
       },
       leading: Icon(
         Icons.vpn_key_outlined,
