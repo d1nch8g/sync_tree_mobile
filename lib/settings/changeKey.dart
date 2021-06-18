@@ -59,7 +59,11 @@ class ChangeKeyOverlayState extends State<ChangeKeyOverlay>
       setState(() {});
     });
     controller.forward();
-    currentContent = QuestionContent();
+    currentContent = QuestionContent(() {
+      setState(() {
+        currentContent = KeyCopyContent();
+      });
+    });
   }
 
   @override
@@ -78,7 +82,18 @@ class ChangeKeyOverlayState extends State<ChangeKeyOverlay>
             ),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(42, 42, 42, 14),
-              child: currentContent,
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 377),
+                child: currentContent,
+                transitionBuilder: (
+                  Widget child,
+                  Animation<double> animation,
+                ) =>
+                    ScaleTransition(
+                  scale: animation,
+                  child: child,
+                ),
+              ),
             ),
           ),
         ),
@@ -88,6 +103,8 @@ class ChangeKeyOverlayState extends State<ChangeKeyOverlay>
 }
 
 class QuestionContent extends StatelessWidget {
+  final Function onPressed;
+  QuestionContent(this.onPressed);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -96,7 +113,7 @@ class QuestionContent extends StatelessWidget {
         Text(
           'Are you sure?\n'
           'if you paste\n'
-          'new key, old one'
+          'new key, old one\n'
           'will be deleted',
           style: Theme.of(context).textTheme.headline2,
           textAlign: TextAlign.center,
@@ -137,19 +154,16 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
         });
       });
     } else {
-      var _timer = Timer(Duration(milliseconds: 987), () {
-        Navigator.pop(context);
+      setState(() {
+        buttonToAnimate = ErrorButton();
+        Future.delayed(Duration(milliseconds: 377), () {
+          setState(() {
+            buttonToAnimate = PasteButton(() {
+              onPressAction(context);
+            });
+          });
+        });
       });
-      showDialog(
-        context: context,
-        builder: (_) => MessageOverlay(
-          mainText: 'invalid key',
-        ),
-      ).then(
-        (value) => {
-          if (_timer.isActive) {_timer.cancel()},
-        },
-      );
     }
   }
 
