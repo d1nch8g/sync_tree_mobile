@@ -207,7 +207,7 @@ class PasswordTextField extends StatelessWidget {
             Icons.do_disturb,
           ),
           color: Theme.of(context).focusColor,
-          onPressed: removePassword(),
+          onPressed: removePassword,
         ),
       ),
       cursorColor: Theme.of(context).focusColor,
