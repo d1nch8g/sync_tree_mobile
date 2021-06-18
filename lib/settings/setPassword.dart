@@ -106,7 +106,7 @@ class SetPasswordState extends State<SetPassword>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'set password',
+                      'set pin',
                       style: Theme.of(context).textTheme.headline2,
                     ),
                     SizedBox(height: 12),
@@ -121,6 +121,13 @@ class SetPasswordState extends State<SetPassword>
                         scale: animation,
                         child: child,
                       ),
+                    ),
+                    SizedBox(height: 12),
+                    TextButton(
+                      onPressed: () {
+                        setPassword();
+                      },
+                      child: Text('continue'),
                     ),
                   ],
                 ),

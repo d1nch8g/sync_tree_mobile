@@ -13,19 +13,19 @@ void checkPwd(context, Function onSucess) async {
   } else {
     showDialog(
       context: context,
-      builder: (_) => PasswordOverlay(onSucess),
+      builder: (_) => PinOverlay(onSucess),
     );
   }
 }
 
-class PasswordOverlay extends StatefulWidget {
+class PinOverlay extends StatefulWidget {
   final Function onSucess;
-  PasswordOverlay(this.onSucess);
+  PinOverlay(this.onSucess);
   @override
-  State<StatefulWidget> createState() => PasswordOverlayState();
+  State<StatefulWidget> createState() => PinOverlayState();
 }
 
-class PasswordOverlayState extends State<PasswordOverlay>
+class PinOverlayState extends State<PinOverlay>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> scaleAnimation;
@@ -89,14 +89,14 @@ class PasswordOverlayState extends State<PasswordOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(42, 22, 42, 42),
+              padding: const EdgeInsets.fromLTRB(42, 22, 42, 14),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.62,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'enter password',
+                      'enter pin',
                       style: Theme.of(context).textTheme.headline2,
                     ),
                     SizedBox(height: 12),
@@ -137,6 +137,13 @@ class PasswordOverlayState extends State<PasswordOverlay>
                         focusColor: Theme.of(context).focusColor,
                       ),
                       cursorColor: Theme.of(context).focusColor,
+                    ),
+                    SizedBox(height: 12),
+                    TextButton(
+                      onPressed: () {
+                        checkInputPassword();
+                      },
+                      child: Text('continue'),
                     ),
                   ],
                 ),
