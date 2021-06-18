@@ -21,7 +21,7 @@ class SetPinTile extends StatelessWidget {
           () {
             showDialog(
               context: context,
-              builder: (_) => SetPin(),
+              builder: (_) => SetPinOverlay(),
               barrierDismissible: false,
             );
           },
@@ -40,12 +40,13 @@ class SetPinTile extends StatelessWidget {
   }
 }
 
-class SetPin extends StatefulWidget {
+class SetPinOverlay extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => SetPinState();
+  State<StatefulWidget> createState() => SetPinOverlayState();
 }
 
-class SetPinState extends State<SetPin> with SingleTickerProviderStateMixin {
+class SetPinOverlayState extends State<SetPinOverlay>
+    with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> scaleAnimation;
   Widget currentWidget;
@@ -68,6 +69,7 @@ class SetPinState extends State<SetPin> with SingleTickerProviderStateMixin {
     controller.forward();
     currentWidget = PasswordTextField(
       setPassword,
+      removePassword,
       textController,
     );
   }
@@ -78,6 +80,21 @@ class SetPinState extends State<SetPin> with SingleTickerProviderStateMixin {
     setState(() {
       currentWidget = Icon(
         Icons.lock_outline_rounded,
+        color: Theme.of(context).focusColor,
+        size: 89,
+      );
+      Future.delayed(Duration(milliseconds: 610 + 233), () {
+        Navigator.pop(context);
+      });
+    });
+  }
+
+  void removePassword() async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString('pwd', null);
+    setState(() {
+      currentWidget = Icon(
+        Icons.lock_open_rounded,
         color: Theme.of(context).focusColor,
         size: 89,
       );
@@ -109,7 +126,7 @@ class SetPinState extends State<SetPin> with SingleTickerProviderStateMixin {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'set pin',
+                      'set or remove pin',
                       style: Theme.of(context).textTheme.headline2,
                     ),
                     SizedBox(height: 12),
@@ -145,9 +162,11 @@ class SetPinState extends State<SetPin> with SingleTickerProviderStateMixin {
 
 class PasswordTextField extends StatelessWidget {
   final Function setPassword;
+  final Function removePassword;
   final TextEditingController controller;
   PasswordTextField(
     this.setPassword,
+    this.removePassword,
     this.controller,
   );
 
@@ -183,6 +202,13 @@ class PasswordTextField extends StatelessWidget {
         hoverColor: Theme.of(context).focusColor,
         fillColor: Theme.of(context).focusColor,
         focusColor: Theme.of(context).focusColor,
+        suffixIcon: IconButton(
+          icon: Icon(
+            Icons.do_disturb,
+          ),
+          color: Theme.of(context).focusColor,
+          onPressed: removePassword(),
+        ),
       ),
       cursorColor: Theme.of(context).focusColor,
     );
