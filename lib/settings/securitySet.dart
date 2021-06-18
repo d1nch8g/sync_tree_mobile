@@ -14,7 +14,9 @@ class SecuritySetTile extends StatelessWidget {
       onTap: () {
         checkPwd(
           context,
-          () {},
+          () {
+            // add security overlay over here
+          },
           PinEnum.securitySettings,
         );
       },
