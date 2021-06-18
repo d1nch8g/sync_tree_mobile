@@ -107,6 +107,9 @@ class PasswordOverlayState extends State<PasswordOverlay>
                       onEditingComplete: () {
                         checkInputPassword();
                       },
+                      keyboardType: TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
                       style: TextStyle(
                         color: Theme.of(context).focusColor,
                       ),

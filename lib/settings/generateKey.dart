@@ -172,8 +172,8 @@ class KeysAreReady extends StatelessWidget {
       height: 200,
       child: Center(
         child: Icon(
-          Icons.check_box_outlined,
-          size: 180,
+          Icons.check_circle_outline_rounded,
+          size: 140,
           color: Theme.of(context).focusColor,
         ),
       ),

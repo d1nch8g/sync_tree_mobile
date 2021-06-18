@@ -57,24 +57,56 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> scaleAnimation;
+  Widget buttonToAnimate;
+
+  onPressAction(context) async {
+    final crypt = Crypt();
+    var key = await FlutterClipboard.paste();
+    if (crypt.checkPrivateKey(key)) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('persPriv', key);
+      setState(() {
+        buttonToAnimate = SucessButton();
+        Future.delayed(Duration(milliseconds: 377), () {
+          Navigator.pop(context);
+        });
+      });
+    } else {
+      var _timer = Timer(Duration(milliseconds: 987), () {
+        Navigator.pop(context);
+      });
+      showDialog(
+        context: context,
+        builder: (_) => MessageOverlay(
+          mainText: 'invalid key',
+        ),
+      ).then(
+        (value) => {
+          if (_timer.isActive) {_timer.cancel()},
+        },
+      );
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 233));
-    scaleAnimation =
-        CurvedAnimation(parent: controller, curve: Curves.decelerate);
-
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 233),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
     controller.addListener(() {
       setState(() {});
     });
-
     controller.forward();
+    buttonToAnimate = PasteButton(() {
+      onPressAction(context);
+    });
   }
-
-  var crypt = Crypt();
 
   @override
   Widget build(BuildContext context) {
@@ -103,51 +135,17 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),
-                  IconButton(
-                    splashRadius: 52,
-                    color: Theme.of(context).focusColor,
-                    iconSize: 48,
-                    icon: Icon(
-                      Icons.paste_sharp,
+                  AnimatedSwitcher(
+                    child: buttonToAnimate,
+                    duration: Duration(milliseconds: 144),
+                    transitionBuilder: (
+                      Widget child,
+                      Animation<double> animation,
+                    ) =>
+                        ScaleTransition(
+                      scale: animation,
+                      child: child,
                     ),
-                    onPressed: () async {
-                      var key = await FlutterClipboard.paste();
-                      if (crypt.checkPrivateKey(key)) {
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        prefs.setString('persPriv', key);
-                        var _timer = Timer(Duration(milliseconds: 610), () {
-                          Navigator.pop(context);
-                          Future.delayed(Duration(milliseconds: 144), () {
-                            Navigator.pop(context);
-                          });
-                        });
-                        showDialog(
-                          context: context,
-                          builder: (_) => MessageOverlay(
-                            mainText: 'key changed',
-                          ),
-                        ).then(
-                          (value) => {
-                            if (_timer.isActive) {_timer.cancel()},
-                          },
-                        );
-                      } else {
-                        var _timer = Timer(Duration(milliseconds: 987), () {
-                          Navigator.pop(context);
-                        });
-                        showDialog(
-                          context: context,
-                          builder: (_) => MessageOverlay(
-                            mainText: 'invalid key',
-                          ),
-                        ).then(
-                          (value) => {
-                            if (_timer.isActive) {_timer.cancel()},
-                          },
-                        );
-                      }
-                    },
                   ),
                   SizedBox(height: 10),
                 ],
@@ -155,6 +153,38 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class PasteButton extends StatelessWidget {
+  final Function onPressed;
+  PasteButton(this.onPressed);
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 54,
+      child: IconButton(
+        splashRadius: 52,
+        color: Theme.of(context).focusColor,
+        iconSize: 48,
+        icon: Icon(Icons.paste_sharp),
+        onPressed: onPressed,
+      ),
+    );
+  }
+}
+
+class SucessButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 54,
+      child: Icon(
+        Icons.check_circle_outline,
+        size: 52,
+        color: Theme.of(context).focusColor,
       ),
     );
   }

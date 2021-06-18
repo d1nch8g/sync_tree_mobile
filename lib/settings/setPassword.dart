@@ -147,6 +147,9 @@ class PasswordTextField extends StatelessWidget {
       controller: controller,
       obscureText: true,
       autofocus: true,
+      keyboardType: TextInputType.numberWithOptions(
+        decimal: true,
+      ),
       onEditingComplete: () {
         setPassword();
       },
