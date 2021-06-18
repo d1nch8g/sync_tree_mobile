@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'copyKey.dart';
 import 'changeKey.dart';
 import 'generateKey.dart';
-import 'setPassword.dart';
+import 'setPin.dart';
 import 'licenses.dart';
 import 'pubName.dart';
 import 'sendChanges.dart';
@@ -68,7 +68,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 Divider(),
                 GenerateKeyTile(),
                 Divider(),
-                setPasswordTile(),
+                SetPinTile(),
                 Divider(),
                 PublicNameTile(),
                 Divider(),

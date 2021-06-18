@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '/widgets/all.dart';
 
-class setPasswordTile extends StatelessWidget {
+class SetPinTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -19,7 +19,7 @@ class setPasswordTile extends StatelessWidget {
         checkPwd(context, () {
           showDialog(
             context: context,
-            builder: (_) => SetPassword(),
+            builder: (_) => SetPin(),
             barrierDismissible: false,
           );
         });
@@ -29,19 +29,19 @@ class setPasswordTile extends StatelessWidget {
         style: Theme.of(context).textTheme.headline5,
       ),
       subtitle: Text(
-        'When you set a password, it will be required for some operations.',
+        'When you set a pin, it will be required for some operations.',
         style: Theme.of(context).textTheme.headline6,
       ),
     );
   }
 }
 
-class SetPassword extends StatefulWidget {
+class SetPin extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => SetPasswordState();
+  State<StatefulWidget> createState() => SetPinState();
 }
 
-class SetPasswordState extends State<SetPassword>
+class SetPinState extends State<SetPin>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> scaleAnimation;
@@ -99,7 +99,7 @@ class SetPasswordState extends State<SetPassword>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(42, 22, 42, 42),
+              padding: const EdgeInsets.fromLTRB(42, 22, 42, 14),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.62,
                 child: Column(
@@ -154,9 +154,7 @@ class PasswordTextField extends StatelessWidget {
       controller: controller,
       obscureText: true,
       autofocus: true,
-      keyboardType: TextInputType.numberWithOptions(
-        decimal: true,
-      ),
+      keyboardType: TextInputType.number,
       onEditingComplete: () {
         setPassword();
       },
