@@ -32,7 +32,7 @@ class ChangeKeyTile extends StatelessWidget {
         );
       },
       leading: Icon(
-        Icons.lock,
+        Icons.vpn_key,
         color: Theme.of(context).hoverColor,
         size: 29,
       ),

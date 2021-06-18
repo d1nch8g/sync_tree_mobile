@@ -11,7 +11,7 @@ class SetPinTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-        Icons.shield_outlined,
+        Icons.lock_outlined,
         color: Theme.of(context).hoverColor,
         size: 29,
       ),
@@ -25,7 +25,7 @@ class SetPinTile extends StatelessWidget {
         });
       },
       title: Text(
-        'Set app password',
+        'Set pin',
         style: Theme.of(context).textTheme.headline5,
       ),
       subtitle: Text(

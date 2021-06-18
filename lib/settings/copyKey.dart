@@ -37,7 +37,7 @@ class CopyKeyTile extends StatelessWidget {
         });
       },
       leading: Icon(
-        Icons.vpn_key,
+        Icons.vpn_key_outlined,
         color: Theme.of(context).hoverColor,
         size: 29,
       ),
