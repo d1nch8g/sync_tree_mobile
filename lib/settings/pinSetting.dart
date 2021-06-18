@@ -91,7 +91,7 @@ class SetPinOverlayState extends State<SetPinOverlay>
 
   void removePassword() async {
     var prefs = await SharedPreferences.getInstance();
-    prefs.setString('pwd', null);
+    prefs.remove('pwd');
     setState(() {
       currentWidget = Icon(
         Icons.lock_open_rounded,
