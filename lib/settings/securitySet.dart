@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '/security/pin.dart';
 
@@ -43,9 +44,9 @@ class GenerateKeyOverlay extends StatefulWidget {
 
 class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> scaleAnimation;
-  Widget currentWidget;
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+  late Widget currentWidget;
 
   @override
   void initState() {
@@ -87,7 +88,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(42, 42, 42, 42),
+              padding: const EdgeInsets.fromLTRB(42, 32, 42, 14),
               child: AnimatedSwitcher(
                 duration: Duration(milliseconds: 377),
                 child: currentWidget,
@@ -125,20 +126,28 @@ class SecuritySettings extends StatelessWidget {
             style: Theme.of(context).textTheme.headline2,
           ),
           SizedBox(height: 8),
-          Divider(),
+          Divider(color: Theme.of(context).focusColor),
           Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
               itemCount: pinSettingNames.length,
-              itemBuilder: (context, index) {
-                var pinEnum = pinSettingNames.keys.elementAt(index);
-                return SecureAccessTile(pinEnum, pinSettingNames[pinEnum]);
+              itemBuilder: (BuildContext context, int index) {
+                var keyEnum = pinSettingNames.keys.elementAt(index);
+                return SecureAccessTile(
+                  keyEnum,
+                  pinSettingNames[keyEnum] ?? '',
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(color: Theme.of(context).focusColor);
               },
             ),
           ),
-          Divider(),
+          Divider(color: Theme.of(context).focusColor),
           SizedBox(height: 8),
           TextButton(
-            onPressed: onSave,
+            onPressed: () {
+              onSave();
+            },
             child: Text('ok'),
           ),
         ],
@@ -147,7 +156,7 @@ class SecuritySettings extends StatelessWidget {
   }
 }
 
-class SecureAccessTile extends StatelessWidget {
+class SecureAccessTile extends StatefulWidget {
   final PinEnum pinEnumItem;
   final String settingText;
   SecureAccessTile(
@@ -156,16 +165,77 @@ class SecureAccessTile extends StatelessWidget {
   );
 
   @override
+  _SecureAccessTileState createState() => _SecureAccessTileState();
+}
+
+class _SecureAccessTileState extends State<SecureAccessTile> {
+  late Widget currentWidget;
+  late bool currentSecureAcess;
+
+  @override
+  void initState() {
+    super.initState();
+    setStart();
+  }
+
+  void setStart() async {
+    var prefs = await SharedPreferences.getInstance();
+    var curPos = prefs.getBool(pinAccordance[this.widget.pinEnumItem] ?? '');
+    if (curPos == true) {
+      setAsTrue();
+    } else {
+      setAsFalse();
+    }
+  }
+
+  void setAsFalse() async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setBool(
+      pinAccordance[this.widget.pinEnumItem] ?? '',
+      false,
+    );
+    currentSecureAcess = false;
+    setState(() {
+      currentWidget = Icon(
+        Icons.check_box_outline_blank_rounded,
+        color: Theme.of(context).focusColor,
+      );
+    });
+  }
+
+  void setAsTrue() async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setBool(
+      pinAccordance[this.widget.pinEnumItem] ?? '',
+      true,
+    );
+    currentSecureAcess = true;
+    setState(() {
+      currentWidget = Icon(
+        Icons.check_box_rounded,
+        color: Theme.of(context).focusColor,
+      );
+    });
+  }
+
+  void change() {
+    if (currentSecureAcess == true) {
+      setAsFalse();
+    } else {
+      setAsTrue();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 28,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(settingText),
-          Icon(Icons.check_box_outline_blank),
-        ],
+    return ListTile(
+      onTap: () {
+        change();
+      },
+      trailing: currentWidget,
+      leading: Text(
+        widget.settingText,
+        style: Theme.of(context).textTheme.overline,
       ),
     );
   }
@@ -179,7 +249,7 @@ class SecuritySaved extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.62,
       child: Center(
         child: Icon(
-          Icons.security_rounded,
+          Icons.shield_outlined,
           size: 233,
           color: Theme.of(context).focusColor,
         ),

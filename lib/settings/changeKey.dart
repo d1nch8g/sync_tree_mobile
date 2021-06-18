@@ -47,9 +47,9 @@ class ChangeKeyOverlay extends StatefulWidget {
 
 class ChangeKeyOverlayState extends State<ChangeKeyOverlay>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> scaleAnimation;
-  Widget currentContent;
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+  late Widget currentContent;
 
   @override
   void initState() {
@@ -132,7 +132,9 @@ class QuestionContent extends StatelessWidget {
               'continue',
               textAlign: TextAlign.center,
             ),
-            onPressed: onPressed,
+            onPressed: () {
+              onPressed();
+            },
           ),
         ),
       ],
@@ -146,7 +148,7 @@ class KeyCopyContent extends StatefulWidget {
 }
 
 class _KeyCopyContentState extends State<KeyCopyContent> {
-  Widget buttonToAnimate;
+  late Widget buttonToAnimate;
 
   onPressAction(context) async {
     final crypt = Crypt();
@@ -225,7 +227,9 @@ class PasteButton extends StatelessWidget {
         color: Theme.of(context).focusColor,
         iconSize: 48,
         icon: Icon(Icons.copy),
-        onPressed: onPressed,
+        onPressed: () {
+          onPressed();
+        },
       ),
     );
   }

@@ -47,9 +47,9 @@ class SetPinOverlay extends StatefulWidget {
 
 class SetPinOverlayState extends State<SetPinOverlay>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> scaleAnimation;
-  Widget currentWidget;
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+  late Widget currentWidget;
   TextEditingController textController = TextEditingController();
 
   @override
@@ -205,7 +205,9 @@ class PasswordTextField extends StatelessWidget {
         suffixIcon: IconButton(
           icon: Icon(Icons.do_disturb),
           color: Theme.of(context).focusColor,
-          onPressed: removePassword,
+          onPressed: () {
+            removePassword();
+          },
         ),
       ),
       cursorColor: Theme.of(context).focusColor,

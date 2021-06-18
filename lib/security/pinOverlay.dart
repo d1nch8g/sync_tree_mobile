@@ -10,7 +10,7 @@ void checkPwd(context, Function onSucess, PinEnum accessSet) async {
   if (prefs.getString('pwd') == null) {
     onSucess();
   } else {
-    if (prefs.getBool(pinAccordance[accessSet])) {
+    if (prefs.getBool(pinAccordance[accessSet] ?? '') ?? false) {
       showDialog(
         context: context,
         builder: (_) => PinOverlay(onSucess),
@@ -24,7 +24,7 @@ void checkPwd(context, Function onSucess, PinEnum accessSet) async {
 void setPinDefaults() async {
   var prefs = await SharedPreferences.getInstance();
   pinAccordance.forEach((keyEnum, keyString) => {
-        prefs.setBool(keyString, pinDefaults[keyEnum]),
+        prefs.setBool(keyString, pinDefaults[keyEnum] ?? true),
       });
 }
 
@@ -37,11 +37,11 @@ class PinOverlay extends StatefulWidget {
 
 class PinOverlayState extends State<PinOverlay>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> scaleAnimation;
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+  late String currentPassword;
+  late Widget animatedWidget;
   TextEditingController textController = TextEditingController();
-  String currentPassword;
-  Widget animatedWidget;
 
   void checkInputPassword() async {
     var prefs = await SharedPreferences.getInstance();

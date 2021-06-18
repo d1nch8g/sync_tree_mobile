@@ -116,22 +116,23 @@ class MessageOverlay extends StatefulWidget {
 
 class MessageOverlayState extends State<MessageOverlay>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> scaleAnimation;
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 233));
-    scaleAnimation =
-        CurvedAnimation(parent: controller, curve: Curves.decelerate);
-
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 233),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
     controller.addListener(() {
       setState(() {});
     });
-
     controller.forward();
   }
 

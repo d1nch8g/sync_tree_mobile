@@ -25,7 +25,7 @@ class PrimaryPage extends StatefulWidget {
 
 class _PrimaryPageState extends State<PrimaryPage> {
   int _selectedIndex = 0;
-  PageController _pageController;
+  PageController _pageController = PageController();
 
   Future<bool> firstLaunch() async {
     setPinDefaults();
@@ -33,12 +33,6 @@ class _PrimaryPageState extends State<PrimaryPage> {
     var firstLaunch = prefs.getBool('firstLaunch');
     prefs.setBool('firstLaunch', false); // change to true to go to start
     return firstLaunch ?? true;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
   }
 
   @override

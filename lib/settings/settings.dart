@@ -21,9 +21,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
   setStartName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var name = prefs.get('pubName');
+    var name = prefs.getString('pubName');
     setState(() {
-      _currentName = name;
+      _currentName = name ?? '';
     });
   }
 

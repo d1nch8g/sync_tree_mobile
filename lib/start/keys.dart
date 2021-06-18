@@ -139,13 +139,12 @@ class ButtonOverlay extends StatefulWidget {
 
 class ButtonOverlayState extends State<ButtonOverlay>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> scaleAnimation;
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-
     controller = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 233),
@@ -157,7 +156,6 @@ class ButtonOverlayState extends State<ButtonOverlay>
     controller.addListener(() {
       setState(() {});
     });
-
     controller.forward();
   }
 
@@ -192,7 +190,9 @@ class ButtonOverlayState extends State<ButtonOverlay>
                         this.widget.buttonText,
                         textAlign: TextAlign.center,
                       ),
-                      onPressed: this.widget.onPressed,
+                      onPressed: () {
+                        this.widget.onPressed();
+                      },
                     ),
                   ),
                 ],

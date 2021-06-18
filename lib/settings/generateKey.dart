@@ -47,9 +47,9 @@ class GenerateKeyOverlay extends StatefulWidget {
 
 class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> scaleAnimation;
-  Widget currentWidget;
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+  late Widget currentWidget;
 
   void startBuilding() {
     setState(() {
@@ -130,7 +130,9 @@ class KeyBuilderAsker extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         TextButton(
-          onPressed: onPressed,
+          onPressed: () {
+            onPressed();
+          },
           child: Text('continue'),
         ),
         SizedBox(height: 10),

@@ -10,7 +10,7 @@ class CopyKeyTile extends StatelessWidget {
   Future<String> getPrivKey() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var key = prefs.getString('persPriv');
-    return key;
+    return key ?? '';
   }
 
   @override
@@ -63,8 +63,8 @@ class KeyCopyOverlay extends StatefulWidget {
 
 class KeyCopyOverlayState extends State<KeyCopyOverlay>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> scaleAnimation;
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
   double keyOpacity = 0;
   double arrowOpacity = 0;
   double copyOpacity = 0;
