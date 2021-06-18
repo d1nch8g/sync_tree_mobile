@@ -25,3 +25,23 @@ class SecuritySetTile extends StatelessWidget {
     );
   }
 }
+
+/*
+  Which actions will be using pin 100%:
+1 - Changing pin
+2 - Accesing security settings
+
+  Which actions can be configurable with pin:
+Settings:
+1 - Copy private key
+2 - Change private key
+3 - Generate new keys
+4 - Change public name
+5 - Save changes to server
+Wallet:
+1 - 
+Balance:
+1 - 
+Markets:
+1 - 
+*/
