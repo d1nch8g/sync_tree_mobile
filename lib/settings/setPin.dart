@@ -16,13 +16,17 @@ class SetPinTile extends StatelessWidget {
         size: 29,
       ),
       onTap: () {
-        checkPwd(context, () {
-          showDialog(
-            context: context,
-            builder: (_) => SetPin(),
-            barrierDismissible: false,
-          );
-        });
+        checkPwd(
+          context,
+          () {
+            showDialog(
+              context: context,
+              builder: (_) => SetPin(),
+              barrierDismissible: false,
+            );
+          },
+          PinEnum.setPin,
+        );
       },
       title: Text(
         'Set pin',
@@ -41,8 +45,7 @@ class SetPin extends StatefulWidget {
   State<StatefulWidget> createState() => SetPinState();
 }
 
-class SetPinState extends State<SetPin>
-    with SingleTickerProviderStateMixin {
+class SetPinState extends State<SetPin> with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> scaleAnimation;
   Widget currentWidget;

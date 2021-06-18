@@ -4,18 +4,60 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'messageOverlay.dart';
+enum PinEnum {
+  copyPrivate,
+  changePrivate,
+  generatePrivate,
+  setPin,
+  securitySettings,
+  changePubName,
+  saveChanges,
+  viewLicenses,
+}
 
-void checkPwd(context, Function onSucess) async {
+var pinAccordance = <PinEnum, String>{
+  PinEnum.copyPrivate: "copyPrivate",
+  PinEnum.changePrivate: "changePrivate",
+  PinEnum.generatePrivate: "generatePrivate",
+  PinEnum.setPin: "setPin",
+  PinEnum.securitySettings: "securitySetting",
+  PinEnum.changePubName: "changePrivate",
+  PinEnum.saveChanges: "saveChanges",
+  PinEnum.viewLicenses: "viewLicenses",
+};
+
+var pinDefaults = <PinEnum, bool>{
+  PinEnum.copyPrivate: true,
+  PinEnum.changePrivate: true,
+  PinEnum.generatePrivate: true,
+  PinEnum.setPin: true,
+  PinEnum.securitySettings: true,
+  PinEnum.changePubName: true,
+  PinEnum.saveChanges: true,
+  PinEnum.viewLicenses: false,
+};
+
+void checkPwd(context, Function onSucess, PinEnum accessSet) async {
   var prefs = await SharedPreferences.getInstance();
   if (prefs.getString('pwd') == null) {
     onSucess();
   } else {
-    showDialog(
-      context: context,
-      builder: (_) => PinOverlay(onSucess),
-    );
+    if (prefs.getBool(pinAccordance[accessSet])) {
+      showDialog(
+        context: context,
+        builder: (_) => PinOverlay(onSucess),
+      );
+    } else {
+      onSucess();
+    }
   }
+}
+
+void setPinDefaults() async {
+  var prefs = await SharedPreferences.getInstance();
+  pinAccordance.forEach((keyEnum, keyString) => {
+        prefs.setBool(keyString, pinDefaults[keyEnum]),
+      });
 }
 
 class PinOverlay extends StatefulWidget {
@@ -31,27 +73,34 @@ class PinOverlayState extends State<PinOverlay>
   Animation<double> scaleAnimation;
   TextEditingController textController = TextEditingController();
   String currentPassword;
+  Widget animatedWidget;
 
   void checkInputPassword() async {
     var prefs = await SharedPreferences.getInstance();
     print(prefs.getString('pwd'));
     if (prefs.getString('pwd') != textController.text) {
-      var _timer = Timer(Duration(milliseconds: 610), () {
+      setState(() {
+        animatedWidget = WronPinIcon();
+        textController.text = '';
+        Future.delayed(
+          Duration(
+            milliseconds: 610,
+          ),
+          () {
+            setState(() {
+              animatedWidget = PinTextField(textController);
+            });
+          },
+        );
+      });
+    } else {
+      setState(() {
+        animatedWidget = CorrectPinIcon();
+      });
+      Future.delayed(Duration(milliseconds: 377), () {
         Navigator.of(context).pop();
       });
-      showDialog(
-        context: context,
-        builder: (_) => MessageOverlay(
-          mainText: 'wrong password',
-        ),
-      ).then(
-        (value) => {
-          if (_timer.isActive) {_timer.cancel()}
-        },
-      );
-    } else {
-      Navigator.of(context).pop();
-      Future.delayed(Duration(milliseconds: 377), () {
+      Future.delayed(Duration(milliseconds: 610), () {
         this.widget.onSucess();
       });
     }
@@ -72,6 +121,7 @@ class PinOverlayState extends State<PinOverlay>
       setState(() {});
     });
     controller.forward();
+    animatedWidget = PinTextField(textController);
   }
 
   @override
@@ -100,7 +150,18 @@ class PinOverlayState extends State<PinOverlay>
                       style: Theme.of(context).textTheme.headline2,
                     ),
                     SizedBox(height: 12),
-                    // add animated switch
+                    AnimatedSwitcher(
+                      child: animatedWidget,
+                      duration: Duration(milliseconds: 144),
+                      transitionBuilder: (
+                        Widget child,
+                        Animation<double> animation,
+                      ) =>
+                          ScaleTransition(
+                        scale: animation,
+                        child: child,
+                      ),
+                    ),
                     SizedBox(height: 12),
                     TextButton(
                       onPressed: () {
@@ -126,7 +187,7 @@ class PinTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 31,
+      height: 62,
       child: TextField(
         controller: controller,
         obscureText: true,
@@ -162,15 +223,28 @@ class PinTextField extends StatelessWidget {
 }
 
 class WronPinIcon extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 31,
+      height: 62,
       child: Icon(
         Icons.do_disturb,
         color: Theme.of(context).focusColor,
-        
+        size: 61,
+      ),
+    );
+  }
+}
+
+class CorrectPinIcon extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 62,
+      child: Icon(
+        Icons.check_circle_outline_rounded,
+        color: Theme.of(context).focusColor,
+        size: 61,
       ),
     );
   }

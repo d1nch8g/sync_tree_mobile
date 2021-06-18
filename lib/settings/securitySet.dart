@@ -12,7 +12,11 @@ class SecuritySetTile extends StatelessWidget {
         size: 29,
       ),
       onTap: () {
-        checkPwd(context, () {});
+        checkPwd(
+          context,
+          () {},
+          PinEnum.securitySettings,
+        );
       },
       title: Text(
         'Security settings',

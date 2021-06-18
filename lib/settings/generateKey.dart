@@ -2,10 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '/widgets/all.dart';
 import '/crypt.dart';
 
 class GenerateKeyTile extends StatelessWidget {
@@ -15,19 +13,7 @@ class GenerateKeyTile extends StatelessWidget {
       onTap: () {
         showDialog(
           context: context,
-          builder: (_) => ButtonOverlay(
-            () {
-              showDialog(
-                context: context,
-                builder: (_) => GenerateKeyOverlay(),
-              );
-            },
-            mainText: 'Are you sure?\n'
-                'current key will\n'
-                'be replaced with\n'
-                'generated',
-            buttonText: 'continue',
-          ),
+          builder: (_) => GenerateKeyOverlay(),
         );
       },
       leading: Icon(
@@ -56,46 +42,31 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> scaleAnimation;
+  Widget currentWidget;
 
-  buildKeys() async {
-    var crypt = Crypt();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var futKeys = crypt.generateKeys();
-    futKeys.then((keys) => {
-          prefs.setString('persPriv', keys[0]),
-          prefs.setString('persPub', keys[1]),
-          changeWidget(),
-        });
+  void startBuilding() {
+    setState(() {
+      currentWidget = KeyBuilderContent();
+    });
   }
 
   @override
   void initState() {
     super.initState();
-
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 233));
-    scaleAnimation =
-        CurvedAnimation(parent: controller, curve: Curves.decelerate);
-
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 233),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
     controller.addListener(() {
       setState(() {});
     });
-
     controller.forward();
-    buildKeys();
-  }
-
-  Widget currentWidget = KeysNotReady();
-
-  changeWidget() {
-    setState(() {
-      currentWidget = KeysAreReady();
-    });
-    Future.delayed(Duration(milliseconds: 377), () {
-      Navigator.pop(context);
-      Future.delayed(Duration(milliseconds: 144), () {
-        Navigator.pop(context);
-      });
+    currentWidget = KeyBuilderAsker(() {
+      startBuilding();
     });
   }
 
@@ -115,34 +86,111 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
             ),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(42, 42, 42, 14),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Building new keys\n',
-                    style: Theme.of(context).textTheme.headline2,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 10),
-                  AnimatedSwitcher(
-                    duration: Duration(milliseconds: 233),
-                    child: currentWidget,
-                    transitionBuilder: (
-                      Widget child,
-                      Animation<double> animation,
-                    ) =>
-                        ScaleTransition(
-                      scale: animation,
-                      child: child,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                ],
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 233),
+                child: currentWidget,
+                transitionBuilder: (
+                  Widget child,
+                  Animation<double> animation,
+                ) =>
+                    ScaleTransition(
+                  scale: animation,
+                  child: child,
+                ),
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class KeyBuilderAsker extends StatelessWidget {
+  final Function onPressed;
+  KeyBuilderAsker(this.onPressed);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'Are you sure?\n'
+          'current keys\n'
+          'will be replaced\n',
+          style: Theme.of(context).textTheme.headline2,
+          textAlign: TextAlign.center,
+        ),
+        TextButton(
+          onPressed: onPressed,
+          child: Text('ok'),
+        ),
+        SizedBox(height: 10),
+      ],
+    );
+  }
+}
+
+class KeyBuilderContent extends StatefulWidget {
+  @override
+  _KeyBuilderContentState createState() => _KeyBuilderContentState();
+}
+
+class _KeyBuilderContentState extends State<KeyBuilderContent> {
+  Widget currentWidget = KeysNotReady();
+
+  changeWidget() {
+    setState(() {
+      currentWidget = KeysAreReady();
+    });
+    Future.delayed(Duration(milliseconds: 377), () {
+      Navigator.pop(context);
+    });
+  }
+
+  buildKeys() async {
+    var crypt = Crypt();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var futKeys = crypt.generateKeys();
+    futKeys.then((keys) => {
+          prefs.setString('persPriv', keys[0]),
+          prefs.setString('persPub', keys[1]),
+          changeWidget(),
+        });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    buildKeys();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'Building new keys\n',
+          style: Theme.of(context).textTheme.headline2,
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 10),
+        AnimatedSwitcher(
+          duration: Duration(milliseconds: 233),
+          child: currentWidget,
+          transitionBuilder: (
+            Widget child,
+            Animation<double> animation,
+          ) =>
+              ScaleTransition(
+            scale: animation,
+            child: child,
+          ),
+        ),
+        SizedBox(height: 10),
+      ],
     );
   }
 }

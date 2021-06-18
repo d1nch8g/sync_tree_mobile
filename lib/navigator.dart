@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '/widgets/pinOverlay.dart';
 import 'market/main.dart';
 import 'wallet/main.dart';
 import 'settings/settings.dart';
@@ -25,6 +28,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
   PageController _pageController;
 
   Future<bool> firstLaunch() async {
+    setPinDefaults();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var firstLaunch = prefs.getBool('firstLaunch');
     prefs.setBool('firstLaunch', false); // change to true to go to start
