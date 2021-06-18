@@ -9,6 +9,7 @@ import 'setPin.dart';
 import 'licenses.dart';
 import 'pubName.dart';
 import 'sendChanges.dart';
+import 'securitySet.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -69,6 +70,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 GenerateKeyTile(),
                 Divider(),
                 SetPinTile(),
+                Divider(),
+                SecuritySetTile(),
                 Divider(),
                 PublicNameTile(),
                 Divider(),
