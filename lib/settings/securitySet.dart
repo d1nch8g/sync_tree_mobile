@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../pin/pin.dart';
+import '../security/pin.dart';
 
 class SecuritySetTile extends StatelessWidget {
   @override

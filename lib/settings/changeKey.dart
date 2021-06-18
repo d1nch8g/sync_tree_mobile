@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/pin/pin.dart';
+import '../security/pin.dart';
 import '/crypt.dart';
 
 class ChangeKeyTile extends StatelessWidget {

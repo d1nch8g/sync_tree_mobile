@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:clipboard/clipboard.dart';
 
-import '/pin/pin.dart';
+import '../security/pin.dart';
 
 class CopyKeyTile extends StatelessWidget {
   Future<String> getPrivKey() async {
