@@ -5,7 +5,7 @@ class SendChangesTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-        Icons.save_rounded,
+        Icons.vpn_lock_rounded,
         color: Theme.of(context).hoverColor,
         size: 29,
       ),

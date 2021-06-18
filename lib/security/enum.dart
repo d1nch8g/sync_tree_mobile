@@ -5,7 +5,7 @@ enum PinEnum {
   setPin,
   securitySettings,
   changePubName,
-  saveChanges,
+  sendChanges,
   viewLicenses,
 }
 
@@ -16,7 +16,7 @@ var pinAccordance = <PinEnum, String>{
   PinEnum.setPin: "setPin",
   PinEnum.securitySettings: "securitySetting",
   PinEnum.changePubName: "changePrivate",
-  PinEnum.saveChanges: "saveChanges",
+  PinEnum.sendChanges: "sendChanges",
   PinEnum.viewLicenses: "viewLicenses",
 };
 
@@ -27,6 +27,14 @@ var pinDefaults = <PinEnum, bool>{
   PinEnum.setPin: true,
   PinEnum.securitySettings: true,
   PinEnum.changePubName: true,
-  PinEnum.saveChanges: true,
+  PinEnum.sendChanges: true,
   PinEnum.viewLicenses: false,
+};
+
+var pinSettingNames = <PinEnum, String>{
+  PinEnum.copyPrivate: "Copy private key",
+  PinEnum.changePrivate: "Change private key",
+  PinEnum.generatePrivate: "Generate new private key",
+  PinEnum.changePubName: "Change public name",
+  PinEnum.sendChanges: "Upload changes",
 };
