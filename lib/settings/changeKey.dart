@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '/pin/pin.dart';
 import '/crypt.dart';
 
 class ChangeKeyTile extends StatelessWidget {
@@ -11,9 +12,15 @@ class ChangeKeyTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        showDialog(
-          context: context,
-          builder: (_) => ChangeKeyOverlay(),
+        checkPwd(
+          context,
+          () {
+            showDialog(
+              context: context,
+              builder: (_) => ChangeKeyOverlay(),
+            );
+          },
+          PinEnum.changePrivate,
         );
       },
       leading: Icon(
@@ -168,6 +175,14 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    buttonToAnimate = PasteButton(() {
+      onPressAction(context);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -236,7 +251,7 @@ class ErrorButton extends StatelessWidget {
     return SizedBox(
       height: 54,
       child: Icon(
-        Icons.ac_unit,
+        Icons.do_disturb,
         size: 52,
         color: Theme.of(context).focusColor,
       ),
