@@ -100,42 +100,7 @@ class PinOverlayState extends State<PinOverlay>
                       style: Theme.of(context).textTheme.headline2,
                     ),
                     SizedBox(height: 12),
-                    TextField(
-                      controller: textController,
-                      obscureText: true,
-                      autofocus: true,
-                      keyboardType: TextInputType.number,
-                      onEditingComplete: () {
-                        checkInputPassword();
-                      },
-                      style: TextStyle(
-                        color: Theme.of(context).focusColor,
-                      ),
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide:
-                              BorderSide(color: Theme.of(context).focusColor),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide:
-                              BorderSide(color: Theme.of(context).focusColor),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                          borderSide:
-                              BorderSide(color: Theme.of(context).focusColor),
-                        ),
-                        labelStyle: TextStyle(
-                          color: Theme.of(context).focusColor,
-                        ),
-                        hoverColor: Theme.of(context).focusColor,
-                        fillColor: Theme.of(context).focusColor,
-                        focusColor: Theme.of(context).focusColor,
-                      ),
-                      cursorColor: Theme.of(context).focusColor,
-                    ),
+                    // add animated switch
                     SizedBox(height: 12),
                     TextButton(
                       onPressed: () {
@@ -149,6 +114,63 @@ class PinOverlayState extends State<PinOverlay>
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class PinTextField extends StatelessWidget {
+  final TextEditingController controller;
+  PinTextField(this.controller);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 31,
+      child: TextField(
+        controller: controller,
+        obscureText: true,
+        autofocus: true,
+        keyboardType: TextInputType.number,
+        style: TextStyle(
+          color: Theme.of(context).focusColor,
+        ),
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            borderSide: BorderSide(color: Theme.of(context).focusColor),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            borderSide: BorderSide(color: Theme.of(context).focusColor),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            borderSide: BorderSide(color: Theme.of(context).focusColor),
+          ),
+          labelStyle: TextStyle(
+            color: Theme.of(context).focusColor,
+          ),
+          hoverColor: Theme.of(context).focusColor,
+          fillColor: Theme.of(context).focusColor,
+          focusColor: Theme.of(context).focusColor,
+        ),
+        cursorColor: Theme.of(context).focusColor,
+      ),
+    );
+  }
+}
+
+class WronPinIcon extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 31,
+      child: Icon(
+        Icons.do_disturb,
+        color: Theme.of(context).focusColor,
+        
       ),
     );
   }
