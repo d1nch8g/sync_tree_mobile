@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/widgets/pinOverlay.dart';
+import 'pin/overlay.dart';
 import 'market/main.dart';
 import 'wallet/main.dart';
 import 'settings/settings.dart';
