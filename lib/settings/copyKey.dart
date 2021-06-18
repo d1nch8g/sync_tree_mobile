@@ -116,12 +116,13 @@ class KeyCopyOverlayState extends State<KeyCopyOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(32.0),
+              padding: const EdgeInsets.fromLTRB(50, 32, 50, 32),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'key copied',
+                    'key copied\n'
+                    'to clipboard',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),

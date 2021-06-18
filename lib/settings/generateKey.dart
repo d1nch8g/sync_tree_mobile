@@ -117,14 +117,14 @@ class KeyBuilderAsker extends StatelessWidget {
       children: [
         Text(
           'Are you sure?\n'
-          'current keys\n'
-          'will be replaced\n',
+          'current key\n'
+          'will be deleted\n',
           style: Theme.of(context).textTheme.headline2,
           textAlign: TextAlign.center,
         ),
         TextButton(
           onPressed: onPressed,
-          child: Text('ok'),
+          child: Text('continue'),
         ),
         SizedBox(height: 10),
       ],

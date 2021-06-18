@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '/widgets/all.dart';
 import '/crypt.dart';
 
 class ChangeKeyTile extends StatelessWidget {
@@ -14,21 +13,7 @@ class ChangeKeyTile extends StatelessWidget {
       onTap: () {
         showDialog(
           context: context,
-          builder: (_) => ButtonOverlay(
-            () {
-              Navigator.pop(context);
-              Future.delayed(Duration(milliseconds: 233), () {
-                showDialog(
-                  context: context,
-                  builder: (_) => KeyInputOverlay(),
-                );
-              });
-            },
-            mainText: 'Are you sure?\n'
-                'current key will\n'
-                'be forever lost',
-            buttonText: 'continue',
-          ),
+          builder: (_) => ChangeKeyOverlay(),
         );
       },
       leading: Icon(
@@ -48,15 +33,95 @@ class ChangeKeyTile extends StatelessWidget {
   }
 }
 
-class KeyInputOverlay extends StatefulWidget {
+class ChangeKeyOverlay extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => KeyInputOverlayState();
+  State<StatefulWidget> createState() => ChangeKeyOverlayState();
 }
 
-class KeyInputOverlayState extends State<KeyInputOverlay>
+class ChangeKeyOverlayState extends State<ChangeKeyOverlay>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> scaleAnimation;
+  Widget currentContent;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 233),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
+    controller.addListener(() {
+      setState(() {});
+    });
+    controller.forward();
+    currentContent = QuestionContent();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: Container(
+            decoration: ShapeDecoration(
+              color: Theme.of(context).backgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(42, 42, 42, 14),
+              child: currentContent,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class QuestionContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'Are you sure?\n'
+          'if you paste\n'
+          'new key, old one'
+          'will be deleted',
+          style: Theme.of(context).textTheme.headline2,
+          textAlign: TextAlign.center,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextButton(
+            child: Text(
+              'continue',
+              textAlign: TextAlign.center,
+            ),
+            onPressed: onPressed,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class KeyCopyContent extends StatefulWidget {
+  @override
+  _KeyCopyContentState createState() => _KeyCopyContentState();
+}
+
+class _KeyCopyContentState extends State<KeyCopyContent> {
   Widget buttonToAnimate;
 
   onPressAction(context) async {
@@ -89,71 +154,32 @@ class KeyInputOverlayState extends State<KeyInputOverlay>
   }
 
   @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 233),
-    );
-    scaleAnimation = CurvedAnimation(
-      parent: controller,
-      curve: Curves.decelerate,
-    );
-    controller.addListener(() {
-      setState(() {});
-    });
-    controller.forward();
-    buttonToAnimate = PasteButton(() {
-      onPressAction(context);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Material(
-        color: Colors.transparent,
-        child: ScaleTransition(
-          scale: scaleAnimation,
-          child: Container(
-            decoration: ShapeDecoration(
-              color: Theme.of(context).backgroundColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(42, 42, 42, 14),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Press this button\n'
-                    'to paste a key\n'
-                    'from clipboard',
-                    style: Theme.of(context).textTheme.headline2,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 10),
-                  AnimatedSwitcher(
-                    child: buttonToAnimate,
-                    duration: Duration(milliseconds: 144),
-                    transitionBuilder: (
-                      Widget child,
-                      Animation<double> animation,
-                    ) =>
-                        ScaleTransition(
-                      scale: animation,
-                      child: child,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                ],
-              ),
-            ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'Press this button\n'
+          'to paste a key\n'
+          'from clipboard',
+          style: Theme.of(context).textTheme.headline2,
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 10),
+        AnimatedSwitcher(
+          child: buttonToAnimate,
+          duration: Duration(milliseconds: 144),
+          transitionBuilder: (
+            Widget child,
+            Animation<double> animation,
+          ) =>
+              ScaleTransition(
+            scale: animation,
+            child: child,
           ),
         ),
-      ),
+        SizedBox(height: 10),
+      ],
     );
   }
 }
@@ -183,6 +209,20 @@ class SucessButton extends StatelessWidget {
       height: 54,
       child: Icon(
         Icons.check_circle_outline,
+        size: 52,
+        color: Theme.of(context).focusColor,
+      ),
+    );
+  }
+}
+
+class ErrorButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 54,
+      child: Icon(
+        Icons.ac_unit,
         size: 52,
         color: Theme.of(context).focusColor,
       ),
