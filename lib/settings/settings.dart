@@ -70,13 +70,13 @@ class PublicName extends StatefulWidget {
 }
 
 class _PublicNameState extends State<PublicName> {
-  String _currentName = 'loading';
+  late DynamicName dynamicName;
 
   setName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var name = prefs.getString('pubName');
     setState(() {
-      _currentName = name ?? '';
+      dynamicName = DynamicName(name ?? 'name error');
     });
   }
 
@@ -98,10 +98,7 @@ class _PublicNameState extends State<PublicName> {
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
       duration: Duration(milliseconds: 233),
-      child: Text(
-        _currentName,
-        style: Theme.of(context).textTheme.headline3,
-      ),
+      child: dynamicName,
       transitionBuilder: (
         Widget child,
         Animation<double> animation,
@@ -110,6 +107,19 @@ class _PublicNameState extends State<PublicName> {
         scale: animation,
         child: child,
       ),
+    );
+  }
+}
+
+class DynamicName extends StatelessWidget {
+  final String name;
+  DynamicName(this.name);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      name,
+      style: Theme.of(context).textTheme.headline3,
     );
   }
 }
