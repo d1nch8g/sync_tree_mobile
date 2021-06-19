@@ -33,14 +33,14 @@ const UserCreateRequest$json = const {
   '1': 'UserCreateRequest',
   '2': const [
     const {'1': 'PublicKey', '3': 1, '4': 1, '5': 12, '10': 'PublicKey'},
-    const {'1': 'MesKey', '3': 2, '4': 1, '5': 12, '10': 'MesKey'},
-    const {'1': 'ImgLink', '3': 3, '4': 1, '5': 9, '10': 'ImgLink'},
+    const {'1': 'MesssageKey', '3': 2, '4': 1, '5': 12, '10': 'MesssageKey'},
+    const {'1': 'PublicName', '3': 3, '4': 1, '5': 9, '10': 'PublicName'},
     const {'1': 'Sign', '3': 4, '4': 1, '5': 12, '10': 'Sign'},
   ],
 };
 
 /// Descriptor for `UserCreateRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userCreateRequestDescriptor = $convert.base64Decode('ChFVc2VyQ3JlYXRlUmVxdWVzdBIcCglQdWJsaWNLZXkYASABKAxSCVB1YmxpY0tleRIWCgZNZXNLZXkYAiABKAxSBk1lc0tleRIYCgdJbWdMaW5rGAMgASgJUgdJbWdMaW5rEhIKBFNpZ24YBCABKAxSBFNpZ24=');
+final $typed_data.Uint8List userCreateRequestDescriptor = $convert.base64Decode('ChFVc2VyQ3JlYXRlUmVxdWVzdBIcCglQdWJsaWNLZXkYASABKAxSCVB1YmxpY0tleRIgCgtNZXNzc2FnZUtleRgCIAEoDFILTWVzc3NhZ2VLZXkSHgoKUHVibGljTmFtZRgDIAEoCVIKUHVibGljTmFtZRISCgRTaWduGAQgASgMUgRTaWdu');
 @$core.Deprecated('Use userSendRequestDescriptor instead')
 const UserSendRequest$json = const {
   '1': 'UserSendRequest',

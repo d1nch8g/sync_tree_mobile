@@ -107,8 +107,8 @@ class Adress extends $pb.GeneratedMessage {
 class UserCreateRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserCreateRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
     ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'PublicKey', $pb.PbFieldType.OY, protoName: 'PublicKey')
-    ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'MesKey', $pb.PbFieldType.OY, protoName: 'MesKey')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ImgLink', protoName: 'ImgLink')
+    ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'MesssageKey', $pb.PbFieldType.OY, protoName: 'MesssageKey')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'PublicName', protoName: 'PublicName')
     ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Sign', $pb.PbFieldType.OY, protoName: 'Sign')
     ..hasRequiredFields = false
   ;
@@ -116,19 +116,19 @@ class UserCreateRequest extends $pb.GeneratedMessage {
   UserCreateRequest._() : super();
   factory UserCreateRequest({
     $core.List<$core.int>? publicKey,
-    $core.List<$core.int>? mesKey,
-    $core.String? imgLink,
+    $core.List<$core.int>? messsageKey,
+    $core.String? publicName,
     $core.List<$core.int>? sign,
   }) {
     final _result = create();
     if (publicKey != null) {
       _result.publicKey = publicKey;
     }
-    if (mesKey != null) {
-      _result.mesKey = mesKey;
+    if (messsageKey != null) {
+      _result.messsageKey = messsageKey;
     }
-    if (imgLink != null) {
-      _result.imgLink = imgLink;
+    if (publicName != null) {
+      _result.publicName = publicName;
     }
     if (sign != null) {
       _result.sign = sign;
@@ -166,22 +166,22 @@ class UserCreateRequest extends $pb.GeneratedMessage {
   void clearPublicKey() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.List<$core.int> get mesKey => $_getN(1);
+  $core.List<$core.int> get messsageKey => $_getN(1);
   @$pb.TagNumber(2)
-  set mesKey($core.List<$core.int> v) { $_setBytes(1, v); }
+  set messsageKey($core.List<$core.int> v) { $_setBytes(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasMesKey() => $_has(1);
+  $core.bool hasMesssageKey() => $_has(1);
   @$pb.TagNumber(2)
-  void clearMesKey() => clearField(2);
+  void clearMesssageKey() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get imgLink => $_getSZ(2);
+  $core.String get publicName => $_getSZ(2);
   @$pb.TagNumber(3)
-  set imgLink($core.String v) { $_setString(2, v); }
+  set publicName($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasImgLink() => $_has(2);
+  $core.bool hasPublicName() => $_has(2);
   @$pb.TagNumber(3)
-  void clearImgLink() => clearField(3);
+  void clearPublicName() => clearField(3);
 
   @$pb.TagNumber(4)
   $core.List<$core.int> get sign => $_getN(3);

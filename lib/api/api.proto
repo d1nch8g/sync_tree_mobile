@@ -25,8 +25,8 @@ message Adress{
 
 message UserCreateRequest{
     bytes PublicKey = 1;
-    bytes MesKey = 2;
-    string ImgLink = 3;
+    bytes MesssageKey = 2;
+    string PublicName = 3;
     bytes Sign = 4;
 }
 
