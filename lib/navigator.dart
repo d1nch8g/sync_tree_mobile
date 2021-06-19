@@ -19,7 +19,8 @@ var routeMap = <String, WidgetBuilder>{
   '/keys': (BuildContext context) => KeySave(),
 };
 
-var mainStream = StreamController<String>.broadcast();
+var mainStreamController = StreamController<String>.broadcast();
+var mainStream = mainStreamController.stream;
 
 class PrimaryPage extends StatefulWidget {
   @override

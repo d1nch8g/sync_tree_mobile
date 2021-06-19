@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../security/pin.dart';
 import '../security/filter.dart';
+import '../navigator.dart';
 
 class PublicNameTile extends StatelessWidget {
   @override
@@ -54,6 +55,8 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
       prefs.setString('pubName', textController.text);
       print('changed');
       setState(() {
+        
+        //TODO add name change to stream
         currentWidget = NameReadyWidget();
         Future.delayed(Duration(milliseconds: 377), () {
           Navigator.pop(context);

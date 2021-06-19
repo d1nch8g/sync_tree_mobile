@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,28 +12,9 @@ import 'licenses.dart';
 import 'pubName.dart';
 import 'sendChanges.dart';
 
-class SettingsPage extends StatefulWidget {
-  @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
+import '../navigator.dart';
 
-class _SettingsPageState extends State<SettingsPage> {
-  String _currentName = 'loading';
-
-  setStartName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var name = prefs.getString('pubName');
-    setState(() {
-      _currentName = name ?? '';
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setStartName();
-  }
-
+class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,10 +27,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           AnimatedSwitcher(
             duration: Duration(milliseconds: 720),
-            child: Text(
-              _currentName,
-              style: Theme.of(context).textTheme.headline3,
-            ),
+            child: PublicName(),
             transitionBuilder: (
               Widget child,
               Animation<double> animation,
@@ -80,6 +60,45 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class PublicName extends StatefulWidget {
+  @override
+  _PublicNameState createState() => _PublicNameState();
+}
+
+class _PublicNameState extends State<PublicName> {
+  String _currentName = 'loading';
+
+  setName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var name = prefs.getString('pubName');
+    setState(() {
+      _currentName = name ?? '';
+    });
+  }
+
+  void startNameChecking() async {
+    mainStream.listen((stringEvent) {
+      if (stringEvent == 'nameChange') {
+        setName();
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setName();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      _currentName,
+      style: Theme.of(context).textTheme.headline3,
     );
   }
 }
