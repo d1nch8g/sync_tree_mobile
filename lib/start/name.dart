@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../start/profanity/filter.dart';
+import '../security/filter.dart';
 
 class GoogleAuth extends StatefulWidget {
   @override
@@ -76,7 +76,6 @@ class _GoogleAuthState extends State<GoogleAuth> {
           TextButton(
             child: Text('continue'),
             onPressed: () {
-              print(nameController.text);
               if (filter.isProfane(nameController.text)) {
                 nameController.text = '';
                 showDialog(
@@ -96,7 +95,6 @@ class _GoogleAuthState extends State<GoogleAuth> {
                 );
                 return;
               }
-              //TODO add check for name to be characters and numbers
               saveName(nameController.text);
               Navigator.pushNamed(context, '/keys');
             },

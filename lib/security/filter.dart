@@ -24,4 +24,21 @@ class Filter {
 
     return clean.join(' ');
   }
+
+  bool checkLength(String name) {
+    if (name.length < 4) {
+      return false;
+    }
+    return true;
+  }
+
+  bool checkCharacters(String name) {
+    if (name.contains(' ')) {
+      return false;
+    }
+    if (RegExp('[a-zA-Z0-9]').hasMatch(name)) {
+      return true;
+    }
+    return false;
+  }
 }
