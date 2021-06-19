@@ -117,6 +117,7 @@ class CopyKeysSection extends StatelessWidget {
                   if (succsessfullyCreated) {
                     Navigator.pushNamed(context, '/main');
                   } else {
+                    Navigator.pop(context);
                     showDialog(
                       context: context,
                       builder: (_) => UserNotCreatedOverlay(),
@@ -251,8 +252,7 @@ class UserNotCreatedOverlayState extends State<UserNotCreatedOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.45,
-            height: MediaQuery.of(context).size.height * 0.45,
+            width: MediaQuery.of(context).size.width * 0.72,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -261,10 +261,20 @@ class UserNotCreatedOverlayState extends State<UserNotCreatedOverlay>
             ),
             child: Padding(
               padding: const EdgeInsets.all(50.0),
-              child: Text(
-                'User is not created, check connection',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline2,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'User is not created, check connection',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  Icon(
+                    Icons.signal_wifi_connected_no_internet_4_rounded,
+                    size: 144,
+                    color: Theme.of(context).focusColor,
+                  ),
+                ],
               ),
             ),
           ),
