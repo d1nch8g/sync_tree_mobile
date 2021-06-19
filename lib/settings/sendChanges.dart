@@ -4,6 +4,9 @@ class SendChangesTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        
+      },
       leading: Icon(
         Icons.vpn_lock_rounded,
         color: Theme.of(context).hoverColor,
