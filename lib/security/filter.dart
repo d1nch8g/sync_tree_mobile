@@ -44,7 +44,10 @@ class Filter {
     return false;
   }
 
-  void operateCheck(TextEditingController nameController, context) {
+  bool operateCheck(
+    TextEditingController nameController,
+    context,
+  ) {
     if (isProfane(nameController.text)) {
       nameController.text = '';
       showDialog(
@@ -54,7 +57,7 @@ class Filter {
               'profane words',
         ),
       );
-      return;
+      return false;
     }
     if (checkLength(nameController.text)) {
       nameController.text = '';
@@ -65,7 +68,7 @@ class Filter {
               'too short',
         ),
       );
-      return;
+      return false;
     }
     if (checkCharacters(nameController.text)) {
       nameController.text = '';
@@ -76,8 +79,9 @@ class Filter {
               'bad letters\n',
         ),
       );
-      return;
+      return false;
     }
+    return true;
   }
 }
 

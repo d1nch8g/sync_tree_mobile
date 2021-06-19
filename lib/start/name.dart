@@ -76,9 +76,11 @@ class _GoogleAuthState extends State<GoogleAuth> {
           TextButton(
             child: Text('continue'),
             onPressed: () {
-
-              saveName(nameController.text);
-              Navigator.pushNamed(context, '/keys');
+              var checked = filter.operateCheck(nameController, context);
+              if (checked) {
+                saveName(nameController.text);
+                Navigator.pushNamed(context, '/keys');
+              }
             },
           ),
           SizedBox(
