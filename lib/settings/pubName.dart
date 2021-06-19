@@ -53,6 +53,12 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
       var prefs = await SharedPreferences.getInstance();
       prefs.setString('pubName', textController.text);
       print('changed');
+      setState(() {
+        currentWidget = NameReadyWidget();
+        Future.delayed(Duration(milliseconds: 377), () {
+          Navigator.pop(context);
+        });
+      });
     }
   }
 
@@ -71,7 +77,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
       setState(() {});
     });
     controller.forward();
-    currentWidget = NameChangeAsker(
+    currentWidget = NameTextField(
       () {
         onComplete();
       },
@@ -95,16 +101,36 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
             ),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(42, 42, 42, 14),
-              child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 377),
-                child: currentWidget,
-                transitionBuilder: (
-                  Widget child,
-                  Animation<double> animation,
-                ) =>
-                    ScaleTransition(
-                  scale: animation,
-                  child: child,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.62,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'New public name',
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
+                    SizedBox(height: 12),
+                    AnimatedSwitcher(
+                      duration: Duration(milliseconds: 233),
+                      child: currentWidget,
+                      transitionBuilder: (
+                        Widget child,
+                        Animation<double> animation,
+                      ) =>
+                          ScaleTransition(
+                        scale: animation,
+                        child: child,
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                    TextButton(
+                      onPressed: () {
+                        onComplete();
+                      },
+                      child: Text('continue'),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -115,66 +141,57 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
   }
 }
 
-class NameChangeAsker extends StatelessWidget {
+class NameTextField extends StatelessWidget {
   final Function onComplete;
   final TextEditingController controller;
-  NameChangeAsker(
+  NameTextField(
     this.onComplete,
     this.controller,
   );
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.62,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'New public name',
-            style: Theme.of(context).textTheme.headline2,
-          ),
-          SizedBox(height: 12),
-          TextField(
-            controller: controller,
-            autofocus: true,
-            onEditingComplete: () {
-              onComplete();
-            },
-            style: TextStyle(
-              color: Theme.of(context).focusColor,
-            ),
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                borderSide: BorderSide(color: Theme.of(context).focusColor),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                borderSide: BorderSide(color: Theme.of(context).focusColor),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                borderSide: BorderSide(color: Theme.of(context).focusColor),
-              ),
-              labelStyle: TextStyle(
-                color: Theme.of(context).focusColor,
-              ),
-              hoverColor: Theme.of(context).focusColor,
-              fillColor: Theme.of(context).focusColor,
-              focusColor: Theme.of(context).focusColor,
-            ),
-            cursorColor: Theme.of(context).focusColor,
-          ),
-          SizedBox(height: 12),
-          TextButton(
-            onPressed: () {
-              onComplete();
-            },
-            child: Text('continue'),
-          ),
-        ],
+    return TextField(
+      controller: controller,
+      autofocus: true,
+      onEditingComplete: () {
+        onComplete();
+      },
+      style: TextStyle(
+        color: Theme.of(context).focusColor,
       ),
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        labelStyle: TextStyle(
+          color: Theme.of(context).focusColor,
+        ),
+        hoverColor: Theme.of(context).focusColor,
+        fillColor: Theme.of(context).focusColor,
+        focusColor: Theme.of(context).focusColor,
+      ),
+      cursorColor: Theme.of(context).focusColor,
+    );
+  }
+}
+
+class NameReadyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      Icons.check_circle_outline_rounded,
+      color: Theme.of(context).focusColor,
+      size: 42,
     );
   }
 }

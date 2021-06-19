@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,6 +18,8 @@ var routeMap = <String, WidgetBuilder>{
   '/name': (BuildContext context) => GoogleAuth(),
   '/keys': (BuildContext context) => KeySave(),
 };
+
+var mainStream = StreamController<String>.broadcast();
 
 class PrimaryPage extends StatefulWidget {
   @override
