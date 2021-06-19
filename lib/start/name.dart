@@ -76,25 +76,7 @@ class _GoogleAuthState extends State<GoogleAuth> {
           TextButton(
             child: Text('continue'),
             onPressed: () {
-              if (filter.isProfane(nameController.text)) {
-                nameController.text = '';
-                showDialog(
-                  context: context,
-                  builder: (_) => MessageOverlay(
-                    mainText: 'name contains\nprofane words',
-                  ),
-                );
-                return;
-              }
-              if (nameController.text.length < 4) {
-                nameController.text = '';
-                showDialog(
-                  context: context,
-                  builder: (_) =>
-                      MessageOverlay(mainText: ' name is\ntoo short'),
-                );
-                return;
-              }
+
               saveName(nameController.text);
               Navigator.pushNamed(context, '/keys');
             },
@@ -103,64 +85,6 @@ class _GoogleAuthState extends State<GoogleAuth> {
             height: 125,
           )
         ],
-      ),
-    );
-  }
-}
-
-class MessageOverlay extends StatefulWidget {
-  final String mainText;
-  MessageOverlay({this.mainText = 'error'});
-  @override
-  State<StatefulWidget> createState() => MessageOverlayState();
-}
-
-class MessageOverlayState extends State<MessageOverlay>
-    with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  late Animation<double> scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 233),
-    );
-    scaleAnimation = CurvedAnimation(
-      parent: controller,
-      curve: Curves.decelerate,
-    );
-    controller.addListener(() {
-      setState(() {});
-    });
-    controller.forward();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Material(
-        color: Colors.transparent,
-        child: ScaleTransition(
-          scale: scaleAnimation,
-          child: Container(
-            decoration: ShapeDecoration(
-              color: Theme.of(context).backgroundColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Text(
-                this.widget.mainText,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline2,
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
