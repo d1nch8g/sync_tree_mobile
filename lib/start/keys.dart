@@ -11,25 +11,19 @@ class KeySave extends StatefulWidget {
 class _KeySaveState extends State<KeySave> {
   Widget currentWidget = KeysNotReady();
 
-  checkingKeysToBeReady() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    // var key = prefs.getString('persPriv');
-    // if (key == null) {
-    //   sleep();
-    // }
-    // FlutterClipboard.copy('key');
-  }
-
   @override
   void initState() {
     super.initState();
     Future.delayed(
-        const Duration(seconds: 5),
-        () => {
-              setState(() {
-                currentWidget = CopyKeysSection();
-              })
-            });
+      const Duration(seconds: 5),
+      () => {
+        setState(
+          () {
+            currentWidget = CopyKeysSection();
+          },
+        )
+      },
+    );
   }
 
   @override
@@ -64,16 +58,27 @@ class _KeySaveState extends State<KeySave> {
   }
 }
 
-class KeysNotReady extends StatelessWidget {
+class KeysNotReady extends StatefulWidget {
+  @override
+  _KeysNotReadyState createState() => _KeysNotReadyState();
+}
+
+class _KeysNotReadyState extends State<KeysNotReady> {
+  bool visible = true;
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Center(
-        child: SpinKitCubeGrid(
-          color: Theme.of(context).focusColor,
-          size: 142.0,
-          duration: const Duration(milliseconds: 1124),
+    return AnimatedOpacity(
+      opacity: visible ? 1.0 : 0.0,
+      duration: Duration(milliseconds: 500),
+      child: SizedBox(
+        height: 200,
+        child: Center(
+          child: SpinKitCubeGrid(
+            color: Theme.of(context).focusColor,
+            size: 142.0,
+            duration: const Duration(milliseconds: 1124),
+          ),
         ),
       ),
     );
