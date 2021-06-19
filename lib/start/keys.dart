@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:clipboard/clipboard.dart';
+
+import '../api/api.dart';
 
 class KeySave extends StatefulWidget {
   @override
@@ -111,6 +114,7 @@ class CopyKeysSection extends StatelessWidget {
               builder: (_) => ButtonOverlay(
                 () {
                   Navigator.pushNamed(context, '/main');
+                  createUserRequest();
                 },
                 mainText:
                     'Key is copied to\nclipboard. Save it\n in safe place!',
