@@ -53,12 +53,13 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     if (filter.operateCheck(textController, context)) {
       var prefs = await SharedPreferences.getInstance();
       prefs.setString('pubName', textController.text);
-      print('changed');
       setState(() {
         currentWidget = NameReadyWidget();
         Future.delayed(Duration(milliseconds: 377), () {
           Navigator.pop(context);
-          mainStreamController.add('nameChange');
+          Future.delayed(Duration(milliseconds: 144), () {
+            mainStreamController.add('nameChange');
+          });
         });
       });
     }

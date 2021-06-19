@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +12,54 @@ import 'sendChanges.dart';
 
 import '../navigator.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  late Widget dynamicName;
+
+  Future<String> getName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('pubName') ?? 'name error';
+  }
+
+  void startNameChecking() {
+    mainStream.listen((stringEvent) {
+      if (stringEvent == 'nameChange') {
+        getName().then(
+          (value) => {
+            setState(() {
+              dynamicName = DynamicName(
+                value,
+                UniqueKey(),
+              );
+            })
+          },
+        );
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    dynamicName = DynamicName(
+      'loading',
+      UniqueKey(),
+    );
+    getName().then((value) => {
+          setState(() {
+            dynamicName = DynamicName(
+              value,
+              UniqueKey(),
+            );
+          })
+        });
+    startNameChecking();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,16 +71,8 @@ class SettingsPage extends StatelessWidget {
             color: Theme.of(context).hintColor,
           ),
           AnimatedSwitcher(
-            duration: Duration(milliseconds: 720),
-            child: PublicName(),
-            transitionBuilder: (
-              Widget child,
-              Animation<double> animation,
-            ) =>
-                ScaleTransition(
-              scale: animation,
-              child: child,
-            ),
+            child: dynamicName,
+            duration: Duration(milliseconds: 377),
           ),
           Divider(),
           Expanded(
@@ -64,56 +101,10 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
-class PublicName extends StatefulWidget {
-  @override
-  _PublicNameState createState() => _PublicNameState();
-}
-
-class _PublicNameState extends State<PublicName> {
-  late DynamicName dynamicName;
-
-  setName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var name = prefs.getString('pubName');
-    setState(() {
-      dynamicName = DynamicName(name ?? 'name error');
-    });
-  }
-
-  void startNameChecking() async {
-    mainStream.listen((stringEvent) {
-      if (stringEvent == 'nameChange') {
-        setName();
-      }
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setName();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: Duration(milliseconds: 233),
-      child: dynamicName,
-      transitionBuilder: (
-        Widget child,
-        Animation<double> animation,
-      ) =>
-          ScaleTransition(
-        scale: animation,
-        child: child,
-      ),
-    );
-  }
-}
-
 class DynamicName extends StatelessWidget {
   final String name;
-  DynamicName(this.name);
+  final Key key;
+  DynamicName(this.name, this.key);
 
   @override
   Widget build(BuildContext context) {

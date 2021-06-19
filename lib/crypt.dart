@@ -70,4 +70,8 @@ class Crypt {
     var sign = CryptoUtils.rsaSign(key, data, algorithmName: 'SHA-512/RSA');
     return sign;
   }
+
+  Uint8List hash(Uint8List data) {
+    return Digest('SHA-512').process(data);
+  }
 }
