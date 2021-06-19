@@ -13,6 +13,7 @@ class SendChangesTile extends StatelessWidget {
         var mesPub = prefs.getString('mesPub');
         var persPriv = prefs.getString('mesPriv');
         var persPub = prefs.getString('persPub');
+        
         showDialog(
           context: context,
           builder: (_) => SendChangesOverlay(),
