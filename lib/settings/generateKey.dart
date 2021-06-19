@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:sync_tree_mobile/security/pin.dart';
 
+import '../security/pin.dart';
 import '/crypt.dart';
 
 class GenerateKeyTile extends StatelessWidget {
