@@ -20,7 +20,6 @@ class ChangeKeyTile extends StatelessWidget {
               builder: (_) => ChangeKeyOverlay(),
             );
           },
-          PinEnum.changePrivate,
         );
       },
       leading: Icon(

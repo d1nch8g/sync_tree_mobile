@@ -20,7 +20,6 @@ class GenerateKeyTile extends StatelessWidget {
               builder: (_) => GenerateKeyOverlay(),
             );
           },
-          PinEnum.generatePrivate,
         );
       },
       leading: Icon(

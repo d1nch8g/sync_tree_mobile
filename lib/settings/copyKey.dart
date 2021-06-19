@@ -36,7 +36,6 @@ class CopyKeyTile extends StatelessWidget {
               );
             });
           },
-          PinEnum.copyPrivate,
         );
       },
       leading: Icon(

@@ -25,7 +25,6 @@ class SetPinTile extends StatelessWidget {
               barrierDismissible: false,
             );
           },
-          PinEnum.setPin,
         );
       },
       title: Text(
