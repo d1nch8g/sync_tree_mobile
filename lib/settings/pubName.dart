@@ -55,8 +55,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
       prefs.setString('pubName', textController.text);
       print('changed');
       setState(() {
-        
-        //TODO add name change to stream
+        mainStreamController.add('nameChange');
         currentWidget = NameReadyWidget();
         Future.delayed(Duration(milliseconds: 377), () {
           Navigator.pop(context);

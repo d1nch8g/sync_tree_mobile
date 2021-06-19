@@ -96,9 +96,20 @@ class _PublicNameState extends State<PublicName> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      _currentName,
-      style: Theme.of(context).textTheme.headline3,
+    return AnimatedSwitcher(
+      duration: Duration(milliseconds: 233),
+      child: Text(
+        _currentName,
+        style: Theme.of(context).textTheme.headline3,
+      ),
+      transitionBuilder: (
+        Widget child,
+        Animation<double> animation,
+      ) =>
+          ScaleTransition(
+        scale: animation,
+        child: child,
+      ),
     );
   }
 }
