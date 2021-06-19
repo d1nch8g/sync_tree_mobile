@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:bad_words/bad_words.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../start/profanity/filter.dart';
 
 class GoogleAuth extends StatefulWidget {
   @override
@@ -79,8 +81,9 @@ class _GoogleAuthState extends State<GoogleAuth> {
                 nameController.text = '';
                 showDialog(
                   context: context,
-                  builder: (_) =>
-                      MessageOverlay(mainText: 'name contains\nprofane words'),
+                  builder: (_) => MessageOverlay(
+                    mainText: 'name contains\nprofane words',
+                  ),
                 );
                 return;
               }
