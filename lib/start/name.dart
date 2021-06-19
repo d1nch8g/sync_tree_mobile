@@ -4,12 +4,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../security/filter.dart';
 
-class GoogleAuth extends StatefulWidget {
+class NameCreation extends StatefulWidget {
   @override
-  _GoogleAuthState createState() => _GoogleAuthState();
+  _NameCreationState createState() => _NameCreationState();
 }
 
-class _GoogleAuthState extends State<GoogleAuth> {
+class _NameCreationState extends State<NameCreation> {
   final nameController = TextEditingController();
   final filter = Filter();
 
@@ -83,9 +83,7 @@ class _GoogleAuthState extends State<GoogleAuth> {
               }
             },
           ),
-          SizedBox(
-            height: 125,
-          )
+          SizedBox(height: 125),
         ],
       ),
     );

@@ -15,7 +15,7 @@ import 'start/keys.dart';
 var routeMap = <String, WidgetBuilder>{
   '/main': (BuildContext context) => PrimaryPage(),
   '/hello': (BuildContext context) => IntroPage(),
-  '/name': (BuildContext context) => GoogleAuth(),
+  '/name': (BuildContext context) => NameCreation(),
   '/keys': (BuildContext context) => KeySave(),
 };
 
@@ -34,7 +34,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
   Future<bool> firstLaunch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var firstLaunch = prefs.getBool('firstLaunch');
-    prefs.setBool('firstLaunch', false); // change to true to go to start
+    prefs.setBool('firstLaunch', true); // change to true to go to start
     return firstLaunch ?? true;
   }
 

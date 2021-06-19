@@ -112,9 +112,16 @@ class CopyKeysSection extends StatelessWidget {
             showDialog(
               context: context,
               builder: (_) => ButtonOverlay(
-                () {
-                  Navigator.pushNamed(context, '/main');
-                  createUserRequest();
+                () async {
+                  var succsessfullyCreated = await createUserRequest();
+                  if (succsessfullyCreated) {
+                    Navigator.pushNamed(context, '/main');
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (_) => UserNotCreatedOverlay(),
+                    );
+                  }
                 },
                 mainText:
                     'Key is copied to\nclipboard. Save it\n in safe place!',
@@ -200,6 +207,64 @@ class ButtonOverlayState extends State<ButtonOverlay>
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class UserNotCreatedOverlay extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => UserNotCreatedOverlayState();
+}
+
+class UserNotCreatedOverlayState extends State<UserNotCreatedOverlay>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 233),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
+    controller.addListener(() {
+      setState(() {});
+    });
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.45,
+            height: MediaQuery.of(context).size.height * 0.45,
+            decoration: ShapeDecoration(
+              color: Theme.of(context).backgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Text(
+                'User is not created, check connection',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline2,
               ),
             ),
           ),
