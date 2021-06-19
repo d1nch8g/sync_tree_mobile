@@ -27,27 +27,24 @@ class Filter {
     return clean.join(' ');
   }
 
-  bool checkLength(String name) {
+  bool isShort(String name) {
     if (name.length < 4) {
-      return false;
-    }
-    return true;
-  }
-
-  bool checkCharacters(String name) {
-    if (name.contains(' ')) {
-      return false;
-    }
-    if (RegExp('[a-zA-Z0-9]').hasMatch(name)) {
       return true;
     }
     return false;
   }
 
-  bool operateCheck(
-    TextEditingController nameController,
-    context,
-  ) {
+  bool containBadCharacters(String name) {
+    if (name.contains(' ')) {
+      return true;
+    }
+    if (RegExp('[a-zA-Z0-9]').hasMatch(name)) {
+      return false;
+    }
+    return true;
+  }
+
+  bool operateCheck(TextEditingController nameController, context) {
     if (isProfane(nameController.text)) {
       nameController.text = '';
       showDialog(
@@ -59,7 +56,7 @@ class Filter {
       );
       return false;
     }
-    if (checkLength(nameController.text)) {
+    if (isShort(nameController.text)) {
       nameController.text = '';
       showDialog(
         context: context,
@@ -70,13 +67,13 @@ class Filter {
       );
       return false;
     }
-    if (checkCharacters(nameController.text)) {
+    if (containBadCharacters(nameController.text)) {
       nameController.text = '';
       showDialog(
         context: context,
         builder: (_) => BadNameOverlay(
           mainText: 'name contains\n'
-              'bad letters\n',
+              'bad letters',
         ),
       );
       return false;

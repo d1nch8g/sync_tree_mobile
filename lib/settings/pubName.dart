@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../security/pin.dart';
+import '../security/filter.dart';
 
 class PublicNameTile extends StatelessWidget {
   @override
@@ -46,6 +47,15 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
 
   final TextEditingController textController = TextEditingController();
 
+  void onComplete() async {
+    var filter = Filter();
+    if (filter.operateCheck(textController, context)) {
+      var prefs = await SharedPreferences.getInstance();
+      prefs.setString('pubName', textController.text);
+      print('changed');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -62,7 +72,9 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     });
     controller.forward();
     currentWidget = NameChangeAsker(
-      () {},
+      () {
+        onComplete();
+      },
       textController,
     );
   }
