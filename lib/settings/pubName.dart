@@ -258,7 +258,7 @@ class ConccectionErrorOverlayState extends State<ConccectionErrorOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'User is not created, check connection',
+                    'Name is not chaged, check connection',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),

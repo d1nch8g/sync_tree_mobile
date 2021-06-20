@@ -5,24 +5,12 @@ import 'package:grpc/grpc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../crypt.dart';
 
+import '/api/api.dart';
 import '/api/api.pb.dart';
 import '/api/api.pbgrpc.dart';
 
 Future<bool> changeNameRequest() async {
   try {
-    final channel = ClientChannel(
-      '192.168.1.65',
-      port: 50051,
-      options: ChannelOptions(
-        credentials: ChannelCredentials.insecure(),
-        codecRegistry: CodecRegistry(
-          codecs: const [
-            GzipCodec(),
-            IdentityCodec(),
-          ],
-        ),
-      ),
-    );
     var crypt = Crypt();
     var prefs = await SharedPreferences.getInstance();
     var persPubString = prefs.getString('persPub') ?? '';
@@ -35,7 +23,7 @@ Future<bool> changeNameRequest() async {
         []..addAll(persPub)..addAll(mesPub)..addAll(pubNameBytes));
     var persPrivString = prefs.getString('persPriv') ?? '';
     var sign = crypt.signMessage(persPrivString, concatmessage1);
-    final stub = SyncTreeClient(channel);
+
     final response = await stub.userUpdate(
       UserUpdateRequest(
         publicKey: persPub,
