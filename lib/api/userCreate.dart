@@ -15,8 +15,12 @@ Future<bool> createUserRequest() async {
       port: 50051,
       options: ChannelOptions(
         credentials: ChannelCredentials.insecure(),
-        codecRegistry:
-            CodecRegistry(codecs: const [GzipCodec(), IdentityCodec()]),
+        codecRegistry: CodecRegistry(
+          codecs: const [
+            GzipCodec(),
+            IdentityCodec(),
+          ],
+        ),
       ),
     );
     var crypt = Crypt();
@@ -32,18 +36,17 @@ Future<bool> createUserRequest() async {
     var persPrivString = prefs.getString('persPriv') ?? '';
     var sign = crypt.signMessage(persPrivString, concatmessage1);
     final stub = SyncTreeClient(channel);
-    final response = await stub
-        .userCreate(
-          UserCreateRequest(
-            publicKey: persPub,
-            messsageKey: mesPub,
-            publicName: pubName,
-            sign: sign,
-          ),
-        )
-        .timeout(
-          Duration(milliseconds: 2584),
-        );
+    final response = await stub.userCreate(
+      UserCreateRequest(
+        publicKey: persPub,
+        messsageKey: mesPub,
+        publicName: pubName,
+        sign: sign,
+      ),
+      options: CallOptions(
+        timeout: Duration(milliseconds: 2584),
+      ),
+    );
     return response.passed;
   } catch (Exception) {
     return false;

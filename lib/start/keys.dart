@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -118,9 +120,16 @@ class CopyKeysSection extends StatelessWidget {
                     Navigator.pushNamed(context, '/main');
                   } else {
                     Navigator.pop(context);
+                    var _timer = Timer(Duration(milliseconds: 1597), () {
+                      Navigator.of(context).pop();
+                    });
                     showDialog(
                       context: context,
                       builder: (_) => UserNotCreatedOverlay(),
+                    ).then(
+                      (value) => {
+                        if (_timer.isActive) {_timer.cancel()}
+                      },
                     );
                   }
                 },
@@ -128,6 +137,7 @@ class CopyKeysSection extends StatelessWidget {
                     'Key is copied to\nclipboard. Save it\n in safe place!',
                 buttonText: 'continue',
               ),
+              barrierDismissible: false,
             );
           },
         ),
