@@ -303,7 +303,7 @@ class UserNotCreatedOverlayState extends State<UserNotCreatedOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'User is not recreated, check connection',
+                    'User is not created, check connection',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),

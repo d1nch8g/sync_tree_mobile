@@ -78,6 +78,29 @@ class Crypt {
     return CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
   }
 
+  Future<String> getSingleStringFromSavedKeys() async {
+    var keys = await getAllKeys();
+    var singleString = (keys[Key.PersonalPrivateKey]! +
+        '|' +
+        keys[Key.PersonalPublicKey]! +
+        '|' +
+        keys[Key.MessagePrivateKey]! +
+        '|' +
+        keys[Key.MessagePublicKey]!);
+    return singleString;
+  }
+
+  void saveSingleStringToKeys(String singleKeyString) {
+    var allKeysList = singleKeyString.split('|');
+    var keys = {
+      Key.PersonalPrivateKey: allKeysList[0],
+      Key.PersonalPublicKey: allKeysList[1],
+      Key.MessagePrivateKey: allKeysList[2],
+      Key.MessagePublicKey: allKeysList[3],
+    };
+    saveAllKeys(keys);
+  }
+
   bool checkPrivateKey(String key) {
     try {
       CryptoUtils.rsaPrivateKeyFromPemPkcs1(key);
