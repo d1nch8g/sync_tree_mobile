@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sync_tree_mobile/api/changename.dart';
 
 import '../security/pin.dart';
 import '../security/filter.dart';
@@ -52,16 +53,26 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     var filter = Filter();
     if (filter.operateCheck(textController, context)) {
       var prefs = await SharedPreferences.getInstance();
+      var previousName = prefs.getString('pubName')!;
       prefs.setString('pubName', textController.text);
-      setState(() {
-        currentWidget = NameReadyWidget();
-        Future.delayed(Duration(milliseconds: 377), () {
-          Navigator.pop(context);
-          Future.delayed(Duration(milliseconds: 144), () {
-            mainStreamController.add('nameChange');
+      var nameChangedSuccessfully = await changeNameRequest();
+      if (nameChangedSuccessfully) {
+        setState(() {
+          currentWidget = NameReadyWidget();
+          Future.delayed(Duration(milliseconds: 377), () {
+            Navigator.pop(context);
+            Future.delayed(Duration(milliseconds: 144), () {
+              mainStreamController.add('nameChange');
+            });
           });
         });
-      });
+      } else {
+        prefs.setString('pubName', previousName);
+        showDialog(
+          context: context,
+          builder: (_) => ConccectionErrorOverlay(),
+        );
+      }
     }
   }
 
@@ -195,6 +206,73 @@ class NameReadyWidget extends StatelessWidget {
       Icons.check_circle_outline_rounded,
       color: Theme.of(context).focusColor,
       size: 42,
+    );
+  }
+}
+
+class ConccectionErrorOverlay extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => ConccectionErrorOverlayState();
+}
+
+class ConccectionErrorOverlayState extends State<ConccectionErrorOverlay>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 233),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
+    controller.addListener(() {
+      setState(() {});
+    });
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.72,
+            decoration: ShapeDecoration(
+              color: Theme.of(context).backgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'User is not created, check connection',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  Icon(
+                    Icons.signal_wifi_connected_no_internet_4_rounded,
+                    size: 144,
+                    color: Theme.of(context).focusColor,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
