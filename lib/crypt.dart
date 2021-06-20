@@ -78,7 +78,7 @@ class Crypt {
     return CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
   }
 
-  Future<String> getSingleStringFromSavedKeys() async {
+  Future<String> getSingleStringSavedKeys() async {
     var keys = await getAllKeys();
     var singleString = (keys[Key.PersonalPrivateKey]! +
         '|' +
@@ -90,7 +90,7 @@ class Crypt {
     return singleString;
   }
 
-  void saveSingleStringToKeys(String singleKeyString) {
+  void saveSingleStringKeys(String singleKeyString) {
     var allKeysList = singleKeyString.split('|');
     var keys = {
       Key.PersonalPrivateKey: allKeysList[0],

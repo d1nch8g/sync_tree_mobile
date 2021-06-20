@@ -148,14 +148,14 @@ class KeyCopyContent extends StatefulWidget {
 
 class _KeyCopyContentState extends State<KeyCopyContent> {
   late Widget buttonToAnimate;
+  final crypt = Crypt();
 
   onPressAction(context) async {
-    final crypt = Crypt();
-    var key = await FlutterClipboard.paste();
-    if (crypt.checkPrivateKey(key)) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('persPriv', key);
+    var allKeys = await FlutterClipboard.paste();
+    var firstKey = allKeys.split('|');
+    if (crypt.checkPrivateKey(firstKey[0])) {
       setState(() {
+        crypt.saveSingleStringKeys(allKeys);
         buttonToAnimate = SucessButton();
         Future.delayed(Duration(milliseconds: 377), () {
           Navigator.pop(context);

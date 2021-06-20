@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:clipboard/clipboard.dart';
 
+import 'package:sync_tree_mobile/crypt.dart';
 import '/security/pin.dart';
 
 class CopyKeyTile extends StatelessWidget {
-  Future<String> getPrivKey() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var key = prefs.getString('persPriv');
-    return key ?? '';
+  final crypt = Crypt();
+
+  Future<String> getAllKeysString() async {
+    var singleKeyString = await crypt.getSingleStringSavedKeys();
+    return singleKeyString;
   }
 
   @override
@@ -21,7 +23,7 @@ class CopyKeyTile extends StatelessWidget {
         checkPwd(
           context,
           () {
-            getPrivKey().then((privateKeyPem) {
+            getAllKeysString().then((privateKeyPem) {
               FlutterClipboard.copy(privateKeyPem);
               var _timer = Timer(Duration(milliseconds: 1597), () {
                 Navigator.of(context).pop();
@@ -108,6 +110,7 @@ class KeyCopyOverlayState extends State<KeyCopyOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
+            width: MediaQuery.of(context).size.width * 0.74,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -120,8 +123,7 @@ class KeyCopyOverlayState extends State<KeyCopyOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'key copied\n'
-                    'to clipboard',
+                    'key copied to clipboard',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),
