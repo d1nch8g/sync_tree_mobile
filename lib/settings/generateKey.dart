@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:sync_tree_mobile/api/userCreate.dart';
 
 import '../security/pin.dart';
 import '/crypt.dart';
@@ -147,6 +148,7 @@ class KeyBuilderContent extends StatefulWidget {
 
 class _KeyBuilderContentState extends State<KeyBuilderContent> {
   Widget currentWidget = KeysNotReady();
+  Crypt crypt = Crypt();
 
   changeWidget() {
     setState(() {
@@ -158,14 +160,25 @@ class _KeyBuilderContentState extends State<KeyBuilderContent> {
   }
 
   buildKeys() async {
-    var crypt = Crypt();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var futKeys = crypt.generateKeys();
-    futKeys.then((keys) => {
-          prefs.setString('persPriv', keys[0]),
-          prefs.setString('persPub', keys[1]),
-          changeWidget(),
-        });
+    var keys = await crypt.generateKeys();
+    var curPersPriv = prefs.getString('persPriv');
+    var curPersPub = prefs.getString('persPub');
+    var curMesPriv = prefs.getString('mesPriv');
+    var curMesPub = prefs.getString('mesPub');
+    prefs.setString('persPriv', keys[0]);
+    prefs.setString('persPub', keys[1]);
+    prefs.setString('mesPriv', keys[2]);
+    prefs.setString('mesPub', keys[3]);
+    var response = await createUserRequest();
+    if (response) {
+      changeWidget();
+    } else {
+      prefs.setString('persPriv', curPersPriv);
+      prefs.setString('persPub', keys[1]);
+      prefs.setString('mesPriv', keys[2]);
+      prefs.setString('mesPub', keys[3]);
+    }
   }
 
   @override
