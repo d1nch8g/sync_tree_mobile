@@ -23,7 +23,6 @@ Future<bool> changeNameRequest() async {
         []..addAll(persPub)..addAll(mesPub)..addAll(pubNameBytes));
     var persPrivString = prefs.getString('persPriv') ?? '';
     var sign = crypt.signMessage(persPrivString, concatmessage1);
-
     final response = await stub.userUpdate(
       UserUpdateRequest(
         publicKey: persPub,
@@ -37,6 +36,7 @@ Future<bool> changeNameRequest() async {
     );
     return response.passed;
   } catch (Exception) {
+    print(Exception);
     return false;
   }
 }

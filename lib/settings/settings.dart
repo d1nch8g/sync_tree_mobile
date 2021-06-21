@@ -8,7 +8,6 @@ import 'generateKey.dart';
 import 'pinSetting.dart';
 import 'licenses.dart';
 import 'pubName.dart';
-import 'sendChanges.dart';
 
 import '../navigator.dart';
 
@@ -88,8 +87,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 SetPinTile(),
                 Divider(),
                 PublicNameTile(),
-                Divider(),
-                SendChangesTile(),
                 Divider(),
                 LicensesTile(),
               ],
