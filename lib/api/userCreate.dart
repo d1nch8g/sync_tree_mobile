@@ -9,7 +9,7 @@ import '/api/api.pb.dart';
 import '/api/api.pbgrpc.dart';
 import '/api/api.dart';
 
-Future<bool> createUserRequest() async {
+Future<bool> userCreate() async {
   try {
     var crypt = Crypt();
     var prefs = await SharedPreferences.getInstance();

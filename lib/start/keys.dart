@@ -115,7 +115,7 @@ class CopyKeysSection extends StatelessWidget {
               context: context,
               builder: (_) => ButtonOverlay(
                 () async {
-                  var succsessfullyCreated = await createUserRequest();
+                  var succsessfullyCreated = await userCreate();
                   if (succsessfullyCreated) {
                     Navigator.pushNamed(context, '/main');
                   } else {

@@ -9,7 +9,7 @@ import '/api/api.dart';
 import '/api/api.pb.dart';
 import '/api/api.pbgrpc.dart';
 
-Future<bool> changeNameRequest() async {
+Future<bool> userUpdate() async {
   try {
     var crypt = Crypt();
     var prefs = await SharedPreferences.getInstance();

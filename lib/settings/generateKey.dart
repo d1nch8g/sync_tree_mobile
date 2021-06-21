@@ -166,7 +166,7 @@ class _KeyBuilderContentState extends State<KeyBuilderContent> {
   void tryToUpload() async {
     crypt.saveAllKeys(newKeys);
     oldKeys = await crypt.getAllKeys();
-    var response = await createUserRequest();
+    var response = await userCreate();
     if (response) {
       changeWidget();
       Future.delayed(Duration(milliseconds: 377), () {
