@@ -13,9 +13,9 @@ protoc lib/api/api.proto --dart_out=grpc:.
 
 service SyncTree{
     rpc UserCreate(UserCreateRequest) returns (Response) {}
-    rpc UserUpdate(UserUpdateRequest) returns (Response) {}
-    rpc UserSend(UserSendRequest) returns (Response) {}
     rpc UserInfo(UserInfoRequest) returns (UserInfoResponse) {}
+    rpc UserSend(UserSendRequest) returns (Response) {}
+    rpc UserUpdate(UserUpdateRequest) returns (Response) {}
 }
 
 message Response{

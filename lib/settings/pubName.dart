@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/api/changename.dart';
+import 'package:sync_tree_mobile/api/userUpdate.dart';
 
 import '../security/pin.dart';
 import '../security/filter.dart';
@@ -55,7 +55,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
       var prefs = await SharedPreferences.getInstance();
       var previousName = prefs.getString('pubName')!;
       prefs.setString('pubName', textController.text);
-      var nameChangedSuccessfully = await changeNameRequest();
+      var nameChangedSuccessfully = await userUpdate();
       if (nameChangedSuccessfully) {
         setState(() {
           currentWidget = NameReadyWidget();
