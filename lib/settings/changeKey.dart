@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:clipboard/clipboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sync_tree_mobile/api/userInfo.dart';
+import 'package:sync_tree_mobile/navigator.dart';
 
 import '/security/pin.dart';
 import '/crypt.dart';
@@ -151,27 +155,34 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
 
   onPressAction(context) async {
     var allKeys = await FlutterClipboard.paste();
-    var firstKey = allKeys.split('|');
-    if (crypt.checkPrivateKey(firstKey[0])) {
-      setState(() {
+    if (crypt.checkAllKeys(allKeys)) {
+      var persPub = crypt.keyToBytes(allKeys.split('|')[1]);
+      var persAdress = crypt.hash(persPub);
+      var newName = await userName(base64.encode(persAdress));
+      if (newName != "====") {
         crypt.saveSingleStringKeys(allKeys);
-        buttonToAnimate = SucessButton();
+        setState(() {
+          buttonToAnimate = SucessButton();
+        });
+        var prefs = await SharedPreferences.getInstance();
+        prefs.setString('pubName', newName);
+        mainStreamController.add('nameChange');
         Future.delayed(Duration(milliseconds: 377), () {
           Navigator.pop(context);
         });
-      });
-    } else {
-      setState(() {
-        buttonToAnimate = ErrorButton();
-        Future.delayed(Duration(milliseconds: 377), () {
-          setState(() {
-            buttonToAnimate = PasteButton(() {
-              onPressAction(context);
-            });
+        return;
+      }
+    }
+    setState(() {
+      buttonToAnimate = ErrorButton();
+      Future.delayed(Duration(milliseconds: 377), () {
+        setState(() {
+          buttonToAnimate = PasteButton(() {
+            onPressAction(context);
           });
         });
       });
-    }
+    });
   }
 
   @override

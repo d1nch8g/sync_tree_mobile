@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:pointycastle/key_generators/rsa_key_generator.dart';
@@ -102,9 +101,13 @@ class Crypt {
     saveAllKeys(keys);
   }
 
-  bool checkPrivateKey(String key) {
+  bool checkAllKeys(String keys) {
+    var allKeys = keys.split('|');
     try {
-      CryptoUtils.rsaPrivateKeyFromPemPkcs1(key);
+      CryptoUtils.rsaPrivateKeyFromPemPkcs1(allKeys[0]);
+      CryptoUtils.rsaPrivateKeyFromPemPkcs1(allKeys[2]);
+      CryptoUtils.rsaPublicKeyFromPemPkcs1(allKeys[1]);
+      CryptoUtils.rsaPublicKeyFromPemPkcs1(allKeys[3]);
       return true;
     } catch (exc) {
       return false;
