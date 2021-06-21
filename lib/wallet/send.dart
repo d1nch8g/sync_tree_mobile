@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/security/pin.dart';
 
 class SendButton extends StatelessWidget {
   @override
@@ -6,7 +7,9 @@ class SendButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          checkPwd(context, () {});
+        },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(

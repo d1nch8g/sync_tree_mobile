@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile/wallet/balance.dart';
+import 'package:sync_tree_mobile/wallet/history.dart';
 
 import 'send.dart';
 import 'get.dart';
@@ -27,21 +28,7 @@ class WalletPage extends StatelessWidget {
             ],
           ),
           Divider(),
-          ListTile(
-            leading: Icon(Icons.list_alt_rounded),
-            title: Text('Get transaction history'),
-            subtitle: Text(
-              'You can get history of all your operations loaded directly from distributed network.',
-            ),
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.list),
-            title: Text('Get message history'),
-            subtitle: Text(
-              'Here you can get all messages occured that been.',
-            ),
-          ),
+          TransactionHistory(),
           Divider(),
         ],
       ),

@@ -45,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
     dynamicName = DynamicName(
-      'loading',
+      '',
       UniqueKey(),
     );
     getName().then((value) => {

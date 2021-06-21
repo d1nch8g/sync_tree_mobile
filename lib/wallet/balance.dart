@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/api/api.pb.dart';
 import 'package:sync_tree_mobile/api/userInfo.dart';
 
 class DynamicBalance extends StatefulWidget {
@@ -8,7 +7,7 @@ class DynamicBalance extends StatefulWidget {
 }
 
 class _DynamicBalanceState extends State<DynamicBalance> {
-  String balance = '0';
+  String balance = '';
 
   void setActualBalance() async {
     var requestBalance = await selfBalance();
@@ -25,9 +24,13 @@ class _DynamicBalanceState extends State<DynamicBalance> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      balance,
-      style: Theme.of(context).textTheme.headline3,
+    return AnimatedSwitcher(
+      child: Text(
+        balance,
+        style: Theme.of(context).textTheme.headline3,
+        key: UniqueKey(),
+      ),
+      duration: Duration(milliseconds: 377),
     );
   }
 }
