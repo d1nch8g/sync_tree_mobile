@@ -6,7 +6,6 @@ import 'words.dart';
 
 /// Bad Word Filter
 class Filter {
-  /// isProfane returns a boolean value representing if the string provided contains a profane word
   bool isProfane(String stringToTest) {
     final lowerCaseStringToTest = stringToTest.toLowerCase();
     return wordList
@@ -14,7 +13,6 @@ class Filter {
         .isNotEmpty;
   }
 
-  /// replace tests a string, replacing bad words with an asterisk length string of equal length
   String clean(String stringToObfuscate) {
     final listToTest = stringToObfuscate.split(' ');
     final clean = listToTest.map((e) {
@@ -44,14 +42,20 @@ class Filter {
     return true;
   }
 
+  bool tooLong(String name) {
+    if (name.length > 16) {
+      return true;
+    }
+    return false;
+  }
+
   bool operateCheck(TextEditingController nameController, context) {
     if (isProfane(nameController.text)) {
       nameController.text = '';
       showDialog(
         context: context,
         builder: (_) => BadNameOverlay(
-          mainText: 'name contains\n'
-              'profane words',
+          mainText: 'name contains profane words',
         ),
       );
       return false;
@@ -61,8 +65,7 @@ class Filter {
       showDialog(
         context: context,
         builder: (_) => BadNameOverlay(
-          mainText: 'name is\n'
-              'too short',
+          mainText: 'name is too short',
         ),
       );
       return false;
@@ -72,8 +75,17 @@ class Filter {
       showDialog(
         context: context,
         builder: (_) => BadNameOverlay(
-          mainText: 'name contains\n'
-              'bad letters',
+          mainText: 'name contains bad letters',
+        ),
+      );
+      return false;
+    }
+    if (tooLong(nameController.text)) {
+      nameController.text = '';
+      showDialog(
+        context: context,
+        builder: (_) => BadNameOverlay(
+          mainText: 'name is too long',
         ),
       );
       return false;
@@ -119,6 +131,7 @@ class BadNameOverlayState extends State<BadNameOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
+            width: MediaQuery.of(context).size.width * 0.74,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(

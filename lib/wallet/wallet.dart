@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'send.dart';
-import 'recieve.dart';
+import 'get.dart';
 
 /// On this page all the user's connected wallets are gonna be displayed.
 /// The second option is
@@ -17,19 +17,34 @@ class WalletPage extends StatelessWidget {
             color: Theme.of(context).hintColor,
           ),
           Text(
-            'Your wallet',
+            '53769',
             style: Theme.of(context).textTheme.headline3,
           ),
-          Divider(),
-          
           Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SendButton(),
-              RecieveButton(),
+              GetButton(),
             ],
-          )
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.list_alt_rounded),
+            title: Text('Get transaction history'),
+            subtitle: Text(
+              'You can get history of all your operations loaded directly from distributed network.',
+            ),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Get message history'),
+            subtitle: Text(
+              'Here you can get all messages occured that been.',
+            ),
+          ),
+          Divider(),
         ],
       ),
     );

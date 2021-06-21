@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class RecieveButton extends StatelessWidget {
+class GetButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,7 +20,7 @@ class RecieveButton extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  'RECIEVE',
+                  'GET',
                   style: Theme.of(context).textTheme.button,
                 ),
               ],
