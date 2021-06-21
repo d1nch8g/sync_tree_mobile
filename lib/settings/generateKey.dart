@@ -85,6 +85,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
+            width: MediaQuery.of(context).size.width * 0.73,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -124,18 +125,18 @@ class KeyBuilderAsker extends StatelessWidget {
       children: [
         Text(
           'Are you sure?\n'
-          'current key\n'
-          'will be deleted\n',
+          'If you generate new key, current key will be deleted.',
           style: Theme.of(context).textTheme.headline2,
           textAlign: TextAlign.center,
         ),
+        SizedBox(height: 15),
         TextButton(
           onPressed: () {
             onPressed();
           },
           child: Text('continue'),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 15),
       ],
     );
   }

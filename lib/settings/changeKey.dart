@@ -83,6 +83,7 @@ class ChangeKeyOverlayState extends State<ChangeKeyOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
+            width: MediaQuery.of(context).size.width * 0.7,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -120,10 +121,7 @@ class QuestionContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Are you sure?\n'
-          'if you paste\n'
-          'new key, old one\n'
-          'will be deleted',
+          'Are you sure?\nIf you paste new key, old one will be deleted',
           style: Theme.of(context).textTheme.headline2,
           textAlign: TextAlign.center,
         ),
@@ -199,13 +197,11 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Press this button\n'
-          'to paste a key\n'
-          'from clipboard',
+          'Press this button to paste a key from clipboard',
           style: Theme.of(context).textTheme.headline2,
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 15),
         AnimatedSwitcher(
           child: buttonToAnimate,
           duration: Duration(milliseconds: 144),
@@ -218,7 +214,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
             child: child,
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 15),
       ],
     );
   }
