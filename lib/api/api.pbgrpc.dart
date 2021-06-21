@@ -28,10 +28,10 @@ class SyncTreeClient extends $grpc.Client {
       '/api.SyncTree/UserSend',
       ($0.UserSendRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.Response.fromBuffer(value));
-  static final _$userLook =
-      $grpc.ClientMethod<$0.UserInfo, $0.UserInfoResponse>(
-          '/api.SyncTree/UserLook',
-          ($0.UserInfo value) => value.writeToBuffer(),
+  static final _$userInfo =
+      $grpc.ClientMethod<$0.UserInfoRequest, $0.UserInfoResponse>(
+          '/api.SyncTree/UserInfo',
+          ($0.UserInfoRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.UserInfoResponse.fromBuffer(value));
 
@@ -55,9 +55,9 @@ class SyncTreeClient extends $grpc.Client {
     return $createUnaryCall(_$userSend, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.UserInfoResponse> userLook($0.UserInfo request,
+  $grpc.ResponseFuture<$0.UserInfoResponse> userInfo($0.UserInfoRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$userLook, request, options: options);
+    return $createUnaryCall(_$userInfo, request, options: options);
   }
 }
 
@@ -86,12 +86,12 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.UserSendRequest.fromBuffer(value),
         ($0.Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.UserInfo, $0.UserInfoResponse>(
-        'UserLook',
-        userLook_Pre,
+    $addMethod($grpc.ServiceMethod<$0.UserInfoRequest, $0.UserInfoResponse>(
+        'UserInfo',
+        userInfo_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.UserInfo.fromBuffer(value),
+        ($core.List<$core.int> value) => $0.UserInfoRequest.fromBuffer(value),
         ($0.UserInfoResponse value) => value.writeToBuffer()));
   }
 
@@ -110,9 +110,9 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
     return userSend(call, await request);
   }
 
-  $async.Future<$0.UserInfoResponse> userLook_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.UserInfo> request) async {
-    return userLook(call, await request);
+  $async.Future<$0.UserInfoResponse> userInfo_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.UserInfoRequest> request) async {
+    return userInfo(call, await request);
   }
 
   $async.Future<$0.Response> userCreate(
@@ -121,6 +121,6 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UserUpdateRequest request);
   $async.Future<$0.Response> userSend(
       $grpc.ServiceCall call, $0.UserSendRequest request);
-  $async.Future<$0.UserInfoResponse> userLook(
-      $grpc.ServiceCall call, $0.UserInfo request);
+  $async.Future<$0.UserInfoResponse> userInfo(
+      $grpc.ServiceCall call, $0.UserInfoRequest request);
 }

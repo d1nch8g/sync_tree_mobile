@@ -235,114 +235,6 @@ class UserUpdateRequest extends $pb.GeneratedMessage {
   void clearSign() => clearField(4);
 }
 
-class UserInfo extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserInfo', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
-    ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Adress', $pb.PbFieldType.OY, protoName: 'Adress')
-    ..hasRequiredFields = false
-  ;
-
-  UserInfo._() : super();
-  factory UserInfo({
-    $core.List<$core.int>? adress,
-  }) {
-    final _result = create();
-    if (adress != null) {
-      _result.adress = adress;
-    }
-    return _result;
-  }
-  factory UserInfo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UserInfo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  UserInfo clone() => UserInfo()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  UserInfo copyWith(void Function(UserInfo) updates) => super.copyWith((message) => updates(message as UserInfo)) as UserInfo; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UserInfo create() => UserInfo._();
-  UserInfo createEmptyInstance() => create();
-  static $pb.PbList<UserInfo> createRepeated() => $pb.PbList<UserInfo>();
-  @$core.pragma('dart2js:noInline')
-  static UserInfo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserInfo>(create);
-  static UserInfo? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.List<$core.int> get adress => $_getN(0);
-  @$pb.TagNumber(1)
-  set adress($core.List<$core.int> v) { $_setBytes(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasAdress() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearAdress() => clearField(1);
-}
-
-class UserInfoResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserInfoResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'PublicName', protoName: 'PublicName')
-    ..a<$fixnum.Int64>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Balance', $pb.PbFieldType.OU6, protoName: 'Balance', defaultOrMaker: $fixnum.Int64.ZERO)
-    ..hasRequiredFields = false
-  ;
-
-  UserInfoResponse._() : super();
-  factory UserInfoResponse({
-    $core.String? publicName,
-    $fixnum.Int64? balance,
-  }) {
-    final _result = create();
-    if (publicName != null) {
-      _result.publicName = publicName;
-    }
-    if (balance != null) {
-      _result.balance = balance;
-    }
-    return _result;
-  }
-  factory UserInfoResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UserInfoResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  UserInfoResponse clone() => UserInfoResponse()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  UserInfoResponse copyWith(void Function(UserInfoResponse) updates) => super.copyWith((message) => updates(message as UserInfoResponse)) as UserInfoResponse; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UserInfoResponse create() => UserInfoResponse._();
-  UserInfoResponse createEmptyInstance() => create();
-  static $pb.PbList<UserInfoResponse> createRepeated() => $pb.PbList<UserInfoResponse>();
-  @$core.pragma('dart2js:noInline')
-  static UserInfoResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserInfoResponse>(create);
-  static UserInfoResponse? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get publicName => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set publicName($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasPublicName() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearPublicName() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $fixnum.Int64 get balance => $_getI64(1);
-  @$pb.TagNumber(2)
-  set balance($fixnum.Int64 v) { $_setInt64(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasBalance() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearBalance() => clearField(2);
-}
-
 class UserSendRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserSendRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
     ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'PublicKey', $pb.PbFieldType.OY, protoName: 'PublicKey')
@@ -430,5 +322,113 @@ class UserSendRequest extends $pb.GeneratedMessage {
   $core.bool hasSign() => $_has(3);
   @$pb.TagNumber(4)
   void clearSign() => clearField(4);
+}
+
+class UserInfoRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserInfoRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Adress', $pb.PbFieldType.OY, protoName: 'Adress')
+    ..hasRequiredFields = false
+  ;
+
+  UserInfoRequest._() : super();
+  factory UserInfoRequest({
+    $core.List<$core.int>? adress,
+  }) {
+    final _result = create();
+    if (adress != null) {
+      _result.adress = adress;
+    }
+    return _result;
+  }
+  factory UserInfoRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserInfoRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserInfoRequest clone() => UserInfoRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserInfoRequest copyWith(void Function(UserInfoRequest) updates) => super.copyWith((message) => updates(message as UserInfoRequest)) as UserInfoRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserInfoRequest create() => UserInfoRequest._();
+  UserInfoRequest createEmptyInstance() => create();
+  static $pb.PbList<UserInfoRequest> createRepeated() => $pb.PbList<UserInfoRequest>();
+  @$core.pragma('dart2js:noInline')
+  static UserInfoRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserInfoRequest>(create);
+  static UserInfoRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get adress => $_getN(0);
+  @$pb.TagNumber(1)
+  set adress($core.List<$core.int> v) { $_setBytes(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAdress() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAdress() => clearField(1);
+}
+
+class UserInfoResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserInfoResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'PublicName', protoName: 'PublicName')
+    ..a<$fixnum.Int64>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Balance', $pb.PbFieldType.OU6, protoName: 'Balance', defaultOrMaker: $fixnum.Int64.ZERO)
+    ..hasRequiredFields = false
+  ;
+
+  UserInfoResponse._() : super();
+  factory UserInfoResponse({
+    $core.String? publicName,
+    $fixnum.Int64? balance,
+  }) {
+    final _result = create();
+    if (publicName != null) {
+      _result.publicName = publicName;
+    }
+    if (balance != null) {
+      _result.balance = balance;
+    }
+    return _result;
+  }
+  factory UserInfoResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserInfoResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserInfoResponse clone() => UserInfoResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserInfoResponse copyWith(void Function(UserInfoResponse) updates) => super.copyWith((message) => updates(message as UserInfoResponse)) as UserInfoResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserInfoResponse create() => UserInfoResponse._();
+  UserInfoResponse createEmptyInstance() => create();
+  static $pb.PbList<UserInfoResponse> createRepeated() => $pb.PbList<UserInfoResponse>();
+  @$core.pragma('dart2js:noInline')
+  static UserInfoResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserInfoResponse>(create);
+  static UserInfoResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get publicName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set publicName($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPublicName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPublicName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $fixnum.Int64 get balance => $_getI64(1);
+  @$pb.TagNumber(2)
+  set balance($fixnum.Int64 v) { $_setInt64(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasBalance() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearBalance() => clearField(2);
 }
 

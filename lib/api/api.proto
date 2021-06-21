@@ -4,11 +4,10 @@ option go_package = "sync_tree_server/api";
 
 package api;
 
-
 /*
-Go generation:
+Go gen:
 protoc api/api.proto --go-grpc_out=. --go_out=.
-Dart generation:
+Dart gen:
 protoc lib/api/api.proto --dart_out=grpc:.
 */
 
@@ -16,7 +15,7 @@ service SyncTree{
     rpc UserCreate(UserCreateRequest) returns (Response) {}
     rpc UserUpdate(UserUpdateRequest) returns (Response) {}
     rpc UserSend(UserSendRequest) returns (Response) {}
-    rpc UserLook(UserInfo) returns (UserInfoResponse) {}
+    rpc UserInfo(UserInfoRequest) returns (UserInfoResponse) {}
 }
 
 message Response{
@@ -37,18 +36,18 @@ message UserUpdateRequest{
     bytes Sign = 4;
 }
 
-message UserInfo{
+message UserSendRequest{
+    bytes PublicKey = 1;
+    uint64 SendAmount = 2;
+    bytes RecieverAdress = 3;
+    bytes Sign = 4;
+}
+
+message UserInfoRequest{
     bytes Adress = 1;
 }
 
 message UserInfoResponse{
     string PublicName = 1;
     uint64 Balance = 2;
-}
-
-message UserSendRequest{
-    bytes PublicKey = 1;
-    uint64 SendAmount = 2;
-    bytes RecieverAdress = 3;
-    bytes Sign = 4;
 }
