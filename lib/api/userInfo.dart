@@ -1,18 +1,14 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
+import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../crypt.dart';
 
 import '/api/api.pb.dart';
 import '/api/api.pbgrpc.dart';
 import '/api/api.dart';
 
-/// list contains following things:
-/// 1 - balance of the user
-/// 2 - public name of the user
-Future<List> userInfo(String adress) async {
+Future<String> userName(String adress) async {
   try {
     var adressAsBytes = base64.decode(adress);
     final response = await stub.userInfo(
@@ -23,39 +19,26 @@ Future<List> userInfo(String adress) async {
         timeout: Duration(milliseconds: 2584),
       ),
     );
-    return [
-      response.balance,
-      response.publicName,
-    ];
+    return response.publicName;
   } catch (Exception) {
-    return [
-      '',
-      0,
-    ];
+    return '';
   }
 }
 
-Future<List> selfInfo() async {
+Future<Int64> selfBalance() async {
   try {
     var crypt = Crypt();
-    var personalAdress = await crypt.getPersonalAdressBase64();
-    var adressAsBytes = base64.decode(personalAdress);
+    var personalAdress = await crypt.getPersonalAdress();
     final response = await stub.userInfo(
       UserInfoRequest(
-        adress: adressAsBytes,
+        adress: personalAdress,
       ),
       options: CallOptions(
         timeout: Duration(milliseconds: 2584),
       ),
     );
-    return [
-      response.balance,
-      response.publicName,
-    ];
+    return response.balance;
   } catch (Exception) {
-    return [
-      '',
-      0,
-    ];
+    return Int64();
   }
 }

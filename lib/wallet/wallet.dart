@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/wallet/balance.dart';
 
 import 'send.dart';
 import 'get.dart';
@@ -16,10 +17,7 @@ class WalletPage extends StatelessWidget {
             size: 129,
             color: Theme.of(context).hintColor,
           ),
-          Text(
-            '53769',
-            style: Theme.of(context).textTheme.headline3,
-          ),
+          DynamicBalance(),
           Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

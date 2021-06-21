@@ -121,12 +121,12 @@ class Crypt {
     return Digest('SHA-512').process(data);
   }
 
-  Future<String> getPersonalAdressBase64() async {
+  Future<Uint8List> getPersonalAdress() async {
     var prefs = await SharedPreferences.getInstance();
     var persPub = prefs.getString('persPub')!;
     var persPubBytes = keyToBytes(persPub);
-    var persAdress = base64.encode(persPubBytes);
-    return persAdress;
+    var adress = hash(persPubBytes);
+    return adress;
   }
 }
 
