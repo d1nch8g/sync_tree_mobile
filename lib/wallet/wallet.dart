@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'send.dart';
+
 /// On this page all the user's connected wallets are gonna be displayed.
 /// The second option is
 class WalletPage extends StatelessWidget {
@@ -14,15 +16,7 @@ class WalletPage extends StatelessWidget {
             color: Theme.of(context).hintColor,
           ),
           Divider(),
-          Container(
-            padding: EdgeInsets.all(8.0),
-            decoration: ShapeDecoration(
-              color: Theme.of(context).backgroundColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-            ),
-          )
+          SendButton(),
         ],
       ),
     );
