@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SendButton extends StatelessWidget {
+class RecieveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,13 +14,13 @@ class SendButton extends StatelessWidget {
             child: Column(
               children: [
                 Icon(
-                  Icons.arrow_upward_rounded,
+                  Icons.arrow_downward,
                   color: Theme.of(context).focusColor,
                   size: 32,
                 ),
                 SizedBox(height: 5),
                 Text(
-                  'SEND',
+                  'RECIEVE',
                   style: Theme.of(context).textTheme.button,
                 ),
               ],
