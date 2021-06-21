@@ -44,26 +44,27 @@ const UserUpdateRequest$json = const {
 
 /// Descriptor for `UserUpdateRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List userUpdateRequestDescriptor = $convert.base64Decode('ChFVc2VyVXBkYXRlUmVxdWVzdBIcCglQdWJsaWNLZXkYASABKAxSCVB1YmxpY0tleRIgCgtNZXNzc2FnZUtleRgCIAEoDFILTWVzc3NhZ2VLZXkSHgoKUHVibGljTmFtZRgDIAEoCVIKUHVibGljTmFtZRISCgRTaWduGAQgASgMUgRTaWdu');
-@$core.Deprecated('Use userLookRequestDescriptor instead')
-const UserLookRequest$json = const {
-  '1': 'UserLookRequest',
+@$core.Deprecated('Use userInfoDescriptor instead')
+const UserInfo$json = const {
+  '1': 'UserInfo',
   '2': const [
     const {'1': 'Adress', '3': 1, '4': 1, '5': 12, '10': 'Adress'},
   ],
 };
 
-/// Descriptor for `UserLookRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userLookRequestDescriptor = $convert.base64Decode('Cg9Vc2VyTG9va1JlcXVlc3QSFgoGQWRyZXNzGAEgASgMUgZBZHJlc3M=');
-@$core.Deprecated('Use userLookResponseDescriptor instead')
-const UserLookResponse$json = const {
-  '1': 'UserLookResponse',
+/// Descriptor for `UserInfo`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userInfoDescriptor = $convert.base64Decode('CghVc2VySW5mbxIWCgZBZHJlc3MYASABKAxSBkFkcmVzcw==');
+@$core.Deprecated('Use userInfoResponseDescriptor instead')
+const UserInfoResponse$json = const {
+  '1': 'UserInfoResponse',
   '2': const [
-    const {'1': 'PublicName', '3': 2, '4': 1, '5': 9, '10': 'PublicName'},
+    const {'1': 'PublicName', '3': 1, '4': 1, '5': 9, '10': 'PublicName'},
+    const {'1': 'Balance', '3': 2, '4': 1, '5': 4, '10': 'Balance'},
   ],
 };
 
-/// Descriptor for `UserLookResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userLookResponseDescriptor = $convert.base64Decode('ChBVc2VyTG9va1Jlc3BvbnNlEh4KClB1YmxpY05hbWUYAiABKAlSClB1YmxpY05hbWU=');
+/// Descriptor for `UserInfoResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userInfoResponseDescriptor = $convert.base64Decode('ChBVc2VySW5mb1Jlc3BvbnNlEh4KClB1YmxpY05hbWUYASABKAlSClB1YmxpY05hbWUSGAoHQmFsYW5jZRgCIAEoBFIHQmFsYW5jZQ==');
 @$core.Deprecated('Use userSendRequestDescriptor instead')
 const UserSendRequest$json = const {
   '1': 'UserSendRequest',
