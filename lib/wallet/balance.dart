@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/userInfo.dart';
+import 'package:sync_tree_mobile/navigator.dart';
 
 class DynamicBalance extends StatefulWidget {
   @override
@@ -11,8 +13,19 @@ class _DynamicBalanceState extends State<DynamicBalance> {
 
   void setActualBalance() async {
     var requestBalance = await selfBalance();
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setInt('balance', requestBalance.toInt());
     setState(() {
       balance = requestBalance.toString();
+    });
+  }
+
+  void startBalanceListen() {
+    mainStream.listen((event) {
+      if (event == 'balanceChange') {
+        
+        setActualBalance();
+      }
     });
   }
 
@@ -20,6 +33,7 @@ class _DynamicBalanceState extends State<DynamicBalance> {
   void initState() {
     super.initState();
     setActualBalance();
+    startBalanceListen();
   }
 
   @override

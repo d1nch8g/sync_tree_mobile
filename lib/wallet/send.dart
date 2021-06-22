@@ -1,6 +1,10 @@
 import 'package:clipboard/clipboard.dart';
+import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/userInfo.dart';
+import 'package:sync_tree_mobile/api/userSend.dart';
+import 'package:sync_tree_mobile/navigator.dart';
 import 'package:sync_tree_mobile/security/pin.dart';
 
 class SendButton extends StatelessWidget {
@@ -67,6 +71,9 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   final TextEditingController adressTextController = TextEditingController();
   late Widget amountWidget;
   final TextEditingController amountTextController = TextEditingController();
+  late Widget sendWidget;
+  var adressReady = false;
+  var amountReady = false;
 
   @override
   void initState() {
@@ -87,7 +94,10 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       adressWidget = RecieverTextField(adressTextController, () {
         onNameTypingEnd();
       });
-      amountWidget = AmountTextField(amountTextController);
+      amountWidget = AmountTextField(amountTextController, () {
+        onBalanceTyprintEnd();
+      });
+      sendWidget = Text('');
     });
   }
 
@@ -96,11 +106,66 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     if (name != '====') {
       setState(() {
         adressWidget = Text(
-          'to: ' + name,
+          name,
           style: Theme.of(context).textTheme.headline2,
         );
       });
+      adressReady = true;
+      if (adressReady && amountReady) {
+        spawnSendButton();
+      }
     }
+  }
+
+  void onBalanceTyprintEnd() async {
+    var prefs = await SharedPreferences.getInstance();
+    var curBalance = prefs.getInt('balance')!;
+    if (curBalance >= int.parse(amountTextController.text)) {
+      setState(() {
+        amountWidget = Text(
+          amountTextController.text,
+          style: Theme.of(context).textTheme.headline2,
+        );
+      });
+      amountReady = true;
+      if (adressReady && amountReady) {
+        spawnSendButton();
+      }
+    }
+  }
+
+  void spawnSendButton() {
+    setState(() {
+      sendWidget = TextButton(
+        onPressed: () async {
+          var succeded = await userSend(
+            adressTextController.text,
+            Int64.parseInt(amountTextController.text),
+          );
+          if (succeded) {
+            setState(() {
+              sendWidget = Icon(
+                Icons.check_circle_outline_rounded,
+                color: Theme.of(context).focusColor,
+                size: 37,
+              );
+            });
+          } else {
+            sendWidget = Icon(
+              Icons.do_disturb_alt_rounded,
+              color: Theme.of(context).focusColor,
+            );
+          }
+          Future.delayed(Duration(milliseconds: 377), () {
+            Navigator.pop(context);
+            Future.delayed(Duration(milliseconds: 144), () {
+              mainStreamController.add('balanceChange');
+            });
+          });
+        },
+        child: Text('send'),
+      );
+    });
   }
 
   @override
@@ -148,6 +213,19 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                       child: child,
                     ),
                   ),
+                  SizedBox(height: 17),
+                  AnimatedSwitcher(
+                    duration: Duration(milliseconds: 233),
+                    child: sendWidget,
+                    transitionBuilder: (
+                      Widget child,
+                      Animation<double> animation,
+                    ) =>
+                        ScaleTransition(
+                      scale: animation,
+                      child: child,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -160,10 +238,10 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
 
 class RecieverTextField extends StatefulWidget {
   final TextEditingController controller;
-  final Function endTextEdit;
+  final Function onAdressEdit;
   RecieverTextField(
     this.controller,
-    this.endTextEdit,
+    this.onAdressEdit,
   );
   @override
   _RecieverTextFieldState createState() => _RecieverTextFieldState();
@@ -175,7 +253,7 @@ class _RecieverTextFieldState extends State<RecieverTextField> {
     return TextField(
       controller: this.widget.controller,
       onEditingComplete: () {
-        this.widget.endTextEdit();
+        this.widget.onAdressEdit();
       },
       style: TextStyle(
         color: Theme.of(context).focusColor,
@@ -200,6 +278,17 @@ class _RecieverTextFieldState extends State<RecieverTextField> {
         fillColor: Theme.of(context).focusColor,
         focusColor: Theme.of(context).focusColor,
         labelText: 'Reciever adress',
+        suffixIcon: IconButton(
+          icon: Icon(
+            Icons.copy,
+          ),
+          color: Theme.of(context).focusColor,
+          onPressed: () async {
+            var text = await FlutterClipboard.paste();
+            this.widget.controller.text = text;
+            this.widget.onAdressEdit();
+          },
+        ),
       ),
       cursorColor: Theme.of(context).focusColor,
     );
@@ -208,7 +297,11 @@ class _RecieverTextFieldState extends State<RecieverTextField> {
 
 class AmountTextField extends StatefulWidget {
   final TextEditingController controller;
-  AmountTextField(this.controller);
+  final Function onAmountEdit;
+  AmountTextField(
+    this.controller,
+    this.onAmountEdit,
+  );
   @override
   _AmountTextFieldState createState() => _AmountTextFieldState();
 }
@@ -219,7 +312,6 @@ class _AmountTextFieldState extends State<AmountTextField> {
     return TextField(
       controller: this.widget.controller,
       keyboardType: TextInputType.number,
-      onEditingComplete: () {},
       style: TextStyle(
         color: Theme.of(context).focusColor,
       ),
@@ -243,6 +335,13 @@ class _AmountTextFieldState extends State<AmountTextField> {
         fillColor: Theme.of(context).focusColor,
         focusColor: Theme.of(context).focusColor,
         labelText: 'Send amount',
+        suffixIcon: IconButton(
+          onPressed: () {
+            this.widget.onAmountEdit();
+          },
+          icon: Icon(Icons.check_circle_rounded),
+          color: Theme.of(context).focusColor,
+        ),
       ),
       cursorColor: Theme.of(context).focusColor,
     );
