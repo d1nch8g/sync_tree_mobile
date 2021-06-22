@@ -21,7 +21,7 @@ Future<String> userName(String adress) async {
     );
     return response.publicName;
   } catch (Exception) {
-    return '';
+    return '====';
   }
 }
 

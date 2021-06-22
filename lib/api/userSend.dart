@@ -17,16 +17,16 @@ Future<bool> userSend(String recieverAdressBase64, Int64 amount) async {
     var persPubString = prefs.getString('persPub') ?? '';
     var persPub = crypt.keyToBytes(persPubString);
     var recieverAdress = base64.decode(recieverAdressBase64);
-    
+    var amountAsBytes = amount.toBytes();
     var concatmessage1 = Uint8List.fromList(
-        []..addAll(persPub)..addAll(mesPub)..addAll());
+        []..addAll(persPub)..addAll(amountAsBytes)..addAll(recieverAdress));
     var persPrivString = prefs.getString('persPriv') ?? '';
     var sign = crypt.signMessage(persPrivString, concatmessage1);
     final response = await stub.userSend(
       UserSendRequest(
         publicKey: persPub,
         sendAmount: amount,
-        recieverAdress: ,
+        recieverAdress: recieverAdress,
         sign: sign,
       ),
       options: CallOptions(
