@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:sync_tree_mobile/security/pin.dart';
+import 'package:sync_tree_mobile/api/userCreate.dart';
 
+import '../security/pin.dart';
 import '../crypt.dart';
 
 class GenerateKeyTile extends StatelessWidget {
@@ -20,7 +21,6 @@ class GenerateKeyTile extends StatelessWidget {
               builder: (_) => GenerateKeyOverlay(),
             );
           },
-          PinEnum.generatePrivate,
         );
       },
       leading: Icon(
@@ -85,6 +85,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
+            width: MediaQuery.of(context).size.width * 0.73,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -124,18 +125,18 @@ class KeyBuilderAsker extends StatelessWidget {
       children: [
         Text(
           'Are you sure?\n'
-          'current key\n'
-          'will be deleted\n',
+          'If you generate new key, current key will be deleted.',
           style: Theme.of(context).textTheme.headline2,
           textAlign: TextAlign.center,
         ),
+        SizedBox(height: 15),
         TextButton(
           onPressed: () {
             onPressed();
           },
           child: Text('continue'),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 15),
       ],
     );
   }
@@ -148,25 +149,40 @@ class KeyBuilderContent extends StatefulWidget {
 
 class _KeyBuilderContentState extends State<KeyBuilderContent> {
   Widget currentWidget = KeysNotReady();
+  Crypt crypt = Crypt();
+  late var newKeys;
+  late var oldKeys;
 
   changeWidget() {
     setState(() {
       currentWidget = KeysAreReady();
     });
-    Future.delayed(Duration(milliseconds: 377), () {
-      Navigator.pop(context);
-    });
   }
 
-  buildKeys() async {
-    var crypt = Crypt();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var futKeys = crypt.generateKeys();
-    futKeys.then((keys) => {
-          prefs.setString('persPriv', keys[0]),
-          prefs.setString('persPub', keys[1]),
-          changeWidget(),
-        });
+  void buildKeys() async {
+    newKeys = await crypt.generateKeys();
+    tryToUpload();
+  }
+
+  void tryToUpload() async {
+    crypt.saveAllKeys(newKeys);
+    oldKeys = await crypt.getAllKeys();
+    var response = await userCreate();
+    if (response) {
+      changeWidget();
+      Future.delayed(Duration(milliseconds: 377), () {
+        Navigator.pop(context);
+      });
+    } else {
+      crypt.saveAllKeys(oldKeys);
+      showDialog(
+        context: context,
+        builder: (_) => UserNotCreatedOverlay(() {
+          tryToUpload();
+        }),
+        barrierDismissible: false,
+      );
+    }
   }
 
   @override
@@ -232,6 +248,99 @@ class KeysAreReady extends StatelessWidget {
           Icons.check_circle_outline_rounded,
           size: 140,
           color: Theme.of(context).focusColor,
+        ),
+      ),
+    );
+  }
+}
+
+class UserNotCreatedOverlay extends StatefulWidget {
+  final uploadRetry;
+  UserNotCreatedOverlay(this.uploadRetry);
+  @override
+  State<StatefulWidget> createState() => UserNotCreatedOverlayState();
+}
+
+class UserNotCreatedOverlayState extends State<UserNotCreatedOverlay>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 233),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
+    controller.addListener(() {
+      setState(() {});
+    });
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.72,
+            decoration: ShapeDecoration(
+              color: Theme.of(context).backgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'User is not created, check connection',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  Icon(
+                    Icons.wifi_off_rounded,
+                    size: 144,
+                    color: Theme.of(context).focusColor,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Future.delayed(
+                            Duration(milliseconds: 144),
+                            () {
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                        child: Text('cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          this.widget.uploadRetry();
+                        },
+                        child: Text('retry'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:clipboard/clipboard.dart';
+
+import '../api/userCreate.dart';
 
 class KeySave extends StatefulWidget {
   @override
@@ -120,13 +125,30 @@ class CopyKeysSection extends StatelessWidget {
             showDialog(
               context: context,
               builder: (_) => ButtonOverlay(
-                () {
-                  Navigator.pushNamed(context, '/main');
+                () async {
+                  var succsessfullyCreated = await userCreate();
+                  if (succsessfullyCreated) {
+                    Navigator.pushNamed(context, '/main');
+                  } else {
+                    Navigator.pop(context);
+                    var _timer = Timer(Duration(milliseconds: 1597), () {
+                      Navigator.of(context).pop();
+                    });
+                    showDialog(
+                      context: context,
+                      builder: (_) => UserNotCreatedOverlay(),
+                    ).then(
+                      (value) => {
+                        if (_timer.isActive) {_timer.cancel()}
+                      },
+                    );
+                  }
                 },
                 mainText:
                     'Key is copied to\nclipboard. Save it\n in safe place!',
                 buttonText: 'continue',
               ),
+              barrierDismissible: false,
             );
           },
         ),
@@ -205,6 +227,73 @@ class ButtonOverlayState extends State<ButtonOverlay>
                         this.widget.onPressed();
                       },
                     ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class UserNotCreatedOverlay extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => UserNotCreatedOverlayState();
+}
+
+class UserNotCreatedOverlayState extends State<UserNotCreatedOverlay>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 233),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
+    controller.addListener(() {
+      setState(() {});
+    });
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.72,
+            decoration: ShapeDecoration(
+              color: Theme.of(context).backgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'User is not created, check connection',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  Icon(
+                    Icons.signal_wifi_connected_no_internet_4_rounded,
+                    size: 144,
+                    color: Theme.of(context).focusColor,
                   ),
                 ],
               ),

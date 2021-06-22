@@ -8,8 +8,8 @@ import 'generateKey.dart';
 import 'pinSetting.dart';
 import 'licenses.dart';
 import 'pubName.dart';
-import 'sendChanges.dart';
-import 'securitySet.dart';
+
+import '../navigator.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -17,20 +17,46 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  String _currentName = 'loading';
+  late Widget dynamicName;
 
-  setStartName() async {
+  Future<String> getName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var name = prefs.getString('pubName');
-    setState(() {
-      _currentName = name ?? '';
+    return prefs.getString('pubName') ?? 'name error';
+  }
+
+  void startNameChecking() {
+    mainStream.listen((event) {
+      if (event == 'nameChange') {
+        getName().then(
+          (value) => {
+            setState(() {
+              dynamicName = DynamicName(
+                value,
+                UniqueKey(),
+              );
+            })
+          },
+        );
+      }
     });
   }
 
   @override
   void initState() {
     super.initState();
-    setStartName();
+    dynamicName = DynamicName(
+      '',
+      UniqueKey(),
+    );
+    getName().then((value) => {
+          setState(() {
+            dynamicName = DynamicName(
+              value,
+              UniqueKey(),
+            );
+          })
+        });
+    startNameChecking();
   }
 
   @override
@@ -44,19 +70,8 @@ class _SettingsPageState extends State<SettingsPage> {
             color: Theme.of(context).hintColor,
           ),
           AnimatedSwitcher(
-            duration: Duration(milliseconds: 720),
-            child: Text(
-              _currentName,
-              style: Theme.of(context).textTheme.headline3,
-            ),
-            transitionBuilder: (
-              Widget child,
-              Animation<double> animation,
-            ) =>
-                ScaleTransition(
-              scale: animation,
-              child: child,
-            ),
+            child: dynamicName,
+            duration: Duration(milliseconds: 377),
           ),
           Divider(),
           Expanded(
@@ -71,11 +86,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 Divider(),
                 SetPinTile(),
                 Divider(),
-                SecuritySetTile(),
-                Divider(),
                 PublicNameTile(),
-                Divider(),
-                SendChangesTile(),
                 Divider(),
                 LicensesTile(),
               ],
@@ -83,6 +94,20 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class DynamicName extends StatelessWidget {
+  final String name;
+  final Key key;
+  DynamicName(this.name, this.key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      name,
+      style: Theme.of(context).textTheme.headline3,
     );
   }
 }

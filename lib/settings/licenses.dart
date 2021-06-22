@@ -16,6 +16,7 @@ class LicensesTile extends StatelessWidget {
           applicationVersion: 'version: 0.0.1',
           applicationLegalese: 'made with love and flutter',
           applicationIcon: FlutterLogo(),
+          useRootNavigator: false,
         );
       },
       title: Text(

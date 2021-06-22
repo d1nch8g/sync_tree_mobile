@@ -3,29 +3,16 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'enum.dart';
-
-void checkPwd(context, Function onSucess, PinEnum accessSet) async {
+void checkPwd(context, Function onSucess) async {
   var prefs = await SharedPreferences.getInstance();
   if (prefs.getString('pwd') == null) {
     onSucess();
   } else {
-    if (prefs.getBool(pinAccordance[accessSet] ?? '') ?? false) {
-      showDialog(
-        context: context,
-        builder: (_) => PinOverlay(onSucess),
-      );
-    } else {
-      onSucess();
-    }
+    showDialog(
+      context: context,
+      builder: (_) => PinOverlay(onSucess),
+    );
   }
-}
-
-void setPinDefaults() async {
-  var prefs = await SharedPreferences.getInstance();
-  pinAccordance.forEach((keyEnum, keyString) => {
-        prefs.setBool(keyString, pinDefaults[keyEnum] ?? true),
-      });
 }
 
 class PinOverlay extends StatefulWidget {

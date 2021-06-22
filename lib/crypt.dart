@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:pointycastle/key_generators/rsa_key_generator.dart';
@@ -5,8 +6,10 @@ import 'package:pointycastle/pointycastle.dart';
 import 'dart:typed_data';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:pointycastle/random/fortuna_random.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Crypt {
+  /// generate new keys
   static List<String> _keys(int bitLength) {
     final secureRandom = FortunaRandom();
 
@@ -31,15 +34,35 @@ class Crypt {
     return [priv, pub];
   }
 
-  Future<List<String>> generateKeys() async {
+  Future<Map<Key, String>> generateKeys() async {
     var persKeys = await compute(_keys, 4096);
     var mesKeys = await compute(_keys, 2048);
-    return [
-      persKeys[0],
-      persKeys[1],
-      mesKeys[0],
-      mesKeys[1],
-    ];
+    Map<Key, String> keys = {
+      Key.PersonalPrivateKey: persKeys[0],
+      Key.PersonalPublicKey: persKeys[1],
+      Key.MessagePrivateKey: mesKeys[0],
+      Key.MessagePublicKey: mesKeys[1],
+    };
+    return keys;
+  }
+
+  void saveAllKeys(Map<Key, String> keys) async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString('persPriv', keys[Key.PersonalPrivateKey]!);
+    prefs.setString('persPub', keys[Key.PersonalPublicKey]!);
+    prefs.setString('mesPriv', keys[Key.MessagePrivateKey]!);
+    prefs.setString('mesPub', keys[Key.MessagePublicKey]!);
+  }
+
+  Future<Map<Key, String>> getAllKeys() async {
+    var prefs = await SharedPreferences.getInstance();
+    Map<Key, String> keys = {
+      Key.PersonalPrivateKey: prefs.getString('persPriv')!,
+      Key.PersonalPublicKey: prefs.getString('persPub')!,
+      Key.MessagePrivateKey: prefs.getString('mesPriv')!,
+      Key.MessagePublicKey: prefs.getString('mesPub')!,
+    };
+    return keys;
   }
 
   Uint8List keyToBytes(String key) {
@@ -56,9 +79,36 @@ class Crypt {
     return CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
   }
 
-  bool checkPrivateKey(String key) {
+  Future<String> getSingleStringSavedKeys() async {
+    var keys = await getAllKeys();
+    var singleString = (keys[Key.PersonalPrivateKey]! +
+        '|' +
+        keys[Key.PersonalPublicKey]! +
+        '|' +
+        keys[Key.MessagePrivateKey]! +
+        '|' +
+        keys[Key.MessagePublicKey]!);
+    return singleString;
+  }
+
+  void saveSingleStringKeys(String singleKeyString) {
+    var allKeysList = singleKeyString.split('|');
+    var keys = {
+      Key.PersonalPrivateKey: allKeysList[0],
+      Key.PersonalPublicKey: allKeysList[1],
+      Key.MessagePrivateKey: allKeysList[2],
+      Key.MessagePublicKey: allKeysList[3],
+    };
+    saveAllKeys(keys);
+  }
+
+  bool checkAllKeys(String keys) {
+    var allKeys = keys.split('|');
     try {
-      CryptoUtils.rsaPrivateKeyFromPemPkcs1(key);
+      CryptoUtils.rsaPrivateKeyFromPemPkcs1(allKeys[0]);
+      CryptoUtils.rsaPrivateKeyFromPemPkcs1(allKeys[2]);
+      CryptoUtils.rsaPublicKeyFromPemPkcs1(allKeys[1]);
+      CryptoUtils.rsaPublicKeyFromPemPkcs1(allKeys[3]);
       return true;
     } catch (exc) {
       return false;
@@ -70,4 +120,23 @@ class Crypt {
     var sign = CryptoUtils.rsaSign(key, data, algorithmName: 'SHA-512/RSA');
     return sign;
   }
+
+  Uint8List hash(Uint8List data) {
+    return Digest('SHA-512').process(data);
+  }
+
+  Future<String> getPersonalAdress() async {
+    var prefs = await SharedPreferences.getInstance();
+    var persPub = prefs.getString('persPub')!;
+    var persPubBytes = keyToBytes(persPub);
+    var adress = hash(persPubBytes);
+    return base64.encode(adress);
+  }
+}
+
+enum Key {
+  PersonalPrivateKey,
+  PersonalPublicKey,
+  MessagePrivateKey,
+  MessagePublicKey,
 }

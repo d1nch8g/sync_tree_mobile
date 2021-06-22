@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:bad_words/bad_words.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
-class GoogleAuth extends StatefulWidget {
+import '../security/filter.dart';
+
+class NameCreation extends StatefulWidget {
   @override
-  _GoogleAuthState createState() => _GoogleAuthState();
+  _NameCreationState createState() => _NameCreationState();
 }
 
-class _GoogleAuthState extends State<GoogleAuth> {
+class _NameCreationState extends State<NameCreation> {
   final nameController = TextEditingController();
   final filter = Filter();
 
@@ -74,92 +76,15 @@ class _GoogleAuthState extends State<GoogleAuth> {
           TextButton(
             child: Text('continue'),
             onPressed: () {
-              print(nameController.text);
-              if (filter.isProfane(nameController.text)) {
-                nameController.text = '';
-                showDialog(
-                  context: context,
-                  builder: (_) =>
-                      MessageOverlay(mainText: 'name contains\nprofane words'),
-                );
-                return;
+              var checked = filter.operateCheck(nameController, context);
+              if (checked) {
+                saveName(nameController.text);
+                Navigator.pushNamed(context, '/keys');
               }
-              if (nameController.text.length < 4) {
-                nameController.text = '';
-                showDialog(
-                  context: context,
-                  builder: (_) =>
-                      MessageOverlay(mainText: ' name is\ntoo short'),
-                );
-                return;
-              }
-              //TODO add check for name to be characters and numbers
-              saveName(nameController.text);
-              Navigator.pushNamed(context, '/keys');
             },
           ),
-          SizedBox(
-            height: 125,
-          )
+          SizedBox(height: 125),
         ],
-      ),
-    );
-  }
-}
-
-class MessageOverlay extends StatefulWidget {
-  final String mainText;
-  MessageOverlay({this.mainText = 'error'});
-  @override
-  State<StatefulWidget> createState() => MessageOverlayState();
-}
-
-class MessageOverlayState extends State<MessageOverlay>
-    with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  late Animation<double> scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 233),
-    );
-    scaleAnimation = CurvedAnimation(
-      parent: controller,
-      curve: Curves.decelerate,
-    );
-    controller.addListener(() {
-      setState(() {});
-    });
-    controller.forward();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Material(
-        color: Colors.transparent,
-        child: ScaleTransition(
-          scale: scaleAnimation,
-          child: Container(
-            decoration: ShapeDecoration(
-              color: Theme.of(context).backgroundColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Text(
-                this.widget.mainText,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline2,
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

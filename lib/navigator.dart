@@ -1,10 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'security/pinOverlay.dart';
 import 'market/main.dart';
-import 'wallet/main.dart';
+import 'wallet/wallet.dart';
 import 'settings/settings.dart';
 import 'balance/main.dart';
 import 'start/hello.dart';
@@ -14,9 +15,12 @@ import 'start/keys.dart';
 var routeMap = <String, WidgetBuilder>{
   '/main': (BuildContext context) => PrimaryPage(),
   '/hello': (BuildContext context) => IntroPage(),
-  '/name': (BuildContext context) => GoogleAuth(),
+  '/name': (BuildContext context) => NameCreation(),
   '/keys': (BuildContext context) => KeySave(),
 };
+
+var mainStreamController = StreamController<String>.broadcast();
+var mainStream = mainStreamController.stream;
 
 class PrimaryPage extends StatefulWidget {
   @override
@@ -28,7 +32,6 @@ class _PrimaryPageState extends State<PrimaryPage> {
   PageController _pageController = PageController();
 
   Future<bool> firstLaunch() async {
-    setPinDefaults();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var firstLaunch = prefs.getBool('firstLaunch');
     prefs.setBool('firstLaunch', false); // change to true to go to start
@@ -73,12 +76,12 @@ class _PrimaryPageState extends State<PrimaryPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             label: 'markets',
-            icon: Icon(Icons.insert_chart_outlined_sharp),
+            icon: Icon(Icons.stacked_line_chart_rounded),
             backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(
             label: 'balance',
-            icon: Icon(Icons.autorenew_sharp),
+            icon: Icon(Icons.credit_card_rounded),
             backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(
