@@ -291,7 +291,7 @@ class UserNotCreatedOverlayState extends State<UserNotCreatedOverlay>
                     style: Theme.of(context).textTheme.headline2,
                   ),
                   Icon(
-                    Icons.signal_wifi_connected_no_internet_4_rounded,
+                    Icons.wifi_off_rounded,
                     size: 144,
                     color: Theme.of(context).focusColor,
                   ),

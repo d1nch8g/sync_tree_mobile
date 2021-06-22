@@ -183,7 +183,7 @@ class WronPinIcon extends StatelessWidget {
     return SizedBox(
       height: 62,
       child: Icon(
-        Icons.do_disturb,
+        Icons.do_disturb_alt_rounded,
         color: Theme.of(context).focusColor,
         size: 61,
       ),
