@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../crypt.dart';
@@ -9,25 +10,23 @@ import '/api/api.pb.dart';
 import '/api/api.pbgrpc.dart';
 import '/api/api.dart';
 
-Future<bool> userSend() async {
+Future<bool> userSend(String recieverAdressBase64, Int64 amount) async {
   try {
     var crypt = Crypt();
     var prefs = await SharedPreferences.getInstance();
     var persPubString = prefs.getString('persPub') ?? '';
     var persPub = crypt.keyToBytes(persPubString);
-    var pubName = prefs.getString('pubName') ?? '';
-    var pubNameBytes = utf8.encode(pubName);
-    var mesPubString = prefs.getString('mesPub') ?? '';
-    var mesPub = crypt.keyToBytes(mesPubString);
+    var recieverAdress = base64.decode(recieverAdressBase64);
+    
     var concatmessage1 = Uint8List.fromList(
-        []..addAll(persPub)..addAll(mesPub)..addAll(pubNameBytes));
+        []..addAll(persPub)..addAll(mesPub)..addAll());
     var persPrivString = prefs.getString('persPriv') ?? '';
     var sign = crypt.signMessage(persPrivString, concatmessage1);
-    final response = await stub.userCreate(
-      UserCreateRequest(
+    final response = await stub.userSend(
+      UserSendRequest(
         publicKey: persPub,
-        messsageKey: mesPub,
-        publicName: pubName,
+        sendAmount: amount,
+        recieverAdress: ,
         sign: sign,
       ),
       options: CallOptions(

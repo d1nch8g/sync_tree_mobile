@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/crypt.dart';
 
 class GetButton extends StatelessWidget {
   @override
@@ -6,7 +10,12 @@ class GetButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (_) => GetAdressOverlay(),
+          );
+        },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
@@ -53,6 +62,19 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> scaleAnimation;
+  late Widget currentWidget;
+
+  void copyAdressToClipboard() async {
+    var crypt = Crypt();
+    var adress = await crypt.getPersonalAdress();
+    FlutterClipboard.copy(adress);
+    setState(() {
+      currentWidget = KeyIsCopied();
+      Future.delayed(Duration(milliseconds: 377), () {
+        Navigator.pop(context);
+      });
+    });
+  }
 
   @override
   void initState() {
@@ -69,6 +91,9 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       setState(() {});
     });
     controller.forward();
+    currentWidget = KeyCopyWidget(() {
+      copyAdressToClipboard();
+    });
   }
 
   @override
@@ -79,7 +104,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.74,
+            width: MediaQuery.of(context).size.width * 0.71,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -87,7 +112,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(50, 32, 50, 32),
+              padding: const EdgeInsets.fromLTRB(50, 32, 50, 22),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -96,13 +121,55 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),
-                  SizedBox(height: 12),
+                  SizedBox(height: 4),
+                  AnimatedSwitcher(
+                    duration: Duration(milliseconds: 233),
+                    child: currentWidget,
+                    transitionBuilder: (
+                      Widget child,
+                      Animation<double> animation,
+                    ) =>
+                        ScaleTransition(
+                      scale: animation,
+                      child: child,
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class KeyCopyWidget extends StatelessWidget {
+  final Function onPressed;
+  KeyCopyWidget(this.onPressed);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        onPressed();
+      },
+      icon: Icon(
+        Icons.copy,
+        color: Theme.of(context).focusColor,
+        size: 42,
+      ),
+    );
+  }
+}
+
+class KeyIsCopied extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      Icons.check_circle_outline_rounded,
+      color: Theme.of(context).focusColor,
+      size: 42,
     );
   }
 }

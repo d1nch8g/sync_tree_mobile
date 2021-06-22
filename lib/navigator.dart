@@ -76,12 +76,12 @@ class _PrimaryPageState extends State<PrimaryPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             label: 'markets',
-            icon: Icon(Icons.insert_chart_outlined_sharp),
+            icon: Icon(Icons.stacked_line_chart_rounded),
             backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(
             label: 'balance',
-            icon: Icon(Icons.autorenew_sharp),
+            icon: Icon(Icons.credit_card_rounded),
             backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(

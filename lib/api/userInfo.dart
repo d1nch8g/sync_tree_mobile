@@ -31,7 +31,7 @@ Future<Int64> selfBalance() async {
     var personalAdress = await crypt.getPersonalAdress();
     final response = await stub.userInfo(
       UserInfoRequest(
-        adress: personalAdress,
+        adress: base64.decode(personalAdress),
       ),
       options: CallOptions(
         timeout: Duration(milliseconds: 2584),

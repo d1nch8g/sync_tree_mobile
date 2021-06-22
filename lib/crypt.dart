@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:pointycastle/key_generators/rsa_key_generator.dart';
@@ -124,12 +125,12 @@ class Crypt {
     return Digest('SHA-512').process(data);
   }
 
-  Future<Uint8List> getPersonalAdress() async {
+  Future<String> getPersonalAdress() async {
     var prefs = await SharedPreferences.getInstance();
     var persPub = prefs.getString('persPub')!;
     var persPubBytes = keyToBytes(persPub);
     var adress = hash(persPubBytes);
-    return adress;
+    return base64.encode(adress);
   }
 }
 
