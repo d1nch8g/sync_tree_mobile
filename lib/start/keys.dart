@@ -11,19 +11,28 @@ class KeySave extends StatefulWidget {
 class _KeySaveState extends State<KeySave> {
   Widget currentWidget = KeysNotReady();
 
+  checkingKeysToBeReady() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var key = prefs.getString('persPriv');
+    if (key == null) {
+      Future.delayed(
+        const Duration(seconds: 4),
+        () => {
+          checkingKeysToBeReady(),
+        },
+      );
+    } else {
+      setState(() {
+        currentWidget = CopyKeysSection();
+      });
+      FlutterClipboard.copy(key);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(seconds: 5),
-      () => {
-        setState(
-          () {
-            currentWidget = CopyKeysSection();
-          },
-        )
-      },
-    );
+    checkingKeysToBeReady();
   }
 
   @override
@@ -43,14 +52,24 @@ class _KeySaveState extends State<KeySave> {
             Padding(
               padding: const EdgeInsets.all(22.0),
               child: Text(
-                'This text is private key. Keep it in secret place. All '
-                'assets in this app are related to this key. You can change '
-                'it later in settings.',
+                'Button below will copy your private key. Keep it in secret place. All assets in this app are related to this key. You can change it later in settings.',
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),
             SizedBox(height: 12),
-            currentWidget,
+            AnimatedSwitcher(
+              duration: Duration(milliseconds: 720),
+              child: currentWidget,
+              transitionBuilder: (
+                Widget child,
+                Animation<double> animation,
+              ) =>
+                  ScaleTransition(
+                scale: animation,
+                child: child,
+              ),
+            ),
           ],
         ),
       ),
@@ -100,7 +119,14 @@ class CopyKeysSection extends StatelessWidget {
           onPressed: () {
             showDialog(
               context: context,
-              builder: (_) => FunkyOverlay(),
+              builder: (_) => ButtonOverlay(
+                () {
+                  Navigator.pushNamed(context, '/main');
+                },
+                mainText:
+                    'Key is copied to\nclipboard. Save it\n in safe place!',
+                buttonText: 'continue',
+              ),
             );
           },
         ),
@@ -109,29 +135,38 @@ class CopyKeysSection extends StatelessWidget {
   }
 }
 
-class FunkyOverlay extends StatefulWidget {
+class ButtonOverlay extends StatefulWidget {
+  final String mainText;
+  final String buttonText;
+  final Function onPressed;
+  ButtonOverlay(
+    this.onPressed, {
+    this.mainText = 'error',
+    this.buttonText = 'continue',
+  });
   @override
-  State<StatefulWidget> createState() => FunkyOverlayState();
+  State<StatefulWidget> createState() => ButtonOverlayState();
 }
 
-class FunkyOverlayState extends State<FunkyOverlay>
+class ButtonOverlayState extends State<ButtonOverlay>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> scaleAnimation;
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 320));
-    scaleAnimation =
-        CurvedAnimation(parent: controller, curve: Curves.decelerate);
-
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 233),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
     controller.addListener(() {
       setState(() {});
     });
-
     controller.forward();
   }
 
@@ -155,15 +190,19 @@ class FunkyOverlayState extends State<FunkyOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Key is copied to\nclipboard. Save it\n in safe place!',
+                    this.widget.mainText,
                     style: Theme.of(context).textTheme.headline2,
+                    textAlign: TextAlign.center,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
-                      child: Text('continue'),
+                      child: Text(
+                        this.widget.buttonText,
+                        textAlign: TextAlign.center,
+                      ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/main');
+                        this.widget.onPressed();
                       },
                     ),
                   ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'security/pinOverlay.dart';
 import 'market/main.dart';
 import 'wallet/main.dart';
-import 'settings/main.dart';
+import 'settings/settings.dart';
 import 'balance/main.dart';
 import 'start/hello.dart';
 import 'start/name.dart';
@@ -22,20 +25,14 @@ class PrimaryPage extends StatefulWidget {
 
 class _PrimaryPageState extends State<PrimaryPage> {
   int _selectedIndex = 0;
-  PageController _pageController;
+  PageController _pageController = PageController();
 
   Future<bool> firstLaunch() async {
+    setPinDefaults();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var firstLaunch = prefs.getBool('firstLaunch');
-    prefs.setBool('firstLaunch', true); // change to false on release
-    print(firstLaunch);
+    prefs.setBool('firstLaunch', false); // change to true to go to start
     return firstLaunch ?? true;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
   }
 
   @override
@@ -52,7 +49,8 @@ class _PrimaryPageState extends State<PrimaryPage> {
       },
     );
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Theme.of(context).focusColor,
       body: SizedBox.expand(
         child: PageView(
           controller: _pageController,

@@ -32,7 +32,9 @@ class _GoogleAuthState extends State<GoogleAuth> {
           Padding(
             padding: const EdgeInsets.all(22.0),
             child: Text(
-              'You can pick another one later in the settings.',
+              'You can set another one '
+              'later in the settings.',
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline2,
             ),
           ),
@@ -69,32 +71,32 @@ class _GoogleAuthState extends State<GoogleAuth> {
             ),
           ),
           SizedBox(height: 23),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                child: Text('skip'),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/keys');
-                },
-              ),
-              TextButton(
-                child: Text('sign'),
-                onPressed: () {
-                  print(nameController.text);
-                  if (filter.isProfane(nameController.text)) {
-                    nameController.text = '';
-                    showDialog(
-                      context: context,
-                      builder: (_) => FunkyOverlay(),
-                    );
-                    return;
-                  }
-                  saveName(nameController.text);
-                  Navigator.pushNamed(context, '/keys');
-                },
-              )
-            ],
+          TextButton(
+            child: Text('continue'),
+            onPressed: () {
+              print(nameController.text);
+              if (filter.isProfane(nameController.text)) {
+                nameController.text = '';
+                showDialog(
+                  context: context,
+                  builder: (_) =>
+                      MessageOverlay(mainText: 'name contains\nprofane words'),
+                );
+                return;
+              }
+              if (nameController.text.length < 4) {
+                nameController.text = '';
+                showDialog(
+                  context: context,
+                  builder: (_) =>
+                      MessageOverlay(mainText: ' name is\ntoo short'),
+                );
+                return;
+              }
+              //TODO add check for name to be characters and numbers
+              saveName(nameController.text);
+              Navigator.pushNamed(context, '/keys');
+            },
           ),
           SizedBox(
             height: 125,
@@ -105,29 +107,32 @@ class _GoogleAuthState extends State<GoogleAuth> {
   }
 }
 
-class FunkyOverlay extends StatefulWidget {
+class MessageOverlay extends StatefulWidget {
+  final String mainText;
+  MessageOverlay({this.mainText = 'error'});
   @override
-  State<StatefulWidget> createState() => FunkyOverlayState();
+  State<StatefulWidget> createState() => MessageOverlayState();
 }
 
-class FunkyOverlayState extends State<FunkyOverlay>
+class MessageOverlayState extends State<MessageOverlay>
     with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> scaleAnimation;
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 320));
-    scaleAnimation =
-        CurvedAnimation(parent: controller, curve: Curves.decelerate);
-
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 233),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
     controller.addListener(() {
       setState(() {});
     });
-
     controller.forward();
   }
 
@@ -148,7 +153,8 @@ class FunkyOverlayState extends State<FunkyOverlay>
             child: Padding(
               padding: const EdgeInsets.all(50.0),
               child: Text(
-                'Name contains \nprofane words.',
+                this.widget.mainText,
+                textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),
