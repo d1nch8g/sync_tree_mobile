@@ -63,7 +63,10 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> scaleAnimation;
-  late Widget currentWidget;
+  late Widget adressWidget;
+  final TextEditingController adressTextController = TextEditingController();
+  late Widget amountWidget;
+  final TextEditingController amountTextController = TextEditingController();
 
   @override
   void initState() {
@@ -80,12 +83,24 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       setState(() {});
     });
     controller.forward();
-    currentWidget = UserSendContent(() {
-      getRecieverPublicName();
+    setState(() {
+      adressWidget = RecieverTextField(adressTextController, () {
+        onNameTypingEnd();
+      });
+      amountWidget = AmountTextField(amountTextController);
     });
   }
 
-  void getRecieverPublicName() async {
+  void onNameTypingEnd() async {
+    var name = await userName(adressTextController.text);
+    if (name != '====') {
+      setState(() {
+        adressWidget = Text(
+          'to: ' + name,
+          style: Theme.of(context).textTheme.headline2,
+        );
+      });
+    }
   }
 
   @override
@@ -104,18 +119,36 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(50, 32, 50, 22),
-              child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 233),
-                child: currentWidget,
-                transitionBuilder: (
-                  Widget child,
-                  Animation<double> animation,
-                ) =>
-                    ScaleTransition(
-                  scale: animation,
-                  child: child,
-                ),
+              padding: const EdgeInsets.fromLTRB(18, 32, 18, 22),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AnimatedSwitcher(
+                    duration: Duration(milliseconds: 233),
+                    child: adressWidget,
+                    transitionBuilder: (
+                      Widget child,
+                      Animation<double> animation,
+                    ) =>
+                        ScaleTransition(
+                      scale: animation,
+                      child: child,
+                    ),
+                  ),
+                  SizedBox(height: 17),
+                  AnimatedSwitcher(
+                    duration: Duration(milliseconds: 233),
+                    child: amountWidget,
+                    transitionBuilder: (
+                      Widget child,
+                      Animation<double> animation,
+                    ) =>
+                        ScaleTransition(
+                      scale: animation,
+                      child: child,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -125,139 +158,93 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   }
 }
 
-class UserSendContent extends StatefulWidget {
-  final Function() goToNextStep;
-  UserSendContent(this.goToNextStep);
+class RecieverTextField extends StatefulWidget {
+  final TextEditingController controller;
+  final Function endTextEdit;
+  RecieverTextField(
+    this.controller,
+    this.endTextEdit,
+  );
   @override
-  _UserSendContentState createState() => _UserSendContentState();
+  _RecieverTextFieldState createState() => _RecieverTextFieldState();
 }
 
-class _UserSendContentState extends State<UserSendContent> {
-  late Widget currentButton;
-
-  void onPressed() async {
-    var adress = await FlutterClipboard.paste();
-    var name = await userName(adress);
-    if (name == '====') {
-      setState(() {
-        currentButton = BadAdressButton();
-      });
-      Future.delayed(Duration(milliseconds: 377), () {
-        setState(() {
-          currentButton = PasteButton(() {
-            onPressed();
-          });
-        });
-      });
-      return;
-    }
-    this.widget.goToNextStep();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      currentButton = PasteButton(() {
-        onPressed();
-      });
-    });
-  }
-
+class _RecieverTextFieldState extends State<RecieverTextField> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          'Press this button to paste reciever adress',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline2,
-        ),
-        SizedBox(height: 4),
-        AnimatedSwitcher(
-          duration: Duration(milliseconds: 233),
-          child: currentButton,
-          transitionBuilder: (
-            Widget child,
-            Animation<double> animation,
-          ) =>
-              ScaleTransition(
-            scale: animation,
-            child: child,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class PasteButton extends StatelessWidget {
-  final Function onPressed;
-  PasteButton(this.onPressed);
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        onPressed();
+    return TextField(
+      controller: this.widget.controller,
+      onEditingComplete: () {
+        this.widget.endTextEdit();
       },
-      icon: Icon(Icons.copy),
-      iconSize: 42,
-      color: Theme.of(context).focusColor,
-    );
-  }
-}
-
-class BadAdressButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {},
-      icon: Icon(
-        Icons.do_disturb,
+      style: TextStyle(
+        color: Theme.of(context).focusColor,
       ),
-      iconSize: 42,
-      color: Theme.of(context).focusColor,
-    );
-  }
-}
-
-class CheckNameContent extends StatelessWidget {
-  final String name;
-  CheckNameContent(this.name);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          'Is that correct reciever adress?',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline2,
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
         ),
-        SizedBox(height: 4),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.copy),
-          iconSize: 42,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        labelStyle: TextStyle(
           color: Theme.of(context).focusColor,
         ),
-      ],
+        hoverColor: Theme.of(context).focusColor,
+        fillColor: Theme.of(context).focusColor,
+        focusColor: Theme.of(context).focusColor,
+        labelText: 'Reciever adress',
+      ),
+      cursorColor: Theme.of(context).focusColor,
     );
   }
 }
 
-class OperationPassedContent extends StatelessWidget {
+class AmountTextField extends StatefulWidget {
+  final TextEditingController controller;
+  AmountTextField(this.controller);
   @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  _AmountTextFieldState createState() => _AmountTextFieldState();
 }
 
-class OperationFailedContent extends StatelessWidget {
+class _AmountTextFieldState extends State<AmountTextField> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return TextField(
+      controller: this.widget.controller,
+      keyboardType: TextInputType.number,
+      onEditingComplete: () {},
+      style: TextStyle(
+        color: Theme.of(context).focusColor,
+      ),
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        labelStyle: TextStyle(
+          color: Theme.of(context).focusColor,
+        ),
+        hoverColor: Theme.of(context).focusColor,
+        fillColor: Theme.of(context).focusColor,
+        focusColor: Theme.of(context).focusColor,
+        labelText: 'Send amount',
+      ),
+      cursorColor: Theme.of(context).focusColor,
+    );
   }
 }
