@@ -23,7 +23,6 @@ class _DynamicBalanceState extends State<DynamicBalance> {
   void startBalanceListen() {
     mainStream.listen((event) {
       if (event == 'balanceChange') {
-        
         setActualBalance();
       }
     });

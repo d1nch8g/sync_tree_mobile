@@ -104,7 +104,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.71,
+            width: MediaQuery.of(context).size.width * 0.80,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -117,7 +117,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Press this button to copy your adress to clipboard.',
+                    'Copy your public adress and give it to the sender.',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),

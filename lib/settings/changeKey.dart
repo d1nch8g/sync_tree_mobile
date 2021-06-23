@@ -83,7 +83,7 @@ class ChangeKeyOverlayState extends State<ChangeKeyOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.7,
+            width: MediaQuery.of(context).size.width * 0.8,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -121,7 +121,7 @@ class QuestionContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Are you sure?\nIf you paste new key, old one will be deleted',
+          'Are you sure?\nIf you paste new key, old one will be removed and lost',
           style: Theme.of(context).textTheme.headline2,
           textAlign: TextAlign.center,
         ),

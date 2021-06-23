@@ -136,36 +136,50 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
 
   void spawnSendButton() {
     setState(() {
-      sendWidget = TextButton(
-        onPressed: () async {
-          var succeded = await userSend(
-            adressTextController.text,
-            Int64.parseInt(amountTextController.text),
-          );
-          if (succeded) {
-            setState(() {
-              sendWidget = Icon(
-                Icons.check_circle_outline_rounded,
-                color: Theme.of(context).focusColor,
-                size: 37,
-              );
-            });
-          } else {
-            sendWidget = Icon(
-              Icons.do_disturb_alt_rounded,
-              color: Theme.of(context).focusColor,
-            );
-          }
-          Future.delayed(Duration(milliseconds: 377), () {
-            Navigator.pop(context);
-            Future.delayed(Duration(milliseconds: 144), () {
-              mainStreamController.add('balanceChange');
+      sendWidget = SendButtonInOverlay(() {
+        onSendButtonPress();
+      });
+    });
+  }
+
+  void onSendButtonPress() async {
+    var succeded = await userSend(
+      adressTextController.text,
+      Int64.parseInt(amountTextController.text),
+    );
+    if (succeded) {
+      setState(() {
+        sendWidget = Icon(
+          Icons.check_circle_outline_rounded,
+          color: Theme.of(context).focusColor,
+          size: 46,
+        );
+      });
+      Future.delayed(Duration(milliseconds: 377), () {
+        Navigator.pop(context);
+        Future.delayed(Duration(milliseconds: 144), () {
+          mainStreamController.add('balanceChange');
+        });
+      });
+    } else {
+      setState(() {
+        sendWidget = Icon(
+          Icons.do_disturb_alt_rounded,
+          color: Theme.of(context).focusColor,
+          size: 46,
+        );
+      });
+      Future.delayed(
+        Duration(milliseconds: 610),
+        () {
+          setState(() {
+            sendWidget = SendButtonInOverlay(() {
+              onSendButtonPress();
             });
           });
         },
-        child: Text('send'),
       );
-    });
+    }
   }
 
   @override
@@ -344,6 +358,21 @@ class _AmountTextFieldState extends State<AmountTextField> {
         ),
       ),
       cursorColor: Theme.of(context).focusColor,
+    );
+  }
+}
+
+class SendButtonInOverlay extends StatelessWidget {
+  final Function send;
+  SendButtonInOverlay(this.send);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        send();
+      },
+      child: Text('send'),
     );
   }
 }

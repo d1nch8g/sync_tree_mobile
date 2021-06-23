@@ -7,6 +7,9 @@ Mobile app that allow to accuumulate possibileties of:
 
 in one unified blockchain powered system with strong integration into app's and possibilities of modern software.
 
+vscode extensions folder:
 
-generate grpc code
-protoc lib/api/api.proto --dart_out=grpc:.
+Windows 
+%USERPROFILE%\.vscode\extensions
+macOS & Linux
+~/.vscode/extensions
