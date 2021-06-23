@@ -181,6 +181,16 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     });
   }
 
+  void updateLocalBalane() async {
+    var prefs = await SharedPreferences.getInstance();
+    var currentBalance = prefs.getInt('balace')!;
+    var substractionValue = Int64.parseInt(amountTextController.text).toInt();
+    prefs.setInt(
+      'balance',
+      currentBalance - substractionValue,
+    );
+  }
+
   void onSendButtonPress() async {
     var succeded = await userSend(
       adressTextController.text,
@@ -194,6 +204,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
           size: 46,
         );
       });
+      updateLocalBalane();
       Future.delayed(Duration(milliseconds: 377), () {
         Navigator.pop(context);
         Future.delayed(Duration(milliseconds: 144), () {

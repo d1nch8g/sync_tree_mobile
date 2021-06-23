@@ -26,19 +26,15 @@ Future<String> userName(String adress) async {
 }
 
 Future<Int64> selfBalance() async {
-  try {
-    var crypt = Crypt();
-    var personalAdress = await crypt.getPersonalAdress();
-    final response = await stub.userInfo(
-      UserInfoRequest(
-        adress: base64.decode(personalAdress),
-      ),
-      options: CallOptions(
-        timeout: Duration(milliseconds: 2584),
-      ),
-    );
-    return response.balance;
-  } catch (Exception) {
-    return Int64();
-  }
+  var crypt = Crypt();
+  var personalAdress = await crypt.getPersonalAdress();
+  final response = await stub.userInfo(
+    UserInfoRequest(
+      adress: base64.decode(personalAdress),
+    ),
+    options: CallOptions(
+      timeout: Duration(milliseconds: 2584),
+    ),
+  );
+  return response.balance;
 }

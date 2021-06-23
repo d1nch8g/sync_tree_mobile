@@ -11,7 +11,29 @@ class DynamicBalance extends StatefulWidget {
 class _DynamicBalanceState extends State<DynamicBalance> {
   String balance = '';
 
-  
+  void loadFromMemory() async {
+    var prefs = await SharedPreferences.getInstance();
+    var memoryBalance = prefs.getInt('balance');
+    setState(() {
+      balance = memoryBalance.toString();
+    });
+  }
+
+  void startStreamListening() {
+    mainStream.listen((event) {
+      if (event == 'balanceChange') {
+        loadFromMemory();
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadFromMemory();
+    startStreamListening();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
