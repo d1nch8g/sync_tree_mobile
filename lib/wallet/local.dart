@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/crypt.dart';
+import 'package:flutter_nearby_connections/flutter_nearby_connections.dart';
 
 class LocalWallets extends StatefulWidget {
   @override
@@ -28,7 +29,6 @@ class _LocalWalletsState extends State<LocalWallets> {
     var name = prefs.getString('pubName') ?? 'unknown';
     var adress = await Crypt().getPersonalAdress();
     var nameAndAdress = name + '|||' + adress;
-    
   }
 
   @override

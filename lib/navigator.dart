@@ -28,8 +28,8 @@ class PrimaryPage extends StatefulWidget {
 }
 
 class _PrimaryPageState extends State<PrimaryPage> {
-  int _selectedIndex = 0;
-  PageController _pageController = PageController();
+  int _selectedIndex = 2;
+  late PageController _pageController;
 
   Future<bool> firstLaunch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -42,6 +42,25 @@ class _PrimaryPageState extends State<PrimaryPage> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      _pageController.animateToPage(
+        index,
+        duration: Duration(milliseconds: 320),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+      initialPage: _selectedIndex,
+    );
   }
 
   @override
@@ -97,13 +116,5 @@ class _PrimaryPageState extends State<PrimaryPage> {
         ],
       ),
     );
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 320), curve: Curves.easeOut);
-    });
   }
 }

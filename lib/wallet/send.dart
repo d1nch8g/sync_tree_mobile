@@ -229,7 +229,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.71,
+            width: MediaQuery.of(context).size.width * 0.8,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
