@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sync_tree_mobile/wallet/balance.dart';
 import 'package:sync_tree_mobile/wallet/local.dart';
 

@@ -120,21 +120,42 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   void onAmountTypingEnd() async {
     var prefs = await SharedPreferences.getInstance();
     var curBalance = prefs.getInt('balance')!;
-    if (curBalance >= int.parse(amountTextController.text)) {
-      setState(() {
-        amountWidget = Text(
-          amountTextController.text,
-          style: Theme.of(context).textTheme.headline2,
-        );
-      });
-      amountReady = true;
-      if (adressReady && amountReady) {
-        spawnSendButton();
+    try {
+      var balance = int.parse(amountTextController.text);
+      if (curBalance >= balance) {
+        setState(() {
+          amountWidget = Text(
+            amountTextController.text,
+            style: Theme.of(context).textTheme.headline2,
+          );
+        });
+        amountReady = true;
+        if (adressReady && amountReady) {
+          spawnSendButton();
+        }
+      } else {
+        setState(() {
+          amountWidget = Icon(
+            Icons.do_disturb_alt_rounded,
+            color: Theme.of(context).focusColor,
+            size: 54,
+          );
+          Future.delayed(Duration(milliseconds: 610), () {
+            setState(() {
+              amountWidget = AmountTextField(
+                amountTextController,
+                () {
+                  onAmountTypingEnd();
+                },
+              );
+            });
+          });
+        });
       }
-    } else {
+    } catch (Exc) {
       setState(() {
         amountWidget = Icon(
-          Icons.do_disturb_alt_rounded,
+          Icons.help_outline_rounded,
           color: Theme.of(context).focusColor,
           size: 54,
         );

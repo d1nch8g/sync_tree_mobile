@@ -76,7 +76,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             label: 'markets',
-            icon: Icon(Icons.stacked_line_chart_rounded),
+            icon: Icon(Icons.query_stats_rounded),
             backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(
