@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/security/pin.dart';
 
 class LocalWallets extends StatelessWidget {
   @override
