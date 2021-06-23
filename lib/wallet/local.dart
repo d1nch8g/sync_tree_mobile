@@ -17,7 +17,7 @@ class _LocalWalletsState extends State<LocalWallets> {
     });
   }
 
-  void startSearch() {
+  void startSearch() async {
     setState(() {
       devicesAround = LocalSpinKit();
     });
@@ -27,7 +27,7 @@ class _LocalWalletsState extends State<LocalWallets> {
   Widget build(BuildContext context) {
     return Expanded(
       child: AnimatedSwitcher(
-        duration: Duration(milliseconds: 233),
+        duration: Duration(milliseconds: 610),
         child: devicesAround,
         transitionBuilder: (
           Widget child,
@@ -53,7 +53,7 @@ class LocalButton extends StatelessWidget {
           startSearch();
         },
         icon: Icon(
-          Icons.swap_vert_circle_rounded,
+          Icons.adjust_rounded,
         ),
         color: Theme.of(context).hoverColor,
         iconSize: MediaQuery.of(context).size.width * 0.62,

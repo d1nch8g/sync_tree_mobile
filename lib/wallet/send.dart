@@ -131,6 +131,24 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       if (adressReady && amountReady) {
         spawnSendButton();
       }
+    } else {
+      setState(() {
+        amountWidget = Icon(
+          Icons.do_disturb_alt_rounded,
+          color: Theme.of(context).focusColor,
+          size: 54,
+        );
+        Future.delayed(Duration(milliseconds: 610), () {
+          setState(() {
+            amountWidget = AmountTextField(
+              amountTextController,
+              () {
+                onAmountTypingEnd();
+              },
+            );
+          });
+        });
+      });
     }
   }
 

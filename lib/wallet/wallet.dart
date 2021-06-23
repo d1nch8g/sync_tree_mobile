@@ -30,10 +30,9 @@ class WalletPage extends StatelessWidget {
           ),
           Divider(),
           Text(
-            'Wallets around',
+            'wallets around',
             style: Theme.of(context).textTheme.headline4,
           ),
-          Divider(),
           LocalWallets(),
         ],
       ),
