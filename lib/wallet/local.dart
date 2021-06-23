@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sync_tree_mobile/crypt.dart';
 
 class LocalWallets extends StatefulWidget {
   @override
@@ -7,6 +9,7 @@ class LocalWallets extends StatefulWidget {
 }
 
 class _LocalWalletsState extends State<LocalWallets> {
+  final List<String> foundConnections = [];
   late Widget devicesAround;
 
   @override
@@ -21,6 +24,11 @@ class _LocalWalletsState extends State<LocalWallets> {
     setState(() {
       devicesAround = LocalSpinKit();
     });
+    var prefs = await SharedPreferences.getInstance();
+    var name = prefs.getString('pubName') ?? 'unknown';
+    var adress = await Crypt().getPersonalAdress();
+    var nameAndAdress = name + '|||' + adress;
+    
   }
 
   @override
