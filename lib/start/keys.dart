@@ -82,16 +82,27 @@ class _KeySaveState extends State<KeySave> {
   }
 }
 
-class KeysNotReady extends StatelessWidget {
+class KeysNotReady extends StatefulWidget {
+  @override
+  _KeysNotReadyState createState() => _KeysNotReadyState();
+}
+
+class _KeysNotReadyState extends State<KeysNotReady> {
+  bool visible = true;
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: Center(
-        child: SpinKitCubeGrid(
-          color: Theme.of(context).focusColor,
-          size: 142.0,
-          duration: const Duration(milliseconds: 1124),
+    return AnimatedOpacity(
+      opacity: visible ? 1.0 : 0.0,
+      duration: Duration(milliseconds: 500),
+      child: SizedBox(
+        height: 200,
+        child: Center(
+          child: SpinKitCubeGrid(
+            color: Theme.of(context).focusColor,
+            size: 142.0,
+            duration: const Duration(milliseconds: 1124),
+          ),
         ),
       ),
     );
@@ -280,7 +291,7 @@ class UserNotCreatedOverlayState extends State<UserNotCreatedOverlay>
                     style: Theme.of(context).textTheme.headline2,
                   ),
                   Icon(
-                    Icons.signal_wifi_connected_no_internet_4_rounded,
+                    Icons.wifi_off_rounded,
                     size: 144,
                     color: Theme.of(context).focusColor,
                   ),

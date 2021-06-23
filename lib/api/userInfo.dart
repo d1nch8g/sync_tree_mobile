@@ -4,9 +4,9 @@ import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 import '../crypt.dart';
 
-import '/api/api.pb.dart';
-import '/api/api.pbgrpc.dart';
-import '/api/api.dart';
+import '../api/api.pb.dart';
+import '../api/api.pbgrpc.dart';
+import '../api/api.dart';
 
 Future<String> userName(String adress) async {
   try {

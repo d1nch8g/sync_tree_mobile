@@ -6,7 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sync_tree_mobile/api/userCreate.dart';
 
 import '../security/pin.dart';
-import '/crypt.dart';
+import '../crypt.dart';
 
 class GenerateKeyTile extends StatelessWidget {
   @override
@@ -309,7 +309,7 @@ class UserNotCreatedOverlayState extends State<UserNotCreatedOverlay>
                     style: Theme.of(context).textTheme.headline2,
                   ),
                   Icon(
-                    Icons.signal_wifi_connected_no_internet_4_rounded,
+                    Icons.wifi_off_rounded,
                     size: 144,
                     color: Theme.of(context).focusColor,
                   ),

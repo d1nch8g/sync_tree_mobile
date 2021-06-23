@@ -1,4 +1,4 @@
-package com.example.sync_tree_mobile
+package ext.sync_tree_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 

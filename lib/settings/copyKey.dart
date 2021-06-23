@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 
 import 'package:sync_tree_mobile/crypt.dart';
-import '/security/pin.dart';
+import '../security/pin.dart';
 
 class CopyKeyTile extends StatelessWidget {
   final crypt = Crypt();

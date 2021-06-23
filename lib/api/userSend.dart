@@ -6,9 +6,9 @@ import 'package:grpc/grpc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../crypt.dart';
 
-import '/api/api.pb.dart';
-import '/api/api.pbgrpc.dart';
-import '/api/api.dart';
+import '../api/api.pb.dart';
+import '../api/api.pbgrpc.dart';
+import '../api/api.dart';
 
 Future<bool> userSend(String recieverAdressBase64, Int64 amount) async {
   try {

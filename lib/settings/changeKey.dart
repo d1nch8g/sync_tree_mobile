@@ -7,8 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/userInfo.dart';
 import 'package:sync_tree_mobile/navigator.dart';
 
-import '/security/pin.dart';
-import '/crypt.dart';
+import '../security/pin.dart';
+import '../crypt.dart';
 
 class ChangeKeyTile extends StatelessWidget {
   @override
@@ -260,7 +260,7 @@ class ErrorButton extends StatelessWidget {
     return SizedBox(
       height: 54,
       child: Icon(
-        Icons.do_disturb,
+        Icons.do_not_disturb,
         size: 52,
         color: Theme.of(context).focusColor,
       ),
