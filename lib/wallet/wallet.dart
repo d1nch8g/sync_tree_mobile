@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile/wallet/balance.dart';
-import 'package:sync_tree_mobile/wallet/history.dart';
+import 'package:sync_tree_mobile/wallet/local.dart';
 
 import 'send.dart';
 import 'get.dart';
@@ -28,8 +28,7 @@ class WalletPage extends StatelessWidget {
             ],
           ),
           Divider(),
-          TransactionHistory(),
-          Divider(),
+          LocalWallets(),
         ],
       ),
     );
