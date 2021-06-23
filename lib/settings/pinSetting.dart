@@ -111,6 +111,7 @@ class SetPinOverlayState extends State<SetPinOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -120,7 +121,6 @@ class SetPinOverlayState extends State<SetPinOverlay>
             child: Padding(
               padding: const EdgeInsets.fromLTRB(42, 22, 42, 14),
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.62,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
