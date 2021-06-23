@@ -92,16 +92,16 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     controller.forward();
     setState(() {
       adressWidget = RecieverTextField(adressTextController, () {
-        onNameTypingEnd();
+        onAdressTypingEnd();
       });
       amountWidget = AmountTextField(amountTextController, () {
-        onBalanceTyprintEnd();
+        onAmountTypingEnd();
       });
       sendWidget = Text('');
     });
   }
 
-  void onNameTypingEnd() async {
+  void onAdressTypingEnd() async {
     var name = await userName(adressTextController.text);
     if (name != '====') {
       setState(() {
@@ -117,7 +117,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     }
   }
 
-  void onBalanceTyprintEnd() async {
+  void onAmountTypingEnd() async {
     var prefs = await SharedPreferences.getInstance();
     var curBalance = prefs.getInt('balance')!;
     if (curBalance >= int.parse(amountTextController.text)) {
@@ -252,10 +252,10 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
 
 class RecieverTextField extends StatefulWidget {
   final TextEditingController controller;
-  final Function onAdressEdit;
+  final Function onAdressTypingEnd;
   RecieverTextField(
     this.controller,
-    this.onAdressEdit,
+    this.onAdressTypingEnd,
   );
   @override
   _RecieverTextFieldState createState() => _RecieverTextFieldState();
@@ -267,7 +267,7 @@ class _RecieverTextFieldState extends State<RecieverTextField> {
     return TextField(
       controller: this.widget.controller,
       onEditingComplete: () {
-        this.widget.onAdressEdit();
+        this.widget.onAdressTypingEnd();
       },
       style: TextStyle(
         color: Theme.of(context).focusColor,
@@ -300,7 +300,7 @@ class _RecieverTextFieldState extends State<RecieverTextField> {
           onPressed: () async {
             var text = await FlutterClipboard.paste();
             this.widget.controller.text = text;
-            this.widget.onAdressEdit();
+            this.widget.onAdressTypingEnd();
           },
         ),
       ),
@@ -311,10 +311,10 @@ class _RecieverTextFieldState extends State<RecieverTextField> {
 
 class AmountTextField extends StatefulWidget {
   final TextEditingController controller;
-  final Function onAmountEdit;
+  final Function onAmountTypingEnd;
   AmountTextField(
     this.controller,
-    this.onAmountEdit,
+    this.onAmountTypingEnd,
   );
   @override
   _AmountTextFieldState createState() => _AmountTextFieldState();
@@ -351,7 +351,7 @@ class _AmountTextFieldState extends State<AmountTextField> {
         labelText: 'Send amount',
         suffixIcon: IconButton(
           onPressed: () {
-            this.widget.onAmountEdit();
+            this.widget.onAmountTypingEnd();
           },
           icon: Icon(Icons.check_circle_rounded),
           color: Theme.of(context).focusColor,
