@@ -71,10 +71,10 @@ class LocalButton extends StatelessWidget {
           startSearch();
         },
         icon: Icon(
-          Icons.adjust_rounded,
+          Icons.adjust_sharp,
         ),
         color: Theme.of(context).hoverColor,
-        iconSize: MediaQuery.of(context).size.width * 0.62,
+        iconSize: MediaQuery.of(context).size.width * 0.52,
       ),
     );
   }
