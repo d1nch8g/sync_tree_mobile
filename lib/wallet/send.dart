@@ -205,7 +205,9 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       });
       Future.delayed(Duration(milliseconds: 377), () {
         Navigator.pop(context);
-        mainStreamController.add('balanceEvent');
+        Future.delayed(Duration(milliseconds: 377), () {
+          mainStreamController.add('balanceEvent');
+        });
       });
     } else {
       setState(() {

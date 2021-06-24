@@ -164,7 +164,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
         });
         var prefs = await SharedPreferences.getInstance();
         prefs.setString('pubName', newName);
-        mainStreamController.add('nameChange');
+        mainStreamController.add('pubNameEvent');
         Future.delayed(Duration(milliseconds: 377), () {
           Navigator.pop(context);
         });
