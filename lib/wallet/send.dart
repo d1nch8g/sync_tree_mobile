@@ -102,7 +102,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   }
 
   void onAdressTypingEnd() async {
-    var name = await userName(adressTextController.text);
+    var name = await userFindName(adressTextController.text);
     if (name != '====') {
       setState(() {
         adressWidget = Text(
@@ -181,22 +181,21 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     });
   }
 
-  void updateLocalBalane() async {
+  void substractFromCurrentBalance(int amount) async {
     var prefs = await SharedPreferences.getInstance();
-    var currentBalance = prefs.getInt('balace')!;
-    var substractionValue = Int64.parseInt(amountTextController.text).toInt();
-    prefs.setInt(
-      'balance',
-      currentBalance - substractionValue,
-    );
+    var currentBalance = prefs.getInt('balance')!;
+    var newBalance = currentBalance - amount;
+    prefs.setInt('balance', newBalance);
   }
 
   void onSendButtonPress() async {
+    var sendAmount = Int64.parseInt(amountTextController.text);
     var succeded = await userSend(
       adressTextController.text,
-      Int64.parseInt(amountTextController.text),
+      sendAmount,
     );
     if (succeded) {
+      substractFromCurrentBalance(sendAmount.toInt());
       setState(() {
         sendWidget = Icon(
           Icons.check_circle_outline_rounded,
@@ -204,12 +203,9 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
           size: 46,
         );
       });
-      updateLocalBalane();
       Future.delayed(Duration(milliseconds: 377), () {
         Navigator.pop(context);
-        Future.delayed(Duration(milliseconds: 144), () {
-          mainStreamController.add('balanceChange');
-        });
+        mainStreamController.add('balanceEvent');
       });
     } else {
       setState(() {

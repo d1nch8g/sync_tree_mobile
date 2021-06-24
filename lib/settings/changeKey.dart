@@ -156,7 +156,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
     if (crypt.checkAllKeys(allKeys)) {
       var persPub = crypt.keyToBytes(allKeys.split('|')[1]);
       var persAdress = crypt.hash(persPub);
-      var newName = await userName(base64.encode(persAdress));
+      var newName = await userFindName(base64.encode(persAdress));
       if (newName != "====") {
         crypt.saveSingleStringKeys(allKeys);
         setState(() {

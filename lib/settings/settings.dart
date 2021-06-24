@@ -26,7 +26,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   void startNameChecking() {
     mainStream.listen((event) {
-      if (event == 'nameChange') {
+      if (event == 'pubNameEvent') {
         getName().then(
           (value) => {
             setState(() {

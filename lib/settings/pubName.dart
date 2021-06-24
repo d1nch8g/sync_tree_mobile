@@ -62,7 +62,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
           Future.delayed(Duration(milliseconds: 377), () {
             Navigator.pop(context);
             Future.delayed(Duration(milliseconds: 144), () {
-              mainStreamController.add('nameChange');
+              mainStreamController.add('pubNameEvent');
             });
           });
         });
