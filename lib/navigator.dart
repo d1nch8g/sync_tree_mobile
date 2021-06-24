@@ -31,11 +31,13 @@ class _PrimaryPageState extends State<PrimaryPage> {
   int _selectedIndex = 2;
   late PageController _pageController;
 
-  Future<bool> firstLaunch() async {
+  void checkFirstLaunch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var firstLaunch = prefs.getBool('firstLaunch');
+    var firstLaunch = prefs.getBool('firstLaunch') ?? true;
     prefs.setBool('firstLaunch', false); // change to true to go to start
-    return firstLaunch ?? true;
+    if (firstLaunch) {
+      Navigator.pushNamed(context, '/hello');
+    }
   }
 
   @override
@@ -61,15 +63,11 @@ class _PrimaryPageState extends State<PrimaryPage> {
     _pageController = PageController(
       initialPage: _selectedIndex,
     );
+    checkFirstLaunch();
   }
 
   @override
   Widget build(BuildContext context) {
-    firstLaunch().then(
-      (firstLaunch) => {
-        if (firstLaunch) {Navigator.pushNamed(context, '/hello')}
-      },
-    );
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).focusColor,
@@ -88,7 +86,6 @@ class _PrimaryPageState extends State<PrimaryPage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Theme.of(context).focusColor,
         unselectedItemColor: Theme.of(context).focusColor,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

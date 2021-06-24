@@ -11,19 +11,29 @@ class LocalWallets extends StatefulWidget {
 
 class _LocalWalletsState extends State<LocalWallets> {
   final List<String> foundConnections = [];
-  late Widget devicesAround;
+  late Widget searchWidget;
 
   @override
   void initState() {
     super.initState();
-    devicesAround = LocalButton(() {
+    searchWidget = LocalButton(() {
       startSearch();
+    });
+  }
+
+  void stopSearch() {
+    setState(() {
+      searchWidget = LocalButton(() {
+        startSearch();
+      });
     });
   }
 
   void startSearch() async {
     setState(() {
-      devicesAround = LocalSpinKit();
+      searchWidget = LocalSpinKit(() {
+        stopSearch();
+      });
     });
     var prefs = await SharedPreferences.getInstance();
     var name = prefs.getString('pubName') ?? 'unknown';
@@ -35,8 +45,8 @@ class _LocalWalletsState extends State<LocalWallets> {
   Widget build(BuildContext context) {
     return Expanded(
       child: AnimatedSwitcher(
-        duration: Duration(milliseconds: 610),
-        child: devicesAround,
+        duration: Duration(milliseconds: 377),
+        child: searchWidget,
         transitionBuilder: (
           Widget child,
           Animation<double> animation,
@@ -71,12 +81,32 @@ class LocalButton extends StatelessWidget {
 }
 
 class LocalSpinKit extends StatelessWidget {
+  final Function stopSearch;
+  LocalSpinKit(this.stopSearch);
   @override
   Widget build(BuildContext context) {
-    return SpinKitRipple(
-      color: Theme.of(context).hoverColor,
-      duration: const Duration(milliseconds: 1597),
-      size: MediaQuery.of(context).size.width * 0.64,
+    return Stack(
+      children: [
+        Center(
+          child: SpinKitRipple(
+            color: Theme.of(context).hoverColor,
+            duration: const Duration(milliseconds: 1597),
+            size: MediaQuery.of(context).size.width * 0.64,
+          ),
+        ),
+        Center(
+          child: IconButton(
+            onPressed: () {
+              stopSearch();
+            },
+            icon: Icon(
+              Icons.circle,
+              color: Theme.of(context).hoverColor,
+            ),
+            iconSize: MediaQuery.of(context).size.width * 0.12,
+          ),
+        ),
+      ],
     );
   }
 }
