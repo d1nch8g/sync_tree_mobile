@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'market/main.dart';
+import 'market/market.dart';
 import 'wallet/wallet.dart';
 import 'settings/settings.dart';
 import 'balance/main.dart';

@@ -6,7 +6,7 @@ import '../api/api.pb.dart';
 import '../api/api.pbgrpc.dart';
 import '../api/api.dart';
 
-userSearch(String name) async {
+Future<List<Map<MarketInfo, String>>> userSearch(String name) async {
   try {
     final response = await stub.userSearch(
       UserSearchRequest(
@@ -16,15 +16,33 @@ userSearch(String name) async {
         timeout: Duration(milliseconds: 2584),
       ),
     );
-    for (var i = 0; i < response.adresses.length / 64; i += 64) {
-      var singleAdress = response.adresses.sublist(
-          i,
-          i + 64 > response.adresses.length
-              ? response.adresses.length
-              : i + 64);
-      
+    var adresses = response.adresses;
+    List<Map<MarketInfo, String>> finalList = [];
+    for (var i = 0; i < adresses.length; i += 64) {
+      var singleAdress = adresses.sublist(i, i + 64);
+      var resp = await stub.marketInfo(
+        MarketInfoRequest(
+          adress: singleAdress,
+        ),
+      );
+      finalList.add({
+        MarketInfo.description: resp.descr,
+        MarketInfo.imgLink: resp.img,
+        MarketInfo.mesKey: resp.messsageKey.toString(),
+        MarketInfo.name: resp.name,
+        MarketInfo.opCount: resp.opCount.toString(),
+      });
     }
+    return finalList;
   } catch (Exception) {
     return [];
   }
+}
+
+enum MarketInfo {
+  name,
+  description,
+  imgLink,
+  mesKey,
+  opCount,
 }
