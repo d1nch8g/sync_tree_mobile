@@ -63,6 +63,12 @@ class SyncTreeClient extends $grpc.Client {
           '/api.SyncTree/UserSearch',
           ($0.UserSearchRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Markets.fromBuffer(value));
+  static final _$marketInfo =
+      $grpc.ClientMethod<$0.MarketInfoRequest, $0.MarketInfoResponse>(
+          '/api.SyncTree/MarketInfo',
+          ($0.MarketInfoRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.MarketInfoResponse.fromBuffer(value));
   static final _$marketCraete =
       $grpc.ClientMethod<$0.MarketCreateRequest, $0.Response>(
           '/api.SyncTree/MarketCraete',
@@ -73,12 +79,6 @@ class SyncTreeClient extends $grpc.Client {
           '/api.SyncTree/MarketUpdate',
           ($0.MarketUpdateRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Response.fromBuffer(value));
-  static final _$marketInfo =
-      $grpc.ClientMethod<$0.MarketInfoRequest, $0.MarketInfoResponse>(
-          '/api.SyncTree/MarketInfo',
-          ($0.MarketInfoRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $0.MarketInfoResponse.fromBuffer(value));
   static final _$marketDeposit =
       $grpc.ClientMethod<$0.MarketDepositRequest, $0.Response>(
           '/api.SyncTree/MarketDeposit',
@@ -147,6 +147,12 @@ class SyncTreeClient extends $grpc.Client {
     return $createUnaryCall(_$userSearch, request, options: options);
   }
 
+  $grpc.ResponseFuture<$0.MarketInfoResponse> marketInfo(
+      $0.MarketInfoRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$marketInfo, request, options: options);
+  }
+
   $grpc.ResponseFuture<$0.Response> marketCraete($0.MarketCreateRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$marketCraete, request, options: options);
@@ -155,12 +161,6 @@ class SyncTreeClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.Response> marketUpdate($0.MarketUpdateRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$marketUpdate, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$0.MarketInfoResponse> marketInfo(
-      $0.MarketInfoRequest request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$marketInfo, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.Response> marketDeposit(
@@ -253,6 +253,13 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.UserSearchRequest.fromBuffer(value),
         ($0.Markets value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.MarketInfoRequest, $0.MarketInfoResponse>(
+        'MarketInfo',
+        marketInfo_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.MarketInfoRequest.fromBuffer(value),
+        ($0.MarketInfoResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.MarketCreateRequest, $0.Response>(
         'MarketCraete',
         marketCraete_Pre,
@@ -269,13 +276,6 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.MarketUpdateRequest.fromBuffer(value),
         ($0.Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.MarketInfoRequest, $0.MarketInfoResponse>(
-        'MarketInfo',
-        marketInfo_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.MarketInfoRequest.fromBuffer(value),
-        ($0.MarketInfoResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.MarketDepositRequest, $0.Response>(
         'MarketDeposit',
         marketDeposit_Pre,
@@ -344,6 +344,11 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
     return userSearch(call, await request);
   }
 
+  $async.Future<$0.MarketInfoResponse> marketInfo_Pre($grpc.ServiceCall call,
+      $async.Future<$0.MarketInfoRequest> request) async {
+    return marketInfo(call, await request);
+  }
+
   $async.Future<$0.Response> marketCraete_Pre($grpc.ServiceCall call,
       $async.Future<$0.MarketCreateRequest> request) async {
     return marketCraete(call, await request);
@@ -352,11 +357,6 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
   $async.Future<$0.Response> marketUpdate_Pre($grpc.ServiceCall call,
       $async.Future<$0.MarketUpdateRequest> request) async {
     return marketUpdate(call, await request);
-  }
-
-  $async.Future<$0.MarketInfoResponse> marketInfo_Pre($grpc.ServiceCall call,
-      $async.Future<$0.MarketInfoRequest> request) async {
-    return marketInfo(call, await request);
   }
 
   $async.Future<$0.Response> marketDeposit_Pre($grpc.ServiceCall call,
@@ -389,12 +389,12 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UserWithDrawalRequest request);
   $async.Future<$0.Markets> userSearch(
       $grpc.ServiceCall call, $0.UserSearchRequest request);
+  $async.Future<$0.MarketInfoResponse> marketInfo(
+      $grpc.ServiceCall call, $0.MarketInfoRequest request);
   $async.Future<$0.Response> marketCraete(
       $grpc.ServiceCall call, $0.MarketCreateRequest request);
   $async.Future<$0.Response> marketUpdate(
       $grpc.ServiceCall call, $0.MarketUpdateRequest request);
-  $async.Future<$0.MarketInfoResponse> marketInfo(
-      $grpc.ServiceCall call, $0.MarketInfoRequest request);
   $async.Future<$0.Response> marketDeposit(
       $grpc.ServiceCall call, $0.MarketDepositRequest request);
   $async.Future<$0.Response> marketWithDrawal(

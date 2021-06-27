@@ -207,16 +207,16 @@ final $typed_data.Uint8List marketInfoRequestDescriptor = $convert.base64Decode(
 const MarketInfoResponse$json = const {
   '1': 'MarketInfoResponse',
   '2': const [
-    const {'1': 'MesssageKey', '3': 2, '4': 1, '5': 12, '10': 'MesssageKey'},
-    const {'1': 'Name', '3': 3, '4': 1, '5': 9, '10': 'Name'},
-    const {'1': 'Img', '3': 4, '4': 1, '5': 9, '10': 'Img'},
-    const {'1': 'Descr', '3': 5, '4': 1, '5': 9, '10': 'Descr'},
-    const {'1': 'Sign', '3': 6, '4': 1, '5': 12, '10': 'Sign'},
+    const {'1': 'MesssageKey', '3': 1, '4': 1, '5': 12, '10': 'MesssageKey'},
+    const {'1': 'Name', '3': 2, '4': 1, '5': 9, '10': 'Name'},
+    const {'1': 'Img', '3': 3, '4': 1, '5': 9, '10': 'Img'},
+    const {'1': 'Descr', '3': 4, '4': 1, '5': 9, '10': 'Descr'},
+    const {'1': 'OpCount', '3': 5, '4': 1, '5': 4, '10': 'OpCount'},
   ],
 };
 
 /// Descriptor for `MarketInfoResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List marketInfoResponseDescriptor = $convert.base64Decode('ChJNYXJrZXRJbmZvUmVzcG9uc2USIAoLTWVzc3NhZ2VLZXkYAiABKAxSC01lc3NzYWdlS2V5EhIKBE5hbWUYAyABKAlSBE5hbWUSEAoDSW1nGAQgASgJUgNJbWcSFAoFRGVzY3IYBSABKAlSBURlc2NyEhIKBFNpZ24YBiABKAxSBFNpZ24=');
+final $typed_data.Uint8List marketInfoResponseDescriptor = $convert.base64Decode('ChJNYXJrZXRJbmZvUmVzcG9uc2USIAoLTWVzc3NhZ2VLZXkYASABKAxSC01lc3NzYWdlS2V5EhIKBE5hbWUYAiABKAlSBE5hbWUSEAoDSW1nGAMgASgJUgNJbWcSFAoFRGVzY3IYBCABKAlSBURlc2NyEhgKB09wQ291bnQYBSABKARSB09wQ291bnQ=');
 @$core.Deprecated('Use marketDepositRequestDescriptor instead')
 const MarketDepositRequest$json = const {
   '1': 'MarketDepositRequest',

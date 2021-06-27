@@ -1254,11 +1254,11 @@ class MarketInfoRequest extends $pb.GeneratedMessage {
 
 class MarketInfoResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MarketInfoResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
-    ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'MesssageKey', $pb.PbFieldType.OY, protoName: 'MesssageKey')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Name', protoName: 'Name')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Img', protoName: 'Img')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Descr', protoName: 'Descr')
-    ..a<$core.List<$core.int>>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Sign', $pb.PbFieldType.OY, protoName: 'Sign')
+    ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'MesssageKey', $pb.PbFieldType.OY, protoName: 'MesssageKey')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Name', protoName: 'Name')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Img', protoName: 'Img')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Descr', protoName: 'Descr')
+    ..a<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'OpCount', $pb.PbFieldType.OU6, protoName: 'OpCount', defaultOrMaker: $fixnum.Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -1268,7 +1268,7 @@ class MarketInfoResponse extends $pb.GeneratedMessage {
     $core.String? name,
     $core.String? img,
     $core.String? descr,
-    $core.List<$core.int>? sign,
+    $fixnum.Int64? opCount,
   }) {
     final _result = create();
     if (messsageKey != null) {
@@ -1283,8 +1283,8 @@ class MarketInfoResponse extends $pb.GeneratedMessage {
     if (descr != null) {
       _result.descr = descr;
     }
-    if (sign != null) {
-      _result.sign = sign;
+    if (opCount != null) {
+      _result.opCount = opCount;
     }
     return _result;
   }
@@ -1309,50 +1309,50 @@ class MarketInfoResponse extends $pb.GeneratedMessage {
   static MarketInfoResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MarketInfoResponse>(create);
   static MarketInfoResponse? _defaultInstance;
 
-  @$pb.TagNumber(2)
+  @$pb.TagNumber(1)
   $core.List<$core.int> get messsageKey => $_getN(0);
-  @$pb.TagNumber(2)
+  @$pb.TagNumber(1)
   set messsageKey($core.List<$core.int> v) { $_setBytes(0, v); }
-  @$pb.TagNumber(2)
+  @$pb.TagNumber(1)
   $core.bool hasMesssageKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMesssageKey() => clearField(1);
+
   @$pb.TagNumber(2)
-  void clearMesssageKey() => clearField(2);
-
-  @$pb.TagNumber(3)
   $core.String get name => $_getSZ(1);
-  @$pb.TagNumber(3)
+  @$pb.TagNumber(2)
   set name($core.String v) { $_setString(1, v); }
-  @$pb.TagNumber(3)
+  @$pb.TagNumber(2)
   $core.bool hasName() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearName() => clearField(2);
+
   @$pb.TagNumber(3)
-  void clearName() => clearField(3);
-
-  @$pb.TagNumber(4)
   $core.String get img => $_getSZ(2);
-  @$pb.TagNumber(4)
+  @$pb.TagNumber(3)
   set img($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(4)
+  @$pb.TagNumber(3)
   $core.bool hasImg() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearImg() => clearField(3);
+
   @$pb.TagNumber(4)
-  void clearImg() => clearField(4);
-
-  @$pb.TagNumber(5)
   $core.String get descr => $_getSZ(3);
-  @$pb.TagNumber(5)
+  @$pb.TagNumber(4)
   set descr($core.String v) { $_setString(3, v); }
-  @$pb.TagNumber(5)
+  @$pb.TagNumber(4)
   $core.bool hasDescr() => $_has(3);
-  @$pb.TagNumber(5)
-  void clearDescr() => clearField(5);
+  @$pb.TagNumber(4)
+  void clearDescr() => clearField(4);
 
-  @$pb.TagNumber(6)
-  $core.List<$core.int> get sign => $_getN(4);
-  @$pb.TagNumber(6)
-  set sign($core.List<$core.int> v) { $_setBytes(4, v); }
-  @$pb.TagNumber(6)
-  $core.bool hasSign() => $_has(4);
-  @$pb.TagNumber(6)
-  void clearSign() => clearField(6);
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get opCount => $_getI64(4);
+  @$pb.TagNumber(5)
+  set opCount($fixnum.Int64 v) { $_setInt64(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasOpCount() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearOpCount() => clearField(5);
 }
 
 class MarketDepositRequest extends $pb.GeneratedMessage {
