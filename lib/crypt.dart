@@ -132,6 +132,18 @@ class Crypt {
     var adress = hash(persPubBytes);
     return base64.encode(adress);
   }
+
+  Future<String> encrypt(String message, String publicKey) async {
+    var key = CryptoUtils.rsaPublicKeyFromPemPkcs1(publicKey);
+    var encrypted = CryptoUtils.rsaEncrypt(message, key);
+    return encrypted;
+  }
+
+  Future<String> decrypt(String encrypted, String privateKey) async {
+    var key = CryptoUtils.rsaPrivateKeyFromPemPkcs1(privateKey);
+    var decrypted = CryptoUtils.rsaDecrypt(encrypted, key);
+    return decrypted;
+  }
 }
 
 enum Key {

@@ -8,6 +8,18 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use messageRequestDescriptor instead')
+const MessageRequest$json = const {
+  '1': 'MessageRequest',
+  '2': const [
+    const {'1': 'SenderPublicKey', '3': 1, '4': 1, '5': 12, '10': 'SenderPublicKey'},
+    const {'1': 'Contents', '3': 2, '4': 1, '5': 9, '10': 'Contents'},
+    const {'1': 'Sign', '3': 3, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `MessageRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List messageRequestDescriptor = $convert.base64Decode('Cg5NZXNzYWdlUmVxdWVzdBIoCg9TZW5kZXJQdWJsaWNLZXkYASABKAxSD1NlbmRlclB1YmxpY0tleRIaCghDb250ZW50cxgCIAEoCVIIQ29udGVudHMSEgoEU2lnbhgDIAEoDFIEU2lnbg==');
 @$core.Deprecated('Use responseDescriptor instead')
 const Response$json = const {
   '1': 'Response',
@@ -78,3 +90,156 @@ const UserInfoResponse$json = const {
 
 /// Descriptor for `UserInfoResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List userInfoResponseDescriptor = $convert.base64Decode('ChBVc2VySW5mb1Jlc3BvbnNlEh4KClB1YmxpY05hbWUYASABKAlSClB1YmxpY05hbWUSGAoHQmFsYW5jZRgCIAEoBFIHQmFsYW5jZQ==');
+@$core.Deprecated('Use userTradeRequestDescriptor instead')
+const UserTradeRequest$json = const {
+  '1': 'UserTradeRequest',
+  '2': const [
+    const {'1': 'PublicKey', '3': 1, '4': 1, '5': 12, '10': 'PublicKey'},
+    const {'1': 'MarketAdress', '3': 2, '4': 1, '5': 12, '10': 'MarketAdress'},
+    const {'1': 'Offer', '3': 3, '4': 1, '5': 4, '10': 'Offer'},
+    const {'1': 'Recieve', '3': 4, '4': 1, '5': 4, '10': 'Recieve'},
+    const {'1': 'IsSell', '3': 5, '4': 1, '5': 8, '10': 'IsSell'},
+    const {'1': 'Sign', '3': 6, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `UserTradeRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userTradeRequestDescriptor = $convert.base64Decode('ChBVc2VyVHJhZGVSZXF1ZXN0EhwKCVB1YmxpY0tleRgBIAEoDFIJUHVibGljS2V5EiIKDE1hcmtldEFkcmVzcxgCIAEoDFIMTWFya2V0QWRyZXNzEhQKBU9mZmVyGAMgASgEUgVPZmZlchIYCgdSZWNpZXZlGAQgASgEUgdSZWNpZXZlEhYKBklzU2VsbBgFIAEoCFIGSXNTZWxsEhIKBFNpZ24YBiABKAxSBFNpZ24=');
+@$core.Deprecated('Use userCancelTradeRequestDescriptor instead')
+const UserCancelTradeRequest$json = const {
+  '1': 'UserCancelTradeRequest',
+  '2': const [
+    const {'1': 'PublicKey', '3': 1, '4': 1, '5': 12, '10': 'PublicKey'},
+    const {'1': 'MarketAdress', '3': 2, '4': 1, '5': 12, '10': 'MarketAdress'},
+    const {'1': 'Sign', '3': 3, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `UserCancelTradeRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userCancelTradeRequestDescriptor = $convert.base64Decode('ChZVc2VyQ2FuY2VsVHJhZGVSZXF1ZXN0EhwKCVB1YmxpY0tleRgBIAEoDFIJUHVibGljS2V5EiIKDE1hcmtldEFkcmVzcxgCIAEoDFIMTWFya2V0QWRyZXNzEhIKBFNpZ24YAyABKAxSBFNpZ24=');
+@$core.Deprecated('Use userDepositRequestDescriptor instead')
+const UserDepositRequest$json = const {
+  '1': 'UserDepositRequest',
+  '2': const [
+    const {'1': 'PublicKey', '3': 1, '4': 1, '5': 12, '10': 'PublicKey'},
+    const {'1': 'MarketAdress', '3': 2, '4': 1, '5': 12, '10': 'MarketAdress'},
+    const {'1': 'Amount', '3': 3, '4': 1, '5': 4, '10': 'Amount'},
+    const {'1': 'Sign', '3': 4, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `UserDepositRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userDepositRequestDescriptor = $convert.base64Decode('ChJVc2VyRGVwb3NpdFJlcXVlc3QSHAoJUHVibGljS2V5GAEgASgMUglQdWJsaWNLZXkSIgoMTWFya2V0QWRyZXNzGAIgASgMUgxNYXJrZXRBZHJlc3MSFgoGQW1vdW50GAMgASgEUgZBbW91bnQSEgoEU2lnbhgEIAEoDFIEU2lnbg==');
+@$core.Deprecated('Use userWithDrawalRequestDescriptor instead')
+const UserWithDrawalRequest$json = const {
+  '1': 'UserWithDrawalRequest',
+  '2': const [
+    const {'1': 'PublicKey', '3': 1, '4': 1, '5': 12, '10': 'PublicKey'},
+    const {'1': 'MarketAdress', '3': 2, '4': 1, '5': 12, '10': 'MarketAdress'},
+    const {'1': 'Amount', '3': 3, '4': 1, '5': 4, '10': 'Amount'},
+    const {'1': 'Sign', '3': 4, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `UserWithDrawalRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userWithDrawalRequestDescriptor = $convert.base64Decode('ChVVc2VyV2l0aERyYXdhbFJlcXVlc3QSHAoJUHVibGljS2V5GAEgASgMUglQdWJsaWNLZXkSIgoMTWFya2V0QWRyZXNzGAIgASgMUgxNYXJrZXRBZHJlc3MSFgoGQW1vdW50GAMgASgEUgZBbW91bnQSEgoEU2lnbhgEIAEoDFIEU2lnbg==');
+@$core.Deprecated('Use userSearchRequestDescriptor instead')
+const UserSearchRequest$json = const {
+  '1': 'UserSearchRequest',
+  '2': const [
+    const {'1': 'Name', '3': 1, '4': 1, '5': 9, '10': 'Name'},
+  ],
+};
+
+/// Descriptor for `UserSearchRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userSearchRequestDescriptor = $convert.base64Decode('ChFVc2VyU2VhcmNoUmVxdWVzdBISCgROYW1lGAEgASgJUgROYW1l');
+@$core.Deprecated('Use marketsDescriptor instead')
+const Markets$json = const {
+  '1': 'Markets',
+  '2': const [
+    const {'1': 'Adresses', '3': 1, '4': 1, '5': 12, '10': 'Adresses'},
+  ],
+};
+
+/// Descriptor for `Markets`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List marketsDescriptor = $convert.base64Decode('CgdNYXJrZXRzEhoKCEFkcmVzc2VzGAEgASgMUghBZHJlc3Nlcw==');
+@$core.Deprecated('Use marketCreateRequestDescriptor instead')
+const MarketCreateRequest$json = const {
+  '1': 'MarketCreateRequest',
+  '2': const [
+    const {'1': 'PublicKey', '3': 1, '4': 1, '5': 12, '10': 'PublicKey'},
+    const {'1': 'MesssageKey', '3': 2, '4': 1, '5': 12, '10': 'MesssageKey'},
+    const {'1': 'Name', '3': 3, '4': 1, '5': 9, '10': 'Name'},
+    const {'1': 'Img', '3': 4, '4': 1, '5': 9, '10': 'Img'},
+    const {'1': 'Descr', '3': 5, '4': 1, '5': 9, '10': 'Descr'},
+    const {'1': 'Sign', '3': 6, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `MarketCreateRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List marketCreateRequestDescriptor = $convert.base64Decode('ChNNYXJrZXRDcmVhdGVSZXF1ZXN0EhwKCVB1YmxpY0tleRgBIAEoDFIJUHVibGljS2V5EiAKC01lc3NzYWdlS2V5GAIgASgMUgtNZXNzc2FnZUtleRISCgROYW1lGAMgASgJUgROYW1lEhAKA0ltZxgEIAEoCVIDSW1nEhQKBURlc2NyGAUgASgJUgVEZXNjchISCgRTaWduGAYgASgMUgRTaWdu');
+@$core.Deprecated('Use marketUpdateRequestDescriptor instead')
+const MarketUpdateRequest$json = const {
+  '1': 'MarketUpdateRequest',
+  '2': const [
+    const {'1': 'PublicKey', '3': 1, '4': 1, '5': 12, '10': 'PublicKey'},
+    const {'1': 'MesssageKey', '3': 2, '4': 1, '5': 12, '10': 'MesssageKey'},
+    const {'1': 'Name', '3': 3, '4': 1, '5': 9, '10': 'Name'},
+    const {'1': 'Img', '3': 4, '4': 1, '5': 9, '10': 'Img'},
+    const {'1': 'Descr', '3': 5, '4': 1, '5': 9, '10': 'Descr'},
+    const {'1': 'Sign', '3': 6, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `MarketUpdateRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List marketUpdateRequestDescriptor = $convert.base64Decode('ChNNYXJrZXRVcGRhdGVSZXF1ZXN0EhwKCVB1YmxpY0tleRgBIAEoDFIJUHVibGljS2V5EiAKC01lc3NzYWdlS2V5GAIgASgMUgtNZXNzc2FnZUtleRISCgROYW1lGAMgASgJUgROYW1lEhAKA0ltZxgEIAEoCVIDSW1nEhQKBURlc2NyGAUgASgJUgVEZXNjchISCgRTaWduGAYgASgMUgRTaWdu');
+@$core.Deprecated('Use marketInfoRequestDescriptor instead')
+const MarketInfoRequest$json = const {
+  '1': 'MarketInfoRequest',
+  '2': const [
+    const {'1': 'adress', '3': 1, '4': 1, '5': 12, '10': 'adress'},
+  ],
+};
+
+/// Descriptor for `MarketInfoRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List marketInfoRequestDescriptor = $convert.base64Decode('ChFNYXJrZXRJbmZvUmVxdWVzdBIWCgZhZHJlc3MYASABKAxSBmFkcmVzcw==');
+@$core.Deprecated('Use marketInfoResponseDescriptor instead')
+const MarketInfoResponse$json = const {
+  '1': 'MarketInfoResponse',
+  '2': const [
+    const {'1': 'MesssageKey', '3': 2, '4': 1, '5': 12, '10': 'MesssageKey'},
+    const {'1': 'Name', '3': 3, '4': 1, '5': 9, '10': 'Name'},
+    const {'1': 'Img', '3': 4, '4': 1, '5': 9, '10': 'Img'},
+    const {'1': 'Descr', '3': 5, '4': 1, '5': 9, '10': 'Descr'},
+    const {'1': 'Sign', '3': 6, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `MarketInfoResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List marketInfoResponseDescriptor = $convert.base64Decode('ChJNYXJrZXRJbmZvUmVzcG9uc2USIAoLTWVzc3NhZ2VLZXkYAiABKAxSC01lc3NzYWdlS2V5EhIKBE5hbWUYAyABKAlSBE5hbWUSEAoDSW1nGAQgASgJUgNJbWcSFAoFRGVzY3IYBSABKAlSBURlc2NyEhIKBFNpZ24YBiABKAxSBFNpZ24=');
+@$core.Deprecated('Use marketDepositRequestDescriptor instead')
+const MarketDepositRequest$json = const {
+  '1': 'MarketDepositRequest',
+  '2': const [
+    const {'1': 'PublicKey', '3': 1, '4': 1, '5': 12, '10': 'PublicKey'},
+    const {'1': 'UserAdress', '3': 2, '4': 1, '5': 12, '10': 'UserAdress'},
+    const {'1': 'Amount', '3': 3, '4': 1, '5': 4, '10': 'Amount'},
+    const {'1': 'Sign', '3': 4, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `MarketDepositRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List marketDepositRequestDescriptor = $convert.base64Decode('ChRNYXJrZXREZXBvc2l0UmVxdWVzdBIcCglQdWJsaWNLZXkYASABKAxSCVB1YmxpY0tleRIeCgpVc2VyQWRyZXNzGAIgASgMUgpVc2VyQWRyZXNzEhYKBkFtb3VudBgDIAEoBFIGQW1vdW50EhIKBFNpZ24YBCABKAxSBFNpZ24=');
+@$core.Deprecated('Use marketWithDrawalRequestDescriptor instead')
+const MarketWithDrawalRequest$json = const {
+  '1': 'MarketWithDrawalRequest',
+  '2': const [
+    const {'1': 'PublicKey', '3': 1, '4': 1, '5': 12, '10': 'PublicKey'},
+    const {'1': 'UserAdress', '3': 2, '4': 1, '5': 12, '10': 'UserAdress'},
+    const {'1': 'Amount', '3': 3, '4': 1, '5': 4, '10': 'Amount'},
+    const {'1': 'Sign', '3': 4, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `MarketWithDrawalRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List marketWithDrawalRequestDescriptor = $convert.base64Decode('ChdNYXJrZXRXaXRoRHJhd2FsUmVxdWVzdBIcCglQdWJsaWNLZXkYASABKAxSCVB1YmxpY0tleRIeCgpVc2VyQWRyZXNzGAIgASgMUgpVc2VyQWRyZXNzEhYKBkFtb3VudBgDIAEoBFIGQW1vdW50EhIKBFNpZ24YBCABKAxSBFNpZ24=');
