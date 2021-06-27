@@ -9,7 +9,6 @@ import 'package:pointycastle/random/fortuna_random.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Crypt {
-  /// generate new keys
   static List<String> _keys(int bitLength) {
     final secureRandom = FortunaRandom();
 
