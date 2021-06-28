@@ -13,8 +13,8 @@ import '../api/api.dart';
 Future<String> userFindName(String adress) async {
   try {
     var adressAsBytes = base64.decode(adress);
-    final response = await stub.userInfo(
-      UserInfoRequest(
+    final response = await stub.infoUser(
+      InfoUserRequest(
         adress: adressAsBytes,
       ),
       options: CallOptions(
@@ -31,8 +31,8 @@ Future<Int64> userUpdateSeldBalance() async {
   var prefs = await SharedPreferences.getInstance();
   var crypt = Crypt();
   var personalAdress = await crypt.getPersonalAdress();
-  final response = await stub.userInfo(
-    UserInfoRequest(
+  final response = await stub.infoUser(
+    InfoUserRequest(
       adress: base64.decode(personalAdress),
     ),
     options: CallOptions(

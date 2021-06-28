@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "sync_tree_server/api";
+option go_package = "./api";
 
 package api;
 
@@ -12,34 +12,64 @@ protoc lib/api/api.proto --dart_out=grpc:.
 */
 
 service SyncTree{
-    rpc Message(MessageRequest) returns (Response) {}
+    rpc InfoUser(InfoUserRequest) returns (InfoUserResponse) {}
+    rpc InfoMarket(InfoMarketRequest) returns (InfoMarketResponse) {}
+    rpc InfoFind(InfoFindRequest) returns (InfoFindResponse) {}
 
     rpc UserCreate(UserCreateRequest) returns (Response) {}
     rpc UserUpdate(UserUpdateRequest) returns (Response) {}
     rpc UserSend(UserSendRequest) returns (Response) {}
-    rpc UserInfo(UserInfoRequest) returns (UserInfoResponse) {}
     rpc UserCreateTrade(UserTradeRequest) returns (Response) {}
     rpc UserCancelTrade(UserCancelTradeRequest) returns (Response) {}
     rpc UserDeposit(UserDepositRequest) returns (Response) {}
-    rpc UserWithdrawal(UserWithDrawalRequest) returns (Response) {}
-    rpc UserSearch(UserSearchRequest) returns (Markets) {}
+    rpc UserWithdrawal(UserWithdrawalRequest) returns (Response) {}
+    rpc UserSendMessage(UserSendMessageRequest) returns (Response) {}
+    rpc UserGetMessages(UserGetMessagesRequest) returns (Messages) {}
 
-
-    rpc MarketInfo(MarketInfoRequest) returns (MarketInfoResponse) {}
     rpc MarketCraete(MarketCreateRequest) returns (Response) {}
     rpc MarketUpdate(MarketUpdateRequest) returns (Response) {}
     rpc MarketDeposit(MarketDepositRequest) returns (Response) {}
-    rpc MarketWithDrawal(MarketWithDrawalRequest) returns (Response) {}
-}
-
-message MessageRequest{
-    bytes SenderPublicKey = 1;
-    string Contents = 2;
-    bytes Sign = 3;
+    rpc MarketWithdrawal(MarketWithdrawalRequest) returns (Response) {}
+    rpc MarketSendMessage(MarketSendMessageRequest) returns (Response) {}
+    rpc MarketGetMessages(MarketGetMessagesRequest) returns (Messages) {}
 }
 
 message Response{
     bool Passed = 1;
+}
+
+message Messages{
+    bytes sender = 1;
+}
+
+message InfoUserRequest{
+    bytes Adress = 1;
+}
+
+message InfoMarketRequest{
+    bytes Adress = 1;
+}
+
+message InfoFindRequest{
+    string info = 1;
+}
+
+message InfoUserResponse{
+    string PublicName = 1;
+    uint64 Balance = 2;
+    bytes mesKey = 3;
+}
+
+message InfoMarketResponse{
+    bytes MesssageKey = 1;
+    string Name = 2;
+    string Img = 3;
+    string Descr = 4;
+    uint64 OpCount = 5;
+}
+
+message InfoFindResponse{
+    bytes ConcMarkets = 1;
 }
 
 message UserCreateRequest{
@@ -67,11 +97,6 @@ message UserInfoRequest{
     bytes Adress = 1;
 }
 
-message UserInfoResponse{
-    string PublicName = 1;
-    uint64 Balance = 2;
-}
-
 message UserTradeRequest{
     bytes PublicKey = 1;
     bytes MarketAdress = 2;
@@ -94,7 +119,7 @@ message UserDepositRequest{
     bytes Sign = 4;
 }
 
-message UserWithDrawalRequest{
+message UserWithdrawalRequest{
     bytes PublicKey = 1;
     bytes MarketAdress = 2;
     uint64 Amount = 3;
@@ -105,13 +130,16 @@ message UserSearchRequest{
     string Name = 1;
 }
 
-message Markets{
-    bytes Adresses = 1;
+message UserSendMessageRequest{
+    bytes PublicKey = 1;
+    bytes Adress = 2;
+    string Message = 3;
+    bytes Sign = 4;
 }
 
-
-
-
+message UserGetMessagesRequest{
+    bytes Adress = 1;
+}
 
 message MarketCreateRequest{
     bytes PublicKey = 1;
@@ -135,14 +163,6 @@ message MarketInfoRequest{
     bytes adress = 1;
 }
 
-message MarketInfoResponse{
-    bytes MesssageKey = 1;
-    string Name = 2;
-    string Img = 3;
-    string Descr = 4;
-    uint64 OpCount = 5;
-}
-
 message MarketDepositRequest{
     bytes PublicKey = 1;
     bytes UserAdress = 2;
@@ -150,9 +170,20 @@ message MarketDepositRequest{
     bytes Sign = 4;
 }
 
-message MarketWithDrawalRequest{
+message MarketWithdrawalRequest{
     bytes PublicKey = 1;
     bytes UserAdress = 2;
     uint64 Amount = 3;
     bytes Sign = 4;
+}
+
+message MarketSendMessageRequest{
+    bytes PublicKey = 1;
+    bytes Adress = 2;
+    string Message = 3;
+    bytes Sign = 4;
+}
+
+message MarketGetMessagesRequest{
+    bytes Adress = 1;
 }

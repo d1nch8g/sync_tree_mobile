@@ -8,20 +8,21 @@ import '../api/api.dart';
 
 Future<List<Map<MarketInfo, String>>> userSearch(String name) async {
   try {
-    final response = await stub.userSearch(
-      UserSearchRequest(
-        name: name,
+    final response = await stub.infoFind(
+      InfoFindRequest(
+        info: name,
       ),
       options: CallOptions(
         timeout: Duration(milliseconds: 2584),
       ),
     );
-    var adresses = response.adresses;
+    var adresses = response.concMarkets;
     List<Map<MarketInfo, String>> finalList = [];
-    for (var i = 0; i < adresses.length; i += 64) {
+
+    for (var i = 0; i < adresses.length / 64; i++) {
       var singleAdress = adresses.sublist(i, i + 64);
-      var resp = await stub.marketInfo(
-        MarketInfoRequest(
+      var resp = await stub.infoMarket(
+        InfoMarketRequest(
           adress: singleAdress,
         ),
       );
