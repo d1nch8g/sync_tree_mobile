@@ -20,7 +20,9 @@ Future<List<Map<MarketInfo, String>>> userSearch(String name) async {
     List<Map<MarketInfo, String>> finalList = [];
 
     for (var i = 0; i < adresses.length / 64; i++) {
-      var singleAdress = adresses.sublist(i, i + 64);
+      var start = i * 64;
+      var singleAdress = adresses.sublist(start, start + 64);
+      print(singleAdress);
       var resp = await stub.infoMarket(
         InfoMarketRequest(
           adress: singleAdress,

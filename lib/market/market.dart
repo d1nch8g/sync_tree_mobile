@@ -7,35 +7,20 @@ class MarketPage extends StatefulWidget {
 }
 
 class _MarketPageState extends State<MarketPage> {
-  var sometext = '';
-
-  var marketExampleList = [
-    {
-      MarketInfo.description: 'Example of some description',
-      MarketInfo.imgLink:
-          'https://image.flaticon.com/icons/png/512/1490/1490839.png',
-      MarketInfo.mesKey: 'example of some message key',
-      MarketInfo.name: 'Name example',
-      MarketInfo.opCount: '89',
-    },
-    {
-      MarketInfo.description: 'Example of some description num 2',
-      MarketInfo.imgLink:
-          'https://image.flaticon.com/icons/png/512/1490/1490849.png',
-      MarketInfo.mesKey: 'example of some message key num 2',
-      MarketInfo.name: 'Name example num 2',
-      MarketInfo.opCount: '101',
-    }
-  ];
+  var marketList = [];
+  var controller = TextEditingController();
 
   void getMarkets() async {
-    var rez = await userSearch("market");
-    print(rez);
+    var rez = await userSearch(controller.text);
+    setState(() {
+      marketList = rez;
+    });
   }
 
   @override
   void initState() {
     super.initState();
+    getMarkets();
   }
 
   @override
@@ -46,6 +31,10 @@ class _MarketPageState extends State<MarketPage> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              controller: controller,
+              onChanged: (_) {
+                getMarkets();
+              },
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -72,16 +61,14 @@ class _MarketPageState extends State<MarketPage> {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: marketExampleList.length,
+            itemCount: marketList.length,
             itemBuilder: (context, idx) {
               return ListTile(
-                title: Text(marketExampleList[idx][MarketInfo.name] ?? ''),
-                subtitle:
-                    Text(marketExampleList[idx][MarketInfo.description] ?? ''),
-                leading: Image.network(
-                    marketExampleList[idx][MarketInfo.imgLink] ?? ''),
-                trailing:
-                    Text(marketExampleList[idx][MarketInfo.opCount] ?? ''),
+                title: Text(marketList[idx][MarketInfo.name] ?? ''),
+                subtitle: Text(marketList[idx][MarketInfo.description] ?? ''),
+                leading:
+                    Image.network(marketList[idx][MarketInfo.imgLink] ?? ''),
+                trailing: Text(marketList[idx][MarketInfo.opCount] ?? ''),
                 onTap: () {},
               );
             },

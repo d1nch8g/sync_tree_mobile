@@ -37,7 +37,7 @@ class _LocalWalletsState extends State<LocalWallets> {
     var prefs = await SharedPreferences.getInstance();
     var name = prefs.getString('pubName') ?? 'unknown';
     var adress = await Crypt().getPersonalAdress();
-    var nameAndAdress = name + '|||' + adress;
+    var nameAndAdress = name + '||' + adress;
   }
 
   @override
@@ -73,7 +73,7 @@ class LocalButton extends StatelessWidget {
           Icons.adjust_sharp,
         ),
         color: Theme.of(context).hoverColor,
-        iconSize: MediaQuery.of(context).size.width * 0.52,
+        iconSize: MediaQuery.of(context).size.width * 0.44,
       ),
     );
   }

@@ -28,7 +28,7 @@ class PrimaryPage extends StatefulWidget {
 }
 
 class _PrimaryPageState extends State<PrimaryPage> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
   late PageController _pageController;
 
   void checkFirstLaunch() async {
