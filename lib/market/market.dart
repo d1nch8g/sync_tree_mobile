@@ -25,10 +25,10 @@ class _MarketPageState extends State<MarketPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SafeArea(
-          child: Padding(
+    return SafeArea(
+      child: Column(
+        children: [
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: controller,
@@ -58,23 +58,29 @@ class _MarketPageState extends State<MarketPage> {
               ),
             ),
           ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: marketList.length,
-            itemBuilder: (context, idx) {
-              return ListTile(
-                title: Text(marketList[idx][MarketInfo.name] ?? ''),
-                subtitle: Text(marketList[idx][MarketInfo.description] ?? ''),
-                leading:
-                    Image.network(marketList[idx][MarketInfo.imgLink] ?? ''),
-                trailing: Text(marketList[idx][MarketInfo.opCount] ?? ''),
-                onTap: () {},
-              );
-            },
+          Expanded(
+            child: ListView.builder(
+              itemCount: marketList.length,
+              itemBuilder: (context, idx) {
+                return Hero(
+                  tag: "market",
+                  child: ListTile(
+                    title: Text(marketList[idx][MarketInfo.name] ?? ''),
+                    subtitle:
+                        Text(marketList[idx][MarketInfo.description] ?? ''),
+                    leading: Image.network(
+                        marketList[idx][MarketInfo.imgLink] ?? ''),
+                    trailing: Text(marketList[idx][MarketInfo.opCount] ?? ''),
+                    onTap: () {
+                      
+                    },
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
