@@ -12,17 +12,8 @@ class _MarketPageState extends State<MarketPage> {
   var marketList = [];
   var controller = TextEditingController();
 
-  void getMarkets() async {
+  void getMarkets(context) async {
     var rez = await userSearch(controller.text);
-    setState(() {
-      marketList = rez;
-    });
-  }
-
-  void restoreLastSearch() async {
-    var prefs = await SharedPreferences.getInstance();
-    var lastSearch = prefs.getString('search');
-    var rez = await userSearch(lastSearch ?? '');
     setState(() {
       marketList = rez;
     });
@@ -30,107 +21,83 @@ class _MarketPageState extends State<MarketPage> {
 
   @override
   void initState() {
-    restoreLastSearch();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Stack(
+      child: Column(
         children: [
-          Column(
-            children: [
-              Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationY(math.pi),
-                child: Icon(
-                  Icons.stacked_bar_chart_sharp,
-                  size: MediaQuery.of(context).size.height * 0.15,
-                  color: Theme.of(context).hintColor,
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: marketList.length,
-                  itemBuilder: (context, idx) {
-                    return Hero(
-                      tag: "market",
-                      child: Container(
-                        child: ListTile(
-                          title: Text(marketList[idx][MarketInfo.name] ?? ''),
-                          subtitle: Text(
-                              marketList[idx][MarketInfo.description] ?? ''),
-                          leading: Image.network(
-                              marketList[idx][MarketInfo.imgLink] ?? ''),
-                          trailing:
-                              Text(marketList[idx][MarketInfo.opCount] ?? ''),
-                          onTap: () {
-                            Navigator.pushNamed(context, '/market');
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
+          Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.rotationY(math.pi),
+            child: Icon(
+              Icons.stacked_bar_chart_sharp,
+              size: MediaQuery.of(context).size.height * 0.15,
+              color: Theme.of(context).hintColor,
+            ),
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: FloatingActionButton(
-                onPressed: () {},
-                child: Icon(
-                  Icons.search_rounded,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: controller,
+              onChanged: (_) async {
+                getMarkets(context);
+                var prefs = await SharedPreferences.getInstance();
+                prefs.setString('search', controller.text);
+              },
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  borderSide: BorderSide(color: Theme.of(context).buttonColor),
                 ),
-                backgroundColor: Theme.of(context).hintColor,
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  borderSide: BorderSide(color: Theme.of(context).buttonColor),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  borderSide: BorderSide(color: Theme.of(context).buttonColor),
+                ),
+                labelStyle: TextStyle(
+                  color: Theme.of(context).buttonColor,
+                ),
+                labelText: 'market search',
+                hoverColor: Theme.of(context).buttonColor,
+                fillColor: Theme.of(context).buttonColor,
+                focusColor: Theme.of(context).buttonColor,
               ),
             ),
           ),
+          Expanded(
+            key: UniqueKey(),
+            child: AnimatedList(
+              initialItemCount: marketList.length,
+              itemBuilder: (context, idx, animation) {
+                return SlideTransition(
+                  position: animation.drive(
+                    Tween<Offset>(
+                      begin: const Offset(0.0, 0.0),
+                      end: const Offset(0.0, 0.0),
+                    ),
+                  ),
+                  child: ListTile(
+                    title: Text(marketList[idx][MarketInfo.name] ?? ''),
+                    subtitle:
+                        Text(marketList[idx][MarketInfo.description] ?? ''),
+                    leading: Image.network(
+                        marketList[idx][MarketInfo.imgLink] ?? ''),
+                    trailing: Text(marketList[idx][MarketInfo.opCount] ?? ''),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/market');
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
         ],
-      ),
-    );
-  }
-}
-
-class TracableSearchField extends StatelessWidget {
-  final TextEditingController controller;
-  final Function getMarkets;
-  TracableSearchField(this.controller, this.getMarkets);
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        controller: controller,
-        onChanged: (_) async {
-          getMarkets();
-          var prefs = await SharedPreferences.getInstance();
-          prefs.setString('search', controller.text);
-        },
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(color: Theme.of(context).buttonColor),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(color: Theme.of(context).buttonColor),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(color: Theme.of(context).buttonColor),
-          ),
-          labelStyle: TextStyle(
-            color: Theme.of(context).buttonColor,
-          ),
-          labelText: 'market search',
-          hoverColor: Theme.of(context).buttonColor,
-          fillColor: Theme.of(context).buttonColor,
-          focusColor: Theme.of(context).buttonColor,
-        ),
       ),
     );
   }

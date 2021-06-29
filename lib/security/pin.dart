@@ -66,7 +66,7 @@ class PinOverlayState extends State<PinOverlay>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 233),
+      duration: Duration(milliseconds: 377),
     );
     scaleAnimation = CurvedAnimation(
       parent: controller,
