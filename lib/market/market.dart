@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/userSearch.dart';
 
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:sync_tree_mobile/market/botBar.dart';
+
 class MarketPage extends StatefulWidget {
   @override
   _MarketPageState createState() => _MarketPageState();
@@ -90,7 +93,13 @@ class _MarketPageState extends State<MarketPage> {
                         marketList[idx][MarketInfo.imgLink] ?? ''),
                     trailing: Text(marketList[idx][MarketInfo.opCount] ?? ''),
                     onTap: () {
-                      Navigator.pushNamed(context, '/market');
+                      showMaterialModalBottomSheet(
+                        context: context,
+                        builder: (context) => SingleChildScrollView(
+                          controller: ModalScrollController.of(context),
+                          child: BottomStuff('hello'),
+                        ),
+                      );
                     },
                   ),
                 );
