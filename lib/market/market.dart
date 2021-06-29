@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/userSearch.dart';
 
 class MarketPage extends StatefulWidget {
@@ -17,10 +20,19 @@ class _MarketPageState extends State<MarketPage> {
     });
   }
 
+  void restoreLastSearch() async {
+    var prefs = await SharedPreferences.getInstance();
+    var lastSearch = prefs.getString('search');
+    var rez = await userSearch(lastSearch ?? '');
+    setState(() {
+      marketList = rez;
+    });
+  }
+
   @override
   void initState() {
+    restoreLastSearch();
     super.initState();
-    getMarkets();
   }
 
   @override
@@ -32,8 +44,10 @@ class _MarketPageState extends State<MarketPage> {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: controller,
-              onChanged: (_) {
+              onChanged: (_) async {
                 getMarkets();
+                var prefs = await SharedPreferences.getInstance();
+                prefs.setString('search', controller.text);
               },
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -64,16 +78,18 @@ class _MarketPageState extends State<MarketPage> {
               itemBuilder: (context, idx) {
                 return Hero(
                   tag: "market",
-                  child: ListTile(
-                    title: Text(marketList[idx][MarketInfo.name] ?? ''),
-                    subtitle:
-                        Text(marketList[idx][MarketInfo.description] ?? ''),
-                    leading: Image.network(
-                        marketList[idx][MarketInfo.imgLink] ?? ''),
-                    trailing: Text(marketList[idx][MarketInfo.opCount] ?? ''),
-                    onTap: () {
-                      
-                    },
+                  child: Container(
+                    child: ListTile(
+                      title: Text(marketList[idx][MarketInfo.name] ?? ''),
+                      subtitle:
+                          Text(marketList[idx][MarketInfo.description] ?? ''),
+                      leading: Image.network(
+                          marketList[idx][MarketInfo.imgLink] ?? ''),
+                      trailing: Text(marketList[idx][MarketInfo.opCount] ?? ''),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/market');
+                      },
+                    ),
                   ),
                 );
               },

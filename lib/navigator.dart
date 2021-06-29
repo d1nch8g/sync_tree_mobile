@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'market/market.dart';
+import 'market/page.dart';
 import 'wallet/wallet.dart';
 import 'settings/settings.dart';
 import 'balance/main.dart';
@@ -17,6 +18,7 @@ var routeMap = <String, WidgetBuilder>{
   '/hello': (BuildContext context) => IntroPage(),
   '/name': (BuildContext context) => NameCreation(),
   '/keys': (BuildContext context) => KeySave(),
+  '/market': (BuildContext context) => MarketHero(),
 };
 
 var mainStreamController = StreamController<String>.broadcast();
