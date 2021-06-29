@@ -15,7 +15,7 @@ class WalletPage extends StatelessWidget {
         children: [
           Icon(
             Icons.account_balance_wallet,
-            size: 129,
+            size: MediaQuery.of(context).size.height * 0.15,
             color: Theme.of(context).hintColor,
           ),
           DynamicBalance(),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:sync_tree_mobile/crypt.dart';
-
 class MarketHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

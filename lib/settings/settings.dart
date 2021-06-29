@@ -66,7 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
         children: [
           Icon(
             Icons.settings_applications,
-            size: 129,
+            size: MediaQuery.of(context).size.height * 0.15,
             color: Theme.of(context).hintColor,
           ),
           AnimatedSwitcher(
