@@ -198,14 +198,14 @@ class InfoMarketRequest extends $pb.GeneratedMessage {
   void clearAdress() => clearField(1);
 }
 
-class InfoFindRequest extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'InfoFindRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
+class InfoSearchRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'InfoSearchRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'info')
     ..hasRequiredFields = false
   ;
 
-  InfoFindRequest._() : super();
-  factory InfoFindRequest({
+  InfoSearchRequest._() : super();
+  factory InfoSearchRequest({
     $core.String? info,
   }) {
     final _result = create();
@@ -214,26 +214,26 @@ class InfoFindRequest extends $pb.GeneratedMessage {
     }
     return _result;
   }
-  factory InfoFindRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory InfoFindRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory InfoSearchRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory InfoSearchRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  InfoFindRequest clone() => InfoFindRequest()..mergeFromMessage(this);
+  InfoSearchRequest clone() => InfoSearchRequest()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  InfoFindRequest copyWith(void Function(InfoFindRequest) updates) => super.copyWith((message) => updates(message as InfoFindRequest)) as InfoFindRequest; // ignore: deprecated_member_use
+  InfoSearchRequest copyWith(void Function(InfoSearchRequest) updates) => super.copyWith((message) => updates(message as InfoSearchRequest)) as InfoSearchRequest; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static InfoFindRequest create() => InfoFindRequest._();
-  InfoFindRequest createEmptyInstance() => create();
-  static $pb.PbList<InfoFindRequest> createRepeated() => $pb.PbList<InfoFindRequest>();
+  static InfoSearchRequest create() => InfoSearchRequest._();
+  InfoSearchRequest createEmptyInstance() => create();
+  static $pb.PbList<InfoSearchRequest> createRepeated() => $pb.PbList<InfoSearchRequest>();
   @$core.pragma('dart2js:noInline')
-  static InfoFindRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InfoFindRequest>(create);
-  static InfoFindRequest? _defaultInstance;
+  static InfoSearchRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InfoSearchRequest>(create);
+  static InfoSearchRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get info => $_getSZ(0);
@@ -322,28 +322,32 @@ class InfoUserResponse extends $pb.GeneratedMessage {
 
 class InfoMarketResponse extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'InfoMarketResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
-    ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'MesssageKey', $pb.PbFieldType.OY, protoName: 'MesssageKey')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Name', protoName: 'Name')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Name', protoName: 'Name')
+    ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'MesKey', $pb.PbFieldType.OY, protoName: 'MesKey')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Img', protoName: 'Img')
     ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Descr', protoName: 'Descr')
     ..a<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'OpCount', $pb.PbFieldType.OU6, protoName: 'OpCount', defaultOrMaker: $fixnum.Int64.ZERO)
+    ..p<$fixnum.Int64>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'buys', $pb.PbFieldType.PU6)
+    ..p<$fixnum.Int64>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sells', $pb.PbFieldType.PU6)
     ..hasRequiredFields = false
   ;
 
   InfoMarketResponse._() : super();
   factory InfoMarketResponse({
-    $core.List<$core.int>? messsageKey,
     $core.String? name,
+    $core.List<$core.int>? mesKey,
     $core.String? img,
     $core.String? descr,
     $fixnum.Int64? opCount,
+    $core.Iterable<$fixnum.Int64>? buys,
+    $core.Iterable<$fixnum.Int64>? sells,
   }) {
     final _result = create();
-    if (messsageKey != null) {
-      _result.messsageKey = messsageKey;
-    }
     if (name != null) {
       _result.name = name;
+    }
+    if (mesKey != null) {
+      _result.mesKey = mesKey;
     }
     if (img != null) {
       _result.img = img;
@@ -353,6 +357,12 @@ class InfoMarketResponse extends $pb.GeneratedMessage {
     }
     if (opCount != null) {
       _result.opCount = opCount;
+    }
+    if (buys != null) {
+      _result.buys.addAll(buys);
+    }
+    if (sells != null) {
+      _result.sells.addAll(sells);
     }
     return _result;
   }
@@ -378,22 +388,22 @@ class InfoMarketResponse extends $pb.GeneratedMessage {
   static InfoMarketResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.int> get messsageKey => $_getN(0);
+  $core.String get name => $_getSZ(0);
   @$pb.TagNumber(1)
-  set messsageKey($core.List<$core.int> v) { $_setBytes(0, v); }
+  set name($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasMesssageKey() => $_has(0);
+  $core.bool hasName() => $_has(0);
   @$pb.TagNumber(1)
-  void clearMesssageKey() => clearField(1);
+  void clearName() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get name => $_getSZ(1);
+  $core.List<$core.int> get mesKey => $_getN(1);
   @$pb.TagNumber(2)
-  set name($core.String v) { $_setString(1, v); }
+  set mesKey($core.List<$core.int> v) { $_setBytes(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasName() => $_has(1);
+  $core.bool hasMesKey() => $_has(1);
   @$pb.TagNumber(2)
-  void clearName() => clearField(2);
+  void clearMesKey() => clearField(2);
 
   @$pb.TagNumber(3)
   $core.String get img => $_getSZ(2);
@@ -421,53 +431,53 @@ class InfoMarketResponse extends $pb.GeneratedMessage {
   $core.bool hasOpCount() => $_has(4);
   @$pb.TagNumber(5)
   void clearOpCount() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.List<$fixnum.Int64> get buys => $_getList(5);
+
+  @$pb.TagNumber(7)
+  $core.List<$fixnum.Int64> get sells => $_getList(6);
 }
 
-class InfoFindResponse extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'InfoFindResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
-    ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ConcMarkets', $pb.PbFieldType.OY, protoName: 'ConcMarkets')
+class InfoSearchResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'InfoSearchResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
+    ..p<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ConcMarkets', $pb.PbFieldType.PY, protoName: 'ConcMarkets')
     ..hasRequiredFields = false
   ;
 
-  InfoFindResponse._() : super();
-  factory InfoFindResponse({
-    $core.List<$core.int>? concMarkets,
+  InfoSearchResponse._() : super();
+  factory InfoSearchResponse({
+    $core.Iterable<$core.List<$core.int>>? concMarkets,
   }) {
     final _result = create();
     if (concMarkets != null) {
-      _result.concMarkets = concMarkets;
+      _result.concMarkets.addAll(concMarkets);
     }
     return _result;
   }
-  factory InfoFindResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory InfoFindResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory InfoSearchResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory InfoSearchResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
   'Will be removed in next major version')
-  InfoFindResponse clone() => InfoFindResponse()..mergeFromMessage(this);
+  InfoSearchResponse clone() => InfoSearchResponse()..mergeFromMessage(this);
   @$core.Deprecated(
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  InfoFindResponse copyWith(void Function(InfoFindResponse) updates) => super.copyWith((message) => updates(message as InfoFindResponse)) as InfoFindResponse; // ignore: deprecated_member_use
+  InfoSearchResponse copyWith(void Function(InfoSearchResponse) updates) => super.copyWith((message) => updates(message as InfoSearchResponse)) as InfoSearchResponse; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static InfoFindResponse create() => InfoFindResponse._();
-  InfoFindResponse createEmptyInstance() => create();
-  static $pb.PbList<InfoFindResponse> createRepeated() => $pb.PbList<InfoFindResponse>();
+  static InfoSearchResponse create() => InfoSearchResponse._();
+  InfoSearchResponse createEmptyInstance() => create();
+  static $pb.PbList<InfoSearchResponse> createRepeated() => $pb.PbList<InfoSearchResponse>();
   @$core.pragma('dart2js:noInline')
-  static InfoFindResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InfoFindResponse>(create);
-  static InfoFindResponse? _defaultInstance;
+  static InfoSearchResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InfoSearchResponse>(create);
+  static InfoSearchResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.int> get concMarkets => $_getN(0);
-  @$pb.TagNumber(1)
-  set concMarkets($core.List<$core.int> v) { $_setBytes(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasConcMarkets() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearConcMarkets() => clearField(1);
+  $core.List<$core.List<$core.int>> get concMarkets => $_getList(0);
 }
 
 class UserCreateRequest extends $pb.GeneratedMessage {

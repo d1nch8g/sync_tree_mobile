@@ -6,6 +6,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        canvasColor: Colors.transparent,
         backgroundColor: Color.fromRGBO(42, 42, 114, 1.0), // purple
         focusColor: Color.fromRGBO(234, 246, 255, 1.0), // white
         hintColor: Color.fromRGBO(255, 164, 0, 1.0), // yellow

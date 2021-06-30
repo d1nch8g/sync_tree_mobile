@@ -26,12 +26,12 @@ class SyncTreeClient extends $grpc.Client {
           ($0.InfoMarketRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.InfoMarketResponse.fromBuffer(value));
-  static final _$infoFind =
-      $grpc.ClientMethod<$0.InfoFindRequest, $0.InfoFindResponse>(
-          '/api.SyncTree/InfoFind',
-          ($0.InfoFindRequest value) => value.writeToBuffer(),
+  static final _$infoSearch =
+      $grpc.ClientMethod<$0.InfoSearchRequest, $0.InfoSearchResponse>(
+          '/api.SyncTree/InfoSearch',
+          ($0.InfoSearchRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
-              $0.InfoFindResponse.fromBuffer(value));
+              $0.InfoSearchResponse.fromBuffer(value));
   static final _$userCreate =
       $grpc.ClientMethod<$0.UserCreateRequest, $0.Response>(
           '/api.SyncTree/UserCreate',
@@ -123,9 +123,10 @@ class SyncTreeClient extends $grpc.Client {
     return $createUnaryCall(_$infoMarket, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.InfoFindResponse> infoFind($0.InfoFindRequest request,
+  $grpc.ResponseFuture<$0.InfoSearchResponse> infoSearch(
+      $0.InfoSearchRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$infoFind, request, options: options);
+    return $createUnaryCall(_$infoSearch, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.Response> userCreate($0.UserCreateRequest request,
@@ -230,13 +231,13 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.InfoMarketRequest.fromBuffer(value),
         ($0.InfoMarketResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.InfoFindRequest, $0.InfoFindResponse>(
-        'InfoFind',
-        infoFind_Pre,
+    $addMethod($grpc.ServiceMethod<$0.InfoSearchRequest, $0.InfoSearchResponse>(
+        'InfoSearch',
+        infoSearch_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.InfoFindRequest.fromBuffer(value),
-        ($0.InfoFindResponse value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.InfoSearchRequest.fromBuffer(value),
+        ($0.InfoSearchResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.UserCreateRequest, $0.Response>(
         'UserCreate',
         userCreate_Pre,
@@ -365,9 +366,9 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
     return infoMarket(call, await request);
   }
 
-  $async.Future<$0.InfoFindResponse> infoFind_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.InfoFindRequest> request) async {
-    return infoFind(call, await request);
+  $async.Future<$0.InfoSearchResponse> infoSearch_Pre($grpc.ServiceCall call,
+      $async.Future<$0.InfoSearchRequest> request) async {
+    return infoSearch(call, await request);
   }
 
   $async.Future<$0.Response> userCreate_Pre($grpc.ServiceCall call,
@@ -449,8 +450,8 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.InfoUserRequest request);
   $async.Future<$0.InfoMarketResponse> infoMarket(
       $grpc.ServiceCall call, $0.InfoMarketRequest request);
-  $async.Future<$0.InfoFindResponse> infoFind(
-      $grpc.ServiceCall call, $0.InfoFindRequest request);
+  $async.Future<$0.InfoSearchResponse> infoSearch(
+      $grpc.ServiceCall call, $0.InfoSearchRequest request);
   $async.Future<$0.Response> userCreate(
       $grpc.ServiceCall call, $0.UserCreateRequest request);
   $async.Future<$0.Response> userUpdate(

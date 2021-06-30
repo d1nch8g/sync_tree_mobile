@@ -32,14 +32,10 @@ class _MarketPageState extends State<MarketPage> {
     return SafeArea(
       child: Column(
         children: [
-          Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.rotationY(math.pi),
-            child: Icon(
-              Icons.stacked_bar_chart_sharp,
-              size: MediaQuery.of(context).size.height * 0.15,
-              color: Theme.of(context).hintColor,
-            ),
+          Icon(
+            Icons.stacked_line_chart_rounded,
+            size: MediaQuery.of(context).size.height * 0.15,
+            color: Theme.of(context).hintColor,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -97,7 +93,7 @@ class _MarketPageState extends State<MarketPage> {
                         context: context,
                         builder: (context) => SingleChildScrollView(
                           controller: ModalScrollController.of(context),
-                          child: BottomStuff('hello'),
+                          child: BottomStuff(),
                         ),
                       );
                     },
