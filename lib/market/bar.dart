@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile/api/userSearch.dart';
 import 'package:sync_tree_mobile/market/buy.dart';
+import 'package:sync_tree_mobile/market/connect.dart';
 import 'package:sync_tree_mobile/market/sell.dart';
 import 'package:sync_tree_mobile/market/trades.dart';
 
-class BottomStuff extends StatefulWidget {
+class BottomBar extends StatefulWidget {
   final Market market;
-  BottomStuff(this.market);
+  BottomBar(this.market);
   @override
-  _BottomStuffState createState() => _BottomStuffState();
+  _BottomBarState createState() => _BottomBarState();
 }
 
-class _BottomStuffState extends State<BottomStuff> {
+class _BottomBarState extends State<BottomBar> {
+  Widget currentButtons = Connection();
+
   @override
   void initState() {
     super.initState();
@@ -62,16 +65,38 @@ class _BottomStuffState extends State<BottomStuff> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(32, 10, 32, 42),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                BuyButton(),
-                SellButton(),
-              ],
+            child: AnimatedSwitcher(
+              child: currentButtons,
+              duration: Duration(milliseconds: 144),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class Connection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ConnectButton(),
+      ],
+    );
+  }
+}
+
+class BuyAndSellButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        BuyButton(),
+        SellButton(),
+      ],
     );
   }
 }

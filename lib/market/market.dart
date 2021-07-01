@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/userSearch.dart';
 
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:sync_tree_mobile/market/botBar.dart';
+import 'package:sync_tree_mobile/market/bar.dart';
 
 class MarketPage extends StatefulWidget {
   @override
@@ -89,7 +89,7 @@ class _MarketPageState extends State<MarketPage> {
                       context: context,
                       builder: (context) => SingleChildScrollView(
                         controller: ModalScrollController.of(context),
-                        child: BottomStuff(marketList[idx]),
+                        child: BottomBar(marketList[idx]),
                       ),
                     );
                   },

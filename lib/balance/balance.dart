@@ -1,8 +1,5 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sync_tree_mobile/balance/wallets.dart';
 
 class BalancePage extends StatelessWidget {
   @override
@@ -24,22 +21,5 @@ class BalancePage extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class ConnectedWallets extends StatelessWidget {
-  Future<List<Uint8List>> getAllWallets() async {
-    var prefs = await SharedPreferences.getInstance();
-    var allConnectedWalletsBase64 = prefs.getStringList('wallets') ?? [];
-    List<Uint8List> allWallets = [];
-    for (var i = 0; i < allConnectedWalletsBase64.length; i++) {
-      allWallets.add(base64.decode(allConnectedWalletsBase64[i]));
-    }
-    return allWallets;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
