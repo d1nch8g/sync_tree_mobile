@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/api/userSearch.dart';
+import 'package:sync_tree_mobile/market/buy.dart';
+import 'package:sync_tree_mobile/market/sell.dart';
 
 class BottomStuff extends StatefulWidget {
+  final Market market;
+  BottomStuff(this.market);
   @override
   _BottomStuffState createState() => _BottomStuffState();
 }
@@ -40,16 +45,30 @@ class _BottomStuffState extends State<BottomStuff> {
             child: Text('insert prices widget'),
           ),
           ListTile(
-            title: Image.network('inser net image source'),
-            leading: Text('insert name text'),
-            trailing: Text('insert operation count'),
+            leading: Image.network(this.widget.market.img),
+            title: Text(
+              this.widget.market.name,
+              style: Theme.of(context).textTheme.button,
+            ),
           ),
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('insert description text'),
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  this.widget.market.description,
+                  style: Theme.of(context).textTheme.headline2,
+                ),
               ),
+            ),
+          ),
+          SafeArea(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                BuyButton(),
+                SellButton(),
+              ],
             ),
           ),
         ],

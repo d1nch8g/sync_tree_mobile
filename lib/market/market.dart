@@ -16,12 +16,14 @@ class _MarketPageState extends State<MarketPage> {
 
   void getMarkets(context) async {
     var rez = await searchMarketAdresses(controller.text);
-    marketList.clear();
+    List<Market> listWithRecievedMarkets = [];
     for (var i = 0; i < rez.length; i++) {
       var market = await getMarketInformation(rez[i]);
-      marketList.add(market);
+      listWithRecievedMarkets.add(market);
     }
-    setState(() {});
+    setState(() {
+      marketList = listWithRecievedMarkets;
+    });
   }
 
   @override
@@ -73,32 +75,28 @@ class _MarketPageState extends State<MarketPage> {
           ),
           Expanded(
             key: UniqueKey(),
-            child: AnimatedList(
-              initialItemCount: marketList.length,
-              itemBuilder: (context, idx, animation) {
-                return SlideTransition(
-                  position: animation.drive(
-                    Tween<Offset>(
-                      begin: const Offset(0.0, 0.0),
-                      end: const Offset(0.0, 0.0),
-                    ),
-                  ),
-                  child: ListTile(
-                    title: Text(marketList[idx].name),
-                    subtitle: Text(marketList[idx].description),
-                    leading: Image.network(marketList[idx].img),
-                    trailing: Text(marketList[idx].opCount.toString()),
-                    onTap: () {
-                      showMaterialModalBottomSheet(
-                        context: context,
-                        builder: (context) => SingleChildScrollView(
-                          controller: ModalScrollController.of(context),
-                          child: BottomStuff(),
-                        ),
-                      );
-                    },
-                  ),
+            child: ListView.separated(
+              itemCount: marketList.length,
+              itemBuilder: (context, idx) {
+                return ListTile(
+                  title: Text(marketList[idx].name),
+                  subtitle: Text(
+                      marketList[idx].description.substring(0, 72) + '...'),
+                  leading: Image.network(marketList[idx].img),
+                  trailing: Text(marketList[idx].opCount.toString()),
+                  onTap: () {
+                    showMaterialModalBottomSheet(
+                      context: context,
+                      builder: (context) => SingleChildScrollView(
+                        controller: ModalScrollController.of(context),
+                        child: BottomStuff(marketList[idx]),
+                      ),
+                    );
+                  },
                 );
+              },
+              separatorBuilder: (context, idx) {
+                return Divider();
               },
             ),
           ),

@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:grpc/grpc.dart';
-import 'package:sync_tree_mobile/crypt.dart';
 
 import '../api/api.pb.dart';
 import '../api/api.pbgrpc.dart';
@@ -64,9 +63,6 @@ Future<Market> getMarketInformation(Uint8List adress) async {
       timeout: Duration(milliseconds: 2584),
     ),
   );
-  var mesKey = Crypt().bytesToPublic(
-    Uint8List.fromList(response.mesKey),
-  );
   List<Trade> buys = [];
   for (var i = 0; i < response.buys.length / 2; i++) {
     buys.add(Trade(
@@ -81,13 +77,20 @@ Future<Market> getMarketInformation(Uint8List adress) async {
       response.sells[i + 1].toInt(),
     ));
   }
+  print(response.name);
   return Market(
     response.name,
     response.descr,
-    mesKey,
+    response.mesKey.toString(),
     response.img,
     response.opCount.toInt(),
     buys,
     sells,
   );
 }
+
+  // var mesKey = Crypt().bytesToPublic(
+  //   Uint8List.fromList(response.mesKey),
+  // );
+
+  //mesKey,
