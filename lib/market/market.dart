@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/userSearch.dart';
@@ -12,14 +11,17 @@ class MarketPage extends StatefulWidget {
 }
 
 class _MarketPageState extends State<MarketPage> {
-  var marketList = [];
+  List<Market> marketList = [];
   var controller = TextEditingController();
 
   void getMarkets(context) async {
-    var rez = await userSearch(controller.text);
-    setState(() {
-      marketList = rez;
-    });
+    var rez = await searchMarketAdresses(controller.text);
+    marketList.clear();
+    for (var i = 0; i < rez.length; i++) {
+      var market = await getMarketInformation(rez[i]);
+      marketList.add(market);
+    }
+    setState(() {});
   }
 
   @override
@@ -82,12 +84,10 @@ class _MarketPageState extends State<MarketPage> {
                     ),
                   ),
                   child: ListTile(
-                    title: Text(marketList[idx][MarketInfo.name] ?? ''),
-                    subtitle:
-                        Text(marketList[idx][MarketInfo.description] ?? ''),
-                    leading: Image.network(
-                        marketList[idx][MarketInfo.imgLink] ?? ''),
-                    trailing: Text(marketList[idx][MarketInfo.opCount] ?? ''),
+                    title: Text(marketList[idx].name),
+                    subtitle: Text(marketList[idx].description),
+                    leading: Image.network(marketList[idx].img),
+                    trailing: Text(marketList[idx].opCount.toString()),
                     onTap: () {
                       showMaterialModalBottomSheet(
                         context: context,

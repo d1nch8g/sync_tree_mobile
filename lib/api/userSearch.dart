@@ -11,6 +11,7 @@ class Market {
   String name;
   String description;
   String mesKey;
+  String img;
   int opCount;
   List<Trade> buys;
   List<Trade> sells;
@@ -18,6 +19,7 @@ class Market {
     this.name,
     this.description,
     this.mesKey,
+    this.img,
     this.opCount,
     this.buys,
     this.sells,
@@ -83,6 +85,7 @@ Future<Market> getMarketInformation(Uint8List adress) async {
     response.name,
     response.descr,
     mesKey,
+    response.img,
     response.opCount.toInt(),
     buys,
     sells,
