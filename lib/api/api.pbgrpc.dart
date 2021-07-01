@@ -76,6 +76,14 @@ class SyncTreeClient extends $grpc.Client {
           '/api.SyncTree/UserGetMessages',
           ($0.UserGetMessagesRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Messages.fromBuffer(value));
+  static final _$userBuy = $grpc.ClientMethod<$0.UserBuyRequest, $0.Response>(
+      '/api.SyncTree/UserBuy',
+      ($0.UserBuyRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Response.fromBuffer(value));
+  static final _$userSell = $grpc.ClientMethod<$0.UserSellRequest, $0.Response>(
+      '/api.SyncTree/UserSell',
+      ($0.UserSellRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Response.fromBuffer(value));
   static final _$marketCraete =
       $grpc.ClientMethod<$0.MarketCreateRequest, $0.Response>(
           '/api.SyncTree/MarketCraete',
@@ -176,6 +184,16 @@ class SyncTreeClient extends $grpc.Client {
       $0.UserGetMessagesRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$userGetMessages, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Response> userBuy($0.UserBuyRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$userBuy, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Response> userSell($0.UserSellRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$userSell, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.Response> marketCraete($0.MarketCreateRequest request,
@@ -306,6 +324,20 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.UserGetMessagesRequest.fromBuffer(value),
         ($0.Messages value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UserBuyRequest, $0.Response>(
+        'UserBuy',
+        userBuy_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.UserBuyRequest.fromBuffer(value),
+        ($0.Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UserSellRequest, $0.Response>(
+        'UserSell',
+        userSell_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.UserSellRequest.fromBuffer(value),
+        ($0.Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.MarketCreateRequest, $0.Response>(
         'MarketCraete',
         marketCraete_Pre,
@@ -416,6 +448,16 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
     return userGetMessages(call, await request);
   }
 
+  $async.Future<$0.Response> userBuy_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.UserBuyRequest> request) async {
+    return userBuy(call, await request);
+  }
+
+  $async.Future<$0.Response> userSell_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.UserSellRequest> request) async {
+    return userSell(call, await request);
+  }
+
   $async.Future<$0.Response> marketCraete_Pre($grpc.ServiceCall call,
       $async.Future<$0.MarketCreateRequest> request) async {
     return marketCraete(call, await request);
@@ -470,6 +512,10 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UserSendMessageRequest request);
   $async.Future<$0.Messages> userGetMessages(
       $grpc.ServiceCall call, $0.UserGetMessagesRequest request);
+  $async.Future<$0.Response> userBuy(
+      $grpc.ServiceCall call, $0.UserBuyRequest request);
+  $async.Future<$0.Response> userSell(
+      $grpc.ServiceCall call, $0.UserSellRequest request);
   $async.Future<$0.Response> marketCraete(
       $grpc.ServiceCall call, $0.MarketCreateRequest request);
   $async.Future<$0.Response> marketUpdate(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile/api/userSearch.dart';
 import 'package:sync_tree_mobile/market/buy.dart';
 import 'package:sync_tree_mobile/market/sell.dart';
+import 'package:sync_tree_mobile/market/trades.dart';
 
 class BottomStuff extends StatefulWidget {
   final Market market;
@@ -40,10 +41,7 @@ class _BottomStuffState extends State<BottomStuff> {
               ),
             ),
           ),
-          SizedBox(
-            height: 320,
-            child: Text('insert prices widget'),
-          ),
+          TradesBox(this.widget.market),
           ListTile(
             leading: Image.network(this.widget.market.img),
             title: Text(
@@ -62,7 +60,8 @@ class _BottomStuffState extends State<BottomStuff> {
               ),
             ),
           ),
-          SafeArea(
+          Padding(
+            padding: const EdgeInsets.fromLTRB(32, 10, 32, 42),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

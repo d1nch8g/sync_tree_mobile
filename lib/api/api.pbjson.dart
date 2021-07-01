@@ -221,6 +221,34 @@ const UserSendMessageRequest$json = const {
 
 /// Descriptor for `UserSendMessageRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List userSendMessageRequestDescriptor = $convert.base64Decode('ChZVc2VyU2VuZE1lc3NhZ2VSZXF1ZXN0EhwKCVB1YmxpY0tleRgBIAEoDFIJUHVibGljS2V5EhYKBkFkcmVzcxgCIAEoDFIGQWRyZXNzEhgKB01lc3NhZ2UYAyABKAlSB01lc3NhZ2USEgoEU2lnbhgEIAEoDFIEU2lnbg==');
+@$core.Deprecated('Use userBuyRequestDescriptor instead')
+const UserBuyRequest$json = const {
+  '1': 'UserBuyRequest',
+  '2': const [
+    const {'1': 'PublicKey', '3': 1, '4': 1, '5': 12, '10': 'PublicKey'},
+    const {'1': 'Adress', '3': 2, '4': 1, '5': 12, '10': 'Adress'},
+    const {'1': 'Recieve', '3': 3, '4': 1, '5': 4, '10': 'Recieve'},
+    const {'1': 'Offer', '3': 4, '4': 1, '5': 4, '10': 'Offer'},
+    const {'1': 'Sign', '3': 5, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `UserBuyRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userBuyRequestDescriptor = $convert.base64Decode('Cg5Vc2VyQnV5UmVxdWVzdBIcCglQdWJsaWNLZXkYASABKAxSCVB1YmxpY0tleRIWCgZBZHJlc3MYAiABKAxSBkFkcmVzcxIYCgdSZWNpZXZlGAMgASgEUgdSZWNpZXZlEhQKBU9mZmVyGAQgASgEUgVPZmZlchISCgRTaWduGAUgASgMUgRTaWdu');
+@$core.Deprecated('Use userSellRequestDescriptor instead')
+const UserSellRequest$json = const {
+  '1': 'UserSellRequest',
+  '2': const [
+    const {'1': 'PublicKey', '3': 1, '4': 1, '5': 12, '10': 'PublicKey'},
+    const {'1': 'Adress', '3': 2, '4': 1, '5': 12, '10': 'Adress'},
+    const {'1': 'Recieve', '3': 3, '4': 1, '5': 4, '10': 'Recieve'},
+    const {'1': 'Offer', '3': 4, '4': 1, '5': 4, '10': 'Offer'},
+    const {'1': 'Sign', '3': 5, '4': 1, '5': 12, '10': 'Sign'},
+  ],
+};
+
+/// Descriptor for `UserSellRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userSellRequestDescriptor = $convert.base64Decode('Cg9Vc2VyU2VsbFJlcXVlc3QSHAoJUHVibGljS2V5GAEgASgMUglQdWJsaWNLZXkSFgoGQWRyZXNzGAIgASgMUgZBZHJlc3MSGAoHUmVjaWV2ZRgDIAEoBFIHUmVjaWV2ZRIUCgVPZmZlchgEIAEoBFIFT2ZmZXISEgoEU2lnbhgFIAEoDFIEU2lnbg==');
 @$core.Deprecated('Use userGetMessagesRequestDescriptor instead')
 const UserGetMessagesRequest$json = const {
   '1': 'UserGetMessagesRequest',

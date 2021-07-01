@@ -1300,6 +1300,212 @@ class UserSendMessageRequest extends $pb.GeneratedMessage {
   void clearSign() => clearField(4);
 }
 
+class UserBuyRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserBuyRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'PublicKey', $pb.PbFieldType.OY, protoName: 'PublicKey')
+    ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Adress', $pb.PbFieldType.OY, protoName: 'Adress')
+    ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Recieve', $pb.PbFieldType.OU6, protoName: 'Recieve', defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Offer', $pb.PbFieldType.OU6, protoName: 'Offer', defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$core.List<$core.int>>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Sign', $pb.PbFieldType.OY, protoName: 'Sign')
+    ..hasRequiredFields = false
+  ;
+
+  UserBuyRequest._() : super();
+  factory UserBuyRequest({
+    $core.List<$core.int>? publicKey,
+    $core.List<$core.int>? adress,
+    $fixnum.Int64? recieve,
+    $fixnum.Int64? offer,
+    $core.List<$core.int>? sign,
+  }) {
+    final _result = create();
+    if (publicKey != null) {
+      _result.publicKey = publicKey;
+    }
+    if (adress != null) {
+      _result.adress = adress;
+    }
+    if (recieve != null) {
+      _result.recieve = recieve;
+    }
+    if (offer != null) {
+      _result.offer = offer;
+    }
+    if (sign != null) {
+      _result.sign = sign;
+    }
+    return _result;
+  }
+  factory UserBuyRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserBuyRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserBuyRequest clone() => UserBuyRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserBuyRequest copyWith(void Function(UserBuyRequest) updates) => super.copyWith((message) => updates(message as UserBuyRequest)) as UserBuyRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserBuyRequest create() => UserBuyRequest._();
+  UserBuyRequest createEmptyInstance() => create();
+  static $pb.PbList<UserBuyRequest> createRepeated() => $pb.PbList<UserBuyRequest>();
+  @$core.pragma('dart2js:noInline')
+  static UserBuyRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserBuyRequest>(create);
+  static UserBuyRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get publicKey => $_getN(0);
+  @$pb.TagNumber(1)
+  set publicKey($core.List<$core.int> v) { $_setBytes(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPublicKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPublicKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get adress => $_getN(1);
+  @$pb.TagNumber(2)
+  set adress($core.List<$core.int> v) { $_setBytes(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAdress() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAdress() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get recieve => $_getI64(2);
+  @$pb.TagNumber(3)
+  set recieve($fixnum.Int64 v) { $_setInt64(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasRecieve() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearRecieve() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get offer => $_getI64(3);
+  @$pb.TagNumber(4)
+  set offer($fixnum.Int64 v) { $_setInt64(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasOffer() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearOffer() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.List<$core.int> get sign => $_getN(4);
+  @$pb.TagNumber(5)
+  set sign($core.List<$core.int> v) { $_setBytes(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasSign() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearSign() => clearField(5);
+}
+
+class UserSellRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserSellRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
+    ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'PublicKey', $pb.PbFieldType.OY, protoName: 'PublicKey')
+    ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Adress', $pb.PbFieldType.OY, protoName: 'Adress')
+    ..a<$fixnum.Int64>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Recieve', $pb.PbFieldType.OU6, protoName: 'Recieve', defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$fixnum.Int64>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Offer', $pb.PbFieldType.OU6, protoName: 'Offer', defaultOrMaker: $fixnum.Int64.ZERO)
+    ..a<$core.List<$core.int>>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Sign', $pb.PbFieldType.OY, protoName: 'Sign')
+    ..hasRequiredFields = false
+  ;
+
+  UserSellRequest._() : super();
+  factory UserSellRequest({
+    $core.List<$core.int>? publicKey,
+    $core.List<$core.int>? adress,
+    $fixnum.Int64? recieve,
+    $fixnum.Int64? offer,
+    $core.List<$core.int>? sign,
+  }) {
+    final _result = create();
+    if (publicKey != null) {
+      _result.publicKey = publicKey;
+    }
+    if (adress != null) {
+      _result.adress = adress;
+    }
+    if (recieve != null) {
+      _result.recieve = recieve;
+    }
+    if (offer != null) {
+      _result.offer = offer;
+    }
+    if (sign != null) {
+      _result.sign = sign;
+    }
+    return _result;
+  }
+  factory UserSellRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserSellRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserSellRequest clone() => UserSellRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserSellRequest copyWith(void Function(UserSellRequest) updates) => super.copyWith((message) => updates(message as UserSellRequest)) as UserSellRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserSellRequest create() => UserSellRequest._();
+  UserSellRequest createEmptyInstance() => create();
+  static $pb.PbList<UserSellRequest> createRepeated() => $pb.PbList<UserSellRequest>();
+  @$core.pragma('dart2js:noInline')
+  static UserSellRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserSellRequest>(create);
+  static UserSellRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<$core.int> get publicKey => $_getN(0);
+  @$pb.TagNumber(1)
+  set publicKey($core.List<$core.int> v) { $_setBytes(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPublicKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPublicKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get adress => $_getN(1);
+  @$pb.TagNumber(2)
+  set adress($core.List<$core.int> v) { $_setBytes(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAdress() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAdress() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get recieve => $_getI64(2);
+  @$pb.TagNumber(3)
+  set recieve($fixnum.Int64 v) { $_setInt64(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasRecieve() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearRecieve() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get offer => $_getI64(3);
+  @$pb.TagNumber(4)
+  set offer($fixnum.Int64 v) { $_setInt64(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasOffer() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearOffer() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.List<$core.int> get sign => $_getN(4);
+  @$pb.TagNumber(5)
+  set sign($core.List<$core.int> v) { $_setBytes(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasSign() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearSign() => clearField(5);
+}
+
 class UserGetMessagesRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserGetMessagesRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
     ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Adress', $pb.PbFieldType.OY, protoName: 'Adress')
