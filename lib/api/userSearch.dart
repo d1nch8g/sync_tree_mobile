@@ -91,9 +91,3 @@ Future<Market> getMarketInformation(Uint8List adress) async {
     sells,
   );
 }
-
-  // var mesKey = Crypt().bytesToPublic(
-  //   Uint8List.fromList(response.mesKey),
-  // );
-
-  //mesKey,
