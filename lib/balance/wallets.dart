@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/balance/noWallets.dart';
 
 class ConnectedWallets extends StatefulWidget {
   @override
@@ -12,7 +11,7 @@ class ConnectedWallets extends StatefulWidget {
 }
 
 class _ConnectedWalletsState extends State<ConnectedWallets> {
-  late Widget buildwidget = Container();
+  late Widget buildwidget = NoWallets();
 
   void setAllWallets() async {
     var prefs = await SharedPreferences.getInstance();
@@ -21,11 +20,9 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
     for (var i = 0; i < allConnectedWalletsBase64.length; i++) {
       recievedWallets.add(base64.decode(allConnectedWalletsBase64[i]));
     }
-    if (recievedWallets.isEmpty) {
-      setState(() {
-        buildwidget = NoWallets();
-      });
-    }
+    setState(() {
+      buildwidget = NoWallets();
+    });
   }
 
   @override
@@ -38,6 +35,42 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
   Widget build(BuildContext context) {
     return Expanded(
       child: buildwidget,
+    );
+  }
+}
+
+class NoWallets extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'No connected wallets\n'
+          'Find some on the market page',
+          style: Theme.of(context).textTheme.headline4,
+          textAlign: TextAlign.center,
+        ),
+        Expanded(
+          child: Icon(
+            Icons.credit_card_off_rounded,
+            size: MediaQuery.of(context).size.width * 0.62,
+            color: Theme.of(context).hintColor,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+class Wallets extends StatelessWidget {
+  const Wallets({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      
     );
   }
 }
