@@ -7,6 +7,7 @@ import '../api/api.pbgrpc.dart';
 import '../api/api.dart';
 
 class Market {
+  Uint8List adress;
   String name;
   String description;
   String mesKey;
@@ -15,6 +16,7 @@ class Market {
   List<Trade> buys;
   List<Trade> sells;
   Market(
+    this.adress,
     this.name,
     this.description,
     this.mesKey,
@@ -79,6 +81,7 @@ Future<Market> getMarketInformation(Uint8List adress) async {
   }
   print(response.name);
   return Market(
+    adress,
     response.name,
     response.descr,
     response.mesKey.toString(),

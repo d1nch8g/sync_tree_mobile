@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/userSearch.dart';
 import 'package:sync_tree_mobile/market/buy.dart';
-import 'package:sync_tree_mobile/market/connect.dart';
 import 'package:sync_tree_mobile/market/sell.dart';
 import 'package:sync_tree_mobile/market/trades.dart';
 
@@ -13,10 +15,39 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> {
-  Widget currentButtons = Connection();
+  late Widget currentButtons;
+
+  void connect() async {
+    var prefs = await SharedPreferences.getInstance();
+    var wallets = prefs.getStringList('wallets') ?? [];
+    var adr = base64.encode(this.widget.market.adress);
+    wallets.add(adr);
+    prefs.setStringList('wallets', wallets);
+    setState(() {
+      currentButtons = BuyAndSellButtons();
+    });
+  }
+
+  void checkIfConnected() async {
+    var prefs = await SharedPreferences.getInstance();
+    var wallets = prefs.getStringList('wallets') ?? [];
+    var adr = base64.encode(this.widget.market.adress);
+    if (wallets.contains(adr)) {
+      setState(() {
+        currentButtons = BuyAndSellButtons();
+      });
+    } else {
+      setState(() {
+        currentButtons = Connection(() {
+          connect();
+        });
+      });
+    }
+  }
 
   @override
   void initState() {
+    checkIfConnected();
     super.initState();
   }
 
@@ -67,7 +98,15 @@ class _BottomBarState extends State<BottomBar> {
             padding: const EdgeInsets.fromLTRB(32, 10, 32, 42),
             child: AnimatedSwitcher(
               child: currentButtons,
-              duration: Duration(milliseconds: 144),
+              duration: Duration(milliseconds: 377),
+              transitionBuilder: (
+                Widget child,
+                Animation<double> animation,
+              ) =>
+                  ScaleTransition(
+                scale: animation,
+                child: child,
+              ),
             ),
           ),
         ],
@@ -77,12 +116,20 @@ class _BottomBarState extends State<BottomBar> {
 }
 
 class Connection extends StatelessWidget {
+  final Function connect;
+  Connection(this.connect);
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ConnectButton(),
+        TextButton(
+          onPressed: () {
+            connect();
+          },
+          child: Text('connect'),
+        ),
       ],
     );
   }
