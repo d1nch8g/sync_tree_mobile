@@ -65,11 +65,13 @@ const InfoUserResponse$json = const {
     const {'1': 'PublicName', '3': 1, '4': 1, '5': 9, '10': 'PublicName'},
     const {'1': 'Balance', '3': 2, '4': 1, '5': 4, '10': 'Balance'},
     const {'1': 'mesKey', '3': 3, '4': 1, '5': 12, '10': 'mesKey'},
+    const {'1': 'marketAdresses', '3': 4, '4': 3, '5': 12, '10': 'marketAdresses'},
+    const {'1': 'marketBalances', '3': 5, '4': 3, '5': 4, '10': 'marketBalances'},
   ],
 };
 
 /// Descriptor for `InfoUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List infoUserResponseDescriptor = $convert.base64Decode('ChBJbmZvVXNlclJlc3BvbnNlEh4KClB1YmxpY05hbWUYASABKAlSClB1YmxpY05hbWUSGAoHQmFsYW5jZRgCIAEoBFIHQmFsYW5jZRIWCgZtZXNLZXkYAyABKAxSBm1lc0tleQ==');
+final $typed_data.Uint8List infoUserResponseDescriptor = $convert.base64Decode('ChBJbmZvVXNlclJlc3BvbnNlEh4KClB1YmxpY05hbWUYASABKAlSClB1YmxpY05hbWUSGAoHQmFsYW5jZRgCIAEoBFIHQmFsYW5jZRIWCgZtZXNLZXkYAyABKAxSBm1lc0tleRImCg5tYXJrZXRBZHJlc3NlcxgEIAMoDFIObWFya2V0QWRyZXNzZXMSJgoObWFya2V0QmFsYW5jZXMYBSADKARSDm1hcmtldEJhbGFuY2Vz');
 @$core.Deprecated('Use infoMarketResponseDescriptor instead')
 const InfoMarketResponse$json = const {
   '1': 'InfoMarketResponse',

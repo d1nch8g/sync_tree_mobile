@@ -250,6 +250,8 @@ class InfoUserResponse extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'PublicName', protoName: 'PublicName')
     ..a<$fixnum.Int64>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Balance', $pb.PbFieldType.OU6, protoName: 'Balance', defaultOrMaker: $fixnum.Int64.ZERO)
     ..a<$core.List<$core.int>>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'mesKey', $pb.PbFieldType.OY, protoName: 'mesKey')
+    ..p<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'marketAdresses', $pb.PbFieldType.PY, protoName: 'marketAdresses')
+    ..p<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'marketBalances', $pb.PbFieldType.PU6, protoName: 'marketBalances')
     ..hasRequiredFields = false
   ;
 
@@ -258,6 +260,8 @@ class InfoUserResponse extends $pb.GeneratedMessage {
     $core.String? publicName,
     $fixnum.Int64? balance,
     $core.List<$core.int>? mesKey,
+    $core.Iterable<$core.List<$core.int>>? marketAdresses,
+    $core.Iterable<$fixnum.Int64>? marketBalances,
   }) {
     final _result = create();
     if (publicName != null) {
@@ -268,6 +272,12 @@ class InfoUserResponse extends $pb.GeneratedMessage {
     }
     if (mesKey != null) {
       _result.mesKey = mesKey;
+    }
+    if (marketAdresses != null) {
+      _result.marketAdresses.addAll(marketAdresses);
+    }
+    if (marketBalances != null) {
+      _result.marketBalances.addAll(marketBalances);
     }
     return _result;
   }
@@ -318,6 +328,12 @@ class InfoUserResponse extends $pb.GeneratedMessage {
   $core.bool hasMesKey() => $_has(2);
   @$pb.TagNumber(3)
   void clearMesKey() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.List<$core.int>> get marketAdresses => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $core.List<$fixnum.Int64> get marketBalances => $_getList(4);
 }
 
 class InfoMarketResponse extends $pb.GeneratedMessage {

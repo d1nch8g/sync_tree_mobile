@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
@@ -45,4 +46,23 @@ Future<Int64> userUpdateSeldBalance() async {
   );
   mainStreamController.add('balanceChange');
   return response.balance;
+}
+
+Future<Map<Uint8List, int>> getSelfMarketBalances() async {
+  var crypt = Crypt();
+  var personalAdress = await crypt.getPersonalAdress();
+  final response = await stub.infoUser(
+    InfoUserRequest(
+      adress: base64.decode(personalAdress),
+    ),
+    options: CallOptions(
+      timeout: Duration(milliseconds: 2584),
+    ),
+  );
+  Map<Uint8List, int> balances = {};
+  for (var i = 0; i < response.marketAdresses.length; i++) {
+    var adress = Uint8List.fromList(response.marketAdresses[i]);
+    balances[adress] = response.marketBalances[i].toInt();
+  }
+  return balances;
 }
