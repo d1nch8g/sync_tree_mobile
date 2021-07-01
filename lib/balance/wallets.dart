@@ -4,6 +4,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sync_tree_mobile/api/userSearch.dart';
+import 'package:sync_tree_mobile/balance/walletBox.dart';
 
 class ConnectedWallets extends StatefulWidget {
   @override
@@ -21,7 +23,7 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
       recievedWallets.add(base64.decode(allConnectedWalletsBase64[i]));
     }
     setState(() {
-      buildwidget = NoWallets();
+      buildwidget = Wallets();
     });
   }
 
@@ -63,14 +65,56 @@ class NoWallets extends StatelessWidget {
   }
 }
 
+class Wallets extends StatefulWidget {
+  @override
+  _WalletsState createState() => _WalletsState();
+}
 
-class Wallets extends StatelessWidget {
-  const Wallets({ Key? key }) : super(key: key);
+class _WalletsState extends State<Wallets> {
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
+  List<Market> markets = [];
+
+  void loadAllMarkets() async {
+    var prefs = await SharedPreferences.getInstance();
+    var adresses = prefs.getStringList('wallets')!;
+    for (var i = 0; i < adresses.length; i++) {
+      var market = await getMarketInformation(base64.decode(adresses[i]));
+      markets.add(market);
+      listKey.currentState?.insertItem(
+        i,
+        duration: Duration(milliseconds: 144),
+      );
+      await sleep();
+    }
+  }
+
+  Future sleep() {
+    return new Future.delayed(const Duration(milliseconds: 144), () => "1");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadAllMarkets();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return AnimatedList(
+      key: listKey,
+      initialItemCount: markets.length,
+      itemBuilder: (context, index, animation) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, -1),
+            end: Offset(0, 0),
+          ).animate(animation),
+          child: Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: WalletBox(markets[index]),
+          ),
+        );
+      },
     );
   }
 }

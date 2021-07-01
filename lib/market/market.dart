@@ -13,6 +13,7 @@ class MarketPage extends StatefulWidget {
 class _MarketPageState extends State<MarketPage> {
   List<Market> marketList = [];
   var controller = TextEditingController();
+  
 
   void getMarkets(context) async {
     var rez = await searchMarketAdresses(controller.text);
@@ -100,6 +101,7 @@ class _MarketPageState extends State<MarketPage> {
               },
             ),
           ),
+          
         ],
       ),
     );
