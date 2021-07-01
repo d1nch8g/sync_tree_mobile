@@ -52,7 +52,7 @@ class _BottomStuffState extends State<BottomStuff> {
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Text(
                   this.widget.market.description,
                   style: Theme.of(context).textTheme.headline2,

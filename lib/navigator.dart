@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'market/market.dart';
 import 'wallet/wallet.dart';
 import 'settings/settings.dart';
-import 'balance/main.dart';
+import 'balance/balance.dart';
 import 'start/hello.dart';
 import 'start/name.dart';
 import 'start/keys.dart';
