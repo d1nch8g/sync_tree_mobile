@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/userInfo.dart';
 import 'package:sync_tree_mobile/api/userSearch.dart';
-import 'package:sync_tree_mobile/balance/walletBox.dart';
+import 'package:sync_tree_mobile/balance/balanceBox.dart';
 
 class ConnectedWallets extends StatefulWidget {
   @override
@@ -24,7 +24,9 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
       recievedWallets.add(base64.decode(allConnectedWalletsBase64[i]));
     }
     setState(() {
-      buildwidget = Wallets();
+      if (recievedWallets.length > 0) {
+        buildwidget = Wallets();
+      }
     });
   }
 
@@ -77,7 +79,7 @@ class _WalletsState extends State<Wallets> {
 
   void loadAllMarkets() async {
     var prefs = await SharedPreferences.getInstance();
-    var adresses = prefs.getStringList('wallets')!;
+    var adresses = prefs.getStringList('wallets') ?? [];
     for (var i = 0; i < adresses.length; i++) {
       var market = await getMarketInformation(base64.decode(adresses[i]));
       markets.add(market);
@@ -113,7 +115,7 @@ class _WalletsState extends State<Wallets> {
           ).animate(animation),
           child: Padding(
             padding: const EdgeInsets.all(14.0),
-            child: WalletBox(markets[index]),
+            child: BalanceBox(markets[index]),
           ),
         );
       },

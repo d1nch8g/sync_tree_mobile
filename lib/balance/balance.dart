@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/balance/wallets.dart';
+import 'package:sync_tree_mobile/balance/balances.dart';
 
 class BalancePage extends StatelessWidget {
   @override
@@ -13,7 +13,7 @@ class BalancePage extends StatelessWidget {
             color: Theme.of(context).hintColor,
           ),
           Text(
-            'wallets',
+            'balances',
             style: Theme.of(context).textTheme.headline3,
           ),
           Divider(),
