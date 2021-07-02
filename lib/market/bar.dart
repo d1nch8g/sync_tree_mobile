@@ -76,11 +76,14 @@ class _BottomBarState extends State<BottomBar> {
             ),
           ),
           TradesBox(this.widget.market),
-          ListTile(
-            leading: Image.network(this.widget.market.img),
-            title: Text(
-              this.widget.market.name,
-              style: Theme.of(context).textTheme.button,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              leading: Image.network(this.widget.market.img),
+              title: Text(
+                this.widget.market.name,
+                style: Theme.of(context).textTheme.button,
+              ),
             ),
           ),
           Expanded(

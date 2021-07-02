@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sync_tree_mobile/api/userInfo.dart';
 import 'package:sync_tree_mobile/api/userSearch.dart';
 import 'package:sync_tree_mobile/balance/walletBox.dart';
 
@@ -95,6 +96,7 @@ class _WalletsState extends State<Wallets> {
   @override
   void initState() {
     super.initState();
+    getSelfMarketBalances();
     loadAllMarkets();
   }
 
