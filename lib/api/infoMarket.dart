@@ -79,7 +79,6 @@ Future<Market> getMarketInformation(Uint8List adress) async {
       response.sells[i + 1].toInt(),
     ));
   }
-  print(response.name);
   return Market(
     adress,
     response.name,

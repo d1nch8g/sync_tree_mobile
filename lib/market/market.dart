@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/infoMarket.dart';
 
@@ -11,19 +15,73 @@ class MarketPage extends StatefulWidget {
 }
 
 class _MarketPageState extends State<MarketPage> {
-  List<Market> marketList = [];
+  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
+  List<Market> markets = [];
   var controller = TextEditingController();
 
   void getMarkets(context) async {
     var rez = await searchMarketAdresses(controller.text);
-    List<Market> listWithRecievedMarkets = [];
+    var checkRez = rezToBase64(rez);
+    for (var i = markets.length - 1; i >= 0; i--) {
+      if (checkRez.contains(base64.encode(markets[i].adress))) {
+        rez.remove(markets[i].adress);
+      } else {
+        await removeItem(context, i);
+      }
+    }
     for (var i = 0; i < rez.length; i++) {
       var market = await getMarketInformation(rez[i]);
-      listWithRecievedMarkets.add(market);
+      await addItem(context, market);
     }
-    setState(() {
-      marketList = listWithRecievedMarkets;
+  }
+
+  List<String> rezToBase64(List<Uint8List> rez) {
+    List<String> newRez = [];
+    rez.forEach((element) {
+      newRez.add(base64.encode(element));
     });
+    return newRez;
+  }
+
+  Future addItem(context, market) async {
+    var indexToAdd = markets.length;
+    markets.add(market);
+    listKey.currentState?.insertItem(
+      indexToAdd,
+      duration: Duration(milliseconds: 144),
+    );
+    await sleep();
+  }
+
+  Future removeItem(context, index) async {
+    Widget removeWidget = MarketTile(markets[index]);
+    listKey.currentState?.removeItem(
+      index,
+      (context, animation) => SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(-1, 0),
+          end: const Offset(0, 0),
+        ).animate(animation),
+        child: removeWidget,
+      ),
+      duration: Duration(milliseconds: 89),
+    );
+    await sleep();
+    markets.removeAt(index);
+  }
+
+  Future sleep() {
+    return new Future.delayed(const Duration(milliseconds: 89), () => "1");
+  }
+
+  SlideTransition itemBuild(index, animation) {
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: const Offset(0, 1.5),
+        end: const Offset(0, 0),
+      ).animate(animation),
+      child: MarketTile(markets[index]),
+    );
   }
 
   @override
@@ -74,34 +132,48 @@ class _MarketPageState extends State<MarketPage> {
             ),
           ),
           Expanded(
-            key: UniqueKey(),
-            child: ListView.separated(
-              itemCount: marketList.length,
-              itemBuilder: (context, idx) {
-                return ListTile(
-                  title: Text(marketList[idx].name),
-                  subtitle: Text(
-                      marketList[idx].description.substring(0, 72) + '...'),
-                  leading: Image.network(marketList[idx].img),
-                  trailing: Text(marketList[idx].opCount.toString()),
-                  onTap: () {
-                    showMaterialModalBottomSheet(
-                      context: context,
-                      builder: (context) => SingleChildScrollView(
-                        controller: ModalScrollController.of(context),
-                        child: BottomBar(marketList[idx]),
-                      ),
-                    );
-                  },
-                );
-              },
-              separatorBuilder: (context, idx) {
-                return Divider();
+            child: AnimatedList(
+              key: listKey,
+              initialItemCount: markets.length,
+              itemBuilder: (context, index, animation) {
+                return itemBuild(index, animation);
               },
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class MarketTile extends StatelessWidget {
+  final Market market;
+  MarketTile(this.market);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ListTile(
+          minVerticalPadding: 4.5,
+          contentPadding: EdgeInsets.all(8),
+          title: Text(market.name),
+          subtitle: Text(market.description.substring(0, 72) + '...'),
+          leading: Image.network(market.img),
+          trailing: Text(market.opCount.toString()),
+          onTap: () {
+            showMaterialModalBottomSheet(
+              context: context,
+              builder: (context) => SingleChildScrollView(
+                controller: ModalScrollController.of(context),
+                child: BottomBar(market),
+              ),
+            );
+          },
+        ),
+        Divider(),
+      ],
     );
   }
 }
