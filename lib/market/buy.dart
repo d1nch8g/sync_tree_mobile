@@ -1,5 +1,8 @@
+import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/api/buy.dart';
 import 'package:sync_tree_mobile/api/infoMarket.dart';
+import 'package:sync_tree_mobile/api/infoUser.dart';
 
 class BuyButton extends StatelessWidget {
   final Market market;
@@ -35,7 +38,44 @@ class BuyOverlayState extends State<BuyOverlay>
   final TextEditingController recieveController = TextEditingController();
 
   void placeOrder() async {
-    
+    var response = await userBuy(
+      this.widget.market.adress,
+      Int64.parseInt(offerController.text),
+      Int64.parseInt(recieveController.text),
+    );
+    if (response) {
+      setState(() {
+        currentContent = Icon(
+          Icons.check_circle_outline_rounded,
+          size: MediaQuery.of(context).size.width * 0.32,
+          color: Theme.of(context).focusColor,
+        );
+      });
+      Future.delayed(Duration(milliseconds: 233), () {
+        Navigator.pop(context);
+      });
+      userUpdateSelfBalance();
+    } else {
+      setState(() {
+        currentContent = Icon(
+          Icons.do_disturb,
+          size: MediaQuery.of(context).size.width * 0.32,
+          color: Theme.of(context).focusColor,
+        );
+      });
+      Future.delayed(Duration(milliseconds: 610), () {
+        setState(() {
+          currentContent = OfferRecieveConfirmContent(
+            offerController,
+            recieveController,
+            this.widget.market,
+            () {
+              placeOrder();
+            },
+          );
+        });
+      });
+    }
   }
 
   @override
@@ -81,7 +121,7 @@ class BuyOverlayState extends State<BuyOverlay>
             child: Padding(
               padding: const EdgeInsets.fromLTRB(32, 32, 32, 18),
               child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 377),
+                duration: Duration(milliseconds: 144),
                 child: currentContent,
                 transitionBuilder: (
                   Widget child,
@@ -132,7 +172,9 @@ class OfferRecieveConfirmContent extends StatelessWidget {
           SizedBox(height: 14),
           Center(
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                placeOrder();
+              },
               child: Text('place order'),
             ),
           ),

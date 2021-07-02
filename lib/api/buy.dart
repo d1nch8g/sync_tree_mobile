@@ -20,8 +20,8 @@ Future<bool> userBuy(Uint8List adress, Int64 offer, Int64 recieve) async {
     []
       ..addAll(persPub)
       ..addAll(adress)
-      ..addAll(offerBytes)
-      ..addAll(recieveBytes),
+      ..addAll(recieveBytes)
+      ..addAll(offerBytes),
   );
   var persPrivString = prefs.getString('persPriv') ?? '';
   var sign = crypt.signMessage(persPrivString, concatmessage1);
@@ -29,8 +29,8 @@ Future<bool> userBuy(Uint8List adress, Int64 offer, Int64 recieve) async {
     UserBuyRequest(
       publicKey: persPub,
       adress: adress,
-      recieve: offer,
-      offer: recieve,
+      recieve: recieve,
+      offer: offer,
       sign: sign,
     ),
     options: CallOptions(

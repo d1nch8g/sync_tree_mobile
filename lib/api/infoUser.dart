@@ -28,7 +28,7 @@ Future<String> userFindName(String adress) async {
   }
 }
 
-Future<Int64> userUpdateSeldBalance() async {
+Future<Int64> userUpdateSelfBalance() async {
   var prefs = await SharedPreferences.getInstance();
   var crypt = Crypt();
   var personalAdress = await crypt.getPersonalAdress();
@@ -44,7 +44,7 @@ Future<Int64> userUpdateSeldBalance() async {
     'balance',
     response.balance.toInt(),
   );
-  mainStreamController.add('balanceChange');
+  mainStreamController.add('balanceEvent');
   return response.balance;
 }
 

@@ -6,6 +6,7 @@ import 'package:sync_tree_mobile/api/infoMarket.dart';
 import 'package:sync_tree_mobile/market/buy.dart';
 import 'package:sync_tree_mobile/market/sell.dart';
 import 'package:sync_tree_mobile/market/trades.dart';
+import 'package:sync_tree_mobile/navigator.dart';
 
 class BottomBar extends StatefulWidget {
   final Market market;
@@ -26,10 +27,12 @@ class _BottomBarState extends State<BottomBar> {
           base64.encode(this.widget.market.adress),
         ) ??
         0;
-    setState(() {
-      maxBuyOffer = mainBalance.toString();
-      maxRecieveOffer = marketBalance.toString();
-    });
+    if (this.mounted) {
+      setState(() {
+        maxBuyOffer = mainBalance.toString();
+        maxRecieveOffer = marketBalance.toString();
+      });
+    }
   }
 
   void connect() async {
@@ -60,10 +63,19 @@ class _BottomBarState extends State<BottomBar> {
     }
   }
 
+  void startBalanceChecking() {
+    mainStream.listen((event) {
+      if (event == 'balanceEvent') {
+        getMaxBuyAndRecieve();
+      }
+    });
+  }
+
   @override
   void initState() {
     checkIfConnected();
     getMaxBuyAndRecieve();
+    startBalanceChecking();
     super.initState();
   }
 

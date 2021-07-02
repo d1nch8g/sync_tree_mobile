@@ -95,51 +95,53 @@ class _SearchModuleState extends State<SearchModule> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            autofocus: true,
-            controller: controller,
-            onChanged: (_) async {
-              getMarkets(context);
-              var prefs = await SharedPreferences.getInstance();
-              prefs.setString('search', controller.text);
-            },
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                borderSide: BorderSide(color: Theme.of(context).buttonColor),
+    return Expanded(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              autofocus: true,
+              controller: controller,
+              onChanged: (_) async {
+                getMarkets(context);
+                var prefs = await SharedPreferences.getInstance();
+                prefs.setString('search', controller.text);
+              },
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  borderSide: BorderSide(color: Theme.of(context).buttonColor),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  borderSide: BorderSide(color: Theme.of(context).buttonColor),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  borderSide: BorderSide(color: Theme.of(context).buttonColor),
+                ),
+                labelStyle: TextStyle(
+                  color: Theme.of(context).buttonColor,
+                ),
+                labelText: 'market search',
+                hoverColor: Theme.of(context).buttonColor,
+                fillColor: Theme.of(context).buttonColor,
+                focusColor: Theme.of(context).buttonColor,
               ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                borderSide: BorderSide(color: Theme.of(context).buttonColor),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                borderSide: BorderSide(color: Theme.of(context).buttonColor),
-              ),
-              labelStyle: TextStyle(
-                color: Theme.of(context).buttonColor,
-              ),
-              labelText: 'market search',
-              hoverColor: Theme.of(context).buttonColor,
-              fillColor: Theme.of(context).buttonColor,
-              focusColor: Theme.of(context).buttonColor,
             ),
           ),
-        ),
-        Expanded(
-          child: AnimatedList(
-            key: listKey,
-            initialItemCount: markets.length,
-            itemBuilder: (context, index, animation) {
-              return itemBuild(index, animation);
-            },
+          Expanded(
+            child: AnimatedList(
+              key: listKey,
+              initialItemCount: markets.length,
+              itemBuilder: (context, index, animation) {
+                return itemBuild(index, animation);
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -173,5 +175,36 @@ class MarketTile extends StatelessWidget {
         Divider(),
       ],
     );
+  }
+}
+
+class SearchPreview extends StatelessWidget {
+  final Function switchToSearch;
+  SearchPreview(this.switchToSearch);
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: IconButton(
+        onPressed: () {
+          switchToSearch();
+        },
+        icon: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).hoverColor,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(Icons.search_rounded),
+        ),
+        color: Theme.of(context).focusColor,
+        iconSize: MediaQuery.of(context).size.width * 0.32,
+      ),
+    );
+  }
+}
+
+class SearchBars extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
