@@ -8,12 +8,27 @@ class BalanceConnectPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).hoverColor,
-      body: Center(
-        child: TextButton(
-          onPressed: () {
-            goBack();
-          },
-          child: Text('back'),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // chat window
+            // textfield
+            // image and name of market
+            // centered current balance
+            // withdrawal button // fee info
+            // deposit button // fee info
+            // button for deposit request
+            // button for withdrawal request
+            // button for
+            SafeArea(
+              child: TextButton(
+                onPressed: () {
+                  goBack();
+                },
+                child: Text('back'),
+              ),
+            ),
+          ],
         ),
       ),
     );

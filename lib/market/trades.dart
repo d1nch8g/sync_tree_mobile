@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/api/userSearch.dart';
+import 'package:sync_tree_mobile/api/infoMarket.dart';
 
 class TradesBox extends StatelessWidget {
   final Market market;

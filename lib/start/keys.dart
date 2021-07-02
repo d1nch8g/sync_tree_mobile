@@ -6,7 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:clipboard/clipboard.dart';
 
-import '../api/userCreate.dart';
+import '../api/create.dart';
 
 class KeySave extends StatefulWidget {
   @override

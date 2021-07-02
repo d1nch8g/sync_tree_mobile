@@ -4,8 +4,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/api/userInfo.dart';
-import 'package:sync_tree_mobile/api/userSearch.dart';
+import 'package:sync_tree_mobile/api/infoUser.dart';
+import 'package:sync_tree_mobile/api/infoMarket.dart';
 import 'package:sync_tree_mobile/balance/balanceBox.dart';
 
 class ConnectedWallets extends StatefulWidget {
@@ -85,7 +85,7 @@ class _WalletsState extends State<Wallets> {
       markets.add(market);
       listKey.currentState?.insertItem(
         i,
-        duration: Duration(milliseconds: 377),
+        duration: Duration(milliseconds: 610),
       );
       await sleep();
     }
@@ -110,8 +110,8 @@ class _WalletsState extends State<Wallets> {
       itemBuilder: (context, index, animation) {
         return SlideTransition(
           position: Tween<Offset>(
-            begin: const Offset(0, -1),
-            end: Offset(0, 0),
+            begin: const Offset(0, 3),
+            end: const Offset(0, 0),
           ).animate(animation),
           child: Padding(
             padding: const EdgeInsets.all(14.0),

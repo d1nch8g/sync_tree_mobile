@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animations/animations.dart';
-import 'package:sync_tree_mobile/api/userSearch.dart';
+import 'package:sync_tree_mobile/api/infoMarket.dart';
 import 'package:sync_tree_mobile/balance/balancePage.dart';
 
 class BalanceBox extends StatefulWidget {

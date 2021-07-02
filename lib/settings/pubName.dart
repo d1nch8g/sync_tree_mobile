@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/api/userUpdate.dart';
+import 'package:sync_tree_mobile/api/update.dart';
 
 import '../security/pin.dart';
 import '../security/filter.dart';

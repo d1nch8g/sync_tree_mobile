@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/api/userSearch.dart';
+import 'package:sync_tree_mobile/api/infoMarket.dart';
 
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sync_tree_mobile/market/bar.dart';
