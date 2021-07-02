@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class BalancePage extends StatelessWidget {
+class BalanceConnectPage extends StatelessWidget {
   final Function goBack;
-  BalancePage(this.goBack);
+  BalanceConnectPage(this.goBack);
 
   @override
   Widget build(BuildContext context) {

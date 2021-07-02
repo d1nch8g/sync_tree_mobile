@@ -85,7 +85,7 @@ class _WalletsState extends State<Wallets> {
       markets.add(market);
       listKey.currentState?.insertItem(
         i,
-        duration: Duration(milliseconds: 144),
+        duration: Duration(milliseconds: 377),
       );
       await sleep();
     }

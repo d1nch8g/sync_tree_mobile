@@ -38,6 +38,7 @@ class _LocalWalletsState extends State<LocalWallets> {
     var name = prefs.getString('pubName') ?? 'unknown';
     var adress = await Crypt().getPersonalAdress();
     var nameAndAdress = name + '||' + adress;
+    print(nameAndAdress);
   }
 
   @override

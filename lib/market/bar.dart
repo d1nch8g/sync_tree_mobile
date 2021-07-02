@@ -76,16 +76,14 @@ class _BottomBarState extends State<BottomBar> {
             ),
           ),
           TradesBox(this.widget.market),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: Image.network(this.widget.market.img),
-              title: Text(
-                this.widget.market.name,
-                style: Theme.of(context).textTheme.button,
-              ),
+          ListTile(
+            leading: Image.network(this.widget.market.img),
+            title: Text(
+              this.widget.market.name,
+              style: Theme.of(context).textTheme.button,
             ),
           ),
+          ElemDivider(),
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
@@ -97,6 +95,7 @@ class _BottomBarState extends State<BottomBar> {
               ),
             ),
           ),
+          ElemDivider(),
           Padding(
             padding: const EdgeInsets.fromLTRB(32, 10, 32, 42),
             child: AnimatedSwitcher(
@@ -147,6 +146,17 @@ class BuyAndSellButtons extends StatelessWidget {
         BuyButton(),
         SellButton(),
       ],
+    );
+  }
+}
+
+class ElemDivider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      color: Theme.of(context).focusColor,
+      indent: 16,
+      endIndent: 16,
     );
   }
 }
