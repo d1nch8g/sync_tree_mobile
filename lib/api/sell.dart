@@ -9,7 +9,7 @@ import '../api/api.pb.dart';
 import '../api/api.pbgrpc.dart';
 import '../api/api.dart';
 
-Future<bool> userBuy(Uint8List adress, Int64 offer, Int64 recieve) async {
+Future<bool> userSell(Uint8List adress, Int64 offer, Int64 recieve) async {
   var crypt = Crypt();
   var prefs = await SharedPreferences.getInstance();
   var persPubString = prefs.getString('persPub') ?? '';
@@ -25,8 +25,8 @@ Future<bool> userBuy(Uint8List adress, Int64 offer, Int64 recieve) async {
   );
   var persPrivString = prefs.getString('persPriv') ?? '';
   var sign = crypt.signMessage(persPrivString, concatmessage1);
-  final response = await stub.userBuy(
-    UserBuyRequest(
+  final response = await stub.userSell(
+    UserSellRequest(
       publicKey: persPub,
       adress: adress,
       recieve: offer,

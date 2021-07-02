@@ -34,7 +34,9 @@ class BuyOverlayState extends State<BuyOverlay>
   final TextEditingController offerController = TextEditingController();
   final TextEditingController recieveController = TextEditingController();
 
-  void onOfferEnding() {}
+  void placeOrder() async {
+    
+  }
 
   @override
   void initState() {
@@ -55,6 +57,9 @@ class BuyOverlayState extends State<BuyOverlay>
       offerController,
       recieveController,
       this.widget.market,
+      () {
+        placeOrder();
+      },
     );
   }
 
@@ -99,10 +104,13 @@ class OfferRecieveConfirmContent extends StatelessWidget {
   final TextEditingController offerController;
   final TextEditingController recieveController;
   final Market market;
+  final Function placeOrder;
+
   OfferRecieveConfirmContent(
     this.offerController,
     this.recieveController,
     this.market,
+    this.placeOrder,
   );
 
   @override

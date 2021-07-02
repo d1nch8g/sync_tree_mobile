@@ -20,7 +20,6 @@ class _SearchModuleState extends State<SearchModule> {
   var controller = TextEditingController();
 
   void getMarkets(context) async {
-    // TODO Change list condition first, than make ui changes
     var rez = await searchMarketAdresses(controller.text);
     var checkRez = rezToBase64(rez);
     for (var i = markets.length - 1; i >= 0; i--) {
