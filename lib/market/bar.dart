@@ -16,6 +16,21 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   late Widget currentButtons;
+  String maxBuyOffer = '';
+  String maxRecieveOffer = '';
+
+  void getMaxBuyAndRecieve() async {
+    var prefs = await SharedPreferences.getInstance();
+    var mainBalance = prefs.getInt('balance') ?? 0;
+    var marketBalance = prefs.getInt(
+          base64.encode(this.widget.market.adress),
+        ) ??
+        0;
+    setState(() {
+      maxBuyOffer = mainBalance.toString();
+      maxRecieveOffer = marketBalance.toString();
+    });
+  }
 
   void connect() async {
     var prefs = await SharedPreferences.getInstance();
@@ -24,7 +39,7 @@ class _BottomBarState extends State<BottomBar> {
     wallets.add(adr);
     prefs.setStringList('wallets', wallets);
     setState(() {
-      currentButtons = BuyAndSellButtons();
+      currentButtons = BuyAndSellButtons(this.widget.market);
     });
   }
 
@@ -34,7 +49,7 @@ class _BottomBarState extends State<BottomBar> {
     var adr = base64.encode(this.widget.market.adress);
     if (wallets.contains(adr)) {
       setState(() {
-        currentButtons = BuyAndSellButtons();
+        currentButtons = BuyAndSellButtons(this.widget.market);
       });
     } else {
       setState(() {
@@ -48,6 +63,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   void initState() {
     checkIfConnected();
+    getMaxBuyAndRecieve();
     super.initState();
   }
 
@@ -81,6 +97,15 @@ class _BottomBarState extends State<BottomBar> {
             title: Text(
               this.widget.market.name,
               style: Theme.of(context).textTheme.button,
+            ),
+            subtitle: Text(
+              'Max buy offer: $maxBuyOffer'
+              '\nMax sell offer: $maxRecieveOffer',
+              style: Theme.of(context).textTheme.overline,
+            ),
+            trailing: Text(
+              this.widget.market.opCount.toString(),
+              style: Theme.of(context).textTheme.headline2,
             ),
           ),
           ElemDivider(),
@@ -138,12 +163,14 @@ class Connection extends StatelessWidget {
 }
 
 class BuyAndSellButtons extends StatelessWidget {
+  final Market market;
+  BuyAndSellButtons(this.market);
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        BuyButton(),
+        BuyButton(market),
         SellButton(),
       ],
     );

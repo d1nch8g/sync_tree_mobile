@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/api/infoMarket.dart';
 
 class BuyButton extends StatelessWidget {
+  final Market market;
+  BuyButton(this.market);
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
         showDialog(
           context: context,
-          builder: (_) => BuyOverlay(),
+          builder: (_) => BuyOverlay(market),
         );
       },
       child: Text('buy'),
@@ -16,6 +19,9 @@ class BuyButton extends StatelessWidget {
 }
 
 class BuyOverlay extends StatefulWidget {
+  final Market market;
+  BuyOverlay(this.market);
+
   @override
   State<StatefulWidget> createState() => BuyOverlayState();
 }
@@ -25,6 +31,10 @@ class BuyOverlayState extends State<BuyOverlay>
   late AnimationController controller;
   late Animation<double> scaleAnimation;
   late Widget currentContent;
+  final TextEditingController offerController = TextEditingController();
+  final TextEditingController recieveController = TextEditingController();
+
+  void onOfferEnding() {}
 
   @override
   void initState() {
@@ -41,7 +51,11 @@ class BuyOverlayState extends State<BuyOverlay>
       setState(() {});
     });
     controller.forward();
-    currentContent = OfferRecieveConfirmContent();
+    currentContent = OfferRecieveConfirmContent(
+      offerController,
+      recieveController,
+      this.widget.market,
+    );
   }
 
   @override
@@ -52,7 +66,7 @@ class BuyOverlayState extends State<BuyOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
+            width: MediaQuery.of(context).size.width * 0.85,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -60,7 +74,7 @@ class BuyOverlayState extends State<BuyOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(42, 42, 42, 42),
+              padding: const EdgeInsets.fromLTRB(32, 32, 32, 18),
               child: AnimatedSwitcher(
                 duration: Duration(milliseconds: 377),
                 child: currentContent,
@@ -82,15 +96,87 @@ class BuyOverlayState extends State<BuyOverlay>
 }
 
 class OfferRecieveConfirmContent extends StatelessWidget {
+  final TextEditingController offerController;
+  final TextEditingController recieveController;
+  final Market market;
+  OfferRecieveConfirmContent(
+    this.offerController,
+    this.recieveController,
+    this.market,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          
+          AmountTextField(
+            offerController,
+            'Buy offer: [SyncTree]',
+          ),
+          SizedBox(height: 14),
+          AmountTextField(
+            recieveController,
+            'Recieve: [${this.market.name}]',
+          ),
+          SizedBox(height: 14),
+          Center(
+            child: TextButton(
+              onPressed: () {},
+              child: Text('place order'),
+            ),
+          ),
         ],
       ),
+    );
+  }
+}
+
+class AmountTextField extends StatefulWidget {
+  final TextEditingController controller;
+  final String text;
+
+  AmountTextField(
+    this.controller,
+    this.text,
+  );
+  @override
+  _AmountTextFieldState createState() => _AmountTextFieldState();
+}
+
+class _AmountTextFieldState extends State<AmountTextField> {
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: this.widget.controller,
+      keyboardType: TextInputType.number,
+      style: TextStyle(
+        color: Theme.of(context).focusColor,
+      ),
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        labelStyle: TextStyle(
+          color: Theme.of(context).focusColor,
+        ),
+        hoverColor: Theme.of(context).focusColor,
+        fillColor: Theme.of(context).focusColor,
+        focusColor: Theme.of(context).focusColor,
+        labelText: this.widget.text,
+      ),
+      cursorColor: Theme.of(context).focusColor,
     );
   }
 }
