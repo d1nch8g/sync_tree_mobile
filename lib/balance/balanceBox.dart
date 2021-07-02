@@ -38,9 +38,11 @@ class _BalanceBoxState extends State<BalanceBox> {
   }
 
   void showImage() {
-    imgAnimationDuration = 987;
-    setState(() {
-      imageWidget = UnfoldedImage(this.widget.market.img);
+    imgAnimationDuration = 377;
+    Future.delayed(Duration(milliseconds: 377), () {
+      setState(() {
+        imageWidget = UnfoldedImage(this.widget.market.img);
+      });
     });
   }
 

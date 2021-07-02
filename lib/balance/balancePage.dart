@@ -20,12 +20,15 @@ class BalanceConnectPage extends StatelessWidget {
             // button for deposit request
             // button for withdrawal request
             // button for
-            SafeArea(
+            Expanded(
+              child: Container(),
+            ),
+            Center(
               child: TextButton(
                 onPressed: () {
                   goBack();
                 },
-                child: Text('back'),
+                child: Text('close wallet'),
               ),
             ),
           ],

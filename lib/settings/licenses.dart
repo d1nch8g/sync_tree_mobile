@@ -14,7 +14,8 @@ class LicensesTile extends StatelessWidget {
           context: context,
           applicationName: 'name: sync tree mobile',
           applicationVersion: 'version: 0.0.1',
-          applicationLegalese: 'made with love and flutter',
+          applicationLegalese:
+              'made with love and flutter, by a single dev, Danila Fomin <3',
           applicationIcon: FlutterLogo(),
           useRootNavigator: false,
         );
