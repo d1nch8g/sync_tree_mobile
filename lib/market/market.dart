@@ -24,7 +24,8 @@ class _MarketPageState extends State<MarketPage> {
     var checkRez = rezToBase64(rez);
     for (var i = markets.length - 1; i >= 0; i--) {
       if (checkRez.contains(base64.encode(markets[i].adress))) {
-        rez.remove(markets[i].adress);
+        var rmIdx = checkRez.indexOf(base64.encode(markets[i].adress));
+        rez.removeAt(rmIdx);
       } else {
         await removeItem(context, i);
       }
@@ -64,20 +65,23 @@ class _MarketPageState extends State<MarketPage> {
         ).animate(animation),
         child: removeWidget,
       ),
-      duration: Duration(milliseconds: 89),
+      duration: Duration(milliseconds: 144),
     );
     await sleep();
     markets.removeAt(index);
   }
 
   Future sleep() {
-    return new Future.delayed(const Duration(milliseconds: 89), () => "1");
+    return new Future.delayed(
+      const Duration(milliseconds: 55),
+      () => "1",
+    );
   }
 
   SlideTransition itemBuild(index, animation) {
     return SlideTransition(
       position: Tween<Offset>(
-        begin: const Offset(0, 1.5),
+        begin: const Offset(0, 4),
         end: const Offset(0, 0),
       ).animate(animation),
       child: MarketTile(markets[index]),
