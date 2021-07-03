@@ -88,6 +88,17 @@ const InfoMarketResponse$json = const {
 
 /// Descriptor for `InfoMarketResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List infoMarketResponseDescriptor = $convert.base64Decode('ChJJbmZvTWFya2V0UmVzcG9uc2USEgoETmFtZRgBIAEoCVIETmFtZRIWCgZNZXNLZXkYAiABKAxSBk1lc0tleRIQCgNJbWcYAyABKAlSA0ltZxIUCgVEZXNjchgEIAEoCVIFRGVzY3ISGAoHT3BDb3VudBgFIAEoBFIHT3BDb3VudBISCgRidXlzGAYgAygEUgRidXlzEhQKBXNlbGxzGAcgAygEUgVzZWxscw==');
+@$core.Deprecated('Use infoHasTradesRequestDescriptor instead')
+const InfoHasTradesRequest$json = const {
+  '1': 'InfoHasTradesRequest',
+  '2': const [
+    const {'1': 'marketAdress', '3': 1, '4': 1, '5': 12, '10': 'marketAdress'},
+    const {'1': 'userAdress', '3': 2, '4': 1, '5': 12, '10': 'userAdress'},
+  ],
+};
+
+/// Descriptor for `InfoHasTradesRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List infoHasTradesRequestDescriptor = $convert.base64Decode('ChRJbmZvSGFzVHJhZGVzUmVxdWVzdBIiCgxtYXJrZXRBZHJlc3MYASABKAxSDG1hcmtldEFkcmVzcxIeCgp1c2VyQWRyZXNzGAIgASgMUgp1c2VyQWRyZXNz');
 @$core.Deprecated('Use infoSearchResponseDescriptor instead')
 const InfoSearchResponse$json = const {
   '1': 'InfoSearchResponse',

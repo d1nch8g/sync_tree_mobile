@@ -32,6 +32,11 @@ class SyncTreeClient extends $grpc.Client {
           ($0.InfoSearchRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.InfoSearchResponse.fromBuffer(value));
+  static final _$infoHasTrades =
+      $grpc.ClientMethod<$0.InfoHasTradesRequest, $0.Response>(
+          '/api.SyncTree/InfoHasTrades',
+          ($0.InfoHasTradesRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.Response.fromBuffer(value));
   static final _$userCreate =
       $grpc.ClientMethod<$0.UserCreateRequest, $0.Response>(
           '/api.SyncTree/UserCreate',
@@ -135,6 +140,12 @@ class SyncTreeClient extends $grpc.Client {
       $0.InfoSearchRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$infoSearch, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Response> infoHasTrades(
+      $0.InfoHasTradesRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$infoHasTrades, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.Response> userCreate($0.UserCreateRequest request,
@@ -256,6 +267,14 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.InfoSearchRequest.fromBuffer(value),
         ($0.InfoSearchResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.InfoHasTradesRequest, $0.Response>(
+        'InfoHasTrades',
+        infoHasTrades_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.InfoHasTradesRequest.fromBuffer(value),
+        ($0.Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.UserCreateRequest, $0.Response>(
         'UserCreate',
         userCreate_Pre,
@@ -403,6 +422,11 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
     return infoSearch(call, await request);
   }
 
+  $async.Future<$0.Response> infoHasTrades_Pre($grpc.ServiceCall call,
+      $async.Future<$0.InfoHasTradesRequest> request) async {
+    return infoHasTrades(call, await request);
+  }
+
   $async.Future<$0.Response> userCreate_Pre($grpc.ServiceCall call,
       $async.Future<$0.UserCreateRequest> request) async {
     return userCreate(call, await request);
@@ -494,6 +518,8 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.InfoMarketRequest request);
   $async.Future<$0.InfoSearchResponse> infoSearch(
       $grpc.ServiceCall call, $0.InfoSearchRequest request);
+  $async.Future<$0.Response> infoHasTrades(
+      $grpc.ServiceCall call, $0.InfoHasTradesRequest request);
   $async.Future<$0.Response> userCreate(
       $grpc.ServiceCall call, $0.UserCreateRequest request);
   $async.Future<$0.Response> userUpdate(
