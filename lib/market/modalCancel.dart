@@ -33,7 +33,9 @@ class CancelTradesOverlayState extends State<CancelTradesOverlay>
   late Animation<double> scaleAnimation;
   late Widget currentContent;
 
-  void cancelTrade() async {}
+  void cancelTrade() async {
+    
+  }
 
   @override
   void initState() {
