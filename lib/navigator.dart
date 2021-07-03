@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'market/market.dart';
-import 'wallet/wallet.dart';
-import 'settings/settings.dart';
-import 'balance/balance.dart';
+import 'market/_root.dart';
+import 'wallet/_root.dart';
+import 'settings/_root.dart';
+import 'balance/_root.dart';
 import 'start/hello.dart';
 import 'start/name.dart';
 import 'start/keys.dart';

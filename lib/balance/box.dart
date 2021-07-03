@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animations/animations.dart';
 import 'package:sync_tree_mobile/api/infoMarket.dart';
-import 'package:sync_tree_mobile/balance/balancePage.dart';
+import 'package:sync_tree_mobile/balance/page.dart';
 
 class BalanceBox extends StatefulWidget {
   final Market market;

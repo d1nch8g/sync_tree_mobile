@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/balance/balances.dart';
+import 'package:sync_tree_mobile/balance/connections.dart';
 
 class BalancePage extends StatefulWidget {
   @override
