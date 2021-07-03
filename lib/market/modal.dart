@@ -185,7 +185,7 @@ class BuyAndSellButtons extends StatelessWidget {
       children: [
         // TODO add close button that is gonna close all the orders
         BuyButton(market),
-        SellButton(),
+        SellButton(market),
       ],
     );
   }

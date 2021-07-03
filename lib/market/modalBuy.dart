@@ -162,12 +162,12 @@ class OfferRecieveConfirmContent extends StatelessWidget {
         children: [
           AmountTextField(
             offerController,
-            'Buy offer: [SyncTree]',
+            'Buy offer: `SyncTree`',
           ),
           SizedBox(height: 14),
           AmountTextField(
             recieveController,
-            'Recieve: [${this.market.name}]',
+            'Recieve: `${this.market.name}`',
           ),
           SizedBox(height: 14),
           Center(
