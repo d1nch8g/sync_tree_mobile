@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/infoMarket.dart';
 
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:sync_tree_mobile/market/bar.dart';
+import 'package:sync_tree_mobile/market/modal.dart';
 
 class SearchModule extends StatefulWidget {
   @override
@@ -167,7 +167,7 @@ class MarketTile extends StatelessWidget {
               context: context,
               builder: (context) => SingleChildScrollView(
                 controller: ModalScrollController.of(context),
-                child: BottomBar(market),
+                child: ModalMarketSheet(market),
               ),
             );
           },

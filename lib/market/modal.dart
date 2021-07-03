@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:sync_tree_mobile/api/infoMarket.dart';
-import 'package:sync_tree_mobile/market/buy.dart';
-import 'package:sync_tree_mobile/market/sell.dart';
-import 'package:sync_tree_mobile/market/trades.dart';
+import 'package:sync_tree_mobile/market/modalBuy.dart';
+import 'package:sync_tree_mobile/market/modalSell.dart';
+import 'package:sync_tree_mobile/market/modalChart.dart';
 import 'package:sync_tree_mobile/navigator.dart';
 
-class BottomBar extends StatefulWidget {
+class ModalMarketSheet extends StatefulWidget {
   final Market market;
-  BottomBar(this.market);
+  ModalMarketSheet(this.market);
   @override
-  _BottomBarState createState() => _BottomBarState();
+  _ModalMarketSheetState createState() => _ModalMarketSheetState();
 }
 
-class _BottomBarState extends State<BottomBar> {
+class _ModalMarketSheetState extends State<ModalMarketSheet> {
   late Widget currentButtons;
   String maxBuyOffer = '';
   String maxRecieveOffer = '';
@@ -57,7 +57,7 @@ class _BottomBarState extends State<BottomBar> {
       });
     } else {
       setState(() {
-        currentButtons = Connection(() {
+        currentButtons = ConnectButton(() {
           connect();
         });
       });
@@ -121,7 +121,7 @@ class _BottomBarState extends State<BottomBar> {
               style: Theme.of(context).textTheme.headline2,
             ),
           ),
-          ElemDivider(),
+          CustomDivider(),
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
@@ -133,7 +133,7 @@ class _BottomBarState extends State<BottomBar> {
               ),
             ),
           ),
-          ElemDivider(),
+          CustomDivider(),
           Padding(
             padding: const EdgeInsets.fromLTRB(32, 10, 32, 42),
             child: AnimatedSwitcher(
@@ -155,9 +155,9 @@ class _BottomBarState extends State<BottomBar> {
   }
 }
 
-class Connection extends StatelessWidget {
+class ConnectButton extends StatelessWidget {
   final Function connect;
-  Connection(this.connect);
+  ConnectButton(this.connect);
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +191,7 @@ class BuyAndSellButtons extends StatelessWidget {
   }
 }
 
-class ElemDivider extends StatelessWidget {
+class CustomDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
