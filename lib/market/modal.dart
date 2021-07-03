@@ -49,29 +49,26 @@ class _ModalMarketSheetState extends State<ModalMarketSheet> {
     });
   }
 
-  void checkIfConnected() async {
+  void setButtons() async {
     var prefs = await SharedPreferences.getInstance();
     var wallets = prefs.getStringList('wallets') ?? [];
     var adr = base64.encode(this.widget.market.adress);
+    setState(() {
+      currentButtons = ConnectButton(() {
+        connect();
+      });
+    });
     if (wallets.contains(adr)) {
-      setState(() {
-        currentButtons = BuySellButtons(this.widget.market);
-      });
-    } else {
-      setState(() {
-        currentButtons = ConnectButton(() {
-          connect();
+      var hasSomeTrades = await hasTrades(this.widget.market.adress);
+      if (hasSomeTrades) {
+        setState(() {
+          currentButtons = BuySellCancelButtons(this.widget.market);
         });
-      });
-    }
-  }
-
-  void checkIfHasTrades() async {
-    var hasSomeTrades = await hasTrades(this.widget.market.adress);
-    if (hasSomeTrades) {
-      setState(() {
-        
-      });
+      } else {
+        setState(() {
+          currentButtons = BuySellButtons(this.widget.market);
+        });
+      }
     }
   }
 
@@ -85,7 +82,7 @@ class _ModalMarketSheetState extends State<ModalMarketSheet> {
 
   @override
   void initState() {
-    checkIfConnected();
+    setButtons();
     getMaxBuyAndRecieve();
     startBalanceChecking();
     super.initState();

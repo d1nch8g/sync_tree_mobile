@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sync_tree_mobile/api/infoMarket.dart';
 
 class CancelTradesButton extends StatelessWidget {
@@ -18,7 +19,6 @@ class CancelTradesButton extends StatelessWidget {
   }
 }
 
-
 class CancelTradesOverlay extends StatefulWidget {
   final Market market;
   CancelTradesOverlay(this.market);
@@ -31,10 +31,15 @@ class CancelTradesOverlayState extends State<CancelTradesOverlay>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> scaleAnimation;
-  late Widget currentContent = Text('yo');
+  late Widget currentContent;
+
+  void cancelTrade() async {}
 
   @override
   void initState() {
+    currentContent = AskIfSureToCancelTrades(() {
+      cancelTrade();
+    });
     super.initState();
     controller = AnimationController(
       vsync: this,
@@ -66,7 +71,7 @@ class CancelTradesOverlayState extends State<CancelTradesOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(32, 32, 32, 18),
+              padding: const EdgeInsets.fromLTRB(42, 42, 42, 18),
               child: AnimatedSwitcher(
                 duration: Duration(milliseconds: 144),
                 child: currentContent,
@@ -83,6 +88,34 @@ class CancelTradesOverlayState extends State<CancelTradesOverlay>
           ),
         ),
       ),
+    );
+  }
+}
+
+class AskIfSureToCancelTrades extends StatelessWidget {
+  final Function cancel;
+  AskIfSureToCancelTrades(this.cancel);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          'Are you sure? This button will stop all currently active trades',
+          style: Theme.of(context).textTheme.headline2,
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(
+          height: 12,
+        ),
+        TextButton(
+          onPressed: () {
+            cancel();
+          },
+          child: Text('cancel trade'),
+        ),
+      ],
     );
   }
 }
