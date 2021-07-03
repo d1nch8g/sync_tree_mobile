@@ -9,7 +9,7 @@ class TradesBox extends StatelessWidget {
   Widget build(BuildContext context) {
     if (market.buys.isEmpty && market.sells.isEmpty) {
       return SizedBox(
-        height: 320,
+        height: MediaQuery.of(context).size.height * 0.32,
         child: Center(
           child: Text(
             'No active trades',
@@ -19,7 +19,7 @@ class TradesBox extends StatelessWidget {
       );
     } else {
       return SizedBox(
-        height: 320,
+        height: MediaQuery.of(context).size.height * 0.32,
       );
     }
   }

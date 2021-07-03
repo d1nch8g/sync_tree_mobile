@@ -8,7 +8,7 @@ import '../api/api.pb.dart';
 import '../api/api.pbgrpc.dart';
 import '../api/api.dart';
 
-Future<bool> checkSelfHasTrades(Uint8List market) async {
+Future<bool> hasTrades(Uint8List market) async {
   try {
     var adress = await Crypt().getPersonalAdress();
     var user = base64.decode(adress);

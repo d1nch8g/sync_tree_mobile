@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sync_tree_mobile/api/hasTrades.dart';
 
 import 'package:sync_tree_mobile/api/infoMarket.dart';
 import 'package:sync_tree_mobile/market/modalBuy.dart';
+import 'package:sync_tree_mobile/market/modalCancel.dart';
 import 'package:sync_tree_mobile/market/modalSell.dart';
 import 'package:sync_tree_mobile/market/modalChart.dart';
 import 'package:sync_tree_mobile/navigator.dart';
@@ -43,7 +45,7 @@ class _ModalMarketSheetState extends State<ModalMarketSheet> {
     wallets.add(adr);
     prefs.setStringList('wallets', wallets);
     setState(() {
-      currentButtons = BuyAndSellButtons(this.widget.market);
+      currentButtons = BuySellButtons(this.widget.market);
     });
   }
 
@@ -53,13 +55,22 @@ class _ModalMarketSheetState extends State<ModalMarketSheet> {
     var adr = base64.encode(this.widget.market.adress);
     if (wallets.contains(adr)) {
       setState(() {
-        currentButtons = BuyAndSellButtons(this.widget.market);
+        currentButtons = BuySellButtons(this.widget.market);
       });
     } else {
       setState(() {
         currentButtons = ConnectButton(() {
           connect();
         });
+      });
+    }
+  }
+
+  void checkIfHasTrades() async {
+    var hasSomeTrades = await hasTrades(this.widget.market.adress);
+    if (hasSomeTrades) {
+      setState(() {
+        
       });
     }
   }
@@ -175,17 +186,32 @@ class ConnectButton extends StatelessWidget {
   }
 }
 
-class BuyAndSellButtons extends StatelessWidget {
+class BuySellButtons extends StatelessWidget {
   final Market market;
-  BuyAndSellButtons(this.market);
+  BuySellButtons(this.market);
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        // TODO add close button that is gonna close all the orders
         BuyButton(market),
         SellButton(market),
+      ],
+    );
+  }
+}
+
+class BuySellCancelButtons extends StatelessWidget {
+  final Market market;
+  BuySellCancelButtons(this.market);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        BuyButton(market),
+        SellButton(market),
+        CancelTradesButton(market),
       ],
     );
   }
