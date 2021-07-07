@@ -29,45 +29,55 @@ Future<String> userFindName(String adress) async {
 }
 
 Future<Int64> userUpdateSelfBalance() async {
-  var prefs = await SharedPreferences.getInstance();
-  var crypt = Crypt();
-  var personalAdress = await crypt.getPersonalAdress();
-  final response = await stub.infoUser(
-    InfoUserRequest(
-      adress: base64.decode(personalAdress),
-    ),
-    options: CallOptions(
-      timeout: Duration(milliseconds: 2584),
-    ),
-  );
-  prefs.setInt(
-    'balance',
-    response.balance.toInt(),
-  );
-  mainStreamController.add('balanceEvent');
-  return response.balance;
+  try {
+    var prefs = await SharedPreferences.getInstance();
+    var crypt = Crypt();
+    var personalAdress = await crypt.getPersonalAdress();
+    final response = await stub.infoUser(
+      InfoUserRequest(
+        adress: base64.decode(personalAdress),
+      ),
+      options: CallOptions(
+        timeout: Duration(milliseconds: 2584),
+      ),
+    );
+    prefs.setInt(
+      'balance',
+      response.balance.toInt(),
+    );
+    mainStreamController.add('balanceEvent');
+    return response.balance;
+  } catch (e) {
+    var prefs = await SharedPreferences.getInstance();
+    var lastBalance = prefs.getInt('balance');
+    return Int64(lastBalance ?? 0);
+  }
 }
 
 Future<Map<Uint8List, int>> getSelfMarketBalances() async {
-  var crypt = Crypt();
-  var personalAdress = await crypt.getPersonalAdress();
-  final response = await stub.infoUser(
-    InfoUserRequest(
-      adress: base64.decode(personalAdress),
-    ),
-    options: CallOptions(
-      timeout: Duration(milliseconds: 2584),
-    ),
-  );
-  Map<Uint8List, int> balances = {};
-  for (var i = 0; i < response.marketAdresses.length; i++) {
-    var adress = Uint8List.fromList(response.marketAdresses[i]);
-    balances[adress] = response.marketBalances[i].toInt();
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setInt(
-      base64.encode(response.marketAdresses[i]),
-      response.marketBalances[i].toInt(),
+  try {
+    var crypt = Crypt();
+    var personalAdress = await crypt.getPersonalAdress();
+    final response = await stub.infoUser(
+      InfoUserRequest(
+        adress: base64.decode(personalAdress),
+      ),
+      options: CallOptions(
+        timeout: Duration(milliseconds: 2584),
+      ),
     );
+    Map<Uint8List, int> balances = {};
+    for (var i = 0; i < response.marketAdresses.length; i++) {
+      var adress = Uint8List.fromList(response.marketAdresses[i]);
+      balances[adress] = response.marketBalances[i].toInt();
+      var prefs = await SharedPreferences.getInstance();
+      prefs.setInt(
+        base64.encode(response.marketAdresses[i]),
+        response.marketBalances[i].toInt(),
+      );
+    }
+    return balances;
+  } catch (e) {
+    return {};
   }
-  return balances;
 }

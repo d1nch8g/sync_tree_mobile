@@ -36,7 +36,6 @@ Future<bool> userUpdate() async {
     );
     return response.passed;
   } catch (Exception) {
-    print(Exception);
     return false;
   }
 }

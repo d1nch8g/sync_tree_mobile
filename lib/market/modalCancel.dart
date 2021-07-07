@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sync_tree_mobile/api/cancelTrade.dart';
 import 'package:sync_tree_mobile/api/infoMarket.dart';
 
 class CancelTradesButton extends StatelessWidget {
@@ -34,7 +35,15 @@ class CancelTradesOverlayState extends State<CancelTradesOverlay>
   late Widget currentContent;
 
   void cancelTrade() async {
-    
+    var canceled = await userCancelTrade(this.widget.market.adress);
+    if (canceled) {
+      setState(() {
+        currentContent = CanceledIcon();
+      });
+      Future.delayed(Duration(milliseconds: 377), () {
+        Navigator.pop(context);
+      });
+    }
   }
 
   @override
@@ -118,6 +127,17 @@ class AskIfSureToCancelTrades extends StatelessWidget {
           child: Text('cancel trade'),
         ),
       ],
+    );
+  }
+}
+
+class CanceledIcon extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      Icons.check_circle_outline_rounded,
+      color: Theme.of(context).focusColor,
+      size: 120,
     );
   }
 }

@@ -74,51 +74,26 @@ class Wallets extends StatefulWidget {
 }
 
 class _WalletsState extends State<Wallets> {
-  final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   List<Market> markets = [];
 
-  void loadAllMarkets() async {
-    var prefs = await SharedPreferences.getInstance();
-    var adresses = prefs.getStringList('wallets') ?? [];
-    for (var i = 0; i < adresses.length; i++) {
-      var market = await getMarketInformation(base64.decode(adresses[i]));
-      markets.add(market);
-      listKey.currentState?.insertItem(
-        i,
-        duration: Duration(milliseconds: 610),
-      );
-      await sleep();
-    }
+
+  void load_new_balances() async {
+    var markets = await getSelfMarketBalances();
+    
   }
 
-  Future sleep() {
-    return new Future.delayed(const Duration(milliseconds: 144), () => "1");
+  void load_balances_from_memory() async {
+    
   }
 
   @override
   void initState() {
+    
     super.initState();
-    getSelfMarketBalances();
-    loadAllMarkets();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedList(
-      key: listKey,
-      initialItemCount: markets.length,
-      itemBuilder: (context, index, animation) {
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(0, 3),
-            end: const Offset(0, 0),
-          ).animate(animation),
-          child: Padding(
-            padding: const EdgeInsets.all(14.0),
-            child: BalanceBox(markets[index]),
-          ),
-        );
-      },
-    );
+    return ListWheelScrollView(itemExtent: 80, children: []);
   }
 }
