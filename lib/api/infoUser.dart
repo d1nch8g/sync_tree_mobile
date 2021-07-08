@@ -54,8 +54,9 @@ Future<Int64> userUpdateSelfBalance() async {
   }
 }
 
-Future<Map<Uint8List, int>> getSelfMarketBalances() async {
+updateMarkets() async {
   try {
+    var prefs = await SharedPreferences.getInstance();
     var crypt = Crypt();
     var personalAdress = await crypt.getPersonalAdress();
     final response = await stub.infoUser(
@@ -70,14 +71,14 @@ Future<Map<Uint8List, int>> getSelfMarketBalances() async {
     for (var i = 0; i < response.marketAdresses.length; i++) {
       var adress = Uint8List.fromList(response.marketAdresses[i]);
       balances[adress] = response.marketBalances[i].toInt();
-      var prefs = await SharedPreferences.getInstance();
       prefs.setInt(
         base64.encode(response.marketAdresses[i]),
         response.marketBalances[i].toInt(),
       );
     }
-    return balances;
-  } catch (e) {
-    return {};
-  }
+    balances.keys.forEach((key) {
+      var balances = prefs.getStringList('wallets') ?? [];
+      balances.add(base64.encode(key));
+    });
+  } catch (e) {}
 }
