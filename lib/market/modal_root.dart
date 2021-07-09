@@ -5,10 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/hasTrades.dart';
 
 import 'package:sync_tree_mobile/api/infoMarket.dart';
-import 'package:sync_tree_mobile/market/.modalBuy.dart';
-import 'package:sync_tree_mobile/market/modalCancel.dart';
-import 'package:sync_tree_mobile/market/modalSell.dart';
-import 'package:sync_tree_mobile/market/modalChart.dart';
+import 'package:sync_tree_mobile/market/modal_buy.dart';
+import 'package:sync_tree_mobile/market/modal_cancel.dart';
+import 'package:sync_tree_mobile/market/modal_sell.dart';
+import 'package:sync_tree_mobile/market/modal_chart.dart';
 import 'package:sync_tree_mobile/navigator.dart';
 
 class ModalMarketSheet extends StatefulWidget {
