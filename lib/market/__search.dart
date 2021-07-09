@@ -4,10 +4,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/api/infoMarket.dart';
-
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:sync_tree_mobile/market/modal.dart';
+
+import 'package:sync_tree_mobile/api/infoMarket.dart';
+import 'package:sync_tree_mobile/market/.modal.dart';
 
 class SearchModule extends StatefulWidget {
   @override

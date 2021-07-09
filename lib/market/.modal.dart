@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/api/hasTrades.dart';
 
 import 'package:sync_tree_mobile/api/infoMarket.dart';
-import 'package:sync_tree_mobile/market/modalBuy.dart';
+import 'package:sync_tree_mobile/market/.modalBuy.dart';
 import 'package:sync_tree_mobile/market/modalCancel.dart';
 import 'package:sync_tree_mobile/market/modalSell.dart';
 import 'package:sync_tree_mobile/market/modalChart.dart';
