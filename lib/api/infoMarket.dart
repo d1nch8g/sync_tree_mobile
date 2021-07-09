@@ -28,11 +28,11 @@ class Market {
 }
 
 class Trade {
-  int buyPrice;
-  int sellPrice;
+  int offer;
+  int recieve;
   Trade(
-    this.buyPrice,
-    this.sellPrice,
+    this.offer,
+    this.recieve,
   );
 }
 
