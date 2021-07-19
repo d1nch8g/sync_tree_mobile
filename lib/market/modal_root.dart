@@ -23,16 +23,24 @@ class _ModalMarketSheetState extends State<ModalMarketSheet> {
   String maxBuyOffer = '';
   String maxRecieveOffer = '';
 
-  void getMaxBuyAndRecieve() async {
+  void updateMainBalance() async {
     var prefs = await SharedPreferences.getInstance();
     var mainBalance = prefs.getInt('balance') ?? 0;
+    if (this.mounted) {
+      setState(() {
+        maxBuyOffer = mainBalance.toString();
+      });
+    }
+  }
+
+  void updateMarketBalance() async {
+    var prefs = await SharedPreferences.getInstance();
     var marketBalance = prefs.getInt(
           base64.encode(this.widget.market.adress),
         ) ??
         0;
     if (this.mounted) {
       setState(() {
-        maxBuyOffer = mainBalance.toString();
         maxRecieveOffer = marketBalance.toString();
       });
     }
@@ -75,7 +83,10 @@ class _ModalMarketSheetState extends State<ModalMarketSheet> {
   void startBalanceChecking() {
     mainStream.listen((event) {
       if (event == 'balanceEvent') {
-        getMaxBuyAndRecieve();
+        updateMainBalance();
+      }
+      if (event == base64.encode(this.widget.market.adress)) {
+        updateMarketBalance();
       }
     });
   }
@@ -83,7 +94,7 @@ class _ModalMarketSheetState extends State<ModalMarketSheet> {
   @override
   void initState() {
     setButtons();
-    getMaxBuyAndRecieve();
+    updateMainBalance();
     startBalanceChecking();
     super.initState();
   }

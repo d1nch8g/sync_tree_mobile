@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animations/animations.dart';
 import 'package:sync_tree_mobile/api/infoMarket.dart';
 import 'package:sync_tree_mobile/balance/page.dart';
+import 'package:sync_tree_mobile/navigator.dart';
 
 class BalanceBox extends StatefulWidget {
   final Market market;
@@ -19,11 +20,21 @@ class _BalanceBoxState extends State<BalanceBox> {
   late Widget imageWidget;
   int imgAnimationDuration = 610;
 
-  void initBalance() async {
+  void updateBalance() async {
     var prefs = await SharedPreferences.getInstance();
     var balance = prefs.getInt(base64.encode(this.widget.market.adress)) ?? 0;
-    setState(() {
-      curBalance = balance.toString();
+    if (this.mounted) {
+      setState(() {
+        curBalance = balance.toString();
+      });
+    }
+  }
+
+  void startListeningBalanceChanging() {
+    mainStream.listen((event) {
+      if (event == base64.encode(this.widget.market.adress)) {
+        updateBalance();
+      }
     });
   }
 
@@ -50,7 +61,7 @@ class _BalanceBoxState extends State<BalanceBox> {
   void initState() {
     imageWidget = UnfoldedImage(this.widget.market.img);
     super.initState();
-    initBalance();
+    updateBalance();
   }
 
   @override
