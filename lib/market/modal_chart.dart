@@ -7,20 +7,23 @@ class TradesBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChartModule(market);
-    // if (market.buys.isEmpty && market.sells.isEmpty) {
-    //   return SizedBox(
-    //     height: MediaQuery.of(context).size.height * 0.32,
-    //     child: Center(
-    //       child: Text(
-    //         'No active trades',
-    //         style: Theme.of(context).textTheme.headline1,
-    //       ),
-    //     ),
-    //   );
-    // } else {
-
-    // }
+    if (market.buys.isEmpty && market.sells.isEmpty) {
+      return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.32,
+        child: Center(
+          child: Text(
+            'No active trades',
+            style: Theme.of(context).textTheme.headline1,
+          ),
+        ),
+      );
+    }
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.32,
+      child: Center(
+        child: Text('No active trades'),
+      ),
+    );
   }
 }
 

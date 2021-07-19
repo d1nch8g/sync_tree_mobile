@@ -76,7 +76,6 @@ class Wallets extends StatefulWidget {
 class _WalletsState extends State<Wallets> {
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   List<Market> markets = [];
-
   void loadAllMarkets() async {
     var prefs = await SharedPreferences.getInstance();
     var adresses = prefs.getStringList('wallets') ?? [];
@@ -98,7 +97,7 @@ class _WalletsState extends State<Wallets> {
   @override
   void initState() {
     super.initState();
-    updateMarkets();
+    updateSelfInformation();
     loadAllMarkets();
   }
 

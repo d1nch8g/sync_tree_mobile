@@ -22,6 +22,24 @@ var routeMap = <String, WidgetBuilder>{
 var mainStreamController = StreamController<String>.broadcast();
 var mainStream = mainStreamController.stream;
 
+///                    ===[MAIN STREAM DESCRIPTION]===
+///    This stream is main, and is ruling the whole app dynamic conditions.
+/// If something needs to be changed independantly of the position in the
+/// widget tree (hard to stick with linear dependency), than this stream is
+/// gonna help. This stream contains 'string' events, representing changes in
+/// some conditions. Due to changes in those 'conditions', some actions may be
+/// triggered.
+///     Listing:
+/// 1) pubNameEvent - event, representing that public name in memory has been
+/// updated. Public name in prefs - 'pubName'
+/// 2) balanceEvent - event, representing that main balance has been updated
+/// in memory. Balance in prefs - 'balance'
+/// 3) `id` - event, that contains some market id represented in base64,
+/// represents memory change in balance of some specific market. Market
+/// balance in prefs - 'id'
+/// 4) marketsEvent - event, representing the changes in currently connected
+/// markets. Markets in prefs - 'markets'
+
 class PrimaryPage extends StatefulWidget {
   @override
   _PrimaryPageState createState() => _PrimaryPageState();
@@ -34,7 +52,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
   void checkFirstLaunch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var firstLaunch = prefs.getBool('firstLaunch') ?? true;
-    prefs.setBool('firstLaunch', false); // change to true to go to start
+    prefs.setBool('firstLaunch', false);
     if (firstLaunch) {
       Navigator.pushNamed(context, '/hello');
     }

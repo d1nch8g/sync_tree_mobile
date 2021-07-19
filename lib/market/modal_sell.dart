@@ -54,7 +54,7 @@ class SellOverlayState extends State<SellOverlay>
       Future.delayed(Duration(milliseconds: 233), () {
         Navigator.pop(context);
       });
-      userUpdateSelfBalance();
+      updateSelfInformation();
     } else {
       setState(() {
         currentContent = Icon(

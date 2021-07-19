@@ -28,57 +28,34 @@ Future<String> userFindName(String adress) async {
   }
 }
 
-Future<Int64> userUpdateSelfBalance() async {
+Future updateSelfInformation() async {
   try {
-    var prefs = await SharedPreferences.getInstance();
     var crypt = Crypt();
-    var personalAdress = await crypt.getPersonalAdress();
-    final response = await stub.infoUser(
+    var persAdress = await crypt.getPersonalAdress();
+    final persInfo = await stub.infoUser(
       InfoUserRequest(
-        adress: base64.decode(personalAdress),
+        adress: base64.decode(persAdress),
       ),
       options: CallOptions(
         timeout: Duration(milliseconds: 2584),
       ),
     );
-    prefs.setInt(
-      'balance',
-      response.balance.toInt(),
-    );
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString('pubName', persInfo.publicName);
+    mainStreamController.add('pubNameEvent');
+    prefs.setInt('balance', persInfo.balance.toInt());
     mainStreamController.add('balanceEvent');
-    return response.balance;
-  } catch (e) {
-    var prefs = await SharedPreferences.getInstance();
-    var lastBalance = prefs.getInt('balance');
-    return Int64(lastBalance ?? 0);
-  }
-}
-
-updateMarkets() async {
-  try {
-    var prefs = await SharedPreferences.getInstance();
-    var crypt = Crypt();
-    var personalAdress = await crypt.getPersonalAdress();
-    final response = await stub.infoUser(
-      InfoUserRequest(
-        adress: base64.decode(personalAdress),
-      ),
-      options: CallOptions(
-        timeout: Duration(milliseconds: 2584),
-      ),
-    );
-    Map<Uint8List, int> balances = {};
-    for (var i = 0; i < response.marketAdresses.length; i++) {
-      var adress = Uint8List.fromList(response.marketAdresses[i]);
-      balances[adress] = response.marketBalances[i].toInt();
+    List<String> allMarkets = [];
+    for (var i = 0; i < persInfo.marketAdresses.length; i++) {
+      var adress = base64.encode(persInfo.marketAdresses[i]);
       prefs.setInt(
-        base64.encode(response.marketAdresses[i]),
-        response.marketBalances[i].toInt(),
+        adress,
+        persInfo.marketBalances[i].toInt(),
       );
+      mainStreamController.add(adress);
+      allMarkets.add(adress);
     }
-    balances.keys.forEach((key) {
-      var balances = prefs.getStringList('wallets') ?? [];
-      balances.add(base64.encode(key));
-    });
-  } catch (e) {}
+    prefs.setStringList('markets', allMarkets);
+    mainStreamController.add('marketsEvent');
+  } catch (Exception) {}
 }
