@@ -95,6 +95,7 @@ class _ModalMarketSheetState extends State<ModalMarketSheet> {
   void initState() {
     setButtons();
     updateMainBalance();
+    updateMarketBalance();
     startBalanceChecking();
     super.initState();
   }

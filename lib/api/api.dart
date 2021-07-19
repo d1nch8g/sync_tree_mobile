@@ -7,7 +7,7 @@ import 'package:sync_tree_mobile/api/api.pbgrpc.dart';
 // office  192.168.60.74
 
 final channel = ClientChannel(
-  '192.168.60.74',
+  '192.168.1.66',
   port: 50051,
   options: ChannelOptions(
     credentials: ChannelCredentials.insecure(),

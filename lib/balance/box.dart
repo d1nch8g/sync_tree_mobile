@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animations/animations.dart';
 import 'package:sync_tree_mobile/api/infoMarket.dart';
+import 'package:sync_tree_mobile/api/infoUser.dart';
 import 'package:sync_tree_mobile/balance/page.dart';
 import 'package:sync_tree_mobile/navigator.dart';
 
@@ -62,6 +63,7 @@ class _BalanceBoxState extends State<BalanceBox> {
     imageWidget = UnfoldedImage(this.widget.market.img);
     super.initState();
     updateBalance();
+    updateSelfInformation();
   }
 
   @override
