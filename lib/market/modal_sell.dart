@@ -1,8 +1,9 @@
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/api/infoMarket.dart';
-import 'package:sync_tree_mobile/api/infoUser.dart';
-import 'package:sync_tree_mobile/api/sell.dart';
+
+import '../_calls/infoMarket.dart';
+import '../_calls/infoUser.dart';
+import '../_calls/sell.dart';
 
 class SellButton extends StatelessWidget {
   final Market market;

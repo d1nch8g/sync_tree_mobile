@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/api/hasTrades.dart';
 
-import 'package:sync_tree_mobile/api/infoMarket.dart';
+import '../_calls/hasTrades.dart';
+import '../_calls/infoMarket.dart';
+
 import 'package:sync_tree_mobile/market/modal_buy.dart';
 import 'package:sync_tree_mobile/market/modal_cancel.dart';
 import 'package:sync_tree_mobile/market/modal_sell.dart';

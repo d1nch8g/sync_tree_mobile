@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sync_tree_mobile/api/cancelTrade.dart';
-import 'package:sync_tree_mobile/api/infoMarket.dart';
+
+import '../_calls/cancelTrade.dart';
+import '../_calls/infoMarket.dart';
 
 class CancelTradesButton extends StatelessWidget {
   final Market market;

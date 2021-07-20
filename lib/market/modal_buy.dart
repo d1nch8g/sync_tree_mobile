@@ -1,8 +1,9 @@
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/api/buy.dart';
-import 'package:sync_tree_mobile/api/infoMarket.dart';
-import 'package:sync_tree_mobile/api/infoUser.dart';
+
+import '../_calls/buy.dart';
+import '../_calls/infoMarket.dart';
+import '../_calls/infoUser.dart';
 
 class BuyButton extends StatelessWidget {
   final Market market;
