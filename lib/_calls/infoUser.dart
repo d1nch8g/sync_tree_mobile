@@ -5,11 +5,11 @@ import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/navigator.dart';
-import '../crypt.dart';
+import '../_local/crypt.dart';
 
-import '../api/api.pb.dart';
-import '../api/api.pbgrpc.dart';
-import '../api/api.dart';
+import '../_api/api.pb.dart';
+import '../_api/api.pbgrpc.dart';
+import '../_api/api.dart';
 
 Future<String> userFindName(String adress) async {
   try {
@@ -30,8 +30,7 @@ Future<String> userFindName(String adress) async {
 
 Future updateSelfInformation() async {
   try {
-    var crypt = Crypt();
-    var persAdress = await crypt.getPersonalAdress();
+    var persAdress = await getPersonalAdress();
     final persInfo = await stub.infoUser(
       InfoUserRequest(
         adress: base64.decode(persAdress),
