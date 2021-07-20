@@ -1,12 +1,10 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
-import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/navigator.dart';
-import '../_local/crypt.dart';
 
+import '../_local/crypt.dart';
 import '../_api/api.pb.dart';
 import '../_api/api.pbgrpc.dart';
 import '../_api/api.dart';
