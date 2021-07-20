@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animations/animations.dart';
-import 'package:sync_tree_mobile/api/infoMarket.dart';
-import 'package:sync_tree_mobile/api/infoUser.dart';
-import 'package:sync_tree_mobile/balance/page.dart';
-import 'package:sync_tree_mobile/navigator.dart';
+
+import '../_calls/infoMarket.dart';
+import '../_calls/infoUser.dart';
+import '../balance/page.dart';
+import '../navigator.dart';
 
 class BalanceBox extends StatefulWidget {
   final Market market;
