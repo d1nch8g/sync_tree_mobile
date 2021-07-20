@@ -1,5 +1,5 @@
 import 'package:grpc/grpc.dart';
-import 'package:sync_tree_mobile/api/api.pbgrpc.dart';
+import '../_api/api.pbgrpc.dart';
 
 // home    192.168.1.66
 // cafe    10.5.7.140
@@ -7,7 +7,7 @@ import 'package:sync_tree_mobile/api/api.pbgrpc.dart';
 // office  192.168.60.74
 
 final channel = ClientChannel(
-  '192.168.1.66',
+  '192.168.60.74',
   port: 50051,
   options: ChannelOptions(
     credentials: ChannelCredentials.insecure(),
