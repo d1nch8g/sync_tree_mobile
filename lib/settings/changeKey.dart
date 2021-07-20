@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 import 'package:clipboard/clipboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/api/infoUser.dart';
-import 'package:sync_tree_mobile/navigator.dart';
 
-import '../security/pin.dart';
-import '../crypt.dart';
+import '../_calls/infoUser.dart';
+import '../_local/pin.dart';
+import '../_local/crypt.dart';
+import '../_local/keys.dart';
+
+import 'package:sync_tree_mobile/navigator.dart';
 
 class ChangeKeyTile extends StatelessWidget {
   @override
@@ -149,16 +151,15 @@ class KeyCopyContent extends StatefulWidget {
 
 class _KeyCopyContentState extends State<KeyCopyContent> {
   late Widget buttonToAnimate;
-  final crypt = Crypt();
 
   onPressAction(context) async {
     var allKeys = await FlutterClipboard.paste();
-    if (crypt.checkAllKeys(allKeys)) {
-      var persPub = crypt.keyToBytes(allKeys.split('|')[1]);
-      var persAdress = crypt.hash(persPub);
+    if (checkAllKeys(allKeys)) {
+      var persPub = keyToBytes(allKeys.split('|')[1]);
+      var persAdress = hash(persPub);
       var newName = await userFindName(base64.encode(persAdress));
       if (newName != "====") {
-        crypt.saveSingleStringKeys(allKeys);
+        saveSingleStringKeys(allKeys);
         setState(() {
           buttonToAnimate = SucessButton();
         });

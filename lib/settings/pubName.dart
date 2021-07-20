@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/api/update.dart';
 
-import '../security/pin.dart';
-import '../security/filter.dart';
+import '../_calls/update.dart';
+import '../_local/pin.dart';
+import '../_local/filter.dart';
 import '../navigator.dart';
 
 class PublicNameTile extends StatelessWidget {

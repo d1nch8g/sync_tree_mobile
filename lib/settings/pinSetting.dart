@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../security/pin.dart';
+import '../_local/pin.dart';
 
 class SetPinTile extends StatelessWidget {
   @override

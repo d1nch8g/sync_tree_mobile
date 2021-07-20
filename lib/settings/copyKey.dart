@@ -1,16 +1,14 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 
-import 'package:sync_tree_mobile/crypt.dart';
-import '../security/pin.dart';
+import '../_local/keys.dart';
+import '../_local/pin.dart';
 
 class CopyKeyTile extends StatelessWidget {
-  final crypt = Crypt();
-
   Future<String> getAllKeysString() async {
-    var singleKeyString = await crypt.getSingleStringSavedKeys();
+    var singleKeyString = await getSingleStringSavedKeys();
     return singleKeyString;
   }
 

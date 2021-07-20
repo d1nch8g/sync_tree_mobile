@@ -1,11 +1,11 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:sync_tree_mobile/api/create.dart';
 
-import '../security/pin.dart';
-import '../crypt.dart';
+import '../_calls/create.dart';
+import '../_local/pin.dart';
+import '../_local/keys.dart';
 
 class GenerateKeyTile extends StatelessWidget {
   @override
@@ -148,7 +148,6 @@ class KeyBuilderContent extends StatefulWidget {
 
 class _KeyBuilderContentState extends State<KeyBuilderContent> {
   Widget currentWidget = KeysNotReady();
-  Crypt crypt = Crypt();
   late var newKeys;
   late var oldKeys;
 
@@ -159,13 +158,13 @@ class _KeyBuilderContentState extends State<KeyBuilderContent> {
   }
 
   void buildKeys() async {
-    newKeys = await crypt.generateKeys();
+    newKeys = await generateKeys();
     tryToUpload();
   }
 
   void tryToUpload() async {
-    crypt.saveAllKeys(newKeys);
-    oldKeys = await crypt.getAllKeys();
+    saveAllKeys(newKeys);
+    oldKeys = await getAllKeys();
     var response = await userCreate();
     if (response) {
       changeWidget();
@@ -173,7 +172,7 @@ class _KeyBuilderContentState extends State<KeyBuilderContent> {
         Navigator.pop(context);
       });
     } else {
-      crypt.saveAllKeys(oldKeys);
+      saveAllKeys(oldKeys);
       showDialog(
         context: context,
         builder: (_) => UserNotCreatedOverlay(() {
