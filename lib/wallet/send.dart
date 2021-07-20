@@ -2,10 +2,11 @@ import 'package:clipboard/clipboard.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/api/infoUser.dart';
-import 'package:sync_tree_mobile/api/send.dart';
-import 'package:sync_tree_mobile/navigator.dart';
-import 'package:sync_tree_mobile/security/pin.dart';
+
+import '../_calls/infoUser.dart';
+import '../_calls/send.dart';
+import '../navigator.dart';
+import '../_local/pin.dart';
 
 class SendButton extends StatelessWidget {
   @override

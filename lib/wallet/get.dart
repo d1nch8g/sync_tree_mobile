@@ -1,6 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/crypt.dart';
+
+import '../_local/crypt.dart';
 
 class GetButton extends StatelessWidget {
   @override
@@ -63,8 +64,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   late Widget currentWidget;
 
   void copyAdressToClipboard() async {
-    var crypt = Crypt();
-    var adress = await crypt.getPersonalAdress();
+    var adress = await getPersonalAdress();
     FlutterClipboard.copy(adress);
     setState(() {
       currentWidget = KeyIsCopied();

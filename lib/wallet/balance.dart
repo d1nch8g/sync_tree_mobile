@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile/api/infoUser.dart';
-import 'package:sync_tree_mobile/navigator.dart';
+
+import '../_calls/infoUser.dart';
+import '../navigator.dart';
 
 class DynamicBalance extends StatefulWidget {
   @override
