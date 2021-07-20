@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:sync_tree_mobile/crypt.dart';
+import '../_local/keys.dart';
 
 class IntroPage extends StatelessWidget {
   void createKeys() async {
-    var crypt = Crypt();
-    var keys = await crypt.generateKeys();
-    crypt.saveAllKeys(keys);
+    var keys = await generateKeys();
+    saveAllKeys(keys);
   }
 
   @override
