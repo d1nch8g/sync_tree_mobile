@@ -3,18 +3,18 @@ import 'dart:typed_data';
 import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../crypt.dart';
 
-import '../api/api.pb.dart';
-import '../api/api.pbgrpc.dart';
-import '../api/api.dart';
+import '../_local/keys.dart';
+import '../_local/crypt.dart';
+import '../_api/api.pb.dart';
+import '../_api/api.pbgrpc.dart';
+import '../_api/api.dart';
 
 Future<bool> userBuy(Uint8List adress, Int64 offer, Int64 recieve) async {
   try {
-    var crypt = Crypt();
     var prefs = await SharedPreferences.getInstance();
     var persPubString = prefs.getString('persPub') ?? '';
-    var persPub = crypt.keyToBytes(persPubString);
+    var persPub = keyToBytes(persPubString);
     var offerBytes = offer.toBytes();
     var recieveBytes = recieve.toBytes();
     var concatmessage1 = Uint8List.fromList(
@@ -25,7 +25,7 @@ Future<bool> userBuy(Uint8List adress, Int64 offer, Int64 recieve) async {
         ..addAll(offerBytes),
     );
     var persPrivString = prefs.getString('persPriv') ?? '';
-    var sign = crypt.signMessage(persPrivString, concatmessage1);
+    var sign = signMessage(persPrivString, concatmessage1);
     final response = await stub.userBuy(
       UserBuyRequest(
         publicKey: persPub,
