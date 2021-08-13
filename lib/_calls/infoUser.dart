@@ -9,50 +9,46 @@ import '../_api/api.pb.dart';
 import '../_api/api.pbgrpc.dart';
 import '../_api/api.dart';
 
-Future<String> userFindName(String adress) async {
-  try {
-    var adressAsBytes = base64.decode(adress);
-    final response = await stub.infoUser(
-      InfoUserRequest(
-        adress: adressAsBytes,
-      ),
-      options: CallOptions(
-        timeout: Duration(milliseconds: 2584),
-      ),
-    );
-    return response.publicName;
-  } catch (Exception) {
-    return '====';
-  }
+Future<String> userFindName(context, String adress) async {
+  var stub = getStub(context);
+  var adressAsBytes = base64.decode(adress);
+  final response = await stub.infoUser(
+    InfoUserRequest(
+      adress: adressAsBytes,
+    ),
+    options: CallOptions(
+      timeout: Duration(milliseconds: 2584),
+    ),
+  );
+  return response.publicName;
 }
 
-Future updateSelfInformation() async {
-  try {
-    var persAdress = await getPersonalAdress();
-    final persInfo = await stub.infoUser(
-      InfoUserRequest(
-        adress: base64.decode(persAdress),
-      ),
-      options: CallOptions(
-        timeout: Duration(milliseconds: 2584),
-      ),
+Future updateSelfInformation(context) async {
+  var stub = getStub(context);
+  var persAdress = await getPersonalAdress();
+  final persInfo = await stub.infoUser(
+    InfoUserRequest(
+      adress: base64.decode(persAdress),
+    ),
+    options: CallOptions(
+      timeout: Duration(milliseconds: 2584),
+    ),
+  );
+  var prefs = await SharedPreferences.getInstance();
+  prefs.setString('pubName', persInfo.publicName);
+  mainStreamController.add('pubNameEvent');
+  prefs.setInt('balance', persInfo.balance.toInt());
+  mainStreamController.add('balanceEvent');
+  List<String> allMarkets = [];
+  for (var i = 0; i < persInfo.marketAdresses.length; i++) {
+    var adress = base64.encode(persInfo.marketAdresses[i]);
+    prefs.setInt(
+      adress,
+      persInfo.marketBalances[i].toInt(),
     );
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setString('pubName', persInfo.publicName);
-    mainStreamController.add('pubNameEvent');
-    prefs.setInt('balance', persInfo.balance.toInt());
-    mainStreamController.add('balanceEvent');
-    List<String> allMarkets = [];
-    for (var i = 0; i < persInfo.marketAdresses.length; i++) {
-      var adress = base64.encode(persInfo.marketAdresses[i]);
-      prefs.setInt(
-        adress,
-        persInfo.marketBalances[i].toInt(),
-      );
-      mainStreamController.add(adress);
-      allMarkets.add(adress);
-    }
-    prefs.setStringList('markets', allMarkets);
-    mainStreamController.add('marketsEvent');
-  } catch (Exception) {}
+    mainStreamController.add(adress);
+    allMarkets.add(adress);
+  }
+  prefs.setStringList('markets', allMarkets);
+  mainStreamController.add('marketsEvent');
 }
