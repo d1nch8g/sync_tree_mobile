@@ -39,43 +39,47 @@ class BuyOverlayState extends State<BuyOverlay>
   final TextEditingController recieveController = TextEditingController();
 
   void placeOrder() async {
-    var response = await userBuy(
-      this.widget.market.adress,
-      Int64.parseInt(offerController.text),
-      Int64.parseInt(recieveController.text),
-    );
-    if (response) {
-      setState(() {
-        currentContent = Icon(
-          Icons.check_circle_outline_rounded,
-          size: MediaQuery.of(context).size.width * 0.32,
-          color: Theme.of(context).focusColor,
-        );
-      });
-      Future.delayed(Duration(milliseconds: 233), () {
-        Navigator.pop(context);
-      });
-      updateSelfInformation();
-    } else {
-      setState(() {
-        currentContent = Icon(
-          Icons.do_disturb,
-          size: MediaQuery.of(context).size.width * 0.32,
-          color: Theme.of(context).focusColor,
-        );
-      });
-      Future.delayed(Duration(milliseconds: 610), () {
+    try {
+      var response = await userBuy(
+        this.widget.market.adress,
+        Int64.parseInt(offerController.text),
+        Int64.parseInt(recieveController.text),
+      );
+      if (response) {
         setState(() {
-          currentContent = OfferRecieveConfirmContent(
-            offerController,
-            recieveController,
-            this.widget.market,
-            () {
-              placeOrder();
-            },
+          currentContent = Icon(
+            Icons.check_circle_outline_rounded,
+            size: MediaQuery.of(context).size.width * 0.32,
+            color: Theme.of(context).focusColor,
           );
         });
-      });
+        Future.delayed(Duration(milliseconds: 233), () {
+          Navigator.pop(context);
+        });
+        updateSelfInformation();
+      } else {
+        setState(() {
+          currentContent = Icon(
+            Icons.do_disturb,
+            size: MediaQuery.of(context).size.width * 0.32,
+            color: Theme.of(context).focusColor,
+          );
+        });
+        Future.delayed(Duration(milliseconds: 610), () {
+          setState(() {
+            currentContent = OfferRecieveConfirmContent(
+              offerController,
+              recieveController,
+              this.widget.market,
+              () {
+                placeOrder();
+              },
+            );
+          });
+        });
+      }
+    } catch (Exception) {
+      
     }
   }
 

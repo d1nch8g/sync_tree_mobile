@@ -36,27 +36,25 @@ class Trade {
   );
 }
 
-Future<List<Uint8List>> searchMarketAdresses(String name) async {
-  try {
-    final response = await stub.infoSearch(
-      InfoSearchRequest(
-        info: name,
-      ),
-      options: CallOptions(
-        timeout: Duration(milliseconds: 2584),
-      ),
-    );
-    List<Uint8List> markets = [];
-    for (var i = 0; i < response.concMarkets.length; i++) {
-      markets.add(Uint8List.fromList(response.concMarkets[i]));
-    }
-    return markets;
-  } catch (Exception) {
-    return [];
+Future<List<Uint8List>> searchMarketAdresses(context, String name) async {
+  var stub = getStub(context);
+  final response = await stub.infoSearch(
+    InfoSearchRequest(
+      info: name,
+    ),
+    options: CallOptions(
+      timeout: Duration(milliseconds: 2584),
+    ),
+  );
+  List<Uint8List> markets = [];
+  for (var i = 0; i < response.concMarkets.length; i++) {
+    markets.add(Uint8List.fromList(response.concMarkets[i]));
   }
+  return markets;
 }
 
-Future<Market> getMarketInformation(Uint8List adress) async {
+Future<Market> getMarketInformation(context, Uint8List adress) async {
+  var stub = getStub(context);
   final response = await stub.infoMarket(
     InfoMarketRequest(
       adress: adress,

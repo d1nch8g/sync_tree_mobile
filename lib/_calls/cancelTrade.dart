@@ -9,7 +9,7 @@ import '../_api/api.pb.dart';
 import '../_api/api.pbgrpc.dart';
 import '../_api/api.dart';
 
-Future<bool> userCancelTrade(Uint8List marketAdress) async {
+Future<bool> userCancelTrade(context, Uint8List marketAdress) async {
   try {
     var keys = await getAllKeys();
     var persPub = keyToBytes(keys[Key.PersonalPublicKey]!);
@@ -19,6 +19,7 @@ Future<bool> userCancelTrade(Uint8List marketAdress) async {
     var prefs = await SharedPreferences.getInstance();
     var persPrivString = prefs.getString('persPriv') ?? '';
     var sign = signMessage(persPrivString, concatmessage1);
+    var stub = getStub(context);
     final response = await stub.userCancelTrade(
       UserCancelTradeRequest(
         publicKey: persPub,
