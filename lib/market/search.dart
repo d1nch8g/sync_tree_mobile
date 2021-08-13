@@ -20,7 +20,10 @@ class _SearchModuleState extends State<SearchModule> {
   var controller = TextEditingController();
 
   void getMarkets(context) async {
-    var rez = await searchMarketAdresses(controller.text);
+    var rez = await searchMarketAdresses(
+      context,
+      controller.text,
+    );
     var checkRez = rezToBase64(rez);
     for (var i = markets.length - 1; i >= 0; i--) {
       if (checkRez.contains(base64.encode(markets[i].adress))) {
@@ -31,7 +34,7 @@ class _SearchModuleState extends State<SearchModule> {
       }
     }
     for (var i = 0; i < rez.length; i++) {
-      var market = await getMarketInformation(rez[i]);
+      var market = await getMarketInformation(context, rez[i]);
       await addItem(context, market);
     }
   }

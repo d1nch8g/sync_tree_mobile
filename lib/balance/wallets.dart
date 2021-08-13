@@ -81,7 +81,10 @@ class _WalletsState extends State<Wallets> {
     var prefs = await SharedPreferences.getInstance();
     var adresses = prefs.getStringList('wallets') ?? [];
     for (var i = 0; i < adresses.length; i++) {
-      var market = await getMarketInformation(base64.decode(adresses[i]));
+      var market = await getMarketInformation(
+        context,
+        base64.decode(adresses[i]),
+      );
       markets.add(market);
       listKey.currentState?.insertItem(
         i,
@@ -98,7 +101,7 @@ class _WalletsState extends State<Wallets> {
   @override
   void initState() {
     super.initState();
-    updateSelfInformation();
+    updateSelfInformation(context);
     loadAllMarkets();
   }
 

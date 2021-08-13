@@ -64,7 +64,7 @@ class _BalanceBoxState extends State<BalanceBox> {
     imageWidget = UnfoldedImage(this.widget.market.img);
     super.initState();
     updateBalance();
-    updateSelfInformation();
+    updateSelfInformation(context);
   }
 
   @override

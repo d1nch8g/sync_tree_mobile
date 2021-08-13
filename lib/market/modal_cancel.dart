@@ -36,7 +36,7 @@ class CancelTradesOverlayState extends State<CancelTradesOverlay>
   late Widget currentContent;
 
   void cancelTrade() async {
-    var canceled = await userCancelTrade(this.widget.market.adress);
+    var canceled = await userCancelTrade(context, this.widget.market.adress);
     if (canceled) {
       setState(() {
         currentContent = CanceledIcon();

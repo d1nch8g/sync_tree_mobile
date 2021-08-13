@@ -40,6 +40,7 @@ class SellOverlayState extends State<SellOverlay>
 
   void placeOrder() async {
     var response = await userSell(
+      context,
       this.widget.market.adress,
       Int64.parseInt(offerController.text),
       Int64.parseInt(recieveController.text),
@@ -55,7 +56,7 @@ class SellOverlayState extends State<SellOverlay>
       Future.delayed(Duration(milliseconds: 233), () {
         Navigator.pop(context);
       });
-      updateSelfInformation();
+      updateSelfInformation(context);
     } else {
       setState(() {
         currentContent = Icon(

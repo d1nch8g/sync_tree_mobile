@@ -68,7 +68,7 @@ class _ModalMarketSheetState extends State<ModalMarketSheet> {
       });
     });
     if (wallets.contains(adr)) {
-      var hasSomeTrades = await hasTrades(this.widget.market.adress);
+      var hasSomeTrades = await hasTrades(context, this.widget.market.adress);
       if (hasSomeTrades) {
         setState(() {
           currentButtons = BuySellCancelButtons(this.widget.market);
