@@ -103,7 +103,10 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   }
 
   void onAdressTypingEnd() async {
-    var name = await userFindName(adressTextController.text);
+    var name = await userFindName(
+      context,
+      adressTextController.text,
+    );
     if (name != '====') {
       setState(() {
         adressWidget = Text(
@@ -192,6 +195,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   void onSendButtonPress() async {
     var sendAmount = Int64.parseInt(amountTextController.text);
     var succeded = await userSend(
+      context,
       adressTextController.text,
       sendAmount,
     );

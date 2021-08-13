@@ -31,7 +31,7 @@ class _DynamicBalanceState extends State<DynamicBalance> {
   void initState() {
     loadFromMemory();
     startStreamListening();
-    updateSelfInformation();
+    updateSelfInformation(context);
     super.initState();
   }
 
