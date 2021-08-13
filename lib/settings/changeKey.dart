@@ -157,7 +157,10 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
     if (checkAllKeys(allKeys)) {
       var persPub = keyToBytes(allKeys.split('|')[1]);
       var persAdress = hash(persPub);
-      var newName = await userFindName(base64.encode(persAdress));
+      var newName = await userFindName(
+        context,
+        base64.encode(persAdress),
+      );
       if (newName != "====") {
         saveSingleStringKeys(allKeys);
         setState(() {

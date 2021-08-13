@@ -55,7 +55,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
       var prefs = await SharedPreferences.getInstance();
       var previousName = prefs.getString('pubName')!;
       prefs.setString('pubName', textController.text);
-      var nameChangedSuccessfully = await userUpdate();
+      var nameChangedSuccessfully = await userUpdate(context);
       if (nameChangedSuccessfully) {
         setState(() {
           currentWidget = NameReadyWidget();
@@ -68,10 +68,6 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
         });
       } else {
         prefs.setString('pubName', previousName);
-        showDialog(
-          context: context,
-          builder: (_) => ConccectionErrorOverlay(),
-        );
       }
     }
   }
