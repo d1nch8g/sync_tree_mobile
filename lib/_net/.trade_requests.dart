@@ -101,23 +101,3 @@ Future<bool> userCancelTrade(context, Uint8List marketAdress) async {
     return false;
   }
 }
-
-Future<bool> hasTrades(context, Uint8List market) async {
-  try {
-    var adress = await getPersonalAdress();
-    var user = base64.decode(adress);
-    var stub = getStub(context);
-    final response = await stub.infoHasTrades(
-      InfoHasTradesRequest(
-        userAdress: user,
-        marketAdress: market,
-      ),
-      options: CallOptions(
-        timeout: Duration(milliseconds: 2584),
-      ),
-    );
-    return response.passed;
-  } catch (Exception) {
-    return false;
-  }
-}
