@@ -23,10 +23,10 @@ service SyncTree{
     rpc UserDeposit(UserDepositRequest) returns (Response) {}
     rpc UserWithdrawal(UserWithdrawalRequest) returns (Response) {}
     rpc UserSendMessage(UserSendMessageRequest) returns (Response) {}
-    rpc UserGetMessages(UserGetMessagesRequest) returns (Messages) {}
     rpc UserBuy(UserBuyRequest) returns (Response) {}
     rpc UserSell(UserSellRequest) returns (Response) {}
     rpc UserCancelTrade(UserCancelTradeRequest) returns (Response) {}
+    rpc UserGetMessages(UserGetMessagesRequest) returns (Messages) {}
 
     rpc MarketCraete(MarketCreateRequest) returns (Response) {}
     rpc MarketUpdate(MarketUpdateRequest) returns (Response) {}

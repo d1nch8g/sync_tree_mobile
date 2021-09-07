@@ -35,10 +35,12 @@ class MarketInfo {
   List<SingleTrade> getAllBuys() {
     List<SingleTrade> tradeList = [];
     for (var i = 0; i < buys.length / 2; i++) {
-      tradeList.add(SingleTrade(
-        buys[i] * 2,
-        buys[i] * 2 + 1,
-      ));
+      tradeList.add(
+        SingleTrade(
+          buys[i] * 2,
+          buys[i] * 2 + 1,
+        ),
+      );
     }
     return tradeList;
   }
@@ -46,16 +48,21 @@ class MarketInfo {
   List<SingleTrade> getAllSells() {
     List<SingleTrade> tradeList = [];
     for (var i = 0; i < sells.length / 2; i++) {
-      tradeList.add(SingleTrade(
-        sells[i] * 2,
-        sells[i] * 2 + 1,
-      ));
+      tradeList.add(
+        SingleTrade(
+          sells[i] * 2,
+          sells[i] * 2 + 1,
+        ),
+      );
     }
     return tradeList;
   }
 }
 
-Future<bool> infoHasTrades(Uint8List userAdress, Uint8List marketAdress) async {
+Future<bool> infoHasTrades(
+  Uint8List userAdress,
+  Uint8List marketAdress,
+) async {
   final response = await stub.infoHasTrades(
     InfoHasTradesRequest(
       userAdress: userAdress,
@@ -77,17 +84,17 @@ Future<MarketInfo> infoMarket(Uint8List marketAdress) async {
   List<int> buys = [];
   List<int> sells = [];
   for (var i = 0; i < response.buys.length; i++) {
-    buys.add(response.buys[i].toInt());
+    buys.add(response.buys[i] as int);
   }
   for (var i = 0; i < response.sells.length; i++) {
-    sells.add(response.sells[i].toInt());
+    sells.add(response.sells[i] as int);
   }
   final MarketInfo marketInfo = MarketInfo(
     response.name,
     response.mesKey,
     response.img,
     response.descr,
-    response.opCount.toInt(),
+    response.opCount as int,
     buys,
     sells,
   );
