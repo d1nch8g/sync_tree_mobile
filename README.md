@@ -21,6 +21,10 @@ And 2 local services (thus 2 folders referring to them):
 - NET - all referring to network (api, calls, etc)
 - LOCAL - local services for some inner logic
 
+Also there are
+
+Here is more detailed description of each module:
+
 
 
 

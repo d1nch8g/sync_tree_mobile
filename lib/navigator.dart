@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'market/_root.dart';
 import 'wallet/_root.dart';
 import 'settings/_root.dart';
-import 'balance/_root.dart';
 import 'start/hello.dart';
 import 'start/name.dart';
 import 'start/keys.dart';
@@ -18,27 +15,6 @@ var routeMap = <String, WidgetBuilder>{
   '/name': (BuildContext context) => NameCreation(),
   '/keys': (BuildContext context) => KeySave(),
 };
-
-var mainStreamController = StreamController<String>.broadcast();
-var mainStream = mainStreamController.stream;
-
-///                    ===[MAIN STREAM DESCRIPTION]===
-///    This stream is main, and is ruling the whole app dynamic conditions.
-/// If something needs to be changed independantly of the position in the
-/// widget tree (hard to stick with linear dependency), than this stream is
-/// gonna help. This stream contains 'string' events, representing changes in
-/// some conditions. Due to changes in those 'conditions', some actions may be
-/// triggered.
-///     Listing:
-/// 1) pubNameEvent - event, representing that public name in memory has been
-/// updated. Public name in prefs - 'pubName'
-/// 2) balanceEvent - event, representing that main balance has been updated
-/// in memory. Balance in prefs - 'balance'
-/// 3) `id` - event, that contains some market id represented in base64,
-/// represents memory change in balance of some specific market. Market
-/// balance in prefs - 'id'
-/// 4) marketsEvent - event, representing the changes in currently connected
-/// markets. Markets in prefs - 'markets'
 
 class PrimaryPage extends StatefulWidget {
   @override
@@ -97,7 +73,6 @@ class _PrimaryPageState extends State<PrimaryPage> {
           },
           children: <Widget>[
             MarketPage(),
-            BalancePage(),
             WalletPage(),
             SettingsPage(),
           ],
@@ -111,11 +86,6 @@ class _PrimaryPageState extends State<PrimaryPage> {
           BottomNavigationBarItem(
             label: 'markets',
             icon: Icon(Icons.query_stats_rounded),
-            backgroundColor: Theme.of(context).backgroundColor,
-          ),
-          BottomNavigationBarItem(
-            label: 'balance',
-            icon: Icon(Icons.credit_card_rounded),
             backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(

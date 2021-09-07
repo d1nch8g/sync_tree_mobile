@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:animations/animations.dart';
 
-import '../_calls/infoMarket.dart';
-import '../_calls/infoUser.dart';
+import '../_net/infoMarket.dart';
+import '../_net/infoUser.dart';
 import '../balance/page.dart';
-import '../navigator.dart';
+import '../stream.dart';
 
 class BalanceBox extends StatefulWidget {
   final Market market;
