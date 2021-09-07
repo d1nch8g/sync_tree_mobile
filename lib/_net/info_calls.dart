@@ -101,8 +101,53 @@ Future<List<Uint8List>> infoSearch(String info) async {
     ),
   );
   List<Uint8List> markets = [];
-  response.concMarkets.forEach((element) {
-    markets.add(Uint8List.fromList(element));
+  response.concMarkets.forEach((marketAdress) {
+    markets.add(marketAdress as Uint8List);
   });
   return markets;
+}
+
+class MarketBalance {
+  Uint8List adress;
+  int balance;
+  MarketBalance(
+    this.adress,
+    this.balance,
+  );
+}
+
+class UserInfo {
+  String name;
+  int balance;
+  Uint8List mesKey;
+  List<MarketBalance> marketBalances;
+  UserInfo(
+    this.name,
+    this.balance,
+    this.mesKey,
+    this.marketBalances,
+  );
+}
+
+Future<UserInfo> infoUser(Uint8List userAdress) async {
+  final response = await stub.infoUser(
+    InfoUserRequest(
+      adress: userAdress,
+    ),
+  );
+  List<MarketBalance> balances = [];
+  for (var i = 0; i < response.marketAdresses.length; i++) {
+    balances.add(
+      MarketBalance(
+        response.marketAdresses[i] as Uint8List,
+        response.marketBalances[i] as int,
+      ),
+    );
+  }
+  return UserInfo(
+    response.publicName,
+    response.balance as int,
+    response.mesKey as Uint8List,
+    balances,
+  );
 }
