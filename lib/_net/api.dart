@@ -18,6 +18,7 @@ final channel = ClientChannel(
         IdentityCodec(),
       ],
     ),
+    connectionTimeout: Duration(milliseconds: 384),
   ),
 );
 final stub = SyncTreeClient(channel);

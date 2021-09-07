@@ -9,7 +9,6 @@ Go gen:
 protoc api/api.proto --go-grpc_out=. --go_out=.
 Dart gen:
 protoc lib/api/api.proto --dart_out=grpc:.
-
 */
 
 service SyncTree{

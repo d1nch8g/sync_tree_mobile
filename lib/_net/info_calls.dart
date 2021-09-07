@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:grpc/grpc.dart';
 import '../_net/api.pb.dart';
 import '../_net/api.pbgrpc.dart';
@@ -53,7 +55,7 @@ class MarketInfo {
   }
 }
 
-Future<bool> infoHasTrades(List<int> userAdress, List<int> marketAdress) async {
+Future<bool> infoHasTrades(Uint8List userAdress, Uint8List marketAdress) async {
   final response = await stub.infoHasTrades(
     InfoHasTradesRequest(
       userAdress: userAdress,
@@ -64,4 +66,43 @@ Future<bool> infoHasTrades(List<int> userAdress, List<int> marketAdress) async {
     ),
   );
   return response.passed;
+}
+
+Future<MarketInfo> infoMarket(Uint8List marketAdress) async {
+  final response = await stub.infoMarket(
+    InfoMarketRequest(
+      adress: marketAdress,
+    ),
+  );
+  List<int> buys = [];
+  List<int> sells = [];
+  for (var i = 0; i < response.buys.length; i++) {
+    buys.add(response.buys[i].toInt());
+  }
+  for (var i = 0; i < response.sells.length; i++) {
+    sells.add(response.sells[i].toInt());
+  }
+  final MarketInfo marketInfo = MarketInfo(
+    response.name,
+    response.mesKey,
+    response.img,
+    response.descr,
+    response.opCount.toInt(),
+    buys,
+    sells,
+  );
+  return marketInfo;
+}
+
+Future<List<Uint8List>> infoSearch(String info) async {
+  final response = await stub.infoSearch(
+    InfoSearchRequest(
+      info: info,
+    ),
+  );
+  List<Uint8List> markets = [];
+  response.concMarkets.forEach((element) {
+    markets.add(Uint8List.fromList(element));
+  });
+  return markets;
 }
