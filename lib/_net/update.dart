@@ -3,14 +3,14 @@ import 'dart:typed_data';
 
 import 'package:grpc/grpc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sync_tree_mobile/_net/api.dart';
 
-import '../_local/keys.dart';
 import '../_local/crypt.dart';
-import '../_api/api.pb.dart';
-import '../_api/api.pbgrpc.dart';
-import '../_api/api.dart';
+import '../_local/keys.dart';
+import '../_net/api.pb.dart';
+import '../_net/api.pbgrpc.dart';
 
-Future<bool> userCreate(context) async {
+Future<bool> userUpdate(context) async {
   var prefs = await SharedPreferences.getInstance();
   var persPubString = prefs.getString('persPub') ?? '';
   var persPub = keyToBytes(persPubString);
@@ -23,8 +23,8 @@ Future<bool> userCreate(context) async {
   var persPrivString = prefs.getString('persPriv') ?? '';
   var sign = signMessage(persPrivString, concatmessage1);
   var stub = getStub(context);
-  final response = await stub.userCreate(
-    UserCreateRequest(
+  final response = await stub.userUpdate(
+    UserUpdateRequest(
       publicKey: persPub,
       messsageKey: mesPub,
       publicName: pubName,

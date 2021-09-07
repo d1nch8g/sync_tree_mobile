@@ -4,14 +4,15 @@ import 'package:fixnum/fixnum.dart';
 import 'package:grpc/grpc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../_local/keys.dart';
 import '../_local/crypt.dart';
-import '../_api/api.pb.dart';
-import '../_api/api.pbgrpc.dart';
-import '../_api/api.dart';
+import '../_local/keys.dart';
+import '../_net/api.pb.dart';
+import '../_net/api.pbgrpc.dart';
+import '../_net/api.dart';
 
-Future<bool> userBuy(
+Future<bool> userSell(
     context, Uint8List adress, Int64 offer, Int64 recieve) async {
+  var stub = getStub(context);
   var prefs = await SharedPreferences.getInstance();
   var persPubString = prefs.getString('persPub') ?? '';
   var persPub = keyToBytes(persPubString);
@@ -26,9 +27,8 @@ Future<bool> userBuy(
   );
   var persPrivString = prefs.getString('persPriv') ?? '';
   var sign = signMessage(persPrivString, concatmessage1);
-  var stub = getStub(context);
-  final response = await stub.userBuy(
-    UserBuyRequest(
+  final response = await stub.userSell(
+    UserSellRequest(
       publicKey: persPub,
       adress: adress,
       recieve: recieve,

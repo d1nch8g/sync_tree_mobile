@@ -4,9 +4,9 @@ import 'dart:typed_data';
 import 'package:grpc/grpc.dart';
 
 import '../_local/crypt.dart';
-import '../_api/api.pb.dart';
-import '../_api/api.pbgrpc.dart';
-import '../_api/api.dart';
+import '../_net/api.pb.dart';
+import '../_net/api.pbgrpc.dart';
+import '../_net/api.dart';
 
 Future<bool> hasTrades(context, Uint8List market) async {
   try {

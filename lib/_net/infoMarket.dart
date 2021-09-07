@@ -2,9 +2,9 @@ import 'dart:typed_data';
 
 import 'package:grpc/grpc.dart';
 
-import '../_api/api.pb.dart';
-import '../_api/api.pbgrpc.dart';
-import '../_api/api.dart';
+import '../_net/api.pb.dart';
+import '../_net/api.pbgrpc.dart';
+import '../_net/api.dart';
 
 class Market {
   Uint8List adress;

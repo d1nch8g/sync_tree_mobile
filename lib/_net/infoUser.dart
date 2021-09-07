@@ -5,9 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile/navigator.dart';
 
 import '../_local/crypt.dart';
-import '../_api/api.pb.dart';
-import '../_api/api.pbgrpc.dart';
-import '../_api/api.dart';
+import '../_net/api.pb.dart';
+import '../_net/api.pbgrpc.dart';
+import '../_net/api.dart';
 
 Future<String> userFindName(context, String adress) async {
   var stub = getStub(context);

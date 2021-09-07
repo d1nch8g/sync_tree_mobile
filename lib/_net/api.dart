@@ -1,7 +1,7 @@
 import 'package:grpc/grpc.dart';
 import 'package:flutter/material.dart';
 
-import '../_api/api.pbgrpc.dart';
+import '../_net/api.pbgrpc.dart';
 
 // home    192.168.1.66
 // cafe    10.5.7.140
