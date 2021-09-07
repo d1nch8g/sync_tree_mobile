@@ -47,7 +47,7 @@ class ChartModule extends StatelessWidget {
 }
 
 class Buys extends StatelessWidget {
-  List<Trade> buysList;
+  final List<Trade> buysList;
   Buys(this.buysList);
 
   @override
