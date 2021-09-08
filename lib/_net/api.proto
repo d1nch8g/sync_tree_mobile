@@ -90,9 +90,6 @@ message Messages{
 
 
 
-
-
-
 message UserCreateRequest{
     bytes PublicKey = 1;
     bytes MesssageKey = 2;
@@ -156,6 +153,8 @@ message UserSellRequest{
     uint64 Offer = 4;
     bytes Sign = 5;
 }
+
+
 
 message MarketCreateRequest{
     bytes PublicKey = 1;
