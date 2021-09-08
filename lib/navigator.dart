@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'market/_root.dart';
 import 'wallet/_root.dart';
 import 'settings/_root.dart';

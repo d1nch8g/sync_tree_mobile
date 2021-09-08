@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:sync_tree_mobile/balance/wallets.dart';
 
 class BalancePage extends StatefulWidget {

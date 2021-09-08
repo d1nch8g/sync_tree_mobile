@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../_calls/update.dart';
 import '../_local/pin.dart';
 import '../_local/filter.dart';

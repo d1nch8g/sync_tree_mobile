@@ -1,7 +1,6 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../_calls/infoUser.dart';
 import '../_calls/send.dart';

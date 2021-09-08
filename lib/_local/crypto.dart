@@ -3,7 +3,6 @@ import 'dart:typed_data';
 
 import 'package:pointycastle/pointycastle.dart';
 import 'package:basic_utils/basic_utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../_local/keys.dart';
 

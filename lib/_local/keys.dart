@@ -5,18 +5,10 @@ import 'package:pointycastle/pointycastle.dart';
 import 'dart:typed_data';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:pointycastle/random/fortuna_random.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sync_tree_mobile/_local/storage.dart';
 
-enum Key {
-  PersonalPrivateKey,
-  PersonalPublicKey,
-  MessagePrivateKey,
-  MessagePublicKey,
-}
-
-List<String> _keys(int bitLength) {
+List<String> generateKeyPair(int bitLength) {
   final secureRandom = FortunaRandom();
-
   final seedSource = Random.secure();
   final seeds = <int>[];
   for (var i = 0; i < 32; i++) {
@@ -31,42 +23,19 @@ List<String> _keys(int bitLength) {
   final pair = keyGen.generateKeyPair();
   final myPublic = pair.publicKey as RSAPublicKey;
   final myPrivate = pair.privateKey as RSAPrivateKey;
-
   var priv = CryptoUtils.encodeRSAPrivateKeyToPemPkcs1(myPrivate);
   var pub = CryptoUtils.encodeRSAPublicKeyToPemPkcs1(myPublic);
-
   return [priv, pub];
 }
 
-Future<Map<Key, String>> generateKeys() async {
-  var persKeys = await compute(_keys, 4096);
-  var mesKeys = await compute(_keys, 2048);
-  Map<Key, String> keys = {
-    Key.PersonalPrivateKey: persKeys[0],
-    Key.PersonalPublicKey: persKeys[1],
-    Key.MessagePrivateKey: mesKeys[0],
-    Key.MessagePublicKey: mesKeys[1],
-  };
-  return keys;
-}
-
-void saveAllKeys(Map<Key, String> keys) async {
-  var prefs = await SharedPreferences.getInstance();
-  prefs.setString('persPriv', keys[Key.PersonalPrivateKey]!);
-  prefs.setString('persPub', keys[Key.PersonalPublicKey]!);
-  prefs.setString('mesPriv', keys[Key.MessagePrivateKey]!);
-  prefs.setString('mesPub', keys[Key.MessagePublicKey]!);
-}
-
-Future<Map<Key, String>> getAllKeys() async {
-  var prefs = await SharedPreferences.getInstance();
-  Map<Key, String> keys = {
-    Key.PersonalPrivateKey: prefs.getString('persPriv')!,
-    Key.PersonalPublicKey: prefs.getString('persPub')!,
-    Key.MessagePrivateKey: prefs.getString('mesPriv')!,
-    Key.MessagePublicKey: prefs.getString('mesPub')!,
-  };
-  return keys;
+Future<bool> generateAndSaveKeys() async {
+  var persKeys = await compute(generateKeyPair, 4096);
+  var mesKeys = await compute(generateKeyPair, 2048);
+  saveValue(StorageValue.privateKey, persKeys[0]);
+  saveValue(StorageValue.publicKey, persKeys[1]);
+  saveValue(StorageValue.privateMesKey, mesKeys[0]);
+  saveValue(StorageValue.publicMesKey, mesKeys[1]);
+  return true;
 }
 
 Uint8List keyToBytes(String key) {
@@ -83,9 +52,9 @@ String bytesToPublic(Uint8List bytes) {
   return CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
 }
 
-Future<String> getSingleStringSavedKeys() async {
+Future<String> exportKeysAsString() async {
   var keys = await getAllKeys();
-  var singleString = (keys[Key.PersonalPrivateKey]! +
+  var singleString = (get! +
       '|' +
       keys[Key.PersonalPublicKey]! +
       '|' +
@@ -95,7 +64,7 @@ Future<String> getSingleStringSavedKeys() async {
   return singleString;
 }
 
-void saveSingleStringKeys(String singleKeyString) {
+void importKeysFromString(String singleKeyString) {
   var allKeysList = singleKeyString.split('|');
   var keys = {
     Key.PersonalPrivateKey: allKeysList[0],

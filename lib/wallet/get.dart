@@ -1,7 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 
-import '../_local/crypt.dart';
+import '../_local/crypto.dart';
 
 class GetButton extends StatelessWidget {
   @override

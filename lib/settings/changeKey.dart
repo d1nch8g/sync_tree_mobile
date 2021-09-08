@@ -3,11 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:clipboard/clipboard.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../_calls/infoUser.dart';
 import '../_local/pin.dart';
-import '../_local/crypt.dart';
+import '../_local/crypto.dart';
 import '../_local/keys.dart';
 
 import 'package:sync_tree_mobile/navigator.dart';

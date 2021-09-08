@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../_local/pin.dart';
 
 class SetPinTile extends StatelessWidget {

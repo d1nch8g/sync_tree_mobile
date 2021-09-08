@@ -1,34 +1,33 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum StorageValues {
+enum StorageValue {
   privateKey,
   publicKey,
   privateMesKey,
   publicMesKey,
-  firstLaunch,
   password,
   mainBalance,
   connectedWallets,
   searchCache,
 }
 
+final mapping = {
+  StorageValue.privateKey: "privateKey",
+  StorageValue.publicKey: "publicKey",
+  StorageValue.privateMesKey: "privateMesKey",
+  StorageValue.publicMesKey: "publicMesKey",
+  StorageValue.password: "password",
+  StorageValue.mainBalance: "mainBalance",
+  StorageValue.connectedWallets: "connectedWallets",
+  StorageValue.searchCache: "searchCache",
+};
 
-void savePrivateKey(String privateKey) async {
+void saveValue(StorageValue key, String value) async {
   var prefs = await SharedPreferences.getInstance();
-  prefs.setString('privateKey', privateKey);
+  prefs.setString(mapping[key] ?? '', value);
 }
 
-Future<String> getPrivateKey() async {
+Future<String> getStoredValue(StorageValue value) async {
   var prefs = await SharedPreferences.getInstance();
-  return prefs.getString('privateKey')!;
-}
-
-void savePublicKey(String publicKey) async {
-  var prefs = await SharedPreferences.getInstance();
-  prefs.setString('publicKey', publicKey);
-}
-
-Future<String> getPublicKey() async {
-  var prefs = await SharedPreferences.getInstance();
-  return prefs.getString('publicKey')!;
+  return prefs.getString(mapping[value] ?? '') ?? '';
 }

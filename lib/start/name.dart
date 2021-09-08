@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../_local/filter.dart';
 
 class NameCreation extends StatefulWidget {

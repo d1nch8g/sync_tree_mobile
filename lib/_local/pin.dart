@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 void checkPwd(context, Function onSucess) async {
   var prefs = await SharedPreferences.getInstance();
   if (prefs.getString('pwd') == null) {
