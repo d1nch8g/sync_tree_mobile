@@ -1,6 +1,6 @@
 ///
 //  Generated code. Do not modify.
-//  source: lib/api/api.proto
+//  source: lib/_net/api.proto
 //
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
@@ -22,12 +22,12 @@ final $typed_data.Uint8List responseDescriptor = $convert.base64Decode('CghSZXNw
 const Messages$json = const {
   '1': 'Messages',
   '2': const [
-    const {'1': 'sender', '3': 1, '4': 1, '5': 12, '10': 'sender'},
+    const {'1': 'messages', '3': 1, '4': 3, '5': 9, '10': 'messages'},
   ],
 };
 
 /// Descriptor for `Messages`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List messagesDescriptor = $convert.base64Decode('CghNZXNzYWdlcxIWCgZzZW5kZXIYASABKAxSBnNlbmRlcg==');
+final $typed_data.Uint8List messagesDescriptor = $convert.base64Decode('CghNZXNzYWdlcxIaCghtZXNzYWdlcxgBIAMoCVIIbWVzc2FnZXM=');
 @$core.Deprecated('Use infoUserRequestDescriptor instead')
 const InfoUserRequest$json = const {
   '1': 'InfoUserRequest',

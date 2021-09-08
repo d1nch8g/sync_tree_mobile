@@ -1,6 +1,6 @@
 ///
 //  Generated code. Do not modify.
-//  source: lib/api/api.proto
+//  source: lib/_net/api.proto
 //
 // @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
@@ -59,17 +59,17 @@ class Response extends $pb.GeneratedMessage {
 
 class Messages extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Messages', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
-    ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sender', $pb.PbFieldType.OY)
+    ..pPS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'messages')
     ..hasRequiredFields = false
   ;
 
   Messages._() : super();
   factory Messages({
-    $core.List<$core.int>? sender,
+    $core.Iterable<$core.String>? messages,
   }) {
     final _result = create();
-    if (sender != null) {
-      _result.sender = sender;
+    if (messages != null) {
+      _result.messages.addAll(messages);
     }
     return _result;
   }
@@ -95,13 +95,7 @@ class Messages extends $pb.GeneratedMessage {
   static Messages? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.int> get sender => $_getN(0);
-  @$pb.TagNumber(1)
-  set sender($core.List<$core.int> v) { $_setBytes(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSender() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSender() => clearField(1);
+  $core.List<$core.String> get messages => $_getList(0);
 }
 
 class InfoUserRequest extends $pb.GeneratedMessage {

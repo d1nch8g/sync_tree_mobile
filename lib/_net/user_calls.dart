@@ -107,3 +107,55 @@ Future<bool> userSendMessage(
   return response.passed;
 }
 
+Future<bool> userBuy(
+  Uint8List publicKey,
+  Uint8List adress,
+  int recieve,
+  int offer,
+  Uint8List sign,
+) async {
+  final response = await stub.userBuy(
+    UserBuyRequest(
+      publicKey: publicKey,
+      adress: adress,
+      recieve: Int64(recieve),
+      offer: Int64(offer),
+      sign: sign,
+    ),
+  );
+  return response.passed;
+}
+
+Future<bool> userSell(
+  Uint8List publicKey,
+  Uint8List adress,
+  int recieve,
+  int offer,
+  Uint8List sign,
+) async {
+  final response = await stub.userSell(
+    UserSellRequest(
+      publicKey: publicKey,
+      adress: adress,
+      recieve: Int64(recieve),
+      offer: Int64(offer),
+      sign: sign,
+    ),
+  );
+  return response.passed;
+}
+
+Future<bool> userCancelTrade(
+  Uint8List publicKey,
+  Uint8List marketAdress,
+  Uint8List sign,
+) async {
+  final response = await stub.userCancelTrade(
+    UserCancelTradeRequest(
+      publicKey: publicKey,
+      marketAdress: marketAdress,
+      sign: sign,
+    ),
+  );
+  return response.passed;
+}

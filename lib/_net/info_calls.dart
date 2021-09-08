@@ -158,3 +158,14 @@ Future<UserInfo> infoUser(Uint8List userAdress) async {
     balances,
   );
 }
+
+class Message {
+  String marketName;
+  String message;
+  Message(
+    this.marketName,
+    this.message,
+  );
+}
+
+Future<List<Message>> 
