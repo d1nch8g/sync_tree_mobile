@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:grpc/grpc.dart';
@@ -159,13 +160,15 @@ Future<UserInfo> infoUser(Uint8List userAdress) async {
   );
 }
 
-class Message {
-  String marketName;
-  String message;
-  Message(
-    this.marketName,
-    this.message,
+Future<List<String>> infoMessages(
+  Uint8List userAdress,
+  Uint8List marketAdress,
+) async {
+  final response = await stub.infoMessages(
+    InfoMessagesRequest(
+      userAdress: userAdress,
+      marketAdress: marketAdress,
+    ),
   );
+  return response.messages;
 }
-
-Future<List<Message>> 

@@ -109,6 +109,17 @@ const InfoSearchResponse$json = const {
 
 /// Descriptor for `InfoSearchResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List infoSearchResponseDescriptor = $convert.base64Decode('ChJJbmZvU2VhcmNoUmVzcG9uc2USIAoLQ29uY01hcmtldHMYASADKAxSC0NvbmNNYXJrZXRz');
+@$core.Deprecated('Use infoMessagesRequestDescriptor instead')
+const InfoMessagesRequest$json = const {
+  '1': 'InfoMessagesRequest',
+  '2': const [
+    const {'1': 'marketAdress', '3': 1, '4': 1, '5': 12, '10': 'marketAdress'},
+    const {'1': 'userAdress', '3': 2, '4': 1, '5': 12, '10': 'userAdress'},
+  ],
+};
+
+/// Descriptor for `InfoMessagesRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List infoMessagesRequestDescriptor = $convert.base64Decode('ChNJbmZvTWVzc2FnZXNSZXF1ZXN0EiIKDG1hcmtldEFkcmVzcxgBIAEoDFIMbWFya2V0QWRyZXNzEh4KCnVzZXJBZHJlc3MYAiABKAxSCnVzZXJBZHJlc3M=');
 @$core.Deprecated('Use userCreateRequestDescriptor instead')
 const UserCreateRequest$json = const {
   '1': 'UserCreateRequest',
@@ -262,16 +273,6 @@ const UserSellRequest$json = const {
 
 /// Descriptor for `UserSellRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List userSellRequestDescriptor = $convert.base64Decode('Cg9Vc2VyU2VsbFJlcXVlc3QSHAoJUHVibGljS2V5GAEgASgMUglQdWJsaWNLZXkSFgoGQWRyZXNzGAIgASgMUgZBZHJlc3MSGAoHUmVjaWV2ZRgDIAEoBFIHUmVjaWV2ZRIUCgVPZmZlchgEIAEoBFIFT2ZmZXISEgoEU2lnbhgFIAEoDFIEU2lnbg==');
-@$core.Deprecated('Use userGetMessagesRequestDescriptor instead')
-const UserGetMessagesRequest$json = const {
-  '1': 'UserGetMessagesRequest',
-  '2': const [
-    const {'1': 'Adress', '3': 1, '4': 1, '5': 12, '10': 'Adress'},
-  ],
-};
-
-/// Descriptor for `UserGetMessagesRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List userGetMessagesRequestDescriptor = $convert.base64Decode('ChZVc2VyR2V0TWVzc2FnZXNSZXF1ZXN0EhYKBkFkcmVzcxgBIAEoDFIGQWRyZXNz');
 @$core.Deprecated('Use marketCreateRequestDescriptor instead')
 const MarketCreateRequest$json = const {
   '1': 'MarketCreateRequest',
@@ -351,13 +352,3 @@ const MarketSendMessageRequest$json = const {
 
 /// Descriptor for `MarketSendMessageRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List marketSendMessageRequestDescriptor = $convert.base64Decode('ChhNYXJrZXRTZW5kTWVzc2FnZVJlcXVlc3QSHAoJUHVibGljS2V5GAEgASgMUglQdWJsaWNLZXkSFgoGQWRyZXNzGAIgASgMUgZBZHJlc3MSGAoHTWVzc2FnZRgDIAEoCVIHTWVzc2FnZRISCgRTaWduGAQgASgMUgRTaWdu');
-@$core.Deprecated('Use marketGetMessagesRequestDescriptor instead')
-const MarketGetMessagesRequest$json = const {
-  '1': 'MarketGetMessagesRequest',
-  '2': const [
-    const {'1': 'Adress', '3': 1, '4': 1, '5': 12, '10': 'Adress'},
-  ],
-};
-
-/// Descriptor for `MarketGetMessagesRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List marketGetMessagesRequestDescriptor = $convert.base64Decode('ChhNYXJrZXRHZXRNZXNzYWdlc1JlcXVlc3QSFgoGQWRyZXNzGAEgASgMUgZBZHJlc3M=');

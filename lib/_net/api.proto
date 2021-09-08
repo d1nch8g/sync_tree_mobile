@@ -16,8 +16,7 @@ service SyncTree{
     rpc InfoMarket(InfoMarketRequest) returns (InfoMarketResponse) {}
     rpc InfoSearch(InfoSearchRequest) returns (InfoSearchResponse) {}
     rpc InfoHasTrades(InfoHasTradesRequest) returns (Response) {}
-    rpc InfoUserMessages(UserGetMessagesRequest) returns (Messages) {}
-    rpc InfoMarketMessages(MarketGetMessagesRequest) returns (Messages) {}
+    rpc InfoMessages(InfoMessagesRequest) returns (Messages) {}
 
     rpc UserCreate(UserCreateRequest) returns (Response) {}
     rpc UserUpdate(UserUpdateRequest) returns (Response) {}
@@ -81,6 +80,11 @@ message InfoHasTradesRequest{
 
 message InfoSearchResponse{
     repeated bytes ConcMarkets = 1;
+}
+
+message InfoMessagesRequest{
+    bytes marketAdress = 1;
+    bytes userAdress = 2;
 }
 
 message UserCreateRequest{
@@ -164,10 +168,6 @@ message UserSellRequest{
     bytes Sign = 5;
 }
 
-message UserGetMessagesRequest{
-    bytes Adress = 1;
-}
-
 message MarketCreateRequest{
     bytes PublicKey = 1;
     bytes MesssageKey = 2;
@@ -209,8 +209,4 @@ message MarketSendMessageRequest{
     bytes Adress = 2;
     string Message = 3;
     bytes Sign = 4;
-}
-
-message MarketGetMessagesRequest{
-    bytes Adress = 1;
 }

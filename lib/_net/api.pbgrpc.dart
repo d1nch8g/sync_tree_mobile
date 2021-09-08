@@ -37,15 +37,10 @@ class SyncTreeClient extends $grpc.Client {
           '/api.SyncTree/InfoHasTrades',
           ($0.InfoHasTradesRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Response.fromBuffer(value));
-  static final _$infoUserMessages =
-      $grpc.ClientMethod<$0.UserGetMessagesRequest, $0.Messages>(
-          '/api.SyncTree/InfoUserMessages',
-          ($0.UserGetMessagesRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $0.Messages.fromBuffer(value));
-  static final _$infoMarketMessages =
-      $grpc.ClientMethod<$0.MarketGetMessagesRequest, $0.Messages>(
-          '/api.SyncTree/InfoMarketMessages',
-          ($0.MarketGetMessagesRequest value) => value.writeToBuffer(),
+  static final _$infoMessages =
+      $grpc.ClientMethod<$0.InfoMessagesRequest, $0.Messages>(
+          '/api.SyncTree/InfoMessages',
+          ($0.InfoMessagesRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.Messages.fromBuffer(value));
   static final _$userCreate =
       $grpc.ClientMethod<$0.UserCreateRequest, $0.Response>(
@@ -143,16 +138,9 @@ class SyncTreeClient extends $grpc.Client {
     return $createUnaryCall(_$infoHasTrades, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.Messages> infoUserMessages(
-      $0.UserGetMessagesRequest request,
+  $grpc.ResponseFuture<$0.Messages> infoMessages($0.InfoMessagesRequest request,
       {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$infoUserMessages, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$0.Messages> infoMarketMessages(
-      $0.MarketGetMessagesRequest request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$infoMarketMessages, request, options: options);
+    return $createUnaryCall(_$infoMessages, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.Response> userCreate($0.UserCreateRequest request,
@@ -265,21 +253,13 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.InfoHasTradesRequest.fromBuffer(value),
         ($0.Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.UserGetMessagesRequest, $0.Messages>(
-        'InfoUserMessages',
-        infoUserMessages_Pre,
+    $addMethod($grpc.ServiceMethod<$0.InfoMessagesRequest, $0.Messages>(
+        'InfoMessages',
+        infoMessages_Pre,
         false,
         false,
         ($core.List<$core.int> value) =>
-            $0.UserGetMessagesRequest.fromBuffer(value),
-        ($0.Messages value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.MarketGetMessagesRequest, $0.Messages>(
-        'InfoMarketMessages',
-        infoMarketMessages_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.MarketGetMessagesRequest.fromBuffer(value),
+            $0.InfoMessagesRequest.fromBuffer(value),
         ($0.Messages value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.UserCreateRequest, $0.Response>(
         'UserCreate',
@@ -410,14 +390,9 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
     return infoHasTrades(call, await request);
   }
 
-  $async.Future<$0.Messages> infoUserMessages_Pre($grpc.ServiceCall call,
-      $async.Future<$0.UserGetMessagesRequest> request) async {
-    return infoUserMessages(call, await request);
-  }
-
-  $async.Future<$0.Messages> infoMarketMessages_Pre($grpc.ServiceCall call,
-      $async.Future<$0.MarketGetMessagesRequest> request) async {
-    return infoMarketMessages(call, await request);
+  $async.Future<$0.Messages> infoMessages_Pre($grpc.ServiceCall call,
+      $async.Future<$0.InfoMessagesRequest> request) async {
+    return infoMessages(call, await request);
   }
 
   $async.Future<$0.Response> userCreate_Pre($grpc.ServiceCall call,
@@ -498,10 +473,8 @@ abstract class SyncTreeServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.InfoSearchRequest request);
   $async.Future<$0.Response> infoHasTrades(
       $grpc.ServiceCall call, $0.InfoHasTradesRequest request);
-  $async.Future<$0.Messages> infoUserMessages(
-      $grpc.ServiceCall call, $0.UserGetMessagesRequest request);
-  $async.Future<$0.Messages> infoMarketMessages(
-      $grpc.ServiceCall call, $0.MarketGetMessagesRequest request);
+  $async.Future<$0.Messages> infoMessages(
+      $grpc.ServiceCall call, $0.InfoMessagesRequest request);
   $async.Future<$0.Response> userCreate(
       $grpc.ServiceCall call, $0.UserCreateRequest request);
   $async.Future<$0.Response> userUpdate(
