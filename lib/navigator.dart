@@ -26,6 +26,8 @@ class _PrimaryPageState extends State<PrimaryPage> {
   late PageController _pageController;
 
   void checkFirstLaunch() async {
+    // TODO rework and make first lauch to check if
+    // there is private key generated
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var firstLaunch = prefs.getBool('firstLaunch') ?? true;
     prefs.setBool('firstLaunch', false);
