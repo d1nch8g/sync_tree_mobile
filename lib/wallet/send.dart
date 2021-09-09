@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:clipboard/clipboard.dart';
-import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile/_local/storage.dart';
 import 'package:sync_tree_mobile/_local/stream.dart';

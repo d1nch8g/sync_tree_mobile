@@ -24,7 +24,7 @@ Uint8List signData(Uint8List data) {
 
 Uint8List signListConcatenation(List<dynamic> values) {
   /// working with strings, bytes and integers
-  Uint8List byteArray = Uint8List.fromList([]);
+  List<int> byteArray = [];
   values.forEach((singleListValue) {
     if (singleListValue is String) {
       var stringAsBytes = singleListValue.codeUnits;
@@ -44,7 +44,7 @@ Uint8List signListConcatenation(List<dynamic> values) {
       });
     }
   });
-  return byteArray;
+  return Uint8List.fromList(byteArray);
 }
 
 Uint8List signList(List<dynamic> values) {

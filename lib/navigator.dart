@@ -28,6 +28,8 @@ class _PrimaryPageState extends State<PrimaryPage> {
     var pivKey = await loadValue(StorageKey.privateKey);
     if (pivKey == '') {
       Navigator.pushNamed(context, '/hello');
+    } else {
+      Navigator.pushNamed(context, '/hello');
     }
   }
 

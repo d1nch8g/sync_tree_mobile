@@ -7,6 +7,20 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:pointycastle/random/fortuna_random.dart';
 import 'package:sync_tree_mobile/_local/storage.dart';
 
+Uint8List keyToBytes(String key) {
+  return CryptoUtils.getBytesFromPEMString(key);
+}
+
+String bytesToPrivate(Uint8List bytes) {
+  var key = CryptoUtils.rsaPrivateKeyFromDERBytesPkcs1(bytes);
+  return CryptoUtils.encodeRSAPrivateKeyToPemPkcs1(key);
+}
+
+String bytesToPublic(Uint8List bytes) {
+  var key = CryptoUtils.rsaPublicKeyFromDERBytesPkcs1(bytes);
+  return CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
+}
+
 List<String> generateKeyPair(int bitLength) {
   final secureRandom = FortunaRandom();
   final seedSource = Random.secure();
@@ -35,21 +49,9 @@ Future<bool> generateAndSaveKeys() async {
   saveValue(StorageKey.publicKey, persKeys[1]);
   saveValue(StorageKey.privateMesKey, mesKeys[0]);
   saveValue(StorageKey.publicMesKey, mesKeys[1]);
+  print(persKeys);
+  print(mesKeys);
   return true;
-}
-
-Uint8List keyToBytes(String key) {
-  return CryptoUtils.getBytesFromPEMString(key);
-}
-
-String bytesToPrivate(Uint8List bytes) {
-  var key = CryptoUtils.rsaPrivateKeyFromDERBytesPkcs1(bytes);
-  return CryptoUtils.encodeRSAPrivateKeyToPemPkcs1(key);
-}
-
-String bytesToPublic(Uint8List bytes) {
-  var key = CryptoUtils.rsaPublicKeyFromDERBytesPkcs1(bytes);
-  return CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
 }
 
 final importSequence = [
