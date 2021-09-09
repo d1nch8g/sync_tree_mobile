@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:pointycastle/pointycastle.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:sync_tree_mobile/_local/storage.dart';
-import 'package:sync_tree_mobile/_net/info_calls.dart';
 
 import '../_local/keys.dart';
 
@@ -70,11 +69,4 @@ Future<String> decrypt(String encrypted, String privateKey) async {
   var key = CryptoUtils.rsaPrivateKeyFromPemPkcs1(privateKey);
   var decrypted = CryptoUtils.rsaDecrypt(encrypted, key);
   return decrypted;
-}
-
-Future<String> updateName() async {
-  var adress = await getPersonalAdressBytes();
-  var userInfo = await infoUser(adress);
-  saveValue(StorageKey.publicName, userInfo.name);
-  return userInfo.name;
 }

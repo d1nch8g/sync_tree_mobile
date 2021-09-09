@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:sync_tree_mobile/_local/keys.dart';
 
-import '../_calls/create.dart';
 import '../_local/password.dart';
-import '../_local/keys.dart';
 
 class GenerateKeyTile extends StatelessWidget {
   @override
@@ -148,26 +147,14 @@ class KeyBuilderContent extends StatefulWidget {
 
 class _KeyBuilderContentState extends State<KeyBuilderContent> {
   Widget currentWidget = KeysNotReady();
-  late var newKeys;
-  late var oldKeys;
-
-  changeWidget() {
-    setState(() {
-      currentWidget = KeysAreReady();
-    });
-  }
-
-  void buildKeys() async {
-    newKeys = await generateKeys();
-    tryToUpload();
-  }
 
   void tryToUpload() async {
-    saveAllKeys(newKeys);
-    oldKeys = await getAllKeys();
+    await generateAndSaveKeys();
     var response = await userCreate(context);
     if (response) {
-      changeWidget();
+      setState(() {
+        currentWidget = KeysAreReady();
+      });
       Future.delayed(Duration(milliseconds: 377), () {
         Navigator.pop(context);
       });
