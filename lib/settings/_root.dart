@@ -67,7 +67,7 @@ class _DynamicNameState extends State<DynamicName> {
       name = loadValueSync(StorageKey.publicName);
     });
     createListener(
-      StreamEvent.publicNameUpdate,
+      Trigger.publicNameUpdate,
       onNameChanged,
     );
   }

@@ -151,14 +151,14 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
   late Widget buttonToAnimate;
 
   nameUpdateEvent() async {
-    triggerEvent(StreamEvent.publicNameUpdate);
+    triggerEvent(Trigger.publicNameUpdate);
   }
 
   onPressAttemtToChangeKeys(context) async {
     var clipboardKeys = await FlutterClipboard.paste();
     var keysCheckedSuccess = await importKeysFromString(clipboardKeys);
     if (keysCheckedSuccess) {
-      updateName();
+      loadNameFromNet();
       setState(() {
         buttonToAnimate = SucessButton();
       });

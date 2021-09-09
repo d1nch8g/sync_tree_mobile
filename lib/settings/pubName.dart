@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/_local/storage.dart';
+import 'package:sync_tree_mobile/_local/stream.dart';
+import 'package:sync_tree_mobile/_net/unified_calls.dart';
 
-import '../_calls/update.dart';
 import '../_local/password.dart';
 import '../_local/filter.dart';
-import '../navigator.dart';
 
 class PublicNameTile extends StatelessWidget {
   @override
@@ -50,22 +51,21 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
   void onComplete() async {
     var filter = Filter();
     if (filter.operateCheck(textController, context)) {
-      var prefs = await SharedPreferences.getInstance();
-      var previousName = prefs.getString('pubName')!;
-      prefs.setString('pubName', textController.text);
-      var nameChangedSuccessfully = await userUpdate(context);
+      var previousName = await loadValue(StorageKey.publicName);
+      saveValue(StorageKey.publicName, textController.text);
+      var nameChangedSuccessfully = await updateUserInfo();
       if (nameChangedSuccessfully) {
         setState(() {
           currentWidget = NameReadyWidget();
           Future.delayed(Duration(milliseconds: 377), () {
             Navigator.pop(context);
             Future.delayed(Duration(milliseconds: 144), () {
-              mainStreamController.add('pubNameEvent');
+              triggerEvent(Trigger.publicNameUpdate);
             });
           });
         });
       } else {
-        prefs.setString('pubName', previousName);
+        saveValue(StorageKey.publicName, previousName);
       }
     }
   }

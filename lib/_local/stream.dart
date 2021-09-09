@@ -1,20 +1,20 @@
 import 'dart:async';
 
-var mainStreamController = StreamController<StreamEvent>.broadcast();
+var mainStreamController = StreamController<Trigger>.broadcast();
 var mainStream = mainStreamController.stream;
 
-enum StreamEvent {
+enum Trigger {
   publicNameUpdate,
   mainBalanceUpdate,
   marketBalanceUpdate,
   marketMessagesUpdate,
 }
 
-void triggerEvent(StreamEvent event) {
+void triggerEvent(Trigger event) {
   mainStreamController.add(event);
 }
 
-void createListener(StreamEvent trigger, Function onEventAction) {
+void createListener(Trigger trigger, Function onEventAction) {
   mainStream.listen((event) {
     if (trigger == event) {
       onEventAction();
