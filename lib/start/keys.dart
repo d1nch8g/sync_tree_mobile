@@ -15,10 +15,19 @@ class KeySave extends StatefulWidget {
 class _KeySaveState extends State<KeySave> {
   Widget currentWidget = KeysNotReady();
 
+  Future<bool> keysAreGenerated() async {
+    var exportedKeys = await exportKeysAsString();
+    if (exportedKeys != '|||') {
+      print(exportedKeys);
+      return true;
+    } else {
+      print(exportedKeys);
+      return false;
+    }
+  }
+
   changeWidgetOnKeysPrepared() async {
-    var key = await exportKeysAsString();
-    if (key == '') {
-      key = await exportKeysAsString();
+    if (await keysAreGenerated()) {
       Future.delayed(
         const Duration(seconds: 2),
         () => {
@@ -29,7 +38,7 @@ class _KeySaveState extends State<KeySave> {
       setState(() {
         currentWidget = CopyKeysSection();
       });
-      FlutterClipboard.copy(key);
+      FlutterClipboard.copy(await exportKeysAsString());
     }
   }
 

@@ -54,22 +54,24 @@ void generateAndSaveKeys() async {
   print('keys are generated and saved');
 }
 
-final importSequence = [
-  StorageKey.privateKey,
-  StorageKey.privateMesKey,
-  StorageKey.publicKey,
-  StorageKey.publicMesKey,
-];
-
 Future<String> exportKeysAsString() async {
-  var resultString = '';
-  importSequence.forEach((element) {
-    resultString = resultString + loadValueSync(element);
-  });
-  return resultString;
+  var allKeys = (await loadValue(StorageKey.privateKey) +
+      '|' +
+      await loadValue(StorageKey.publicKey) +
+      '|' +
+      await loadValue(StorageKey.privateMesKey) +
+      '|' +
+      await loadValue(StorageKey.publicMesKey));
+  return allKeys;
 }
 
 Future<bool> importKeysFromString(String singleKeyString) async {
+  final importSequence = [
+    StorageKey.privateKey,
+    StorageKey.privateMesKey,
+    StorageKey.publicKey,
+    StorageKey.publicMesKey,
+  ];
   var allKeysList = singleKeyString.split('|');
   try {
     CryptoUtils.rsaPrivateKeyFromPemPkcs1(allKeysList[0]);
