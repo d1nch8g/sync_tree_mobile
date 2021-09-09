@@ -14,7 +14,7 @@ void triggerEvent(Trigger event) {
   mainStreamController.add(event);
 }
 
-void createListener(Trigger trigger, Function onEventAction) {
+void triggerListener(Trigger trigger, Function onEventAction) {
   mainStream.listen((event) {
     if (trigger == event) {
       onEventAction();

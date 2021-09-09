@@ -28,8 +28,7 @@ class _NameCreationState extends State<NameCreation> {
           Padding(
             padding: const EdgeInsets.all(22.0),
             child: Text(
-              'You can set another one '
-              'later in the settings.',
+              'You can set another one later in the settings.',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline2,
             ),
