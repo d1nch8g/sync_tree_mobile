@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:clipboard/clipboard.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/_local/storage.dart';
+import 'package:sync_tree_mobile/_local/stream.dart';
+import 'package:sync_tree_mobile/_net/info_calls.dart';
+import 'package:sync_tree_mobile/_net/unified_calls.dart';
 
 import '../_local/password.dart';
 
@@ -99,10 +105,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   }
 
   void onAdressTypingEnd() async {
-    var name = await userFindName(
-      context,
-      adressTextController.text,
-    );
+    var name = (await infoUser(base64.decode(adressTextController.text))).name;
     if (name != '====') {
       setState(() {
         adressWidget = Text(
@@ -118,8 +121,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   }
 
   void onAmountTypingEnd() async {
-    var prefs = await SharedPreferences.getInstance();
-    var curBalance = prefs.getInt('balance')!;
+    var curBalance = int.parse(await loadValue(StorageKey.mainBalance));
     try {
       var balance = int.parse(amountTextController.text);
       if (curBalance >= balance) {
@@ -182,21 +184,19 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   }
 
   void substractFromCurrentBalance(int amount) async {
-    var prefs = await SharedPreferences.getInstance();
-    var currentBalance = prefs.getInt('balance')!;
-    var newBalance = currentBalance - amount;
-    prefs.setInt('balance', newBalance);
+    var balance = int.parse(await loadValue(StorageKey.mainBalance));
+    var newBalance = balance - amount;
+    saveValue(StorageKey.mainBalance, newBalance.toString());
   }
 
   void onSendButtonPress() async {
-    var sendAmount = Int64.parseInt(amountTextController.text);
-    var succeded = await userSend(
-      context,
+    var succeded = await sendAmountByAdress(
       adressTextController.text,
-      sendAmount,
+      int.parse(amountTextController.text),
     );
     if (succeded) {
-      substractFromCurrentBalance(sendAmount.toInt());
+      var sendAmount = int.parse(amountTextController.text);
+      substractFromCurrentBalance(sendAmount);
       setState(() {
         sendWidget = Icon(
           Icons.check_circle_outline_rounded,
@@ -207,7 +207,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       Future.delayed(Duration(milliseconds: 377), () {
         Navigator.pop(context);
         Future.delayed(Duration(milliseconds: 377), () {
-          mainStreamController.add('balanceEvent');
+          triggerEvent(Trigger.mainBalanceUpdate);
         });
       });
     } else {

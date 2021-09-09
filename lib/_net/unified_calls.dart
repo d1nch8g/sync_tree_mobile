@@ -13,29 +13,42 @@ Future<String> loadNameFromNet() async {
 }
 
 Future<bool> updateUserInfo() async {
-  var pubKey = base64.decode(await loadValue(StorageKey.publicKey));
+  var publicKey = base64.decode(await loadValue(StorageKey.publicKey));
   var mesKey = base64.decode(await loadValue(StorageKey.publicMesKey));
   var name = await loadValue(StorageKey.publicName);
   var valuesList = [
-    pubKey,
+    publicKey,
     mesKey,
     name,
   ];
   var sign = signList(valuesList);
-  var updatedSuccessfully = await userUpdate(pubKey, mesKey, name, sign);
+  var updatedSuccessfully = await userUpdate(publicKey, mesKey, name, sign);
   return updatedSuccessfully;
 }
 
 Future<bool> createNewUser() async {
-  var pubKey = base64.decode(await loadValue(StorageKey.publicKey));
+  var publicKey = base64.decode(await loadValue(StorageKey.publicKey));
   var mesKey = base64.decode(await loadValue(StorageKey.publicMesKey));
   var name = await loadValue(StorageKey.publicName);
   var valuesList = [
-    pubKey,
+    publicKey,
     mesKey,
     name,
   ];
   var sign = signList(valuesList);
-  var createdSuccess = await userCreate(pubKey, mesKey, name, sign);
+  var createdSuccess = await userCreate(publicKey, mesKey, name, sign);
   return createdSuccess;
+}
+
+Future<bool> sendAmountByAdress(String adressBase64, int amount) async {
+  var publicKey = base64.decode(await loadValue(StorageKey.publicKey));
+  var reciever = base64.decode(adressBase64);
+  var valueList = [
+    publicKey,
+    amount,
+    reciever,
+  ];
+  var sign = signList(valueList);
+  var sendSuccess = await userSend(publicKey, amount, reciever, sign);
+  return sendSuccess;
 }
