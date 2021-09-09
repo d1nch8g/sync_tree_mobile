@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/_local/storage.dart';
 
 import '../_local/filter.dart';
 
@@ -10,11 +11,6 @@ class NameCreation extends StatefulWidget {
 class _NameCreationState extends State<NameCreation> {
   final nameController = TextEditingController();
   final filter = Filter();
-
-  saveName(String name) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('pubName', name);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +72,7 @@ class _NameCreationState extends State<NameCreation> {
             onPressed: () {
               var checked = filter.operateCheck(nameController, context);
               if (checked) {
-                saveName(nameController.text);
+                saveValue(StorageKey.publicName, nameController.text);
                 Navigator.pushNamed(context, '/keys');
               }
             },
