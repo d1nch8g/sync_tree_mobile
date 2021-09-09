@@ -15,13 +15,14 @@ Uint8List hash(Uint8List data) {
   return Digest('SHA-512').process(data);
 }
 
-Uint8List signData(String privKey, Uint8List data) {
+Uint8List signData(Uint8List data) {
+  var privKey = loadValueSync(StorageKey.privateKey);
   var key = CryptoUtils.rsaPrivateKeyFromPemPkcs1(privKey);
   var sign = CryptoUtils.rsaSign(key, data, algorithmName: 'SHA-512/RSA');
   return sign;
 }
 
-Uint8List signArrayConcatenation(List<dynamic> values) {
+Uint8List signListConcatenation(List<dynamic> values) {
   /// working with strings, bytes and integers
   Uint8List byteArray = Uint8List.fromList([]);
   values.forEach((singleListValue) {
@@ -44,6 +45,11 @@ Uint8List signArrayConcatenation(List<dynamic> values) {
     }
   });
   return byteArray;
+}
+
+Uint8List signList(List<dynamic> values) {
+  var bytes = signListConcatenation(values);
+  return signData(bytes);
 }
 
 Future<String> getPersonalAdress() async {
