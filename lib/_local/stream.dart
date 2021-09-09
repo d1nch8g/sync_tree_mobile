@@ -13,3 +13,11 @@ enum StreamEvent {
 void triggerEvent(StreamEvent event) {
   mainStreamController.add(event);
 }
+
+void createListener(StreamEvent trigger, Function onEventAction) {
+  mainStream.listen((event) {
+    if (trigger == event) {
+      onEventAction();
+    }
+  });
+}

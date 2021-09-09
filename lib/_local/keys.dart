@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:pointycastle/key_generators/rsa_key_generator.dart';
