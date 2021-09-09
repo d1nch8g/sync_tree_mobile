@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum StorageValue {
+enum StorageKey {
   privateKey,
   publicKey,
   privateMesKey,
@@ -12,22 +12,32 @@ enum StorageValue {
 }
 
 final mapping = {
-  StorageValue.privateKey: "privateKey",
-  StorageValue.publicKey: "publicKey",
-  StorageValue.privateMesKey: "privateMesKey",
-  StorageValue.publicMesKey: "publicMesKey",
-  StorageValue.password: "password",
-  StorageValue.mainBalance: "mainBalance",
-  StorageValue.connectedWallets: "connectedWallets",
-  StorageValue.searchCache: "searchCache",
+  StorageKey.privateKey: "privateKey",
+  StorageKey.publicKey: "publicKey",
+  StorageKey.privateMesKey: "privateMesKey",
+  StorageKey.publicMesKey: "publicMesKey",
+  StorageKey.password: "password",
+  StorageKey.mainBalance: "mainBalance",
+  StorageKey.connectedWallets: "connectedWallets",
+  StorageKey.searchCache: "searchCache",
 };
 
-void saveValue(StorageValue key, String value) async {
+void saveValue(StorageKey key, String value) async {
   var prefs = await SharedPreferences.getInstance();
   prefs.setString(mapping[key] ?? '', value);
 }
 
-Future<String> getStoredValue(StorageValue value) async {
+Future<String> loadValue(StorageKey key) async {
   var prefs = await SharedPreferences.getInstance();
-  return prefs.getString(mapping[value] ?? '') ?? '';
+  return prefs.getString(mapping[key] ?? '') ?? '';
+}
+
+String loadValueSync(StorageKey value) {
+  var returnValue = '';
+  SharedPreferences.getInstance().then(
+    (prefs) => {
+      returnValue = prefs.getString(mapping[value] ?? '') ?? '',
+    },
+  );
+  return returnValue;
 }

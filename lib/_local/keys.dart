@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:pointycastle/key_generators/rsa_key_generator.dart';
@@ -31,10 +32,10 @@ List<String> generateKeyPair(int bitLength) {
 Future<bool> generateAndSaveKeys() async {
   var persKeys = await compute(generateKeyPair, 4096);
   var mesKeys = await compute(generateKeyPair, 2048);
-  saveValue(StorageValue.privateKey, persKeys[0]);
-  saveValue(StorageValue.publicKey, persKeys[1]);
-  saveValue(StorageValue.privateMesKey, mesKeys[0]);
-  saveValue(StorageValue.publicMesKey, mesKeys[1]);
+  saveValue(StorageKey.privateKey, persKeys[0]);
+  saveValue(StorageKey.publicKey, persKeys[1]);
+  saveValue(StorageKey.privateMesKey, mesKeys[0]);
+  saveValue(StorageKey.publicMesKey, mesKeys[1]);
   return true;
 }
 
@@ -52,38 +53,36 @@ String bytesToPublic(Uint8List bytes) {
   return CryptoUtils.encodeRSAPublicKeyToPemPkcs1(key);
 }
 
+final importSequence = [
+  StorageKey.privateKey,
+  StorageKey.privateMesKey,
+  StorageKey.publicKey,
+  StorageKey.publicMesKey,
+];
+
 Future<String> exportKeysAsString() async {
-  var keys = await getAllKeys();
-  var singleString = (get! +
-      '|' +
-      keys[Key.PersonalPublicKey]! +
-      '|' +
-      keys[Key.MessagePrivateKey]! +
-      '|' +
-      keys[Key.MessagePublicKey]!);
-  return singleString;
+  var resultString = '';
+  importSequence.forEach((element) {
+    resultString += loadValueSync(element);
+  });
+  return resultString;
 }
 
-void importKeysFromString(String singleKeyString) {
+Future<bool> importKeysFromString(String singleKeyString) async {
   var allKeysList = singleKeyString.split('|');
-  var keys = {
-    Key.PersonalPrivateKey: allKeysList[0],
-    Key.PersonalPublicKey: allKeysList[1],
-    Key.MessagePrivateKey: allKeysList[2],
-    Key.MessagePublicKey: allKeysList[3],
-  };
-  saveAllKeys(keys);
-}
-
-bool checkAllKeys(String keys) {
-  var allKeys = keys.split('|');
   try {
-    CryptoUtils.rsaPrivateKeyFromPemPkcs1(allKeys[0]);
-    CryptoUtils.rsaPrivateKeyFromPemPkcs1(allKeys[2]);
-    CryptoUtils.rsaPublicKeyFromPemPkcs1(allKeys[1]);
-    CryptoUtils.rsaPublicKeyFromPemPkcs1(allKeys[3]);
+    CryptoUtils.rsaPrivateKeyFromPemPkcs1(allKeysList[0]);
+    CryptoUtils.rsaPrivateKeyFromPemPkcs1(allKeysList[2]);
+    CryptoUtils.rsaPublicKeyFromPemPkcs1(allKeysList[1]);
+    CryptoUtils.rsaPublicKeyFromPemPkcs1(allKeysList[3]);
+    var i = 0;
+    importSequence.forEach((key) {
+      i += 1;
+      saveValue(key, allKeysList[i]);
+    });
     return true;
-  } catch (exc) {
+  } catch (Exc) {
+    print(Exc.toString());
     return false;
   }
 }
