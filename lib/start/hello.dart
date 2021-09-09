@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../_local/keys.dart';
+import 'package:sync_tree_mobile/_local/keys.dart';
 
 class IntroPage extends StatelessWidget {
-  void createKeys() async {
-    var keys = await generateKeys();
-    saveAllKeys(keys);
-  }
-
   @override
   Widget build(BuildContext context) {
-    createKeys();
+    generateAndSaveKeys();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,

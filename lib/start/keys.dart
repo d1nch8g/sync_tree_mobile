@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:clipboard/clipboard.dart';
-
-import '../_calls/create.dart';
+import 'package:sync_tree_mobile/_local/storage.dart';
+import 'package:sync_tree_mobile/_net/unified_calls.dart';
 
 class KeySave extends StatefulWidget {
   @override
@@ -15,14 +15,13 @@ class KeySave extends StatefulWidget {
 class _KeySaveState extends State<KeySave> {
   Widget currentWidget = KeysNotReady();
 
-  checkingKeysToBeReady() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var key = prefs.getString('persPriv');
-    if (key == null) {
+  changeWidgetOnKeysPrepared() async {
+    var key = await loadValue(StorageKey.privateKey);
+    if (key == '') {
       Future.delayed(
-        const Duration(seconds: 4),
+        const Duration(seconds: 2),
         () => {
-          checkingKeysToBeReady(),
+          changeWidgetOnKeysPrepared(),
         },
       );
     } else {
@@ -36,7 +35,7 @@ class _KeySaveState extends State<KeySave> {
   @override
   void initState() {
     super.initState();
-    checkingKeysToBeReady();
+    changeWidgetOnKeysPrepared();
   }
 
   @override
@@ -125,8 +124,8 @@ class CopyKeysSection extends StatelessWidget {
               context: context,
               builder: (_) => ButtonOverlay(
                 () async {
-                  var succsessfullyCreated = await userCreate(context);
-                  if (succsessfullyCreated) {
+                  var userCreated = await createNewUser();
+                  if (userCreated) {
                     Navigator.pushNamed(context, '/main');
                   } else {
                     Navigator.pop(context);
@@ -143,8 +142,7 @@ class CopyKeysSection extends StatelessWidget {
                     );
                   }
                 },
-                mainText:
-                    'Key is copied to\nclipboard. Save it\n in safe place!',
+                mainText: 'Key is copied to clipboard. Save it in safe place!',
                 buttonText: 'continue',
               ),
               barrierDismissible: false,
