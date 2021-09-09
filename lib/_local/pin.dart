@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/_local/storage.dart';
 
 void checkPwd(context, Function onSucess) async {
-  var prefs = await SharedPreferences.getInstance();
-  if (prefs.getString('pwd') == null) {
+  var pwd = await loadValue(StorageKey.password);
+  if (pwd == '') {
     onSucess();
   } else {
     showDialog(
@@ -29,9 +30,8 @@ class PinOverlayState extends State<PinOverlay>
   TextEditingController textController = TextEditingController();
 
   void checkInputPassword() async {
-    var prefs = await SharedPreferences.getInstance();
-    print(prefs.getString('pwd'));
-    if (prefs.getString('pwd') != textController.text) {
+    var pwd = await loadValue(StorageKey.password);
+    if (pwd != textController.text) {
       setState(() {
         animatedWidget = WronPinIcon();
         textController.text = '';
