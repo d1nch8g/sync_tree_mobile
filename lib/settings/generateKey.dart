@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sync_tree_mobile/_local/keys.dart';
+import 'package:sync_tree_mobile/_net/unified_calls.dart';
 
 import '../_local/password.dart';
 
@@ -149,8 +150,9 @@ class _KeyBuilderContentState extends State<KeyBuilderContent> {
   Widget currentWidget = KeysNotReady();
 
   void tryToUpload() async {
+    var oldkeys = await exportKeysAsString();
     await generateAndSaveKeys();
-    var response = await userCreate(context);
+    var response = await createNewUser();
     if (response) {
       setState(() {
         currentWidget = KeysAreReady();
@@ -159,7 +161,7 @@ class _KeyBuilderContentState extends State<KeyBuilderContent> {
         Navigator.pop(context);
       });
     } else {
-      saveAllKeys(oldKeys);
+      importKeysFromString(oldkeys);
       showDialog(
         context: context,
         builder: (_) => UserNotCreatedOverlay(() {
@@ -173,7 +175,6 @@ class _KeyBuilderContentState extends State<KeyBuilderContent> {
   @override
   void initState() {
     super.initState();
-    buildKeys();
   }
 
   @override
