@@ -1,6 +1,8 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/_local/storage.dart';
+
+import '../_local/storage.dart';
 
 void checkPwd(context, Function onSucess) async {
   var pwd = await loadValue(StorageKey.password);

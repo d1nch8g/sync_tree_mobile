@@ -1,11 +1,13 @@
 import 'dart:math';
+import 'dart:typed_data';
+
 import 'package:flutter/foundation.dart';
 import 'package:pointycastle/key_generators/rsa_key_generator.dart';
 import 'package:pointycastle/pointycastle.dart';
-import 'dart:typed_data';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:pointycastle/random/fortuna_random.dart';
-import 'package:sync_tree_mobile/_local/storage.dart';
+
+import '../_local/storage.dart';
 
 Uint8List keyToBytes(String key) {
   return CryptoUtils.getBytesFromPEMString(key);
@@ -49,6 +51,7 @@ void generateAndSaveKeys() async {
   saveValue(StorageKey.publicKey, persKeys[1]);
   saveValue(StorageKey.privateMesKey, mesKeys[0]);
   saveValue(StorageKey.publicMesKey, mesKeys[1]);
+  print('keys are generated and saved');
 }
 
 final importSequence = [

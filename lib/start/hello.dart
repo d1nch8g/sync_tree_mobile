@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/_local/keys.dart';
+
+import '../_local/keys.dart';
 
 class IntroPage extends StatelessWidget {
   @override

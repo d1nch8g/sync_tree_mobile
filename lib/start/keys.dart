@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:clipboard/clipboard.dart';
-import 'package:sync_tree_mobile/_local/keys.dart';
-import 'package:sync_tree_mobile/_net/unified_calls.dart';
+
+import '../_local/keys.dart';
+import '../_net/unified_calls.dart';
 
 class KeySave extends StatefulWidget {
   @override
@@ -17,8 +17,8 @@ class _KeySaveState extends State<KeySave> {
 
   changeWidgetOnKeysPrepared() async {
     var key = await exportKeysAsString();
-    print(key);
     if (key == '') {
+      key = await exportKeysAsString();
       Future.delayed(
         const Duration(seconds: 2),
         () => {

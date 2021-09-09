@@ -31,6 +31,7 @@ void saveValue(StorageKey key, String value) async {
 
 Future<String> loadValue(StorageKey key) async {
   var prefs = await SharedPreferences.getInstance();
+  print(prefs.getString(mapping[key] ?? ''));
   return prefs.getString(mapping[key] ?? '') ?? '';
 }
 
