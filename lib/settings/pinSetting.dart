@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/_local/storage.dart';
 
 import '../_local/password.dart';
 
@@ -72,8 +73,7 @@ class SetPinOverlayState extends State<SetPinOverlay>
   }
 
   void setPassword() async {
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setString('pwd', textController.text);
+    saveValue(StorageKey.password, textController.text);
     setState(() {
       currentWidget = Icon(
         Icons.lock_outline_rounded,
@@ -87,8 +87,7 @@ class SetPinOverlayState extends State<SetPinOverlay>
   }
 
   void removePassword() async {
-    var prefs = await SharedPreferences.getInstance();
-    prefs.remove('pwd');
+    saveValue(StorageKey.password, '');
     setState(() {
       currentWidget = Icon(
         Icons.lock_open_rounded,
