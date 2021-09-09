@@ -54,21 +54,20 @@ class DynamicName extends StatefulWidget {
 class _DynamicNameState extends State<DynamicName> {
   String name = '';
 
-  void onNameChanged() async {
+  displayNewName() async {
+    var loadedName = await loadValue(StorageKey.publicName);
     setState(() {
-      name = loadValueSync(StorageKey.publicName);
+      name = loadedName;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      name = loadValueSync(StorageKey.publicName);
-    });
+    displayNewName();
     triggerListener(
       Trigger.publicNameUpdate,
-      onNameChanged,
+      displayNewName,
     );
   }
 

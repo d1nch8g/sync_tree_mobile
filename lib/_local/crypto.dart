@@ -15,8 +15,8 @@ Uint8List hash(Uint8List data) {
   return Digest('SHA-512').process(data);
 }
 
-Uint8List signData(Uint8List data) {
-  var privKey = loadValueSync(StorageKey.privateKey);
+Future<Uint8List> signData(Uint8List data) async {
+  var privKey = await loadValue(StorageKey.privateKey);
   var key = CryptoUtils.rsaPrivateKeyFromPemPkcs1(privKey);
   var sign = CryptoUtils.rsaSign(key, data, algorithmName: 'SHA-512/RSA');
   return sign;
@@ -47,9 +47,9 @@ Uint8List signListConcatenation(List<dynamic> values) {
   return Uint8List.fromList(byteArray);
 }
 
-Uint8List signList(List<dynamic> values) {
+Future<Uint8List> signList(List<dynamic> values) async {
   var bytes = signListConcatenation(values);
-  return signData(bytes);
+  return await signData(bytes);
 }
 
 Future<String> getPersonalAdress() async {

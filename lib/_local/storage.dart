@@ -34,13 +34,3 @@ Future<String> loadValue(StorageKey key) async {
   print(prefs.getString(mapping[key] ?? ''));
   return prefs.getString(mapping[key] ?? '') ?? '';
 }
-
-String loadValueSync(StorageKey value) {
-  var returnValue = '';
-  SharedPreferences.getInstance().then(
-    (prefs) => {
-      returnValue = prefs.getString(mapping[value] ?? '') ?? '',
-    },
-  );
-  return returnValue;
-}

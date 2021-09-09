@@ -27,7 +27,7 @@ class _KeySaveState extends State<KeySave> {
   }
 
   changeWidgetOnKeysPrepared() async {
-    if (await keysAreGenerated()) {
+    if (!await keysAreGenerated()) {
       Future.delayed(
         const Duration(seconds: 2),
         () => {

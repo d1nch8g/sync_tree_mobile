@@ -20,7 +20,7 @@ Future<bool> updateUserInfo() async {
     mesKey,
     name,
   ];
-  var sign = signList(valuesList);
+  var sign = await signList(valuesList);
   var updatedSuccessfully = await userUpdate(publicKey, mesKey, name, sign);
   return updatedSuccessfully;
 }
@@ -34,7 +34,7 @@ Future<bool> createNewUser() async {
     mesKey,
     name,
   ];
-  var sign = signList(valuesList);
+  var sign = await signList(valuesList);
   var createdSuccess = await userCreate(publicKey, mesKey, name, sign);
   return createdSuccess;
 }
@@ -47,7 +47,7 @@ Future<bool> sendAmountByAdress(String adressBase64, int amount) async {
     amount,
     reciever,
   ];
-  var sign = signList(valueList);
+  var sign = await signList(valueList);
   var sendSuccess = await userSend(publicKey, amount, reciever, sign);
   return sendSuccess;
 }
