@@ -9,6 +9,7 @@ enum StorageKey {
   mainBalance,
   connectedWallets,
   searchCache,
+  publicName,
 }
 
 final mapping = {
@@ -20,6 +21,7 @@ final mapping = {
   StorageKey.mainBalance: "mainBalance",
   StorageKey.connectedWallets: "connectedWallets",
   StorageKey.searchCache: "searchCache",
+  StorageKey.publicName: "publicName",
 };
 
 void saveValue(StorageKey key, String value) async {

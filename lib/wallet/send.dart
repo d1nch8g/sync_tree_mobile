@@ -2,9 +2,6 @@ import 'package:clipboard/clipboard.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 
-import '../_calls/infoUser.dart';
-import '../_calls/send.dart';
-import '../navigator.dart';
 import '../_local/password.dart';
 
 class SendButton extends StatelessWidget {
