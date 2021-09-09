@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 
 import '../_calls/infoUser.dart';
-import '../_local/pin.dart';
+import '../_local/password.dart';
 import '../_local/crypto.dart';
 import '../_local/keys.dart';
 

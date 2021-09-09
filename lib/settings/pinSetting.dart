@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../_local/pin.dart';
+import '../_local/password.dart';
 
 class SetPinTile extends StatelessWidget {
   @override

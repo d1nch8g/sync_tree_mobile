@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../_calls/create.dart';
-import '../_local/pin.dart';
+import '../_local/password.dart';
 import '../_local/keys.dart';
 
 class GenerateKeyTile extends StatelessWidget {

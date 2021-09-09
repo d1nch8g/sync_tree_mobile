@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../_calls/update.dart';
-import '../_local/pin.dart';
+import '../_local/password.dart';
 import '../_local/filter.dart';
 import '../navigator.dart';
 

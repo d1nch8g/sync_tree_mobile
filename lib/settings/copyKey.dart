@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 
 import '../_local/keys.dart';
-import '../_local/pin.dart';
+import '../_local/password.dart';
 
 class CopyKeyTile extends StatelessWidget {
   Future<String> getAllKeysString() async {
