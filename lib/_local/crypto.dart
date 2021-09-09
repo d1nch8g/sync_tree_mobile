@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:pointycastle/pointycastle.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:sync_tree_mobile/_local/storage.dart';
+import 'package:sync_tree_mobile/_net/info_calls.dart';
 
 import '../_local/keys.dart';
 
@@ -53,6 +54,12 @@ Future<String> getPersonalAdress() async {
   return base64.encode(adress);
 }
 
+Future<Uint8List> getPersonalAdressBytes() async {
+  var adress = await loadValue(StorageKey.publicKey);
+  var persPublicKeyBytes = keyToBytes(adress);
+  return hash(persPublicKeyBytes);
+}
+
 Future<String> encrypt(String message, String publicKey) async {
   var key = CryptoUtils.rsaPublicKeyFromPemPkcs1(publicKey);
   var encrypted = CryptoUtils.rsaEncrypt(message, key);
@@ -63,4 +70,11 @@ Future<String> decrypt(String encrypted, String privateKey) async {
   var key = CryptoUtils.rsaPrivateKeyFromPemPkcs1(privateKey);
   var decrypted = CryptoUtils.rsaDecrypt(encrypted, key);
   return decrypted;
+}
+
+Future<String> updateName() async {
+  var adress = await getPersonalAdressBytes();
+  var userInfo = await infoUser(adress);
+  saveValue(StorageKey.publicName, userInfo.name);
+  return userInfo.name;
 }

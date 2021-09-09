@@ -9,8 +9,6 @@ import 'pinSetting.dart';
 import 'licenses.dart';
 import 'pubName.dart';
 
-import '../navigator.dart';
-
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

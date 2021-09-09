@@ -3,13 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:clipboard/clipboard.dart';
+import 'package:sync_tree_mobile/_local/stream.dart';
 
-import '../_calls/infoUser.dart';
 import '../_local/password.dart';
 import '../_local/crypto.dart';
 import '../_local/keys.dart';
-
-import 'package:sync_tree_mobile/navigator.dart';
 
 class ChangeKeyTile extends StatelessWidget {
   @override
@@ -151,20 +149,24 @@ class KeyCopyContent extends StatefulWidget {
 class _KeyCopyContentState extends State<KeyCopyContent> {
   late Widget buttonToAnimate;
 
-  onPressAction(context) async {
-    var allKeys = await FlutterClipboard.paste();
-    if (checkAllKeys(allKeys)) {
-      var persPub = keyToBytes(allKeys.split('|')[1]);
-      var persAdress = hash(persPub);
+  nameUpdateEvent() async {
+    triggerEvent(StreamEvent.publicNameUpdate);
+  }
+
+  onPressAttemtToChangeKeys(context) async {
+    var clipboardKeys = await FlutterClipboard.paste();
+    var keysCheckedSuccess = await importKeysFromString(clipboardKeys);
+    if (keysCheckedSuccess) {
+      setState(() {
+        buttonToAnimate = SucessButton();
+      });
       var newName = await userFindName(
         context,
         base64.encode(persAdress),
       );
       if (newName != "====") {
         saveSingleStringKeys(allKeys);
-        setState(() {
-          buttonToAnimate = SucessButton();
-        });
+
         var prefs = await SharedPreferences.getInstance();
         prefs.setString('pubName', newName);
         mainStreamController.add('pubNameEvent');
@@ -179,7 +181,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
       Future.delayed(Duration(milliseconds: 377), () {
         setState(() {
           buttonToAnimate = PasteButton(() {
-            onPressAction(context);
+            onPressAttemtToChangeKeys(context);
           });
         });
       });
@@ -190,7 +192,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
   void initState() {
     super.initState();
     buttonToAnimate = PasteButton(() {
-      onPressAction(context);
+      onPressAttemtToChangeKeys(context);
     });
   }
 
