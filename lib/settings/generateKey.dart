@@ -151,7 +151,7 @@ class _KeyBuilderContentState extends State<KeyBuilderContent> {
 
   void tryToUpload() async {
     var oldkeys = await exportKeysAsString();
-    await generateAndSaveKeys();
+    generateAndSaveKeys();
     var response = await createNewUser();
     if (response) {
       setState(() {

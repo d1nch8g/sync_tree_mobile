@@ -42,16 +42,13 @@ List<String> generateKeyPair(int bitLength) {
   return [priv, pub];
 }
 
-Future<bool> generateAndSaveKeys() async {
+void generateAndSaveKeys() async {
   var persKeys = await compute(generateKeyPair, 4096);
   var mesKeys = await compute(generateKeyPair, 2048);
   saveValue(StorageKey.privateKey, persKeys[0]);
   saveValue(StorageKey.publicKey, persKeys[1]);
   saveValue(StorageKey.privateMesKey, mesKeys[0]);
   saveValue(StorageKey.publicMesKey, mesKeys[1]);
-  print(persKeys);
-  print(mesKeys);
-  return true;
 }
 
 final importSequence = [
@@ -64,7 +61,7 @@ final importSequence = [
 Future<String> exportKeysAsString() async {
   var resultString = '';
   importSequence.forEach((element) {
-    resultString += loadValueSync(element);
+    resultString = resultString + loadValueSync(element);
   });
   return resultString;
 }

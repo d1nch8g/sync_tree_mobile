@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:clipboard/clipboard.dart';
-import 'package:sync_tree_mobile/_local/storage.dart';
+import 'package:sync_tree_mobile/_local/keys.dart';
 import 'package:sync_tree_mobile/_net/unified_calls.dart';
 
 class KeySave extends StatefulWidget {
@@ -16,7 +16,8 @@ class _KeySaveState extends State<KeySave> {
   Widget currentWidget = KeysNotReady();
 
   changeWidgetOnKeysPrepared() async {
-    var key = await loadValue(StorageKey.privateKey);
+    var key = await exportKeysAsString();
+    print(key);
     if (key == '') {
       Future.delayed(
         const Duration(seconds: 2),
