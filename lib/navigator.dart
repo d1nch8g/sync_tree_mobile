@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile/_local/storage.dart';
 
 import 'market/_root.dart';
 import 'wallet/_root.dart';
@@ -24,12 +25,8 @@ class _PrimaryPageState extends State<PrimaryPage> {
   late PageController _pageController;
 
   void checkFirstLaunch() async {
-    // TODO rework and make first lauch to check if
-    // there is private key generated
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var firstLaunch = prefs.getBool('firstLaunch') ?? true;
-    prefs.setBool('firstLaunch', false);
-    if (firstLaunch) {
+    var pivKey = await loadValue(StorageKey.privateKey);
+    if (pivKey == '') {
       Navigator.pushNamed(context, '/hello');
     }
   }
