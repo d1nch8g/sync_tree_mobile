@@ -157,24 +157,14 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
     var clipboardKeys = await FlutterClipboard.paste();
     var keysCheckedSuccess = await importKeysFromString(clipboardKeys);
     if (keysCheckedSuccess) {
+      updateName();
       setState(() {
         buttonToAnimate = SucessButton();
       });
-      var newName = await userFindName(
-        context,
-        base64.encode(persAdress),
-      );
-      if (newName != "====") {
-        saveSingleStringKeys(allKeys);
-
-        var prefs = await SharedPreferences.getInstance();
-        prefs.setString('pubName', newName);
-        mainStreamController.add('pubNameEvent');
-        Future.delayed(Duration(milliseconds: 377), () {
-          Navigator.pop(context);
-        });
-        return;
-      }
+      Future.delayed(Duration(milliseconds: 377), () {
+        Navigator.pop(context);
+      });
+      return;
     }
     setState(() {
       buttonToAnimate = ErrorButton();
