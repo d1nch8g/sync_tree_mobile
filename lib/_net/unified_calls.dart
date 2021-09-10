@@ -1,8 +1,8 @@
-import 'package:sync_tree_mobile/_local/crypto.dart';
-import 'package:sync_tree_mobile/_local/keys.dart';
-import 'package:sync_tree_mobile/_local/storage.dart';
-import 'package:sync_tree_mobile/_net/info_calls.dart';
-import 'package:sync_tree_mobile/_net/user_calls.dart';
+import '../_local/crypto.dart';
+import '../_local/keys.dart';
+import '../_local/storage.dart';
+import '../_net/info_calls.dart';
+import '../_net/user_calls.dart';
 
 Future<String> loadNameFromNet() async {
   var adress = await getPersonalAdressBytes();
@@ -26,7 +26,7 @@ Future<bool> updateUserInfo() async {
 }
 
 Future<bool> createNewUser() async {
-  var publicKey = keyToBytes(await loadValue(StorageKey.privateKey));
+  var publicKey = keyToBytes(await loadValue(StorageKey.publicKey));
   var mesKey = keyToBytes(await loadValue(StorageKey.publicMesKey));
   var name = await loadValue(StorageKey.publicName);
   var valuesList = [
@@ -35,7 +35,9 @@ Future<bool> createNewUser() async {
     name,
   ];
   var sign = await signList(valuesList);
+  print('sending message');
   var createdSuccess = await userCreate(publicKey, mesKey, name, sign);
+  print(createdSuccess);
   return createdSuccess;
 }
 

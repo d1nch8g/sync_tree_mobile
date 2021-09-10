@@ -11,14 +11,20 @@ Future<bool> userCreate(
   String name,
   Uint8List sign,
 ) async {
-  final response = await stub.userCreate(
+  final response = await stub
+      .userCreate(
     UserCreateRequest(
       publicKey: publicKey,
       messsageKey: messageKey,
       publicName: name,
       sign: sign,
     ),
-  );
+  )
+      .onError((error, stackTrace) {
+    print(error);
+    print(stackTrace);
+    return Response(passed: false);
+  });
   return response.passed;
 }
 
