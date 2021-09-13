@@ -2,18 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:clipboard/clipboard.dart';
-import 'package:sync_tree_mobile/_local/stream.dart';
-import 'package:sync_tree_mobile/_net/unified_calls.dart';
-
-import '../_local/password.dart';
-import '../_local/keys.dart';
+import 'package:sync_tree_mobile/password.dart';
 
 class ChangeKeyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        checkPwd(
+        passwordCheck(
           context,
           () {
             showDialog(
@@ -148,9 +144,6 @@ class KeyCopyContent extends StatefulWidget {
 class _KeyCopyContentState extends State<KeyCopyContent> {
   late Widget buttonToAnimate;
 
-  nameUpdateEvent() async {
-    triggerEvent(Trigger.publicNameUpdate);
-  }
 
   onPressAttemtToChangeKeys(context) async {
     var clipboardKeys = await FlutterClipboard.paste();

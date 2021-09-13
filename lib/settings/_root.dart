@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/_local/storage.dart';
-import 'package:sync_tree_mobile/_local/stream.dart';
-
+import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'copyKey.dart';
 import 'changeKey.dart';
 import 'generateKey.dart';
@@ -55,7 +53,7 @@ class _DynamicNameState extends State<DynamicName> {
   String name = '';
 
   displayNewName() async {
-    var loadedName = await loadValue(StorageKey.publicName);
+    var loadedName = await Storage.loadPublicName();
     setState(() {
       name = loadedName;
     });
@@ -65,9 +63,9 @@ class _DynamicNameState extends State<DynamicName> {
   void initState() {
     super.initState();
     displayNewName();
-    triggerListener(
-      Trigger.publicNameUpdate,
-      displayNewName,
+    Storage.createTriggerSubscription(
+      trigger: Trigger.publicNameUpdate,
+      onTriggerEvent: displayNewName,
     );
   }
 
