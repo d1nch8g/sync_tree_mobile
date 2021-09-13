@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'storage.dart';
-
 void passwordCheck(context, Function onSucess) async {
+  Storage
   var pwd = await loadValue(StorageKey.password);
   if (pwd == '') {
     onSucess();
