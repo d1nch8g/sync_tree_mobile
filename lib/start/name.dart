@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../_local/storage.dart';
-import '../_local/filter.dart';
+import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
 class NameCreation extends StatefulWidget {
   @override
@@ -10,7 +8,6 @@ class NameCreation extends StatefulWidget {
 
 class _NameCreationState extends State<NameCreation> {
   final nameController = TextEditingController();
-  final filter = Filter();
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +66,12 @@ class _NameCreationState extends State<NameCreation> {
           TextButton(
             child: Text('continue'),
             onPressed: () {
-              var checked = filter.operateCheck(nameController, context);
-              if (checked) {
-                saveValue(StorageKey.publicName, nameController.text);
+              var nameCreationError = Filter.operateCheck(nameController);
+              if (nameCreationError == '') {
+                Storage.savePublicName(nameController.text);
                 Navigator.pushNamed(context, '/keys');
+              } else {
+                //TODO show overlay that name has some trouble
               }
             },
           ),

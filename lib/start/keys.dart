@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:clipboard/clipboard.dart';
-
-import '../_local/keys.dart';
-import '../_net/unified_calls.dart';
+import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
 class KeySave extends StatefulWidget {
   @override
@@ -15,19 +13,8 @@ class KeySave extends StatefulWidget {
 class _KeySaveState extends State<KeySave> {
   Widget currentWidget = KeysNotReady();
 
-  Future<bool> keysAreGenerated() async {
-    var exportedKeys = await exportKeysAsString();
-    if (exportedKeys != '|||') {
-      print(exportedKeys);
-      return true;
-    } else {
-      print(exportedKeys);
-      return false;
-    }
-  }
-
   changeWidgetOnKeysPrepared() async {
-    if (!await keysAreGenerated()) {
+    if (!await Storage.checkIfKeysAreSaved()) {
       Future.delayed(
         const Duration(seconds: 2),
         () => {
@@ -38,7 +25,8 @@ class _KeySaveState extends State<KeySave> {
       setState(() {
         currentWidget = CopyKeysSection();
       });
-      FlutterClipboard.copy(await exportKeysAsString());
+      var keys = await Storage.loadKeys();
+      FlutterClipboard.copy(keys.allKeysString);
     }
   }
 
@@ -134,7 +122,7 @@ class CopyKeysSection extends StatelessWidget {
               context: context,
               builder: (_) => ButtonOverlay(
                 () async {
-                  var userCreated = await createNewUser();
+                  var userCreated = await UserCalls.create();
                   if (userCreated) {
                     Navigator.pushNamed(context, '/main');
                   } else {
