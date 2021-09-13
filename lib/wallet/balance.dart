@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/_local/storage.dart';
-import 'package:sync_tree_mobile/_local/stream.dart';
-import 'package:sync_tree_mobile/_net/unified_calls.dart';
+import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
 class DynamicBalance extends StatefulWidget {
   @override
@@ -12,20 +10,21 @@ class _DynamicBalanceState extends State<DynamicBalance> {
   String balance = '';
 
   void updateBalanceFromMemory() async {
-    var memoryBalance = await loadValue(StorageKey.mainBalance);
+    var memoryBalance = Storage.loadMainBalance();
     setState(() {
       balance = memoryBalance.toString();
     });
   }
 
   @override
-  void initState() {
+  void initState() async {
     updateBalanceFromMemory();
     super.initState();
-    updateUserInfo();
-    triggerListener(
-      Trigger.mainBalanceUpdate,
-      updateBalanceFromMemory,
+    var selfInfo = await InfoCalls.selfInfo();
+    Storage.saveMainBalance(selfInfo.balance);
+    Storage.createTriggerSubscription(
+      trigger: Trigger.mainBalanceUpdate,
+      onTriggerEvent: updateBalanceFromMemory,
     );
   }
 

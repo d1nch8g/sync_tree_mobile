@@ -2,12 +2,8 @@ import 'dart:convert';
 
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/_local/storage.dart';
-import 'package:sync_tree_mobile/_local/stream.dart';
-import 'package:sync_tree_mobile/_net/info_calls.dart';
-import 'package:sync_tree_mobile/_net/unified_calls.dart';
-
-import '../_local/password.dart';
+import 'package:sync_tree_mobile/password.dart';
+import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 
 class SendButton extends StatelessWidget {
   @override
@@ -16,12 +12,15 @@ class SendButton extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
         onPressed: () {
-          checkPwd(context, () {
-            showDialog(
-              context: context,
-              builder: (_) => GetAdressOverlay(),
-            );
-          });
+          passwordCheck(
+            context,
+            () {
+              showDialog(
+                context: context,
+                builder: (_) => GetAdressOverlay(),
+              );
+            },
+          );
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -104,7 +103,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   }
 
   void onAdressTypingEnd() async {
-    var name = (await infoUser(base64.decode(adressTextController.text))).name;
+    var userInfo = InfoCalls.selfInfo()
     if (name != '====') {
       setState(() {
         adressWidget = Text(
