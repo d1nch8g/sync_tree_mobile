@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
-import 'copyKey.dart';
-import 'changeKey.dart';
-import 'generateKey.dart';
-import 'pinSetting.dart';
-import 'licenses.dart';
-import 'pubName.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
