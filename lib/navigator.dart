@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
 import 'market/_root.dart';
 import 'wallet/_root.dart';
@@ -24,10 +25,8 @@ class _PrimaryPageState extends State<PrimaryPage> {
   late PageController _pageController;
 
   void checkFirstLaunch() async {
-    var pivKey = await loadValue(StorageKey.privateKey);
-    if (pivKey == '') {
-      Navigator.pushNamed(context, '/hello');
-    } else {
+    var keysExist = await Storage.checkIfKeysAreSaved();
+    if (!keysExist) {
       Navigator.pushNamed(context, '/hello');
     }
   }

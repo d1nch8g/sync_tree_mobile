@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
 void passwordCheck(context, Function onSucess) async {
-  Storage
-  var pwd = await loadValue(StorageKey.password);
+  var pwd = await Storage.loadPassword();
   if (pwd == '') {
     onSucess();
   } else {
@@ -31,7 +31,7 @@ class PinOverlayState extends State<PinOverlay>
   TextEditingController textController = TextEditingController();
 
   void checkInputPassword() async {
-    var pwd = await loadValue(StorageKey.password);
+    var pwd = await Storage.loadPassword();
     if (pwd != textController.text) {
       setState(() {
         animatedWidget = WronPinIcon();
