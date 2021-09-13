@@ -4,6 +4,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile/password.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
+import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
 class SendButton extends StatelessWidget {
   @override
@@ -103,11 +104,11 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   }
 
   void onAdressTypingEnd() async {
-    var userInfo = InfoCalls.selfInfo()
-    if (name != '====') {
+    try {
+      var userInfo = await InfoCalls.userInfo(adressTextController.text);
       setState(() {
         adressWidget = Text(
-          name,
+          userInfo.name,
           style: Theme.of(context).textTheme.headline2,
         );
       });
@@ -115,11 +116,11 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       if (adressReady && amountReady) {
         spawnSendButton();
       }
-    }
+    } catch (e) {}
   }
 
   void onAmountTypingEnd() async {
-    var curBalance = int.parse(await loadValue(StorageKey.mainBalance));
+    var curBalance = await Storage.loadMainBalance();
     try {
       var balance = int.parse(amountTextController.text);
       if (curBalance >= balance) {
@@ -182,15 +183,15 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   }
 
   void substractFromCurrentBalance(int amount) async {
-    var balance = int.parse(await loadValue(StorageKey.mainBalance));
+    var balance = await Storage.loadMainBalance();
     var newBalance = balance - amount;
-    saveValue(StorageKey.mainBalance, newBalance.toString());
+    Storage.saveMainBalance(newBalance);
   }
 
   void onSendButtonPress() async {
-    var succeded = await sendAmountByAdress(
-      adressTextController.text,
+    var succeded = await UserCalls.sendMain(
       int.parse(amountTextController.text),
+      adressTextController.text,
     );
     if (succeded) {
       var sendAmount = int.parse(amountTextController.text);
@@ -204,9 +205,6 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       });
       Future.delayed(Duration(milliseconds: 377), () {
         Navigator.pop(context);
-        Future.delayed(Duration(milliseconds: 377), () {
-          triggerEvent(Trigger.mainBalanceUpdate);
-        });
       });
     } else {
       setState(() {

@@ -20,7 +20,9 @@ class _DynamicBalanceState extends State<DynamicBalance> {
   void initState() async {
     updateBalanceFromMemory();
     super.initState();
-    var selfInfo = await InfoCalls.selfInfo();
+    var keys = await Storage.loadKeys();
+    var selfAdress = keys.personal.public.getAdressBase64();
+    var selfInfo = await InfoCalls.userInfo(selfAdress);
     Storage.saveMainBalance(selfInfo.balance);
     Storage.createTriggerSubscription(
       trigger: Trigger.mainBalanceUpdate,
