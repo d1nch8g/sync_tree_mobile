@@ -14,16 +14,17 @@ class _DynamicBalanceState extends State<DynamicBalance> {
       var keys = await Storage.loadKeys();
       var selfAdress = keys.personal.public.getAdressBase64();
       var balance = (await InfoCalls.userInfo(selfAdress)).balance;
-      print(balance);
       Storage.saveMainBalance(balance);
     } catch (e) {}
   }
 
   void updateBalance() async {
     var memoryBalance = await Storage.loadMainBalance();
-    setState(() {
-      this.balance = memoryBalance.toString();
-    });
+    if (mounted) {
+      setState(() {
+        this.balance = memoryBalance.toString();
+      });
+    }
   }
 
   @override

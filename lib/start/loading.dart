@@ -8,9 +8,7 @@ class LoadingScreen extends StatelessWidget {
   }
 
   void goToMain(context) async {
-    Future.delayed(Duration(seconds: 1), () {
-      Navigator.pushNamed(context, '/main');
-    });
+    Navigator.pushNamed(context, '/main');
   }
 
   @override
