@@ -7,26 +7,35 @@ class DynamicBalance extends StatefulWidget {
 }
 
 class _DynamicBalanceState extends State<DynamicBalance> {
-  String balance = '';
+  String balance = '0';
 
-  void updateBalanceFromMemory() async {
-    var memoryBalance = Storage.loadMainBalance();
+  void uploadNewBalance() async {
+    try {
+      var keys = await Storage.loadKeys();
+      var selfAdress = keys.personal.public.getAdressBase64();
+      var balance = (await InfoCalls.userInfo(selfAdress)).balance;
+      print(balance);
+      Storage.saveMainBalance(balance);
+    } catch (e) {}
+  }
+
+  void updateBalance() async {
+    var memoryBalance = await Storage.loadMainBalance();
     setState(() {
-      balance = memoryBalance.toString();
+      this.balance = memoryBalance.toString();
     });
   }
 
   @override
-  void initState() async {
-    updateBalanceFromMemory();
+  void initState() {
     super.initState();
-    var keys = await Storage.loadKeys();
-    var selfAdress = keys.personal.public.getAdressBase64();
-    var selfInfo = await InfoCalls.userInfo(selfAdress);
-    Storage.saveMainBalance(selfInfo.balance);
+    uploadNewBalance();
+    updateBalance();
     Storage.createTriggerSubscription(
       trigger: Trigger.mainBalanceUpdate,
-      onTriggerEvent: updateBalanceFromMemory,
+      onTriggerEvent: () {
+        updateBalance();
+      },
     );
   }
 

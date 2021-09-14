@@ -80,7 +80,7 @@ class App extends StatelessWidget {
         ),
       ),
       home: PrimaryPage(),
-      routes: routeMap,
+      routes: firstLaunchRoutMap,
     );
   }
 }
