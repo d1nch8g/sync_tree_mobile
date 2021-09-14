@@ -17,18 +17,19 @@ class WalletPage extends StatelessWidget {
           ),
           DynamicBalance(),
           Divider(),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     SendButton(),
-          //     GetButton(),
-          //   ],
-          // ),
-          // Divider(),
-          // Text(
-          //   'connected wallets',
-          //   style: Theme.of(context).textTheme.headline4,
-          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SendButton(),
+              GetButton(),
+            ],
+          ),
+          Divider(),
+          Text(
+            'connected wallets',
+            style: Theme.of(context).textTheme.headline4,
+          ),
+          Divider(),
         ],
       ),
     );

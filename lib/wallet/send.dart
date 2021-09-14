@@ -180,12 +180,6 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     });
   }
 
-  void substractFromCurrentBalance(int amount) async {
-    var balance = await Storage.loadMainBalance();
-    var newBalance = balance - amount;
-    Storage.saveMainBalance(newBalance);
-  }
-
   void onSendButtonPress() async {
     var succeded = await UserCalls.sendMain(
       int.parse(amountTextController.text),
@@ -193,7 +187,6 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     );
     if (succeded) {
       var sendAmount = int.parse(amountTextController.text);
-      substractFromCurrentBalance(sendAmount);
       setState(() {
         sendWidget = Icon(
           Icons.check_circle_outline_rounded,

@@ -92,11 +92,17 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     var keys = await compute(generateKeys, true);
     Storage.saveKeys(keys);
     try {
+      print('making a call');
       var newUserCreateSuccess = await UserCalls.create();
       if (newUserCreateSuccess) {
+        print('done success');
         setDoneOverlay();
+      } else {
+        print('got negaive value');
+        setErrorOverlay();
       }
     } catch (e) {
+      print('exception occured');
       setErrorOverlay();
     }
   }

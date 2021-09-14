@@ -115,7 +115,8 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Copy your public adress and give it to the sender.',
+                    'Copy your public adress and give it to the sender.'
+                    '\n Key will be copied to phone clipboard.',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),
