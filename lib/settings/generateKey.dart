@@ -49,6 +49,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
   late Animation<double> scaleAnimation;
   late Widget currentContent;
   late String oldKeys;
+  bool overlayIsOpen = true;
 
   @override
   void initState() {
@@ -75,7 +76,9 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
   setAskingOverlay() {
     setState(() {
       currentContent = AskerContent(
-        startBuildingAndUploadingKeys: setBuildingOverlay(),
+        startBuildingAndUploadingKeys: () {
+          setBuildingOverlay();
+        },
       );
     });
   }
@@ -93,25 +96,45 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
       if (newUserCreateSuccess) {
         setDoneOverlay();
       }
-    } catch (e) {}
+    } catch (e) {
+      setErrorOverlay();
+    }
   }
 
   setDoneOverlay() {
     setState(() {
-      currentContent = BuiltAndUploadedContent();
+      currentContent = FinishedContent(
+        closeOverlayFunciton: () {
+          overlayIsOpen = false;
+          if (overlayIsOpen) {
+            Navigator.pop(context);
+          }
+        },
+      );
     });
-    Future.delayed(Duration(milliseconds: 377), () {
-      Navigator.pop(context);
+    Future.delayed(Duration(milliseconds: 987), () {
+      if (overlayIsOpen) {
+        Navigator.pop(context);
+      }
     });
   }
 
   setErrorOverlay() {
     Storage.saveKeys(this.oldKeys);
     setState(() {
-      currentContent = ConnectionErrorContent();
+      currentContent = ConnectionErrorContent(
+        closeOverlayFunciton: () {
+          overlayIsOpen = false;
+          if (overlayIsOpen) {
+            Navigator.pop(context);
+          }
+        },
+      );
     });
-    Future.delayed(Duration(milliseconds: 377), () {
-      Navigator.pop(context);
+    Future.delayed(Duration(milliseconds: 987), () {
+      if (overlayIsOpen) {
+        Navigator.pop(context);
+      }
     });
   }
 
@@ -217,7 +240,9 @@ class _BuilderContentState extends State<BuilderContent> {
   }
 }
 
-class BuiltAndUploadedContent extends StatelessWidget {
+class FinishedContent extends StatelessWidget {
+  final Function closeOverlayFunciton;
+  FinishedContent({required this.closeOverlayFunciton});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -241,12 +266,24 @@ class BuiltAndUploadedContent extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10),
+        TextButton(
+          onPressed: () {
+            closeOverlayFunciton();
+          },
+          child: Text(
+            'close',
+            style: Theme.of(context).textTheme.headline2,
+          ),
+        ),
+        SizedBox(height: 10),
       ],
     );
   }
 }
 
 class ConnectionErrorContent extends StatelessWidget {
+  final Function closeOverlayFunciton;
+  ConnectionErrorContent({required this.closeOverlayFunciton});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -267,6 +304,16 @@ class ConnectionErrorContent extends StatelessWidget {
               size: 140,
               color: Theme.of(context).focusColor,
             ),
+          ),
+        ),
+        SizedBox(height: 10),
+        TextButton(
+          onPressed: () {
+            closeOverlayFunciton();
+          },
+          child: Text(
+            'close',
+            style: Theme.of(context).textTheme.headline2,
           ),
         ),
         SizedBox(height: 10),

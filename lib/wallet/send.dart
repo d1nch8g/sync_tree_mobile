@@ -151,7 +151,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
           });
         });
       }
-    } catch (Exc) {
+    } catch (e) {
       setState(() {
         amountWidget = Icon(
           Icons.help_outline_rounded,

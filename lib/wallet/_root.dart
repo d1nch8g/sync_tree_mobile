@@ -12,25 +12,25 @@ class WalletPage extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
-          Icon(
-            Icons.account_balance_wallet,
-            size: MediaQuery.of(context).size.height * 0.15,
-            color: Theme.of(context).hintColor,
-          ),
-          DynamicBalance(),
-          Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SendButton(),
-              GetButton(),
-            ],
-          ),
-          Divider(),
-          Text(
-            'connected wallets',
-            style: Theme.of(context).textTheme.headline4,
-          ),
+          // Icon(
+          //   Icons.account_balance_wallet,
+          //   size: MediaQuery.of(context).size.height * 0.15,
+          //   color: Theme.of(context).hintColor,
+          // ),
+          // DynamicBalance(),
+          // Divider(),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     SendButton(),
+          //     GetButton(),
+          //   ],
+          // ),
+          // Divider(),
+          // Text(
+          //   'connected wallets',
+          //   style: Theme.of(context).textTheme.headline4,
+          // ),
         ],
       ),
     );
