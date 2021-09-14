@@ -105,14 +105,14 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     setState(() {
       currentContent = FinishedContent(
         closeOverlayFunciton: () {
-          overlayIsOpen = false;
           if (overlayIsOpen) {
+            overlayIsOpen = false;
             Navigator.pop(context);
           }
         },
       );
     });
-    Future.delayed(Duration(milliseconds: 987), () {
+    Future.delayed(Duration(milliseconds: 1597), () {
       if (overlayIsOpen) {
         Navigator.pop(context);
       }
@@ -131,7 +131,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
         },
       );
     });
-    Future.delayed(Duration(milliseconds: 987), () {
+    Future.delayed(Duration(milliseconds: 1597), () {
       if (overlayIsOpen) {
         Navigator.pop(context);
       }
@@ -249,11 +249,10 @@ class FinishedContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Keys are ready\n',
+          'Keys are ready',
           style: Theme.of(context).textTheme.headline2,
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 10),
         SizedBox(
           width: 200,
           height: 200,
@@ -265,7 +264,6 @@ class FinishedContent extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 10),
         TextButton(
           onPressed: () {
             closeOverlayFunciton();
@@ -290,11 +288,10 @@ class ConnectionErrorContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Unable to upload\n',
+          'Unable to upload',
           style: Theme.of(context).textTheme.headline2,
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 10),
         SizedBox(
           width: 200,
           height: 200,
@@ -306,7 +303,6 @@ class ConnectionErrorContent extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 10),
         TextButton(
           onPressed: () {
             closeOverlayFunciton();
