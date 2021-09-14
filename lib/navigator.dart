@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/start/loading.dart';
 
 import 'market/_root.dart';
 import 'wallet/_root.dart';
@@ -9,6 +10,7 @@ import 'start/name.dart';
 import 'start/keys.dart';
 
 var firstLaunchRoutMap = <String, WidgetBuilder>{
+  '/loading': (BuildContext context) => LoadingScreen(),
   '/main': (BuildContext context) => PrimaryPage(),
   '/hello': (BuildContext context) => IntroPage(),
   '/name': (BuildContext context) => NameCreation(),
@@ -25,6 +27,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
   late PageController _pageController;
 
   void checkFirstLaunch() async {
+    Navigator.pushNamed(context, '/loading');
     var isFirstLaunch = await Storage.checkIfFirstLaunch();
     if (isFirstLaunch) {
       Navigator.pushNamed(context, '/hello');

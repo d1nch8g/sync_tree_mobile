@@ -92,17 +92,13 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     var keys = await compute(generateKeys, true);
     Storage.saveKeys(keys);
     try {
-      print('making a call');
       var newUserCreateSuccess = await UserCalls.create();
       if (newUserCreateSuccess) {
-        print('done success');
         setDoneOverlay();
       } else {
-        print('got negaive value');
         setErrorOverlay();
       }
     } catch (e) {
-      print('exception occured');
       setErrorOverlay();
     }
   }
@@ -303,7 +299,7 @@ class ConnectionErrorContent extends StatelessWidget {
           height: 200,
           child: Center(
             child: Icon(
-              Icons.check_circle_outline_rounded,
+              Icons.signal_cellular_connected_no_internet_4_bar_rounded,
               size: 140,
               color: Theme.of(context).focusColor,
             ),

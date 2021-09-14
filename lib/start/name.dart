@@ -133,7 +133,7 @@ class NameErrorOverlayState extends State<NameErrorOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(50.0),
+              padding: const EdgeInsets.all(28.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -147,9 +147,12 @@ class NameErrorOverlayState extends State<NameErrorOverlay>
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   TextButton(
                     child: Text(
-                      'ok',
+                      'retry',
                       textAlign: TextAlign.center,
                     ),
                     onPressed: () {
