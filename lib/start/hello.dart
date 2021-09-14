@@ -2,13 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
-class IntroPage extends StatelessWidget {
-  Future<bool> generateKeys(bool x) async {
-    var keys = Keys.generate();
-    Storage.saveKeys(keys.allKeysString);
-    return true;
-  }
+Future<String> generateKeys(bool start) async {
+  var keys = Keys.generate();
+  return keys.allKeysString;
+}
 
+class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     compute(generateKeys, true);
@@ -37,8 +36,10 @@ class IntroPage extends StatelessWidget {
             SizedBox(height: 12),
             TextButton(
               child: Text('continue'),
-              onPressed: () {
+              onPressed: () async {
                 Navigator.pushNamed(context, '/name');
+                var keys = await compute(generateKeys, true);
+                Storage.saveKeys(keys);
               },
             ),
           ],

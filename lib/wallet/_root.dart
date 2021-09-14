@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/wallet/balance.dart';
 
 import 'send.dart';
 import 'get.dart';
+import 'balance.dart';
 
 /// On this page all the user's connected wallets are gonna be displayed.
 /// The second option is

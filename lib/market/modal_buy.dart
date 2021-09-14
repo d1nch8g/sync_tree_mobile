@@ -1,9 +1,6 @@
 // import 'package:fixnum/fixnum.dart';
 // import 'package:flutter/material.dart';
 
-// import '../_api/buy.dart';
-// import '../_calls/infoMarket.dart';
-// import '../_calls/infoUser.dart';
 
 // class BuyButton extends StatelessWidget {
 //   final Market market;

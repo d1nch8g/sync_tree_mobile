@@ -3,11 +3,9 @@
 
 // import 'package:flutter/material.dart';
 // import 'package:flutter/rendering.dart';
-
-// import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
-// import '../_calls/infoMarket.dart';
-// import 'package:sync_tree_mobile/market/modal_root.dart';
+// import 'package:sync_tree_mobile_logic/net/info_calls.dart';
+// import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+// import 'package:sync_tree_modile_ui/market/modal_root.dart';
 
 // class SearchModule extends StatefulWidget {
 //   @override
@@ -16,25 +14,23 @@
 
 // class _SearchModuleState extends State<SearchModule> {
 //   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
-//   List<Market> markets = [];
+//   List<MarketInfo> markets = [];
 //   var controller = TextEditingController();
 
 //   void getMarkets(context) async {
-//     var rez = await searchMarketAdresses(
-//       context,
-//       controller.text,
-//     );
+//     var rez = await InfoCalls.searchMarkets(controller.text);
 //     var checkRez = rezToBase64(rez);
-//     for (var i = markets.length - 1; i >= 0; i--) {
-//       if (checkRez.contains(base64.encode(markets[i].adress))) {
-//         var rmIdx = checkRez.indexOf(base64.encode(markets[i].adress));
-//         rez.removeAt(rmIdx);
-//       } else {
-//         await removeItem(context, i);
-//       }
-//     }
+//     // TODO rewrite check for non adding markets with same adress twice
+//     // for (var i = markets.length - 1; i >= 0; i--) {
+//     //   if (checkRez.contains(markets[i])) {
+//     //     var rmIdx = checkRez.indexOf(base64.encode(markets[i].adress));
+//     //     rez.removeAt(rmIdx);
+//     //   } else {
+//     //     await removeItem(context, i);
+//     //   }
+//     // }
 //     for (var i = 0; i < rez.length; i++) {
-//       var market = await getMarketInformation(context, rez[i]);
+//       var market = await InfoCalls.marketInfo(rez[i]);
 //       await addItem(context, market);
 //     }
 //   }
@@ -106,10 +102,9 @@
 //             child: TextField(
 //               autofocus: true,
 //               controller: controller,
-//               onChanged: (_) async {
+//               onChanged: (_) {
 //                 getMarkets(context);
-//                 var prefs = await SharedPreferences.getInstance();
-//                 prefs.setString('search', controller.text);
+//                 Storage.saveSearchCache(controller.text);
 //               },
 //               decoration: InputDecoration(
 //                 enabledBorder: OutlineInputBorder(
@@ -150,7 +145,7 @@
 // }
 
 // class MarketTile extends StatelessWidget {
-//   final Market market;
+//   final MarketInfo market;
 //   MarketTile(this.market);
 
 //   @override
@@ -163,13 +158,13 @@
 //           contentPadding: EdgeInsets.all(8),
 //           title: Text(market.name),
 //           subtitle: Text(market.description.substring(0, 72) + '...'),
-//           leading: Image.network(market.img),
-//           trailing: Text(market.opCount.toString()),
+//           leading: Image.network(market.imageLink),
+//           trailing: Text(market.operationCount.toString()),
 //           onTap: () {
-//             showMaterialModalBottomSheet(
+//             showModalBottomSheet(
 //               context: context,
 //               builder: (context) => SingleChildScrollView(
-//                 controller: ModalScrollController.of(context),
+//                 controller: ScrollController(),
 //                 child: ModalMarketSheet(market),
 //               ),
 //             );

@@ -2,14 +2,6 @@
 
 // import 'package:flutter/material.dart';
 
-// import '../_calls/hasTrades.dart';
-// import '../_calls/infoMarket.dart';
-
-// import 'package:sync_tree_mobile/market/modal_buy.dart';
-// import 'package:sync_tree_mobile/market/modal_cancel.dart';
-// import 'package:sync_tree_mobile/market/modal_sell.dart';
-// import 'package:sync_tree_mobile/market/modal_chart.dart';
-// import 'package:sync_tree_mobile/navigator.dart';
 
 // class ModalMarketSheet extends StatefulWidget {
 //   final Market market;

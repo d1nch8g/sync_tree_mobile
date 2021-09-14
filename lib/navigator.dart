@@ -25,8 +25,8 @@ class _PrimaryPageState extends State<PrimaryPage> {
   late PageController _pageController;
 
   void checkFirstLaunch() async {
-    var keysExist = await Storage.checkIfKeysAreSaved();
-    if (!keysExist) {
+    var isFirstLaunch = await Storage.checkIfFirstLaunch();
+    if (isFirstLaunch) {
       Navigator.pushNamed(context, '/hello');
     }
   }
@@ -64,6 +64,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
       backgroundColor: Theme.of(context).focusColor,
       body: SizedBox.expand(
         child: PageView(
+          physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
           onPageChanged: (index) {
             setState(() => _selectedIndex = index);
@@ -76,8 +77,11 @@ class _PrimaryPageState extends State<PrimaryPage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
+        fixedColor: Theme.of(context).focusColor,
         unselectedItemColor: Theme.of(context).focusColor,
         currentIndex: _selectedIndex,
+        enableFeedback: true,
         onTap: _onItemTapped,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(

@@ -1,8 +1,8 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile/password.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/password.dart';
 
 class SendButton extends StatelessWidget {
   @override

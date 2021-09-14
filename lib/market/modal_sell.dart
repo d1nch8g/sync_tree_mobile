@@ -1,12 +1,10 @@
 // import 'package:fixnum/fixnum.dart';
 // import 'package:flutter/material.dart';
+// import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 
-// import '../_calls/infoMarket.dart';
-// import '../_calls/infoUser.dart';
-// import '../_calls/sell.dart';
 
 // class SellButton extends StatelessWidget {
-//   final Market market;
+//   final MarketInfo market;
 //   SellButton(this.market);
 //   @override
 //   Widget build(BuildContext context) {
@@ -23,7 +21,7 @@
 // }
 
 // class SellOverlay extends StatefulWidget {
-//   final Market market;
+//   final MarketInfo market;
 //   SellOverlay(this.market);
 
 //   @override

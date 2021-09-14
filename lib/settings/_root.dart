@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
+import 'changeKey.dart';
+import 'copyKey.dart';
+import 'generateKey.dart';
+import 'licenses.dart';
+import 'pinSetting.dart';
+import 'pubName.dart';
+
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -18,17 +25,17 @@ class SettingsPage extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(3.0),
               children: [
-                // CopyKeyTile(),
-                // Divider(),
-                // ChangeKeyTile(),
-                // Divider(),
-                // GenerateKeyTile(),
-                // Divider(),
-                // SetPinTile(),
-                // Divider(),
-                // PublicNameTile(),
-                // Divider(),
-                // LicensesTile(),
+                CopyKeyTile(),
+                Divider(),
+                ChangeKeyTile(),
+                Divider(),
+                GenerateKeyTile(),
+                Divider(),
+                SetPinTile(),
+                Divider(),
+                PublicNameTile(),
+                Divider(),
+                LicensesTile(),
               ],
             ),
           ),

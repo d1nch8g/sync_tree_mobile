@@ -1,6 +1,5 @@
 // import 'package:flutter/material.dart';
 
-// import '../_calls/infoMarket.dart';
 
 // class TradesBox extends StatelessWidget {
 //   final Market market;
