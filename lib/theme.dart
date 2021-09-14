@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_modile_ui/start/loading.dart';
 import 'navigator.dart';
 
 class App extends StatelessWidget {
@@ -79,7 +80,7 @@ class App extends StatelessWidget {
           ),
         ),
       ),
-      home: PrimaryPage(),
+      home: LoadingScreen(),
       routes: firstLaunchRoutMap,
     );
   }
