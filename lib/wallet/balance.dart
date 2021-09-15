@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/connection.dart';
 
 class DynamicBalance extends StatefulWidget {
   @override
@@ -15,7 +16,14 @@ class _DynamicBalanceState extends State<DynamicBalance> {
       var selfAdress = keys.personal.public.getAdressBase64();
       var balance = (await InfoCalls.userInfo(selfAdress)).balance;
       Storage.saveMainBalance(balance);
-    } catch (e) {}
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (_) => ConnectionErrorOverlay(
+          errorMessage: 'Network error!',
+        ),
+      );
+    }
   }
 
   void updateBalance() async {

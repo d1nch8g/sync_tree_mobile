@@ -51,8 +51,7 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
                 ],
               ),
             ),
-            onPressed: () {
-              Storage.triggerStorageEvent(
+            onPressed: () { Storage.triggerStorageEvent(
                 trigger: Trigger.moveToMarketPage,
               );
             },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/connection.dart';
 import 'package:sync_tree_modile_ui/market/marketModal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -19,10 +20,18 @@ class _MarketPageState extends State<MarketPage> {
     Storage.saveSearchCache(searchController.text);
     this.markets.clear();
     marketAdresses.forEach((marketAdress) async {
-      var info = await InfoCalls.marketInfo(marketAdress);
-      setState(() {
-        this.markets.add(info);
-      });
+      try {
+        var info = await InfoCalls.marketInfo(marketAdress);
+        setState(() {
+          this.markets.add(info);
+        });
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (_) => ConnectionErrorOverlay(
+              errorMessage: 'Failed to search for markets!'),
+        );
+      }
     });
   }
 

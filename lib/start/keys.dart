@@ -137,7 +137,9 @@ class CopyKeysSection extends StatelessWidget {
                   });
                   showDialog(
                     context: context,
-                    builder: (_) => ConnectionErrorOverlay(),
+                    builder: (_) => ConnectionErrorOverlay(
+                      errorMessage: 'Failed to upload information!',
+                    ),
                   ).then(
                     (value) => {
                       if (_timer.isActive) {_timer.cancel()}

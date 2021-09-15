@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ConnectionErrorOverlay extends StatefulWidget {
+  final String errorMessage;
+  ConnectionErrorOverlay({required this.errorMessage});
   @override
   State<StatefulWidget> createState() => ConnectionErrorOverlayState();
 }
@@ -48,7 +50,7 @@ class ConnectionErrorOverlayState extends State<ConnectionErrorOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'User is not created, check connection',
+                    this.widget.errorMessage,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),
@@ -56,6 +58,15 @@ class ConnectionErrorOverlayState extends State<ConnectionErrorOverlay>
                     Icons.wifi_off_rounded,
                     size: 144,
                     color: Theme.of(context).focusColor,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(6),
+                    child: TextButton(
+                      child: Text('continue'),
+                      onPressed: () async {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
                 ],
               ),
