@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'send.dart';
-import 'get.dart';
+import 'recieve.dart';
 import 'balance.dart';
 
 class WalletPage extends StatelessWidget {
@@ -21,7 +21,7 @@ class WalletPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SendButton(),
-              GetButton(),
+              RecieveButton(),
             ],
           ),
           Divider(),

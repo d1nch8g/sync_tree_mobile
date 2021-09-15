@@ -2,7 +2,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
-class GetButton extends StatelessWidget {
+class RecieveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +27,7 @@ class GetButton extends StatelessWidget {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  'GET',
+                  'RECIEVE',
                   style: Theme.of(context).textTheme.button,
                 ),
               ],
