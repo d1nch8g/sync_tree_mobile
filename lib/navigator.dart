@@ -23,8 +23,8 @@ class PrimaryPage extends StatefulWidget {
 }
 
 class _PrimaryPageState extends State<PrimaryPage> {
-  int _selectedIndex = 0;
-  late PageController _pageController;
+  int bottomBarIndex = 0;
+  late PageController bottomBarController;
 
   void checkFirstLaunch() async {
     var isFirstLaunch = await Storage.checkIfFirstLaunch();
@@ -55,15 +55,27 @@ class _PrimaryPageState extends State<PrimaryPage> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    bottomBarController.dispose();
     super.dispose();
   }
 
-  void _onItemTapped(int index) {
+  void onTap(int index) {
     setState(() {
-      _selectedIndex = index;
-      _pageController.animateToPage(
+      bottomBarIndex = index;
+      bottomBarController.animateToPage(
         index,
+        duration: Duration(milliseconds: 320),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
+  //test craeting listener
+  moveToSearchPage() {
+    setState(() {
+      bottomBarIndex = 0;
+      bottomBarController.animateToPage(
+        0,
         duration: Duration(milliseconds: 320),
         curve: Curves.easeOut,
       );
@@ -73,11 +85,18 @@ class _PrimaryPageState extends State<PrimaryPage> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(
-      initialPage: _selectedIndex,
+    bottomBarController = PageController(
+      initialPage: bottomBarIndex,
     );
     checkFirstLaunch();
     updateSelfInformation();
+    // test create listener
+    Storage.createTriggerSubscription(
+      trigger: Trigger.marketMessagesUpdate,
+      onTriggerEvent: () {
+        moveToSearchPage();
+      },
+    );
   }
 
   @override
@@ -88,9 +107,9 @@ class _PrimaryPageState extends State<PrimaryPage> {
       body: SizedBox.expand(
         child: PageView(
           physics: NeverScrollableScrollPhysics(),
-          controller: _pageController,
+          controller: bottomBarController,
           onPageChanged: (index) {
-            setState(() => _selectedIndex = index);
+            setState(() => bottomBarIndex = index);
           },
           children: <Widget>[
             MarketPage(),
@@ -103,9 +122,9 @@ class _PrimaryPageState extends State<PrimaryPage> {
         type: BottomNavigationBarType.shifting,
         fixedColor: Theme.of(context).focusColor,
         unselectedItemColor: Theme.of(context).focusColor,
-        currentIndex: _selectedIndex,
+        currentIndex: bottomBarIndex,
         enableFeedback: true,
-        onTap: _onItemTapped,
+        onTap: onTap,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             label: 'markets',

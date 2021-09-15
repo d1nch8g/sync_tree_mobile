@@ -35,12 +35,26 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
       return Expanded(
         child: Center(
           child: TextButton(
-            child: Text(
-              'FIND AND CONNECT',
-              style: Theme.of(context).textTheme.headline2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    ' FIND AND CONNECT ',
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  Icon(
+                    Icons.manage_search_rounded,
+                    size: 36,
+                  ),
+                ],
+              ),
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/main');
+              //Navigator.pushNamed(context, '/main');
+              //test triggering listener
+              
             },
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(
@@ -48,6 +62,11 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
               ),
               backgroundColor: MaterialStateProperty.all<Color>(
                 Theme.of(context).hoverColor,
+              ),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
               ),
             ),
           ),
