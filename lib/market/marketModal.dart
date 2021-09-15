@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
+import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
 class MarketModalSheet extends StatefulWidget {
   final MarketInfo info;
@@ -10,6 +11,42 @@ class MarketModalSheet extends StatefulWidget {
 }
 
 class _MarketModalSheetState extends State<MarketModalSheet> {
+  late Widget currentButtons;
+
+  void connectWallet() async {
+    print('adding');
+    var currentWallets = await Storage.loadConnectedWallets();
+    currentWallets.add(this.widget.info.adress);
+    Storage.saveConnectedWalletsAdressesList(currentWallets);
+    setState(() {
+      currentButtons = BuySellButtons(
+        buy: () {},
+        sell: () {},
+      );
+    });
+  }
+
+  void checkIfWalletIsConnected() async {
+    var currentWallets = await Storage.loadConnectedWallets();
+    if (currentWallets.contains(this.widget.info.adress)) {
+      setState(() {
+        currentButtons = currentButtons = BuySellButtons(
+          buy: () {},
+          sell: () {},
+        );
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    currentButtons = ConnectButton(connect: () {
+      connectWallet();
+    });
+    checkIfWalletIsConnected();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,9 +80,18 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
           Row(
             children: [
               SizedBox(width: 22),
+              Container(
+                height: 32,
+                child: Image.network(this.widget.info.imageLink),
+              ),
+              SizedBox(width: 12),
               Text(
                 this.widget.info.name,
-                style: Theme.of(context).textTheme.headline1,
+                style: TextStyle(
+                  color: Color.fromRGBO(234, 246, 255, 1.0),
+                  fontSize: 32,
+                  fontFamily: 'Hind',
+                ),
               ),
             ],
           ),
@@ -64,6 +110,61 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
                 ),
               ),
             ),
+          ),
+          AnimatedSwitcher(
+            duration: Duration(
+              milliseconds: 377,
+            ),
+            child: currentButtons,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ConnectButton extends StatelessWidget {
+  final Function connect;
+  ConnectButton({required this.connect});
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 12, 0, 28),
+      child: TextButton(
+        onPressed: () {
+          connect();
+        },
+        child: Text('connect'),
+      ),
+    );
+  }
+}
+
+class BuySellButtons extends StatelessWidget {
+  final Function buy;
+  final Function sell;
+  BuySellButtons({
+    required this.buy,
+    required this.sell,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 12, 0, 32),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          TextButton(
+            onPressed: () {
+              buy();
+            },
+            child: Text(' buy '),
+          ),
+          TextButton(
+            onPressed: () {
+              sell();
+            },
+            child: Text('sell'),
           ),
         ],
       ),
