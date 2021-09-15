@@ -67,7 +67,7 @@ class _SearchBlockState extends State<SearchBlock> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(6.0),
           child: TextField(
             controller: searchController,
             style: TextStyle(
@@ -122,10 +122,15 @@ class MarketTileList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: markets.length,
+      itemCount: markets.length + 1,
       padding: EdgeInsets.all(3.0),
       itemBuilder: (context, index) {
-        var mkt = markets[index];
+        if (index == 0) {
+          return Divider(
+            color: Theme.of(context).cardColor,
+          );
+        }
+        var mkt = markets[index - 1];
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -145,7 +150,7 @@ class MarketTileList extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline5,
                   ),
                   Text(
-                    'count: ' + mkt.operationCount.toString() + '  ',
+                    'count: ' + mkt.operationCount.toString() + ' ',
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 ],
@@ -157,7 +162,7 @@ class MarketTileList extends StatelessWidget {
             ),
             Divider(
               color: Theme.of(context).cardColor,
-            )
+            ),
           ],
         );
       },

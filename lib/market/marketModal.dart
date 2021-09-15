@@ -12,12 +12,12 @@ class MarketModalSheet extends StatelessWidget {
           topRight: const Radius.circular(20.0),
         ),
       ),
-      child: Center(
-        child: Text(
-          'yo',
-          style: Theme.of(context).textTheme.headline3,
-        ),
+      child: Column(
+        children: [
+
+        ],
       ),
     );
   }
 }
+
