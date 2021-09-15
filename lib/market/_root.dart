@@ -16,23 +16,24 @@ class _MarketPageState extends State<MarketPage> {
   List<MarketInfo> markets = [];
 
   updateMarketList() async {
-    var marketAdresses = await InfoCalls.searchMarkets(searchController.text);
-    Storage.saveSearchCache(searchController.text);
-    this.markets.clear();
-    marketAdresses.forEach((marketAdress) async {
-      try {
+    try {
+      var marketAdresses = await InfoCalls.searchMarkets(searchController.text);
+      Storage.saveSearchCache(searchController.text);
+      this.markets.clear();
+      marketAdresses.forEach((marketAdress) async {
         var info = await InfoCalls.marketInfo(marketAdress);
         setState(() {
           this.markets.add(info);
         });
-      } catch (e) {
-        showDialog(
-          context: context,
-          builder: (_) => ConnectionErrorOverlay(
-              errorMessage: 'Failed to search for markets!'),
-        );
-      }
-    });
+      });
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (_) => ConnectionErrorOverlay(
+          errorMessage: 'Failed to search for markets!',
+        ),
+      );
+    }
   }
 
   loadSearchCache() async {

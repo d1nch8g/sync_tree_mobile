@@ -260,7 +260,7 @@ class FinishedContent extends StatelessWidget {
           height: 200,
           child: Center(
             child: Icon(
-              Icons.check_circle_outline_rounded,
+              Icons.wifi_off_rounded,
               size: 140,
               color: Theme.of(context).focusColor,
             ),

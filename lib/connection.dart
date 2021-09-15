@@ -62,7 +62,7 @@ class ConnectionErrorOverlayState extends State<ConnectionErrorOverlay>
                   Padding(
                     padding: EdgeInsets.all(6),
                     child: TextButton(
-                      child: Text('continue'),
+                      child: Text('close'),
                       onPressed: () async {
                         Navigator.pop(context);
                       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/connection.dart';
 import 'package:sync_tree_modile_ui/password.dart';
 
 class PublicNameTile extends StatelessWidget {
@@ -62,6 +63,12 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
         }
       } catch (e) {
         Storage.savePublicName(previousName);
+        showDialog(
+          context: context,
+          builder: (_) => ConnectionErrorOverlay(
+            errorMessage: 'Failed to upload new name!',
+          ),
+        );
       }
     }
   }

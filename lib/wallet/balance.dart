@@ -20,7 +20,7 @@ class _DynamicBalanceState extends State<DynamicBalance> {
       showDialog(
         context: context,
         builder: (_) => ConnectionErrorOverlay(
-          errorMessage: 'Network error!',
+          errorMessage: 'Failed to load balance!',
         ),
       );
     }
