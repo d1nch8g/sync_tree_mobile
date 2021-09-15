@@ -184,7 +184,9 @@ class MarketTileList extends StatelessWidget {
               onTap: () {
                 showMaterialModalBottomSheet(
                   context: context,
-                  builder: (context) => MarketModalSheet(),
+                  builder: (context) => MarketModalSheet(
+                    info: mkt,
+                  ),
                 );
               },
               title: Row(

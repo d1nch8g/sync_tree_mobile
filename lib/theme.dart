@@ -64,6 +64,12 @@ class App extends StatelessWidget {
             fontFamily: 'Hind',
             fontWeight: FontWeight.w400,
           ),
+          subtitle2: TextStyle(
+            color: Color.fromRGBO(234, 246, 255, 1.0),
+            fontSize: 16.2,
+            fontFamily: 'Hind',
+            fontWeight: FontWeight.w300,
+          ),
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(

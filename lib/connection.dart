@@ -45,7 +45,7 @@ class ConnectionErrorOverlayState extends State<ConnectionErrorOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(50.0),
+              padding: const EdgeInsets.fromLTRB(38, 38, 38, 22),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
