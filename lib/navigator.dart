@@ -22,8 +22,6 @@ class PrimaryPage extends StatefulWidget {
   _PrimaryPageState createState() => _PrimaryPageState();
 }
 
-var selfInfoLoaded = false;
-
 class _PrimaryPageState extends State<PrimaryPage> {
   int _selectedIndex = 0;
   late PageController _pageController;

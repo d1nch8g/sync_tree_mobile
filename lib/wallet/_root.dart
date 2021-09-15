@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_modile_ui/wallet/wallets.dart';
 
 import 'send.dart';
 import 'recieve.dart';
@@ -30,6 +31,7 @@ class WalletPage extends StatelessWidget {
             style: Theme.of(context).textTheme.headline4,
           ),
           Divider(),
+          ConnectedWallets(),
         ],
       ),
     );

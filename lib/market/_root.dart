@@ -77,6 +77,7 @@ class _SearchBlockState extends State<SearchBlock> {
               updateMarketList();
               FocusScope.of(context).unfocus();
             },
+            cursorColor: Theme.of(context).cardColor,
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -93,12 +94,19 @@ class _SearchBlockState extends State<SearchBlock> {
               labelStyle: TextStyle(
                 color: Theme.of(context).cardColor,
               ),
-              labelText: 'name',
+              labelText: 'type market name',
               hoverColor: Theme.of(context).cardColor,
               fillColor: Theme.of(context).cardColor,
               focusColor: Theme.of(context).cardColor,
+              suffixIcon: IconButton(
+                icon: Icon(Icons.search_rounded),
+                color: Theme.of(context).cardColor,
+                onPressed: () {
+                  updateMarketList();
+                  FocusScope.of(context).unfocus();
+                },
+              ),
             ),
-            cursorColor: Theme.of(context).cardColor,
           ),
         ),
         AnimatedSwitcher(
@@ -116,10 +124,16 @@ class _SearchBlockState extends State<SearchBlock> {
 class MarketTileList extends StatelessWidget {
   final List<MarketInfo> markets;
   final Key key;
-  MarketTileList({required this.markets, required this.key});
+  MarketTileList({
+    required this.markets,
+    required this.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (markets.length == 0) {
+      return Center();
+    }
     return ListView.builder(
       shrinkWrap: true,
       itemCount: markets.length + 1,

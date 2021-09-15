@@ -7,7 +7,7 @@ class DynamicBalance extends StatefulWidget {
 }
 
 class _DynamicBalanceState extends State<DynamicBalance> {
-  String balance = '0';
+  String balance = '';
 
   void uploadNewBalance() async {
     try {
@@ -22,7 +22,11 @@ class _DynamicBalanceState extends State<DynamicBalance> {
     var memoryBalance = await Storage.loadMainBalance();
     if (mounted) {
       setState(() {
-        this.balance = memoryBalance.toString();
+        if (memoryBalance == 0) {
+          this.balance = 'Balance - 0';
+        } else {
+          this.balance = memoryBalance.toString();
+        }
       });
     }
   }
