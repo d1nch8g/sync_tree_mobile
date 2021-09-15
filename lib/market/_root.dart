@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
+import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/market/marketModal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -32,6 +33,7 @@ class _SearchBlockState extends State<SearchBlock> {
 
   updateMarketList() async {
     var marketAdresses = await InfoCalls.searchMarkets(searchController.text);
+    Storage.saveSearchCache(searchController.text);
     this.markets.clear();
     marketAdresses.forEach((marketAdress) async {
       var info = await InfoCalls.marketInfo(marketAdress);
@@ -39,6 +41,25 @@ class _SearchBlockState extends State<SearchBlock> {
         this.markets.add(info);
       });
     });
+  }
+
+  loadSearchCache() async {
+    this.searchController.text = await Storage.loadSeachCache();
+    var marketAdresses = await InfoCalls.searchMarkets(searchController.text);
+    Storage.saveSearchCache(searchController.text);
+    this.markets.clear();
+    marketAdresses.forEach((marketAdress) async {
+      var info = await InfoCalls.marketInfo(marketAdress);
+      setState(() {
+        this.markets.add(info);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadSearchCache();
   }
 
   @override
