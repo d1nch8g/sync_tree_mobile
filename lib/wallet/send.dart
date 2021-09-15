@@ -186,7 +186,6 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       adressTextController.text,
     );
     if (succeded) {
-      var sendAmount = int.parse(amountTextController.text);
       setState(() {
         sendWidget = Icon(
           Icons.check_circle_outline_rounded,

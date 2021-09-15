@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
-import 'package:sync_tree_modile_ui/navigator.dart';
 
 class ConnectedWallets extends StatefulWidget {
   @override
@@ -27,6 +26,7 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
   void initState() {
     updateConnectedMarkets();
     super.initState();
+    
   }
 
   @override
@@ -52,9 +52,10 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
               ),
             ),
             onPressed: () {
-              //Navigator.pushNamed(context, '/main');
-              //test triggering listener
-              
+              // TODO CHANGE TRIGGER TO ANOTHER
+              Storage.triggerStorageEvent(
+                trigger: Trigger.marketMessagesUpdate,
+              );
             },
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(

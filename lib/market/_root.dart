@@ -4,31 +4,14 @@ import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/market/marketModal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-class MarketPage extends StatelessWidget {
+class MarketPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          Icon(
-            Icons.stacked_line_chart_rounded,
-            size: MediaQuery.of(context).size.height * 0.15,
-            color: Theme.of(context).hintColor,
-          ),
-          SearchBlock(),
-        ],
-      ),
-    );
-  }
+  State<MarketPage> createState() => _MarketPageState();
 }
 
-class SearchBlock extends StatefulWidget {
-  @override
-  State<SearchBlock> createState() => _SearchBlockState();
-}
-
-class _SearchBlockState extends State<SearchBlock> {
+class _MarketPageState extends State<MarketPage> {
   final TextEditingController searchController = TextEditingController();
+  final FocusNode focuser = FocusNode();
   List<MarketInfo> markets = [];
 
   updateMarketList() async {
@@ -64,59 +47,75 @@ class _SearchBlockState extends State<SearchBlock> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: TextField(
-            controller: searchController,
-            style: TextStyle(
-              color: Theme.of(context).cardColor,
-            ),
-            onEditingComplete: () {
-              updateMarketList();
-              FocusScope.of(context).unfocus();
-            },
-            cursorColor: Theme.of(context).cardColor,
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                borderSide: BorderSide(color: Theme.of(context).cardColor),
+    return SafeArea(
+      child: Stack(
+        children: [
+          Column(
+            children: [
+              Icon(
+                Icons.stacked_line_chart_rounded,
+                size: MediaQuery.of(context).size.height * 0.15,
+                color: Theme.of(context).hintColor,
               ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                borderSide: BorderSide(color: Theme.of(context).cardColor),
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: TextField(
+                  controller: searchController,
+                  style: TextStyle(
+                    color: Theme.of(context).cardColor,
+                  ),
+                  onEditingComplete: () {
+                    updateMarketList();
+                    FocusScope.of(context).unfocus();
+                  },
+                  focusNode: focuser,
+                  cursorColor: Theme.of(context).cardColor,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).cardColor),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).cardColor),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).cardColor),
+                    ),
+                    labelStyle: TextStyle(
+                      color: Theme.of(context).cardColor,
+                    ),
+                    labelText: 'type market name',
+                    hoverColor: Theme.of(context).cardColor,
+                    fillColor: Theme.of(context).cardColor,
+                    focusColor: Theme.of(context).cardColor,
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.search_rounded),
+                      color: Theme.of(context).cardColor,
+                      onPressed: () {
+                        updateMarketList();
+                        FocusScope.of(context).unfocus();
+                      },
+                    ),
+                  ),
+                ),
               ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                borderSide: BorderSide(color: Theme.of(context).cardColor),
+              AnimatedSwitcher(
+                child: MarketTileList(
+                  markets: markets,
+                  key: UniqueKey(),
+                ),
+                duration: Duration(milliseconds: 377),
               ),
-              labelStyle: TextStyle(
-                color: Theme.of(context).cardColor,
-              ),
-              labelText: 'type market name',
-              hoverColor: Theme.of(context).cardColor,
-              fillColor: Theme.of(context).cardColor,
-              focusColor: Theme.of(context).cardColor,
-              suffixIcon: IconButton(
-                icon: Icon(Icons.search_rounded),
-                color: Theme.of(context).cardColor,
-                onPressed: () {
-                  updateMarketList();
-                  FocusScope.of(context).unfocus();
-                },
-              ),
-            ),
+            ],
           ),
-        ),
-        AnimatedSwitcher(
-          child: MarketTileList(
-            markets: markets,
-            key: UniqueKey(),
-          ),
-          duration: Duration(milliseconds: 377),
-        ),
-      ],
+          
+        ],
+      ),
     );
   }
 }

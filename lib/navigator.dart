@@ -70,7 +70,6 @@ class _PrimaryPageState extends State<PrimaryPage> {
     });
   }
 
-  //test craeting listener
   moveToSearchPage() {
     setState(() {
       bottomBarIndex = 0;
@@ -90,7 +89,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
     );
     checkFirstLaunch();
     updateSelfInformation();
-    // test create listener
+    // TODO CHANGE TRIGGER TO ANOTHER
     Storage.createTriggerSubscription(
       trigger: Trigger.marketMessagesUpdate,
       onTriggerEvent: () {
