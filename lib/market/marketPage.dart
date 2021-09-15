@@ -13,8 +13,11 @@ class MarketModalSheet extends StatefulWidget {
 class _MarketModalSheetState extends State<MarketModalSheet> {
   late Widget currentButtons;
 
+  void activateBuyOverlay() {}
+
+  void activateSellOverlay() {}
+
   void connectWallet() async {
-    print('adding');
     var currentWallets = await Storage.loadConnectedWallets();
     currentWallets.add(this.widget.info.adress);
     Storage.saveConnectedWalletsAdressesList(currentWallets);
@@ -30,7 +33,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
     var currentWallets = await Storage.loadConnectedWallets();
     if (currentWallets.contains(this.widget.info.adress)) {
       setState(() {
-        currentButtons = currentButtons = BuySellButtons(
+        currentButtons = BuySellButtons(
           buy: () {},
           sell: () {},
         );
