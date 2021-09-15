@@ -113,7 +113,29 @@ class _MarketPageState extends State<MarketPage> {
               ),
             ],
           ),
-          
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 18, 6),
+              child: ElevatedButton(
+                onPressed: () {
+                  FocusScope.of(context).requestFocus(focuser);
+                },
+                child: Icon(
+                  Icons.keyboard_alt_outlined,
+                  color: Colors.white,
+                ),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(33.0),
+                  ),
+                  padding: EdgeInsets.all(20),
+                  primary: Theme.of(context).hoverColor,
+                  onPrimary: Theme.of(context).focusColor,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

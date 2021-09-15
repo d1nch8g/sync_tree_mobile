@@ -89,9 +89,8 @@ class _PrimaryPageState extends State<PrimaryPage> {
     );
     checkFirstLaunch();
     updateSelfInformation();
-    // TODO CHANGE TRIGGER TO ANOTHER
     Storage.createTriggerSubscription(
-      trigger: Trigger.marketMessagesUpdate,
+      trigger: Trigger.moveToMarketPage,
       onTriggerEvent: () {
         moveToSearchPage();
       },

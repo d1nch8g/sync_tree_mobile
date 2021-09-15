@@ -52,9 +52,8 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
               ),
             ),
             onPressed: () {
-              // TODO CHANGE TRIGGER TO ANOTHER
               Storage.triggerStorageEvent(
-                trigger: Trigger.marketMessagesUpdate,
+                trigger: Trigger.moveToMarketPage,
               );
             },
             style: ButtonStyle(
