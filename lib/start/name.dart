@@ -67,7 +67,6 @@ class _NameCreationState extends State<NameCreation> {
             child: Text('continue'),
             onPressed: () {
               var nameCreationError = Filter.operateCheck(nameController.text);
-              print(nameCreationError);
               if (nameCreationError == '') {
                 Storage.savePublicName(nameController.text);
                 Navigator.pushNamed(context, '/keys');

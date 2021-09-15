@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 
-class LoadingScreen extends StatelessWidget {
-  void unfoucusWithDelay(context) {
+class LoadingScreen extends StatefulWidget {
+  @override
+  State<LoadingScreen> createState() => _LoadingScreenState();
+}
+
+class _LoadingScreenState extends State<LoadingScreen> {
+  @override
+  void initState() {
+    super.initState();
     Future.delayed(Duration(milliseconds: 1), () {
       FocusScope.of(context).unfocus();
     });
+    Future.delayed(Duration(milliseconds: 40), () {
+      Navigator.pushNamed(context, '/main');
+    });
   }
 
-  void goToMain(context) async {
-    Navigator.pushNamed(context, '/main');
-  }
 
   @override
   Widget build(BuildContext context) {
-    unfoucusWithDelay(context);
-    goToMain(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
@@ -25,9 +30,6 @@ class LoadingScreen extends StatelessWidget {
             Text('loading'),
             TextField(
               autofocus: true,
-              onChanged: (e) {
-                goToMain(context);
-              },
             ),
           ],
         ),

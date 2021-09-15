@@ -5,7 +5,6 @@ import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
 void passwordCheck(context, Function onSucess) async {
   var pwd = await Storage.loadPassword();
-  print(pwd);
   if (pwd == '') {
     onSucess();
   } else {

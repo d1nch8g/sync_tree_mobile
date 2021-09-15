@@ -115,8 +115,8 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Copy your public adress and give it to the sender.'
-                    '\n Key will be copied to phone clipboard.',
+                    'This button will copy your adress to clipboard. Give it'
+                    ' to sender.',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),
@@ -168,7 +168,7 @@ class KeyIsCopied extends StatelessWidget {
     return Icon(
       Icons.check_circle_outline_rounded,
       color: Theme.of(context).focusColor,
-      size: 42,
+      size: 46,
     );
   }
 }
