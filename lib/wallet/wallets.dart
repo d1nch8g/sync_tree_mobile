@@ -10,68 +10,109 @@ class ConnectedWallets extends StatefulWidget {
 }
 
 class _ConnectedWalletsState extends State<ConnectedWallets> {
-  List<MarketInfo> connectedMarkets = [];
+  Widget currentMarketWidget = Container();
+  List<MarketInfo> markets = [];
 
-  updateConnectedMarkets() async {
+  void checkIfHasConnections() async {
     var adresses = await Storage.loadConnectedWallets();
-    adresses.forEach((adress) async {
-      var info = await InfoCalls.marketInfo(base64.decode(adress));
-      setState(() {
-        this.connectedMarkets.add(info);
-      });
+
+    setState(() {
+      if (adresses.length == 0) {
+        print('here');
+        this.currentMarketWidget = FindAndConnectButton();
+      } else {
+        adresses.forEach((adress) async {
+          var info = await InfoCalls.marketInfo(base64.decode(adress));
+          this.markets.add(info);
+        });
+        this.currentMarketWidget = ConnectedMarketList(
+          markets: this.markets,
+        );
+      }
     });
+  }
+
+  void updateConnectedMarkets() async {
+    var adresses = await Storage.loadConnectedWallets();
   }
 
   @override
   void initState() {
+    checkIfHasConnections();
     updateConnectedMarkets();
     super.initState();
-    
   }
 
   @override
   Widget build(BuildContext context) {
-    if (connectedMarkets.length == 0) {
-      return Expanded(
-        child: Center(
-          child: TextButton(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    ' FIND AND CONNECT ',
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                  Icon(
-                    Icons.manage_search_rounded,
-                    size: 36,
-                  ),
-                ],
+    return Expanded(
+      child: AnimatedSwitcher(
+        duration: Duration(milliseconds: 377),
+        child: currentMarketWidget,
+      ),
+    );
+  }
+}
+
+class FindAndConnectButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: TextButton(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                ' FIND AND CONNECT ',
+                style: Theme.of(context).textTheme.headline2,
               ),
-            ),
-            onPressed: () { Storage.triggerStorageEvent(
-                trigger: Trigger.moveToMarketPage,
-              );
-            },
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(
-                Theme.of(context).focusColor,
+              Icon(
+                Icons.manage_search_rounded,
+                size: 36,
               ),
-              backgroundColor: MaterialStateProperty.all<Color>(
-                Theme.of(context).hoverColor,
-              ),
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-              ),
+            ],
+          ),
+        ),
+        onPressed: () {
+          Storage.triggerStorageEvent(
+            trigger: Trigger.moveToMarketPage,
+          );
+        },
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(
+            Theme.of(context).focusColor,
+          ),
+          backgroundColor: MaterialStateProperty.all<Color>(
+            Theme.of(context).hoverColor,
+          ),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
             ),
           ),
         ),
-      );
-    }
-    return Container();
+      ),
+    );
+  }
+}
+
+class ConnectedMarketList extends StatelessWidget {
+  final List<MarketInfo> markets;
+  ConnectedMarketList({required this.markets});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: markets.length,
+      itemBuilder: (context, index) {
+        var info = markets[index];
+        return Padding(
+          padding: EdgeInsets.all(8),
+          child: Container(),
+        );
+      },
+    );
   }
 }

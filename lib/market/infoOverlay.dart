@@ -82,7 +82,7 @@ class MarketInfoOverlayState extends State<MarketInfoOverlay>
                     child: SingleChildScrollView(
                       child: Text(
                         this.widget.info.description,
-                        style: Theme.of(context).textTheme.headline2,
+                        style: Theme.of(context).textTheme.subtitle2,
                       ),
                     ),
                   ),
