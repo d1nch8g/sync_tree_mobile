@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/market/infoOverlay.dart';
 
 class MarketModalSheet extends StatefulWidget {
   final MarketInfo info;
@@ -31,21 +32,27 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
 
   void checkIfWalletIsConnected() async {
     var currentWallets = await Storage.loadConnectedWallets();
-    if (currentWallets.contains(this.widget.info.adress)) {
-      setState(() {
+    setState(() {
+      if (currentWallets.contains(this.widget.info.adress)) {
         currentButtons = BuySellButtons(
           buy: () {},
           sell: () {},
         );
-      });
-    }
+      }
+    });
+  }
+
+  void checkIfHaveActiveTrades() async {
+    try {
+      var hasTrades = await InfoCalls.selfActiveTradesByAdress(
+        this.widget.info.adress,
+      );
+    } catch (e) {}
   }
 
   @override
   void initState() {
-    currentButtons = ConnectButton(connect: () {
-      connectWallet();
-    });
+    currentButtons = ConnectButton(connect: () {});
     checkIfWalletIsConnected();
     super.initState();
   }
@@ -79,12 +86,12 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
               ),
             ],
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.42),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.38),
           Row(
             children: [
               SizedBox(width: 22),
               Container(
-                height: 32,
+                height: 26,
                 child: Image.network(this.widget.info.imageLink),
               ),
               SizedBox(width: 12),
@@ -92,10 +99,20 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
                 this.widget.info.name,
                 style: TextStyle(
                   color: Color.fromRGBO(234, 246, 255, 1.0),
-                  fontSize: 32,
+                  fontSize: 26,
                   fontFamily: 'Hind',
                 ),
               ),
+              Spacer(),
+              Text(
+                'cnt: ' + this.widget.info.operationCount.toString(),
+                style: TextStyle(
+                  color: Color.fromRGBO(234, 246, 255, 1.0),
+                  fontSize: 24,
+                  fontFamily: 'Hind',
+                ),
+              ),
+              SizedBox(width: 22),
             ],
           ),
           Divider(
@@ -104,14 +121,36 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
             endIndent: 12,
           ),
           Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Text(
-                  this.widget.info.description,
-                  style: Theme.of(context).textTheme.subtitle2,
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Text(
+                    this.widget.info.description,
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
                 ),
-              ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 12, 4),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.text_snippet_rounded,
+                        color: Theme.of(context).focusColor,
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => MarketInfoOverlay(
+                            info: this.widget.info,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
           AnimatedSwitcher(
