@@ -77,7 +77,7 @@ class MarketInfoOverlayState extends State<MarketInfoOverlay>
                     color: Theme.of(context).focusColor,
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.28,
                     child: SingleChildScrollView(
                       child: Text(
                         this.widget.info.description,
@@ -166,11 +166,15 @@ class _InfoParamsState extends State<InfoParams> {
             style: Theme.of(context).textTheme.subtitle2,
           ),
           Text(
-            'Input fee: ' + widget.info.workTime,
+            'Input fee: ' + widget.info.inputFee.toString() + '%',
             style: Theme.of(context).textTheme.subtitle2,
           ),
           Text(
-            'Output fee: TODO',
+            'Output fee: ' + widget.info.outputFee.toString() + '%',
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Working time: ' + widget.info.workTime,
             style: Theme.of(context).textTheme.subtitle2,
           ),
         ],

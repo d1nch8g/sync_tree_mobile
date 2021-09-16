@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
-import 'package:sync_tree_modile_ui/connection.dart';
 
 class DynamicBalance extends StatefulWidget {
   @override

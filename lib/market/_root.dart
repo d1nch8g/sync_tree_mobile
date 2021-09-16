@@ -13,24 +13,26 @@ class MarketPage extends StatefulWidget {
 class _MarketPageState extends State<MarketPage> {
   final TextEditingController searchController = TextEditingController();
   final FocusNode focuser = FocusNode();
-  List<MarketInfo> markets = [];
+  Widget marketsWidget = Center();
 
   updateMarketList() async {
     try {
       var marketAdresses = await InfoCalls.searchMarkets(searchController.text);
       Storage.saveSearchCache(searchController.text);
-      this.markets.clear();
+      List<MarketInfo> markets = [];
       marketAdresses.forEach((marketAdress) async {
         var info = await InfoCalls.marketInfo(marketAdress);
-        print(info.activeBuys);
-        print(info.activeSells);
-        print(info.inputFee);
-        print(info.outputFee);
-        print(info.workTime);
+        markets.add(info);
         setState(() {
-          this.markets.add(info);
+          marketsWidget = MarketTileList(
+            markets: markets,
+            key: UniqueKey(),
+          );
         });
       });
+      if (markets.length == 0) {
+        marketsWidget = NoSearchResults();
+      }
     } catch (e) {
       showDialog(
         context: context,
@@ -43,15 +45,7 @@ class _MarketPageState extends State<MarketPage> {
 
   loadSearchCache() async {
     this.searchController.text = await Storage.loadSeachCache();
-    var marketAdresses = await InfoCalls.searchMarkets(searchController.text);
-    Storage.saveSearchCache(searchController.text);
-    this.markets.clear();
-    marketAdresses.forEach((marketAdress) async {
-      var info = await InfoCalls.marketInfo(marketAdress);
-      setState(() {
-        this.markets.add(info);
-      });
-    });
+    updateMarketList();
   }
 
   @override
@@ -79,9 +73,10 @@ class _MarketPageState extends State<MarketPage> {
                   style: TextStyle(
                     color: Theme.of(context).cardColor,
                   ),
-                  onEditingComplete: () {
+                  onEditingComplete: () async {
                     updateMarketList();
                     FocusScope.of(context).unfocus();
+                    Storage.saveSearchCache(searchController.text);
                   },
                   focusNode: focuser,
                   cursorColor: Theme.of(context).cardColor,
@@ -119,12 +114,11 @@ class _MarketPageState extends State<MarketPage> {
                   ),
                 ),
               ),
-              AnimatedSwitcher(
-                child: MarketTileList(
-                  markets: markets,
-                  key: UniqueKey(),
+              Expanded(
+                child: AnimatedSwitcher(
+                  child: marketsWidget,
+                  duration: Duration(milliseconds: 377),
                 ),
-                duration: Duration(milliseconds: 377),
               ),
             ],
           ),
@@ -167,57 +161,81 @@ class MarketTileList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (markets.length == 0) {
-      return Center();
-    }
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: markets.length + 1,
-      padding: EdgeInsets.all(3.0),
-      itemBuilder: (context, index) {
-        if (index == 0) {
-          return Divider(
-            color: Theme.of(context).cardColor,
-          );
-        }
-        var mkt = markets[index - 1];
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: Image.network(mkt.imageLink),
-              onTap: () {
-                showMaterialModalBottomSheet(
-                  context: context,
-                  builder: (context) => MarketModalSheet(
-                    info: mkt,
-                  ),
-                );
-              },
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    mkt.name,
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                  Text(
-                    'count: ' + mkt.operationCount.toString() + ' ',
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ],
-              ),
-              subtitle: Text(
-                mkt.description.substring(0, 100) + '...',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ),
-            Divider(
+    return Align(
+      alignment: Alignment.topCenter,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: markets.length + 1,
+        padding: EdgeInsets.all(3.0),
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return Divider(
               color: Theme.of(context).cardColor,
-            ),
-          ],
-        );
-      },
+            );
+          }
+          var mkt = markets[index - 1];
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Image.network(mkt.imageLink),
+                onTap: () {
+                  showMaterialModalBottomSheet(
+                    context: context,
+                    builder: (context) => MarketModalSheet(
+                      info: mkt,
+                    ),
+                  );
+                },
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      mkt.name,
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                    Text(
+                      'count: ' + mkt.operationCount.toString() + ' ',
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                  ],
+                ),
+                subtitle: Text(
+                  mkt.description.substring(0, 100) + '...',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+              ),
+              Divider(
+                color: Theme.of(context).cardColor,
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class NoSearchResults extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.search_off_rounded,
+            size: MediaQuery.of(context).size.width * 0.24,
+          ),
+          SizedBox(
+            height: 18,
+          ),
+          Text(
+            'No search results.',
+            style: Theme.of(context).textTheme.headline4,
+          ),
+        ],
+      ),
     );
   }
 }
