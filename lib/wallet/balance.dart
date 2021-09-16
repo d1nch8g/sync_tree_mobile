@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/connection.dart';
@@ -10,19 +12,23 @@ class DynamicBalance extends StatefulWidget {
 class _DynamicBalanceState extends State<DynamicBalance> {
   String balance = '';
 
-  void uploadNewBalance() async {
-    try {
+  void updateSelfInformation() async {
+    var firstLaunch = await Storage.checkIfFirstLaunch();
+    if (!firstLaunch) {
       var keys = await Storage.loadKeys();
-      var selfAdress = keys.personal.public.getAdressBase64();
-      var balance = (await InfoCalls.userInfo(selfAdress)).balance;
-      Storage.saveMainBalance(balance);
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (_) => ConnectionErrorOverlay(
-          errorMessage: 'Failed to load balance!',
-        ),
-      );
+      try {
+        var selfInfo = await InfoCalls.userInfo(
+          keys.personal.public.getAdressBase64(),
+        );
+        Storage.saveMainBalance(selfInfo.balance);
+        Storage.savePublicName(selfInfo.name);
+        selfInfo.marketBalances.forEach((marketBalance) {
+          Storage.saveMarketBalanceByAdress(
+            base64.encode(marketBalance.adress),
+            marketBalance.balance,
+          );
+        });
+      } catch (e) {}
     }
   }
 
@@ -42,7 +48,7 @@ class _DynamicBalanceState extends State<DynamicBalance> {
   @override
   void initState() {
     super.initState();
-    uploadNewBalance();
+    updateSelfInformation();
     updateBalance();
     Storage.createTriggerSubscription(
       trigger: Trigger.mainBalanceUpdate,

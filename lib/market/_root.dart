@@ -22,6 +22,11 @@ class _MarketPageState extends State<MarketPage> {
       this.markets.clear();
       marketAdresses.forEach((marketAdress) async {
         var info = await InfoCalls.marketInfo(marketAdress);
+        print(info.activeBuys);
+        print(info.activeSells);
+        print(info.inputFee);
+        print(info.outputFee);
+        print(info.workTime);
         setState(() {
           this.markets.add(info);
         });

@@ -13,6 +13,12 @@ class MarketModalSheet extends StatefulWidget {
 
 class _MarketModalSheetState extends State<MarketModalSheet> {
   late Widget currentButtons;
+  int balance = 0;
+
+  void loadBalance() async {
+    this.balance = await Storage.loadMarketBalance(this.widget.info.adress);
+    setState(() {});
+  }
 
   void activateBuyOverlay() {}
 
@@ -42,18 +48,20 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
     });
   }
 
-  void checkIfHaveActiveTrades() async {
-    try {
-      var hasTrades = await InfoCalls.selfActiveTradesByAdress(
-        this.widget.info.adress,
-      );
-    } catch (e) {}
-  }
+  // TODO
+  // void checkIfHaveActiveTrades() async {
+  //   try {
+  //     var hasTrades = await InfoCalls.selfActiveTradesByAdress(
+  //       this.widget.info.adress,
+  //     );
+  //   } catch (e) {}
+  // }
 
   @override
   void initState() {
     currentButtons = ConnectButton(connect: () {});
     checkIfWalletIsConnected();
+    loadBalance();
     super.initState();
   }
 
@@ -105,7 +113,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
               ),
               Spacer(),
               Text(
-                'cnt: ' + this.widget.info.operationCount.toString(),
+                balance.toString(),
                 style: TextStyle(
                   color: Color.fromRGBO(234, 246, 255, 1.0),
                   fontSize: 24,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
+import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
 class MarketInfoOverlay extends StatefulWidget {
   final MarketInfo info;
@@ -68,14 +69,12 @@ class MarketInfoOverlayState extends State<MarketInfoOverlay>
                   ),
                   Divider(
                     color: Theme.of(context).focusColor,
-                    indent: 12,
-                    endIndent: 12,
                   ),
-                  InfoParams(info: this.widget.info),
+                  InfoParams(
+                    info: this.widget.info,
+                  ),
                   Divider(
                     color: Theme.of(context).focusColor,
-                    indent: 12,
-                    endIndent: 12,
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.4,
@@ -110,36 +109,68 @@ class MarketInfoOverlayState extends State<MarketInfoOverlay>
   }
 }
 
-class InfoParams extends StatelessWidget {
+class InfoParams extends StatefulWidget {
   final MarketInfo info;
-  InfoParams({required this.info});
+
+  InfoParams({
+    required this.info,
+  });
+
+  @override
+  State<InfoParams> createState() => _InfoParamsState();
+}
+
+class _InfoParamsState extends State<InfoParams> {
+  late int marketBalance = 0;
+  late int mainBalance = 0;
+  void loadBalances() async {
+    this.mainBalance = await Storage.loadMainBalance();
+    this.marketBalance = await Storage.loadMarketBalance(
+      this.widget.info.adress,
+    );
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    loadBalances();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(4.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Operation count: ' + info.operationCount.toString(),
+            'Operation count: ' + widget.info.operationCount.toString(),
             style: Theme.of(context).textTheme.subtitle2,
           ),
           Text(
-            'Active buys: ' + info.getAllBuys().length.toString(),
+            'Active buys: ' + widget.info.getAllBuys().length.toString(),
             style: Theme.of(context).textTheme.subtitle2,
           ),
           Text(
-            'Active sells: ' + info.getAllSells().length.toString(),
+            'Active sells: ' + widget.info.getAllSells().length.toString(),
             style: Theme.of(context).textTheme.subtitle2,
           ),
           Text(
-            'Your max buy offer: ' + 0.toString(),
+            'Max buy: ' + mainBalance.toString(),
             style: Theme.of(context).textTheme.subtitle2,
           ),
           Text(
-            'Your max sell offer: ' + 0.toString(),
+            'Max sell: ' + marketBalance.toString(),
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Input fee: ' + widget.info.workTime,
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Output fee: TODO',
             style: Theme.of(context).textTheme.subtitle2,
           ),
         ],

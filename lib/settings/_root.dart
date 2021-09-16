@@ -55,9 +55,11 @@ class _DynamicNameState extends State<DynamicName> {
 
   displayNewName() async {
     var loadedName = await Storage.loadPublicName();
-    setState(() {
-      name = loadedName;
-    });
+    if (mounted) {
+      setState(() {
+        name = loadedName;
+      });
+    }
   }
 
   @override
