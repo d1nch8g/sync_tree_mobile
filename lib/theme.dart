@@ -50,9 +50,9 @@ class App extends StatelessWidget {
           ),
           headline6: TextStyle(
             color: Color.fromRGBO(35, 37, 40, 1.0),
-            fontSize: 15.2,
+            fontSize: 14.2,
             fontFamily: 'Hind',
-            fontWeight: FontWeight.w200,
+            fontWeight: FontWeight.w400,
           ),
           overline: TextStyle(
             color: Color.fromRGBO(234, 246, 255, 1.0),
