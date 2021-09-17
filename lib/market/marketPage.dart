@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/market/buyOverlay.dart';
 import 'package:sync_tree_modile_ui/market/infoOverlay.dart';
 
 class MarketModalSheet extends StatefulWidget {
@@ -20,7 +21,12 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
     setState(() {});
   }
 
-  void activateBuyOverlay() {}
+  void activateBuyOverlay() async {
+    showDialog(
+      context: context,
+      builder: (_) => BuyOverlay(info: widget.info),
+    );
+  }
 
   void activateSellOverlay() {}
 
@@ -41,8 +47,12 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
     setState(() {
       if (currentWallets.contains(this.widget.info.adress)) {
         currentButtons = BuySellButtons(
-          buy: () {},
-          sell: () {},
+          buy: () {
+            activateBuyOverlay();
+          },
+          sell: () {
+            activateSellOverlay();
+          },
         );
       }
     });
