@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 
 class ConnectionErrorOverlay extends StatefulWidget {
   final String errorMessage;
-  ConnectionErrorOverlay({required this.errorMessage});
+  final Widget icon;
+  ConnectionErrorOverlay({
+    required this.errorMessage,
+    this.icon = const Icon(
+      Icons.wifi_off_rounded,
+      size: 144,
+      color: Color.fromRGBO(234, 246, 255, 1.0),
+    ),
+  });
   @override
   State<StatefulWidget> createState() => ConnectionErrorOverlayState();
 }
@@ -54,11 +62,7 @@ class ConnectionErrorOverlayState extends State<ConnectionErrorOverlay>
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),
-                  Icon(
-                    Icons.wifi_off_rounded,
-                    size: 144,
-                    color: Theme.of(context).focusColor,
-                  ),
+                  widget.icon,
                   Padding(
                     padding: EdgeInsets.all(6),
                     child: TextButton(

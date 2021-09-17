@@ -71,6 +71,13 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
   //   } catch (e) {}
   // }
 
+  loadNewBalance() async {
+    var newBalance = await Storage.loadMarketBalance(widget.info.adress);
+    setState(() {
+      mainBalance = newBalance;
+    });
+  }
+
   @override
   void initState() {
     currentButtons = ConnectButton(connect: () {
@@ -79,6 +86,12 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
     checkIfWalletIsConnected();
     loadBalances();
     super.initState();
+    Storage.createTriggerSubscription(
+      trigger: Trigger.marketBalanceUpdate,
+      onTriggerEvent: () {
+        loadNewBalance();
+      },
+    );
   }
 
   @override
@@ -128,12 +141,15 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
                 ),
               ),
               Spacer(),
-              Text(
-                marketBalance.toString(),
-                style: TextStyle(
-                  color: Color.fromRGBO(234, 246, 255, 1.0),
-                  fontSize: 24,
-                  fontFamily: 'Hind',
+              AnimatedSwitcher(
+                duration: Duration(milliseconds: 377),
+                child: Text(
+                  marketBalance.toString(),
+                  style: TextStyle(
+                    color: Color.fromRGBO(234, 246, 255, 1.0),
+                    fontSize: 24,
+                    fontFamily: 'Hind',
+                  ),
                 ),
               ),
               SizedBox(width: 22),
