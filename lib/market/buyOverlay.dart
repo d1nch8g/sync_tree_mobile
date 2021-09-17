@@ -22,9 +22,10 @@ class BuyOverlayState extends State<BuyOverlay>
 
   bool offerFixed = false;
   bool recieveFixed = false;
+  late Widget switchingBottomButtons;
   void showPlaceTradeButton() {
     if (offerFixed && recieveFixed) {
-      
+      switchingBottomButtons = PlaceOrderCancelButtons();
     }
   }
 
@@ -59,6 +60,8 @@ class BuyOverlayState extends State<BuyOverlay>
         topText: 'Sync tree main',
         recieveValueText: 'Offer: ${offerController.text}',
       );
+      this.offerFixed = true;
+      showPlaceTradeButton();
     }
   }
 
@@ -92,6 +95,8 @@ class BuyOverlayState extends State<BuyOverlay>
         topText: '${widget.info.name}',
         recieveValueText: 'Recieve: ${recieveController.text}',
       );
+      this.recieveFixed = true;
+      showPlaceTradeButton();
     }
   }
 
@@ -124,6 +129,12 @@ class BuyOverlayState extends State<BuyOverlay>
       node: recieveFocusNode,
       onTypeEnd: () {
         finishRecieveTyping();
+      },
+    );
+    switchingBottomButtons = TextButton(
+      child: Text('close'),
+      onPressed: () async {
+        Navigator.pop(context);
       },
     );
   }
@@ -171,11 +182,9 @@ class BuyOverlayState extends State<BuyOverlay>
                   SizedBox(height: 22),
                   Padding(
                     padding: EdgeInsets.all(6),
-                    child: TextButton(
-                      child: Text('close'),
-                      onPressed: () async {
-                        Navigator.pop(context);
-                      },
+                    child: AnimatedSwitcher(
+                      duration: Duration(milliseconds: 144),
+                      child: switchingBottomButtons,
                     ),
                   ),
                 ],
@@ -258,6 +267,29 @@ class FinishedValueWidget extends StatelessWidget {
         Text(topText),
         Divider(color: Theme.of(context).focusColor),
         Text(recieveValueText),
+      ],
+    );
+  }
+}
+
+class PlaceOrderCancelButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        TextButton(
+          child: Text('cancel'),
+          onPressed: () async {
+            Navigator.pop(context);
+          },
+        ),
+        TextButton(
+          child: Text('place order'),
+          onPressed: () async {
+            Navigator.pop(context);
+          },
+        ),
       ],
     );
   }
