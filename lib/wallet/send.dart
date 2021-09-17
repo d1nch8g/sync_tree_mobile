@@ -24,7 +24,7 @@ class SendButton extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.32,
+            width: MediaQuery.of(context).size.width * 0.29,
             child: Column(
               children: [
                 Icon(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
+import 'package:sync_tree_mobile_logic/net/user_calls.dart';
+import 'package:sync_tree_modile_ui/connection.dart';
 
 class BuyOverlay extends StatefulWidget {
   final MarketInfo info;
@@ -23,9 +25,37 @@ class BuyOverlayState extends State<BuyOverlay>
   bool offerFixed = false;
   bool recieveFixed = false;
   late Widget switchingBottomButtons;
+  void placeOrder() async {
+    try {
+      var operated = await UserCalls.buy(
+        widget.info.adress,
+        int.parse(recieveController.text),
+        int.parse(offerController.text),
+      );
+      if (operated) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => BuySuccedOverlay(succedMessage: 'Order placed'),
+        );
+      }
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (_) => ConnectionErrorOverlay(
+          errorMessage: 'Unable to connect with buy request!',
+        ),
+      );
+    }
+  }
+
   void showPlaceTradeButton() {
     if (offerFixed && recieveFixed) {
-      switchingBottomButtons = PlaceOrderCancelButtons();
+      switchingBottomButtons = PlaceOrderCancelButtons(
+        placeOrder: () {
+          placeOrder();
+        },
+      );
     }
   }
 
@@ -56,6 +86,15 @@ class BuyOverlayState extends State<BuyOverlay>
       });
     } else {
       offerFocusNode.unfocus();
+      recieveWidget = InputTextField(
+        controller: recieveController,
+        message: 'Recieve (${widget.info.name})',
+        node: recieveFocusNode,
+        onTypeEnd: () {
+          finishRecieveTyping();
+        },
+      );
+      setState(() {});
       offerWidget = FinishedValueWidget(
         topText: 'Sync tree main',
         recieveValueText: 'Offer: ${offerController.text}',
@@ -123,14 +162,7 @@ class BuyOverlayState extends State<BuyOverlay>
         finishOfferTyping();
       },
     );
-    recieveWidget = InputTextField(
-      controller: recieveController,
-      message: 'Recieve (${widget.info.name})',
-      node: recieveFocusNode,
-      onTypeEnd: () {
-        finishRecieveTyping();
-      },
-    );
+    recieveWidget = Center();
     switchingBottomButtons = TextButton(
       child: Text('close'),
       onPressed: () async {
@@ -156,38 +188,50 @@ class BuyOverlayState extends State<BuyOverlay>
             ),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(24, 22, 24, 22),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'BUY',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  Text(
-                    'To buy `${this.widget.info.name}` set the offer and recieve values.',
-                    textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                  SizedBox(height: 22),
-                  AnimatedSwitcher(
-                    duration: Duration(milliseconds: 144),
-                    child: offerWidget,
-                  ),
-                  SizedBox(height: 22),
-                  AnimatedSwitcher(
-                    duration: Duration(milliseconds: 144),
-                    child: recieveWidget,
-                  ),
-                  SizedBox(height: 22),
-                  Padding(
-                    padding: EdgeInsets.all(6),
-                    child: AnimatedSwitcher(
-                      duration: Duration(milliseconds: 144),
-                      child: switchingBottomButtons,
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 610),
+                transitionBuilder: (
+                  Widget child,
+                  Animation<double> animation,
+                ) =>
+                    ScaleTransition(
+                  scale: animation,
+                  child: child,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'BUY ORDER',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline1,
                     ),
-                  ),
-                ],
+                    SizedBox(height: 14),
+                    Text(
+                      'To buy `${this.widget.info.name}` set the offer and recieve values.',
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                    SizedBox(height: 22),
+                    AnimatedSwitcher(
+                      duration: Duration(milliseconds: 144),
+                      child: offerWidget,
+                    ),
+                    SizedBox(height: 22),
+                    AnimatedSwitcher(
+                      duration: Duration(milliseconds: 144),
+                      child: recieveWidget,
+                    ),
+                    SizedBox(height: 22),
+                    Padding(
+                      padding: EdgeInsets.all(6),
+                      child: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 144),
+                        child: switchingBottomButtons,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -273,6 +317,8 @@ class FinishedValueWidget extends StatelessWidget {
 }
 
 class PlaceOrderCancelButtons extends StatelessWidget {
+  final Function placeOrder;
+  PlaceOrderCancelButtons({required this.placeOrder});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -287,10 +333,89 @@ class PlaceOrderCancelButtons extends StatelessWidget {
         TextButton(
           child: Text('place order'),
           onPressed: () async {
-            Navigator.pop(context);
+            placeOrder();
           },
         ),
       ],
+    );
+  }
+}
+
+class BuySuccedOverlay extends StatefulWidget {
+  final String succedMessage;
+  BuySuccedOverlay({required this.succedMessage});
+  @override
+  State<StatefulWidget> createState() => BuySuccedOverlayState();
+}
+
+class BuySuccedOverlayState extends State<BuySuccedOverlay>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 377),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
+    controller.addListener(() {
+      setState(() {});
+    });
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.72,
+            decoration: ShapeDecoration(
+              color: Theme.of(context).backgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(38, 38, 38, 22),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    this.widget.succedMessage,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  Icon(
+                    Icons.check_circle_outline_rounded,
+                    size: 144,
+                    color: Theme.of(context).focusColor,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(6),
+                    child: TextButton(
+                      child: Text('close'),
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

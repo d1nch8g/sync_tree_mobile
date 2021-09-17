@@ -35,32 +35,31 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
 
   void activateSellOverlay() {}
 
-  void connectWallet() async {
-    var currentWallets = await Storage.loadConnectedWallets();
-    currentWallets.add(this.widget.info.adress);
-    Storage.saveConnectedWalletsAdressesList(currentWallets);
+  void setBuySellButtons() {
     setState(() {
       currentButtons = BuySellButtons(
-        buy: () {},
-        sell: () {},
+        buy: () {
+          activateBuyOverlay();
+        },
+        sell: () {
+          activateSellOverlay();
+        },
       );
     });
   }
 
+  void connectWallet() async {
+    var currentWallets = await Storage.loadConnectedWallets();
+    currentWallets.add(this.widget.info.adress);
+    Storage.saveConnectedWalletsAdressesList(currentWallets);
+    setBuySellButtons();
+  }
+
   void checkIfWalletIsConnected() async {
     var currentWallets = await Storage.loadConnectedWallets();
-    setState(() {
-      if (currentWallets.contains(this.widget.info.adress)) {
-        currentButtons = BuySellButtons(
-          buy: () {
-            activateBuyOverlay();
-          },
-          sell: () {
-            activateSellOverlay();
-          },
-        );
-      }
-    });
+    if (currentWallets.contains(this.widget.info.adress)) {
+      setBuySellButtons();
+    }
   }
 
   // TODO
@@ -74,7 +73,9 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
 
   @override
   void initState() {
-    currentButtons = ConnectButton(connect: () {});
+    currentButtons = ConnectButton(connect: () {
+      connectWallet();
+    });
     checkIfWalletIsConnected();
     loadBalances();
     super.initState();

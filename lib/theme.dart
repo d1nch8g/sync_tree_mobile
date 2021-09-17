@@ -60,7 +60,7 @@ class App extends StatelessWidget {
           ),
           button: TextStyle(
             color: Color.fromRGBO(234, 246, 255, 1.0),
-            fontSize: 26.2,
+            fontSize: 21.2,
             fontFamily: 'Hind',
             fontWeight: FontWeight.w400,
           ),

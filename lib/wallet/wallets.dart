@@ -18,7 +18,6 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
 
     setState(() {
       if (adresses.length == 0) {
-        print('here');
         this.currentMarketWidget = FindAndConnectButton();
       } else {
         adresses.forEach((adress) async {
