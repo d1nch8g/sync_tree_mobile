@@ -111,7 +111,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(42, 42, 42, 14),
+              padding: const EdgeInsets.fromLTRB(42, 32, 42, 14),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.62,
                 child: Column(
@@ -121,7 +121,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
                       'New public name',
                       style: Theme.of(context).textTheme.headline2,
                     ),
-                    SizedBox(height: 12),
+                    SizedBox(height: 18),
                     AnimatedSwitcher(
                       duration: Duration(milliseconds: 233),
                       child: currentWidget,
@@ -134,12 +134,23 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
                         child: child,
                       ),
                     ),
-                    SizedBox(height: 12),
-                    TextButton(
-                      onPressed: () {
-                        onComplete();
-                      },
-                      child: Text('continue'),
+                    SizedBox(height: 18),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            onComplete();
+                          },
+                          child: Text('change'),
+                        ),
+                      ],
                     ),
                   ],
                 ),

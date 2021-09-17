@@ -73,9 +73,11 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
 
   loadNewBalance() async {
     var newBalance = await Storage.loadMarketBalance(widget.info.adress);
-    setState(() {
-      mainBalance = newBalance;
-    });
+    if (mounted) {
+      setState(() {
+        mainBalance = newBalance;
+      });
+    }
   }
 
   @override

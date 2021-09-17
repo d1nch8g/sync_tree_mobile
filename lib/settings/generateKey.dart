@@ -198,14 +198,28 @@ class AskerContent extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 15),
-        TextButton(
-          onPressed: () {
-            startBuildingAndUploadingKeys();
-          },
-          child: Text(
-            'continue',
-            style: Theme.of(context).textTheme.headline2,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'cancel',
+                style: Theme.of(context).textTheme.headline2,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                startBuildingAndUploadingKeys();
+              },
+              child: Text(
+                'ok',
+                style: Theme.of(context).textTheme.headline2,
+              ),
+            ),
+          ],
         ),
         SizedBox(height: 15),
       ],

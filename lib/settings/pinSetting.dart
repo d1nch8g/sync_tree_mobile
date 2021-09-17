@@ -142,7 +142,7 @@ class SetPinOverlayState extends State<SetPinOverlay>
                       onPressed: () {
                         setPassword();
                       },
-                      child: Text('continue'),
+                      child: Text('set'),
                     ),
                   ],
                 ),

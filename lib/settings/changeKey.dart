@@ -129,15 +129,29 @@ class QuestionContent extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextButton(
-            child: Text(
-              'continue',
-              textAlign: TextAlign.center,
-            ),
-            onPressed: () {
-              onPressed();
-            },
+          padding: const EdgeInsets.fromLTRB(0, 14, 0, 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                child: Text(
+                  'cancel',
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              TextButton(
+                child: Text(
+                  'ok ',
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () {
+                  onPressed();
+                },
+              ),
+            ],
           ),
         ),
       ],
