@@ -5,6 +5,14 @@ import 'package:clipboard/clipboard.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/password.dart';
 
+void removeOldWalletInfoFromStorage() async {
+  var wallets = await Storage.loadConnectedWallets();
+  Storage.saveConnectedWalletsAdressesList([]);
+  wallets.forEach((wallet) {
+    Storage.saveMarketBalanceByAdress(wallet, 0);
+  });
+}
+
 class ChangeKeyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -145,7 +153,6 @@ class KeyCopyContent extends StatefulWidget {
 class _KeyCopyContentState extends State<KeyCopyContent> {
   late Widget buttonToAnimate;
 
-
   onPressAttemtToChangeKeys(context) async {
     var clipboardKeys = await FlutterClipboard.paste();
     try {
@@ -154,6 +161,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
       setState(() {
         buttonToAnimate = SucessButton();
       });
+      removeOldWalletInfoFromStorage();
       Future.delayed(Duration(milliseconds: 377), () {
         Navigator.pop(context);
         UserCalls.updateSelfInformation();

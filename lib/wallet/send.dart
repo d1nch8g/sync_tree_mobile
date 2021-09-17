@@ -140,6 +140,11 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
         context: context,
         builder: (_) => ConnectionErrorOverlay(
           errorMessage: 'Unable to find user',
+          icon: Icon(
+            Icons.account_circle_rounded,
+            size: 144,
+            color: Color.fromRGBO(234, 246, 255, 1.0),
+          ),
         ),
       );
     }

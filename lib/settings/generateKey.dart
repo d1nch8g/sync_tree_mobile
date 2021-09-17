@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/password.dart';
+import 'package:sync_tree_modile_ui/settings/changeKey.dart';
 import 'package:sync_tree_modile_ui/start/hello.dart';
 
 class GenerateKeyTile extends StatelessWidget {
@@ -113,6 +114,10 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
           }
         },
       );
+      removeOldWalletInfoFromStorage();
+      Future.delayed(Duration(milliseconds: 377), () {
+        UserCalls.updateSelfInformation();
+      });
     });
     Future.delayed(Duration(milliseconds: 1597), () {
       if (overlayIsOpen) {
