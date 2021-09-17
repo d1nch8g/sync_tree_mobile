@@ -201,8 +201,8 @@ class MarketTileList extends StatelessWidget {
                   ],
                 ),
                 subtitle: Text(
-                  mkt.description.substring(0, 100) + '...',
-                  style: Theme.of(context).textTheme.headline6,
+                  mkt.description.substring(0, 85),
+                  maxLines: 2,
                 ),
               ),
               Divider(
