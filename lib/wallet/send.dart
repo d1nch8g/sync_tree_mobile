@@ -2,6 +2,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/connection.dart';
 import 'package:sync_tree_modile_ui/password.dart';
 
 class SendButton extends StatelessWidget {
@@ -97,7 +98,15 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       amountWidget = AmountTextField(amountTextController, () {
         onAmountTypingEnd();
       });
-      sendWidget = Text('');
+      sendWidget = Padding(
+        padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+        child: TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('cancel'),
+        ),
+      );
     });
   }
 
@@ -106,7 +115,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       var userInfo = await InfoCalls.userInfo(adressTextController.text);
       setState(() {
         adressWidget = Text(
-          userInfo.name,
+          'To: ' + userInfo.name,
           style: Theme.of(context).textTheme.headline2,
         );
       });
@@ -114,7 +123,13 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       if (adressReady && amountReady) {
         spawnSendButton();
       }
-    } catch (e) {}
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (_) =>
+            ConnectionErrorOverlay(errorMessage: 'Unable to find user'),
+      );
+    }
   }
 
   void onAmountTypingEnd() async {
@@ -124,7 +139,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       if (curBalance >= balance) {
         setState(() {
           amountWidget = Text(
-            amountTextController.text,
+            'Amount: ' + amountTextController.text,
             style: Theme.of(context).textTheme.headline2,
           );
         });
@@ -181,38 +196,47 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   }
 
   void onSendButtonPress() async {
-    var succeded = await UserCalls.sendMain(
-      int.parse(amountTextController.text),
-      adressTextController.text,
-    );
-    if (succeded) {
-      setState(() {
-        sendWidget = Icon(
-          Icons.check_circle_outline_rounded,
-          color: Theme.of(context).focusColor,
-          size: 46,
-        );
-      });
-      Future.delayed(Duration(milliseconds: 377), () {
-        Navigator.pop(context);
-      });
-    } else {
-      setState(() {
-        sendWidget = Icon(
-          Icons.do_disturb_alt_rounded,
-          color: Theme.of(context).focusColor,
-          size: 46,
-        );
-      });
-      Future.delayed(
-        Duration(milliseconds: 610),
-        () {
-          setState(() {
-            sendWidget = SendButtonInOverlay(() {
-              onSendButtonPress();
+    try {
+      var succeded = await UserCalls.sendMain(
+        int.parse(amountTextController.text),
+        adressTextController.text,
+      );
+      if (succeded) {
+        setState(() {
+          sendWidget = Icon(
+            Icons.check_circle_outline_rounded,
+            color: Theme.of(context).focusColor,
+            size: 46,
+          );
+        });
+        Future.delayed(Duration(milliseconds: 377), () {
+          Navigator.pop(context);
+        });
+      } else {
+        setState(() {
+          sendWidget = Icon(
+            Icons.do_disturb_alt_rounded,
+            color: Theme.of(context).focusColor,
+            size: 46,
+          );
+        });
+        Future.delayed(
+          Duration(milliseconds: 610),
+          () {
+            setState(() {
+              sendWidget = SendButtonInOverlay(() {
+                onSendButtonPress();
+              });
             });
-          });
-        },
+          },
+        );
+      }
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (_) => ConnectionErrorOverlay(
+          errorMessage: 'Unbale to send. Check connection.',
+        ),
       );
     }
   }
@@ -233,10 +257,22 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(18, 32, 18, 22),
+              padding: const EdgeInsets.fromLTRB(18, 18, 18, 22),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Text(
+                    'SEND',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'You can paste reciever adress from clipboard or type it.',
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                  SizedBox(height: 22),
                   AnimatedSwitcher(
                     duration: Duration(milliseconds: 233),
                     child: adressWidget,
@@ -262,7 +298,6 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                       child: child,
                     ),
                   ),
-                  SizedBox(height: 17),
                   AnimatedSwitcher(
                     duration: Duration(milliseconds: 377),
                     child: sendWidget,
@@ -403,11 +438,28 @@ class SendButtonInOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () {
-        send();
-      },
-      child: Text('send'),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(height: 12),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                send();
+              },
+              child: Text('send'),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
