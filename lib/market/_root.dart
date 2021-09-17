@@ -17,7 +17,13 @@ class _MarketPageState extends State<MarketPage> {
 
   updateMarketList() async {
     try {
+      print('here');
       var marketAdresses = await InfoCalls.searchMarkets(searchController.text);
+      if (marketAdresses.length == 0) {
+        setState(() {
+          marketsWidget = NoSearchResults();
+        });
+      }
       Storage.saveSearchCache(searchController.text);
       List<MarketInfo> markets = [];
       marketAdresses.forEach((marketAdress) async {
@@ -30,9 +36,6 @@ class _MarketPageState extends State<MarketPage> {
           );
         });
       });
-      if (markets.length == 0) {
-        marketsWidget = NoSearchResults();
-      }
     } catch (e) {
       showDialog(
         context: context,
@@ -45,7 +48,9 @@ class _MarketPageState extends State<MarketPage> {
 
   loadSearchCache() async {
     this.searchController.text = await Storage.loadSeachCache();
-    updateMarketList();
+    Future.delayed(Duration(milliseconds: 34), () {
+      updateMarketList();
+    });
   }
 
   @override

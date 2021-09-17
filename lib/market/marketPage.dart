@@ -3,6 +3,8 @@ import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/market/buyOverlay.dart';
 import 'package:sync_tree_modile_ui/market/infoOverlay.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class MarketModalSheet extends StatefulWidget {
   final MarketInfo info;
@@ -223,6 +225,14 @@ class ConnectButton extends StatelessWidget {
       child: TextButton(
         onPressed: () {
           connect();
+          showTopSnackBar(
+            context,
+            CustomSnackBar.success(
+              message: 'Wallet connected',
+              backgroundColor: Theme.of(context).hoverColor,
+              textStyle: Theme.of(context).textTheme.headline2!,
+            ),
+          );
         },
         child: Text('connect'),
       ),
