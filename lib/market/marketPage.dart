@@ -14,17 +14,22 @@ class MarketModalSheet extends StatefulWidget {
 
 class _MarketModalSheetState extends State<MarketModalSheet> {
   late Widget currentButtons;
-  int balance = 0;
+  int marketBalance = 0;
+  int mainBalance = 0;
 
-  void loadBalance() async {
-    this.balance = await Storage.loadMarketBalance(this.widget.info.adress);
+  void loadBalances() async {
+    marketBalance = await Storage.loadMarketBalance(this.widget.info.adress);
+    mainBalance = await Storage.loadMainBalance();
     setState(() {});
   }
 
   void activateBuyOverlay() async {
     showDialog(
       context: context,
-      builder: (_) => BuyOverlay(info: widget.info),
+      builder: (_) => BuyOverlay(
+        info: widget.info,
+        mainBalance: mainBalance,
+      ),
     );
   }
 
@@ -71,7 +76,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
   void initState() {
     currentButtons = ConnectButton(connect: () {});
     checkIfWalletIsConnected();
-    loadBalance();
+    loadBalances();
     super.initState();
   }
 
@@ -123,7 +128,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
               ),
               Spacer(),
               Text(
-                balance.toString(),
+                marketBalance.toString(),
                 style: TextStyle(
                   color: Color.fromRGBO(234, 246, 255, 1.0),
                   fontSize: 24,

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 
 class BuyOverlay extends StatefulWidget {
   final MarketInfo info;
-  BuyOverlay({required this.info});
+  final int mainBalance;
+  BuyOverlay({
+    required this.info,
+    required this.mainBalance,
+  });
 
   @override
   State<StatefulWidget> createState() => BuyOverlayState();
@@ -31,6 +37,8 @@ class BuyOverlayState extends State<BuyOverlay>
     controller.forward();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -47,7 +55,7 @@ class BuyOverlayState extends State<BuyOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 22, 16, 22),
+              padding: const EdgeInsets.fromLTRB(24, 22, 24, 22),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -61,6 +69,14 @@ class BuyOverlayState extends State<BuyOverlay>
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
+                  SizedBox(height: 18),
+                  InputTextField(
+                    controller: TextEditingController(),
+                    message: 'Offer',
+                    node: FocusNode(),
+                    onTypeEnd: () {},
+                  ),
+                  SizedBox(height: 18),
                   Padding(
                     padding: EdgeInsets.all(6),
                     child: TextButton(
@@ -74,6 +90,62 @@ class BuyOverlayState extends State<BuyOverlay>
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class InputTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final String message;
+  final FocusNode node;
+  final Function onTypeEnd;
+  InputTextField({
+    required this.controller,
+    required this.message,
+    required this.node,
+    required this.onTypeEnd,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      focusNode: node,
+      style: TextStyle(
+        color: Theme.of(context).focusColor,
+      ),
+      keyboardType: TextInputType.numberWithOptions(
+        decimal: true,
+      ),
+      cursorColor: Theme.of(context).focusColor,
+      decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(color: Theme.of(context).focusColor),
+        ),
+        labelStyle: TextStyle(
+          color: Theme.of(context).focusColor,
+        ),
+        labelText: message,
+        hoverColor: Theme.of(context).focusColor,
+        fillColor: Theme.of(context).focusColor,
+        focusColor: Theme.of(context).focusColor,
+        suffixIcon: IconButton(
+          icon: Icon(Icons.check_circle_rounded),
+          color: Theme.of(context).focusColor,
+          onPressed: () {
+            onTypeEnd();
+          },
         ),
       ),
     );
