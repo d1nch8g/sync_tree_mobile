@@ -20,6 +20,81 @@ class BuyOverlayState extends State<BuyOverlay>
   late AnimationController controller;
   late Animation<double> scaleAnimation;
 
+  bool offerFixed = false;
+  bool recieveFixed = false;
+  void showPlaceTradeButton() {
+    if (offerFixed && recieveFixed) {
+      
+    }
+  }
+
+  late Widget offerWidget;
+  final TextEditingController offerController = TextEditingController();
+  final FocusNode offerFocusNode = FocusNode();
+  void finishOfferTyping() async {
+    if (offerController.text == '' ||
+        int.parse(offerController.text) > widget.mainBalance ||
+        int.parse(offerController.text) == 0) {
+      offerWidget = Icon(
+        Icons.cancel_rounded,
+        color: Theme.of(context).focusColor,
+        size: 42,
+      );
+      offerController.text = '';
+      setState(() {});
+      Future.delayed(Duration(milliseconds: 610), () {
+        offerWidget = InputTextField(
+          controller: offerController,
+          message: 'Offer (Sync tree main)',
+          node: offerFocusNode,
+          onTypeEnd: () {
+            finishOfferTyping();
+          },
+        );
+        setState(() {});
+      });
+    } else {
+      offerFocusNode.unfocus();
+      offerWidget = FinishedValueWidget(
+        topText: 'Sync tree main',
+        recieveValueText: 'Offer: ${offerController.text}',
+      );
+    }
+  }
+
+  late Widget recieveWidget;
+  final TextEditingController recieveController = TextEditingController();
+  final FocusNode recieveFocusNode = FocusNode();
+  void finishRecieveTyping() {
+    if (recieveController.text == '' ||
+        int.parse(recieveController.text) == 0) {
+      recieveWidget = Icon(
+        Icons.cancel_rounded,
+        color: Theme.of(context).focusColor,
+        size: 42,
+      );
+      recieveController.text = '';
+      setState(() {});
+      Future.delayed(Duration(milliseconds: 610), () {
+        recieveWidget = InputTextField(
+          controller: recieveController,
+          message: 'Recieve (${widget.info.name})',
+          node: recieveFocusNode,
+          onTypeEnd: () {
+            finishRecieveTyping();
+          },
+        );
+        setState(() {});
+      });
+    } else {
+      recieveFocusNode.unfocus();
+      recieveWidget = FinishedValueWidget(
+        topText: '${widget.info.name}',
+        recieveValueText: 'Recieve: ${recieveController.text}',
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -35,9 +110,23 @@ class BuyOverlayState extends State<BuyOverlay>
       setState(() {});
     });
     controller.forward();
+    offerWidget = InputTextField(
+      controller: offerController,
+      message: 'Offer (Sync tree main)',
+      node: offerFocusNode,
+      onTypeEnd: () {
+        finishOfferTyping();
+      },
+    );
+    recieveWidget = InputTextField(
+      controller: recieveController,
+      message: 'Recieve (${widget.info.name})',
+      node: recieveFocusNode,
+      onTypeEnd: () {
+        finishRecieveTyping();
+      },
+    );
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -65,18 +154,21 @@ class BuyOverlayState extends State<BuyOverlay>
                     style: Theme.of(context).textTheme.headline1,
                   ),
                   Text(
-                    'To buy `${this.widget.info.name}` set the offer and recieve amounts.',
+                    'To buy `${this.widget.info.name}` set the offer and recieve values.',
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
-                  SizedBox(height: 18),
-                  InputTextField(
-                    controller: TextEditingController(),
-                    message: 'Offer',
-                    node: FocusNode(),
-                    onTypeEnd: () {},
+                  SizedBox(height: 22),
+                  AnimatedSwitcher(
+                    duration: Duration(milliseconds: 144),
+                    child: offerWidget,
                   ),
-                  SizedBox(height: 18),
+                  SizedBox(height: 22),
+                  AnimatedSwitcher(
+                    duration: Duration(milliseconds: 144),
+                    child: recieveWidget,
+                  ),
+                  SizedBox(height: 22),
                   Padding(
                     padding: EdgeInsets.all(6),
                     child: TextButton(
@@ -116,9 +208,7 @@ class InputTextField extends StatelessWidget {
       style: TextStyle(
         color: Theme.of(context).focusColor,
       ),
-      keyboardType: TextInputType.numberWithOptions(
-        decimal: true,
-      ),
+      keyboardType: TextInputType.numberWithOptions(),
       cursorColor: Theme.of(context).focusColor,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
@@ -148,6 +238,27 @@ class InputTextField extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class FinishedValueWidget extends StatelessWidget {
+  final String topText;
+  final String recieveValueText;
+  FinishedValueWidget({
+    required this.topText,
+    required this.recieveValueText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(topText),
+        Divider(color: Theme.of(context).focusColor),
+        Text(recieveValueText),
+      ],
     );
   }
 }
