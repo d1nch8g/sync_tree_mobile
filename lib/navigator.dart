@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
@@ -30,26 +29,6 @@ class _PrimaryPageState extends State<PrimaryPage> {
     var isFirstLaunch = await Storage.checkIfFirstLaunch();
     if (isFirstLaunch) {
       Navigator.pushNamed(context, '/hello');
-    }
-  }
-
-  void updateSelfInformation() async {
-    var firstLaunch = await Storage.checkIfFirstLaunch();
-    if (!firstLaunch) {
-      var keys = await Storage.loadKeys();
-      try {
-        var selfInfo = await InfoCalls.userInfo(
-          keys.personal.public.getAdressBase64(),
-        );
-        Storage.saveMainBalance(selfInfo.balance);
-        Storage.savePublicName(selfInfo.name);
-        selfInfo.marketBalances.forEach((marketBalance) {
-          Storage.saveMarketBalanceByAdress(
-            base64.encode(marketBalance.adress),
-            marketBalance.balance,
-          );
-        });
-      } catch (e) {}
     }
   }
 
@@ -88,7 +67,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
       initialPage: bottomBarIndex,
     );
     checkFirstLaunch();
-    updateSelfInformation();
+    UserCalls.updateSelfInformation();
     Storage.createTriggerSubscription(
       trigger: Trigger.moveToMarketPage,
       onTriggerEvent: () {

@@ -69,7 +69,9 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     setState(() {
       currentWidget = KeyIsCopied();
       Future.delayed(Duration(milliseconds: 377), () {
-        Navigator.pop(context);
+        if (mounted) {
+          Navigator.pop(context);
+        }
       });
     });
   }
@@ -114,6 +116,12 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Text(
+                    'RECIEVE',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                  Divider(color: Theme.of(context).focusColor),
                   Text(
                     'This button will copy your adress to clipboard. Give it'
                     ' to sender.',

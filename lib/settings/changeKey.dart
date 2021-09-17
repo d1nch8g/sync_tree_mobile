@@ -145,14 +145,6 @@ class KeyCopyContent extends StatefulWidget {
 class _KeyCopyContentState extends State<KeyCopyContent> {
   late Widget buttonToAnimate;
 
-  updateSelfInfo() async {
-    var keys = await Storage.loadKeys();
-    var selfInfo = await InfoCalls.userInfo(
-      keys.personal.public.getAdressBase64(),
-    );
-    Storage.savePublicName(selfInfo.name);
-    Storage.saveMainBalance(selfInfo.balance);
-  }
 
   onPressAttemtToChangeKeys(context) async {
     var clipboardKeys = await FlutterClipboard.paste();
@@ -164,7 +156,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
       });
       Future.delayed(Duration(milliseconds: 377), () {
         Navigator.pop(context);
-        updateSelfInfo();
+        UserCalls.updateSelfInformation();
       });
       return;
     } catch (e) {

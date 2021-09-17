@@ -33,6 +33,7 @@ class _ConnectedWalletsState extends State<ConnectedWallets> {
 
   void updateConnectedMarkets() async {
     var adresses = await Storage.loadConnectedWallets();
+    // TODO continue
   }
 
   @override

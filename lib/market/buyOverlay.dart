@@ -38,6 +38,9 @@ class BuyOverlayState extends State<BuyOverlay>
           barrierDismissible: false,
           builder: (_) => BuySuccedOverlay(succedMessage: 'Order placed'),
         );
+        Future.delayed(Duration(milliseconds: 377), () {
+          UserCalls.updateSelfInformation();
+        });
       }
     } catch (e) {
       showDialog(

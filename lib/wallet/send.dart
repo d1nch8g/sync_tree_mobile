@@ -114,9 +114,21 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     try {
       var userInfo = await InfoCalls.userInfo(adressTextController.text);
       setState(() {
-        adressWidget = Text(
-          'To: ' + userInfo.name,
-          style: Theme.of(context).textTheme.headline2,
+        adressWidget = Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Sending to',
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            Divider(
+              color: Theme.of(context).focusColor,
+            ),
+            Text(
+              userInfo.name,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+          ],
         );
       });
       adressReady = true;
@@ -126,8 +138,9 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     } catch (e) {
       showDialog(
         context: context,
-        builder: (_) =>
-            ConnectionErrorOverlay(errorMessage: 'Unable to find user'),
+        builder: (_) => ConnectionErrorOverlay(
+          errorMessage: 'Unable to find user',
+        ),
       );
     }
   }
@@ -138,9 +151,21 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       var balance = int.parse(amountTextController.text);
       if (curBalance >= balance) {
         setState(() {
-          amountWidget = Text(
-            'Amount: ' + amountTextController.text,
-            style: Theme.of(context).textTheme.headline2,
+          amountWidget = Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Sending amount',
+                style: Theme.of(context).textTheme.headline2,
+              ),
+              Divider(
+                color: Theme.of(context).focusColor,
+              ),
+              Text(
+                amountTextController.text,
+                style: Theme.of(context).textTheme.headline2,
+              ),
+            ],
           );
         });
         amountReady = true;
