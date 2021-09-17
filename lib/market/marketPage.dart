@@ -152,6 +152,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
                     fontSize: 24,
                     fontFamily: 'Hind',
                   ),
+                  key: UniqueKey(),
                 ),
               ),
               SizedBox(width: 22),
@@ -197,7 +198,12 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
           ),
           AnimatedSwitcher(
             duration: Duration(
-              milliseconds: 377,
+              milliseconds: 144,
+            ),
+            transitionBuilder: (Widget child, Animation<double> animation) =>
+                ScaleTransition(
+              scale: animation,
+              child: child,
             ),
             child: currentButtons,
           ),

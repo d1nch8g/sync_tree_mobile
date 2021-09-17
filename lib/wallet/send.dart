@@ -151,52 +151,9 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   }
 
   void onAmountTypingEnd() async {
-    var curBalance = await Storage.loadMainBalance();
-    try {
-      var balance = int.parse(amountTextController.text);
-      if (curBalance >= balance) {
-        setState(() {
-          amountWidget = Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Sending amount',
-                style: Theme.of(context).textTheme.headline2,
-              ),
-              Divider(
-                color: Theme.of(context).focusColor,
-              ),
-              Text(
-                amountTextController.text,
-                style: Theme.of(context).textTheme.headline2,
-              ),
-            ],
-          );
-        });
-        amountReady = true;
-        if (adressReady && amountReady) {
-          spawnSendButton();
-        }
-      } else {
-        setState(() {
-          amountWidget = Icon(
-            Icons.do_disturb_alt_rounded,
-            color: Theme.of(context).focusColor,
-            size: 54,
-          );
-          Future.delayed(Duration(milliseconds: 610), () {
-            setState(() {
-              amountWidget = AmountTextField(
-                amountTextController,
-                () {
-                  onAmountTypingEnd();
-                },
-              );
-            });
-          });
-        });
-      }
-    } catch (e) {
+    var storageBalance = await Storage.loadMainBalance();
+    if (amountTextController.text == '' ||
+        int.parse(amountTextController.text) == 0) {
       setState(() {
         amountWidget = Icon(
           Icons.help_outline_rounded,
@@ -214,6 +171,49 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
           });
         });
       });
+      return;
+    }
+    if (int.parse(amountTextController.text) > storageBalance) {
+      setState(() {
+        amountWidget = Icon(
+          Icons.do_disturb_alt_rounded,
+          color: Theme.of(context).focusColor,
+          size: 54,
+        );
+        Future.delayed(Duration(milliseconds: 610), () {
+          setState(() {
+            amountWidget = AmountTextField(
+              amountTextController,
+              () {
+                onAmountTypingEnd();
+              },
+            );
+          });
+        });
+      });
+      return;
+    }
+    setState(() {
+      amountWidget = Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Sending amount',
+            style: Theme.of(context).textTheme.headline2,
+          ),
+          Divider(
+            color: Theme.of(context).focusColor,
+          ),
+          Text(
+            amountTextController.text,
+            style: Theme.of(context).textTheme.headline2,
+          ),
+        ],
+      );
+    });
+    amountReady = true;
+    if (adressReady && amountReady) {
+      spawnSendButton();
     }
   }
 
