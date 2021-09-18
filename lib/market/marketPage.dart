@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/market/buyOverlay.dart';
+import 'package:sync_tree_modile_ui/market/tradeChart.dart';
 import 'package:sync_tree_modile_ui/market/sellOverlay.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -33,6 +34,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
     var currentWallets = await Storage.loadConnectedWallets();
     if (!currentWallets.contains(this.widget.info.adress)) {
       currentButtons = ConnectButton(connect: () async {
+        setConnectedOverlay();
         var currentWallets = await Storage.loadConnectedWallets();
         currentWallets.add(this.widget.info.adress);
         Storage.saveConnectedWalletsAdressesList(currentWallets);
@@ -61,9 +63,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
     setState(() {});
   }
 
-  @override
-  void initState() {
-    super.initState();
+  void setConnectedOverlay() {
     currentButtons = BuySellButtons(
       buy: () {
         showDialog(
@@ -89,6 +89,13 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
       },
     );
     tradeBarsWidget = TradeBars();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setConnectedOverlay();
     loadBalancesFromStorage();
     Storage.createTriggerSubscription(
       trigger: Trigger.marketBalanceUpdate,
@@ -111,7 +118,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        padding: const EdgeInsets.fromLTRB(21, 0, 21, 0),
         child: AnimatedSwitcher(
           duration: Duration(milliseconds: 377),
           child: Column(
@@ -124,7 +131,6 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
                 padding: const EdgeInsets.fromLTRB(0, 14, 0, 0),
                 child: Row(
                   children: [
-                    SizedBox(width: 22),
                     Container(
                       height: 26,
                       child: Image.network(this.widget.info.imageLink),
@@ -151,7 +157,6 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
                         key: UniqueKey(),
                       ),
                     ),
-                    SizedBox(width: 22),
                   ],
                 ),
               ),
@@ -168,11 +173,13 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
                 'Max sell: ${marketBalance.toString()}\n'
                 'Input fee: ${widget.info.inputFee.toString()}%\n'
                 'Output fee: ${widget.info.outputFee.toString()}%\n'
-                'Working time: ${widget.info.workTime}\n',
+                'Working time: ${widget.info.workTime}',
                 style: Theme.of(context).textTheme.subtitle2,
               ),
               Divider(
                 color: Theme.of(context).focusColor,
+                indent: 12,
+                endIndent: 12,
               ),
               Expanded(
                 child: Text(
@@ -294,15 +301,6 @@ class SmallVerticalBar extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class TradeBars extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.38,
     );
   }
 }
