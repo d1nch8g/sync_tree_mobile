@@ -51,7 +51,9 @@ class InfoContent extends StatelessWidget {
             'Working time: ' + info.workTime,
             style: Theme.of(context).textTheme.subtitle2,
           ),
-          Divider(),
+          Divider(
+            color: Theme.of(context).focusColor,
+          ),
           Text(
             this.info.description,
             style: Theme.of(context).textTheme.subtitle2,
