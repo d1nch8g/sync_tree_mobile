@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class ConnectedWallets extends StatefulWidget {
   @override
@@ -78,6 +80,14 @@ class FindAndConnectButton extends StatelessWidget {
         onPressed: () {
           Storage.triggerStorageEvent(
             trigger: Trigger.moveToMarketPage,
+          );
+          showTopSnackBar(
+            context,
+            CustomSnackBar.error(
+              message: 'Connect any wallet',
+              backgroundColor: Theme.of(context).hoverColor,
+              textStyle: Theme.of(context).textTheme.headline2!,
+            ),
           );
         },
         style: ButtonStyle(

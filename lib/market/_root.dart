@@ -17,7 +17,6 @@ class _MarketPageState extends State<MarketPage> {
 
   updateMarketList() async {
     try {
-      print('here');
       var marketAdresses = await InfoCalls.searchMarkets(searchController.text);
       if (marketAdresses.length == 0) {
         setState(() {

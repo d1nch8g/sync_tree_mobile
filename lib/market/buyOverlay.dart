@@ -52,7 +52,7 @@ class BuyOverlayState extends State<BuyOverlay>
     }
   }
 
-  void showPlaceTradeButton() {
+  void ifAmountsFixedShowPlaceTradeButton() {
     if (offerFixed && recieveFixed) {
       switchingBottomButtons = PlaceOrderCancelButtons(
         placeOrder: () {
@@ -97,13 +97,13 @@ class BuyOverlayState extends State<BuyOverlay>
           finishRecieveTyping();
         },
       );
-      setState(() {});
       offerWidget = FinishedValueWidget(
         topText: 'Sync tree main',
         recieveValueText: 'Offer: ${offerController.text}',
       );
       this.offerFixed = true;
-      showPlaceTradeButton();
+      setState(() {});
+      ifAmountsFixedShowPlaceTradeButton();
     }
   }
 
@@ -138,7 +138,7 @@ class BuyOverlayState extends State<BuyOverlay>
         recieveValueText: 'Recieve: ${recieveController.text}',
       );
       this.recieveFixed = true;
-      showPlaceTradeButton();
+      ifAmountsFixedShowPlaceTradeButton();
     }
   }
 
