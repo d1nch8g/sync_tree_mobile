@@ -225,7 +225,7 @@ class ConnectButton extends StatelessWidget {
   }
 }
 
-class BuySellButtons extends StatefulWidget {
+class BuySellButtons extends StatelessWidget {
   final Function buy;
   final Function sell;
   final MarketInfo info;
@@ -236,14 +236,8 @@ class BuySellButtons extends StatefulWidget {
     required this.info,
     required this.unfoldTradeBar,
   });
-  @override
-  State<BuySellButtons> createState() => _BuySellButtonsState();
-}
 
-class _BuySellButtonsState extends State<BuySellButtons> {
   @override
-  IconData icon = Icons.text_snippet_rounded;
-
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 12, 0, 32),
@@ -252,7 +246,7 @@ class _BuySellButtonsState extends State<BuySellButtons> {
         children: [
           TextButton(
             onPressed: () {
-              widget.buy();
+              buy();
             },
             child: Text(' buy '),
           ),
@@ -261,24 +255,18 @@ class _BuySellButtonsState extends State<BuySellButtons> {
             radius: 28,
             child: IconButton(
               icon: Icon(
-                icon,
+                Icons.text_snippet_rounded,
                 color: Theme.of(context).backgroundColor,
               ),
               iconSize: 42,
               onPressed: () {
-                widget.unfoldTradeBar();
-                if (icon == Icons.text_snippet_rounded) {
-                  icon = Icons.text_snippet_outlined;
-                } else {
-                  icon = Icons.text_snippet_rounded;
-                }
-                setState(() {});
+                unfoldTradeBar();
               },
             ),
           ),
           TextButton(
             onPressed: () {
-              widget.sell();
+              sell();
             },
             child: Text('sell'),
           ),
