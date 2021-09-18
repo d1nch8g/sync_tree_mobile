@@ -58,7 +58,9 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
       tradeBarsWidget = Container();
     } else {
       tradeBarsAreOpen = true;
-      tradeBarsWidget = TradeBars();
+      tradeBarsWidget = TradeBars(
+        info: widget.info,
+      );
     }
     setState(() {});
   }
@@ -88,7 +90,9 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
         closeOpenTradeBars();
       },
     );
-    tradeBarsWidget = TradeBars();
+    tradeBarsWidget = TradeBars(
+      info: widget.info,
+    );
     setState(() {});
   }
 
