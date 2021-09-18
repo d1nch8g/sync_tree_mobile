@@ -84,7 +84,7 @@ class FindAndConnectButton extends StatelessWidget {
           showTopSnackBar(
             context,
             CustomSnackBar.error(
-              message: 'Connect any wallet',
+              message: 'Here you can find markets and connect them',
               backgroundColor: Theme.of(context).hoverColor,
               textStyle: Theme.of(context).textTheme.headline2!,
             ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/market/buyOverlay.dart';
-import 'package:sync_tree_modile_ui/market/infoOverlay.dart';
+import 'package:sync_tree_modile_ui/market/infoContent.dart';
 import 'package:sync_tree_modile_ui/market/sellOverlay.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -55,6 +55,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
         sell: () {
           activateSellOverlay();
         },
+        info: widget.info,
       );
     });
   }
@@ -182,38 +183,10 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
             indent: 12,
             endIndent: 12,
           ),
-          Expanded(
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Text(
-                    this.widget.info.description,
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 12, 4),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.text_snippet_rounded,
-                        color: Theme.of(context).focusColor,
-                      ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) => MarketInfoOverlay(
-                            info: this.widget.info,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                )
-              ],
-            ),
+          InfoContent(
+            info: widget.info,
+            mainBalance: mainBalance,
+            marketBalance: marketBalance,
           ),
           AnimatedSwitcher(
             duration: Duration(
@@ -252,9 +225,11 @@ class ConnectButton extends StatelessWidget {
 class BuySellButtons extends StatelessWidget {
   final Function buy;
   final Function sell;
+  final MarketInfo info;
   BuySellButtons({
     required this.buy,
     required this.sell,
+    required this.info,
   });
   @override
   Widget build(BuildContext context) {
@@ -268,6 +243,20 @@ class BuySellButtons extends StatelessWidget {
               buy();
             },
             child: Text(' buy '),
+          ),
+          CircleAvatar(
+            backgroundColor: Theme.of(context).focusColor,
+            radius: 28,
+            child: IconButton(
+              icon: Icon(
+                Icons.text_snippet_rounded,
+                color: Theme.of(context).backgroundColor,
+              ),
+              iconSize: 42,
+              onPressed: () {
+                // TODO here should be function hiding trade bars content
+              },
+            ),
           ),
           TextButton(
             onPressed: () {
