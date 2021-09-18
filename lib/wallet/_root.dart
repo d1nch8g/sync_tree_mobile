@@ -31,7 +31,7 @@ class WalletPage extends StatelessWidget {
             style: Theme.of(context).textTheme.headline4,
           ),
           Divider(),
-          ConnectedWallets(),
+          x(),
         ],
       ),
     );

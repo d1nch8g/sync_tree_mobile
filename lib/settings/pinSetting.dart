@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/password.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class SetPinTile extends StatelessWidget {
   @override
@@ -73,6 +75,17 @@ class SetPinOverlayState extends State<SetPinOverlay>
 
   void setPassword() async {
     Storage.savePassword(textController.text);
+    if (textController.text == '') {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: 'There is no pin',
+          //backgroundColor: Theme.of(context).hoverColor,
+          textStyle: Theme.of(context).textTheme.headline2!,
+        ),
+      );
+      return;
+    }
     setState(() {
       currentWidget = Icon(
         Icons.lock_outline_rounded,
@@ -96,6 +109,14 @@ class SetPinOverlayState extends State<SetPinOverlay>
       Future.delayed(Duration(milliseconds: 610 + 233), () {
         Navigator.pop(context);
       });
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: 'Pin has been removed',
+          backgroundColor: Theme.of(context).backgroundColor,
+          textStyle: Theme.of(context).textTheme.headline2!,
+        ),
+      );
     });
   }
 

@@ -86,7 +86,7 @@ class ChangeKeyOverlayState extends State<ChangeKeyOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
+            width: MediaQuery.of(context).size.width * 0.82,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -94,7 +94,7 @@ class ChangeKeyOverlayState extends State<ChangeKeyOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(42, 42, 42, 14),
+              padding: const EdgeInsets.fromLTRB(32, 32, 32, 14),
               child: AnimatedSwitcher(
                 duration: Duration(milliseconds: 377),
                 child: currentContent,
@@ -123,6 +123,12 @@ class QuestionContent extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        Text(
+          'KEY WARNING',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headline2,
+        ),
+        Divider(color: Theme.of(context).focusColor),
         Text(
           'Are you sure?\nIf you paste new key, old one will be removed and lost',
           style: Theme.of(context).textTheme.headline2,
@@ -208,6 +214,12 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        Text(
+          'NEW KEY',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        Divider(color: Theme.of(context).focusColor),
         Text(
           'Press this button to paste a key from clipboard',
           style: Theme.of(context).textTheme.headline2,

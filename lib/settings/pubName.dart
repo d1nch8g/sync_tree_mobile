@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/connection.dart';
 import 'package:sync_tree_modile_ui/password.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class PublicNameTile extends StatelessWidget {
   @override
@@ -60,6 +62,14 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
               Navigator.pop(context);
             });
           });
+          showTopSnackBar(
+            context,
+            CustomSnackBar.success(
+              message: 'Public name updated!',
+              backgroundColor: Theme.of(context).hoverColor,
+              textStyle: Theme.of(context).textTheme.headline2!,
+            ),
+          );
         }
       } catch (e) {
         Storage.savePublicName(previousName);

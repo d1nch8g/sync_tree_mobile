@@ -1,40 +1,25 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
-import 'package:sync_tree_modile_ui/password.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class CopyKeyTile extends StatelessWidget {
-  Future<String> getAllKeysString() async {
-    var keys = await Storage.loadKeys();
-    return keys.allKeysString;
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListTile(
       enableFeedback: true,
-      onTap: () {
-        passwordCheck(
+      onTap: () async {
+        var keys = await Storage.loadKeys();
+        showTopSnackBar(
           context,
-          () {
-            getAllKeysString().then((privateKeyPem) {
-              FlutterClipboard.copy(privateKeyPem);
-              var _timer = Timer(Duration(milliseconds: 1597), () {
-                Navigator.of(context).pop();
-              });
-              showDialog(
-                context: context,
-                builder: (_) => KeyCopyOverlay(),
-              ).then(
-                (value) => {
-                  if (_timer.isActive) {_timer.cancel()}
-                },
-              );
-            });
-          },
+          CustomSnackBar.success(
+            message: 'Key copied to clipboard',
+            backgroundColor: Theme.of(context).hoverColor,
+            textStyle: Theme.of(context).textTheme.headline2!,
+          ),
         );
+        FlutterClipboard.copy(keys.allKeysString);
       },
       leading: Icon(
         Icons.vpn_key_outlined,
@@ -48,120 +33,6 @@ class CopyKeyTile extends StatelessWidget {
       subtitle: Text(
         'Get copy of your private key saved on your device and copy it to clipboard.',
         style: Theme.of(context).textTheme.headline6,
-      ),
-    );
-  }
-}
-
-class KeyCopyOverlay extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => KeyCopyOverlayState();
-}
-
-class KeyCopyOverlayState extends State<KeyCopyOverlay>
-    with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  late Animation<double> scaleAnimation;
-  double keyOpacity = 0;
-  double arrowOpacity = 0;
-  double copyOpacity = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 377),
-    );
-    scaleAnimation = CurvedAnimation(
-      parent: controller,
-      curve: Curves.decelerate,
-    );
-    controller.addListener(() {
-      setState(() {});
-    });
-    controller.forward();
-    Future.delayed(Duration(milliseconds: 233), () {
-      setState(() {
-        keyOpacity = 1;
-      });
-      Future.delayed(Duration(milliseconds: 233), () {
-        setState(() {
-          arrowOpacity = 1;
-        });
-        Future.delayed(Duration(milliseconds: 233), () {
-          setState(() {
-            copyOpacity = 1;
-          });
-        });
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Material(
-        color: Colors.transparent,
-        child: ScaleTransition(
-          scale: scaleAnimation,
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            decoration: ShapeDecoration(
-              color: Theme.of(context).backgroundColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(50, 32, 50, 32),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'key copied to clipboard',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                  SizedBox(height: 12),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      AnimatedOpacity(
-                        opacity: keyOpacity,
-                        duration: Duration(milliseconds: 233),
-                        child: Icon(
-                          Icons.vpn_key_rounded,
-                          size: 42,
-                          color: Theme.of(context).focusColor,
-                        ),
-                      ),
-                      AnimatedOpacity(
-                        opacity: arrowOpacity,
-                        duration: Duration(milliseconds: 233),
-                        child: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          size: 42,
-                          color: Theme.of(context).focusColor,
-                        ),
-                      ),
-                      AnimatedOpacity(
-                        opacity: copyOpacity,
-                        duration: Duration(milliseconds: 233),
-                        child: Icon(
-                          Icons.copy,
-                          size: 42,
-                          color: Theme.of(context).focusColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

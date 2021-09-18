@@ -4,6 +4,8 @@ import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/connection.dart';
 import 'package:sync_tree_modile_ui/password.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class SendButton extends StatelessWidget {
   @override
@@ -134,15 +136,12 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
         spawnSendButton();
       }
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (_) => ConnectionErrorOverlay(
-          errorMessage: 'Unable to find user',
-          icon: Icon(
-            Icons.account_circle_rounded,
-            size: 144,
-            color: Color.fromRGBO(234, 246, 255, 1.0),
-          ),
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: 'Unable to find user with that adress',
+          //backgroundColor: Theme.of(context).hoverColor,
+          textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );
     }
@@ -294,6 +293,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline1,
                   ),
+                  Divider(color: Theme.of(context).focusColor),
                   SizedBox(height: 8),
                   Text(
                     'You can paste reciever adress from clipboard or type it.',
