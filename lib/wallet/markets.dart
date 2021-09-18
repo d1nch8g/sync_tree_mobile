@@ -1,10 +1,31 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
-class ConnectedMarketList extends StatelessWidget {
-  final List<MarketInfo> markets;
-  ConnectedMarketList({required this.markets});
+class ConnectedMarketList extends StatefulWidget {
+  @override
+  State<ConnectedMarketList> createState() => _ConnectedMarketListState();
+}
+
+class _ConnectedMarketListState extends State<ConnectedMarketList> {
+  late List<MarketInfo> markets = [];
+
+  void updateMarketsInfo() async {
+    var marketAdresses = await Storage.loadConnectedWallets();
+    marketAdresses.forEach((adress) async {
+      var info = await InfoCalls.marketInfo(base64.decode(adress));
+      markets.add(info);
+      setState(() {});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateMarketsInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +49,8 @@ class ConnectedMarketList extends StatelessWidget {
                         Text(info.name),
                         Text(info.workTime),
                         Text(
-                          'in fee: ${info.inputFee.toString()}% '
-                          'out fee: ${info.outputFee.toString()}%',
+                          'Fee - in: ${info.inputFee.toString()}% '
+                          'out: ${info.outputFee.toString()}%',
                         ),
                         DynamicMarketBalance(adress: info.adress),
                       ],

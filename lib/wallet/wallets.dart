@@ -14,32 +14,20 @@ class ConnectedWallets extends StatefulWidget {
 
 class _ConnectedWalletsState extends State<ConnectedWallets> {
   late Widget currentMarketWidget;
-  List<MarketInfo> markets = [];
 
-  void checkIfHasConnections() async {
+  void checkIfHasNoConnections() async {
     var adresses = await Storage.loadConnectedWallets();
-    setState(() {
-      if (adresses.length == 0) {
-        currentMarketWidget = FindAndConnectButton();
-      } else {
-        adresses.forEach((adress) async {
-          var info = await InfoCalls.marketInfo(base64.decode(adress));
-          this.markets.add(info);
-        });
-        currentMarketWidget = ConnectedMarketList(
-          markets: this.markets,
-        );
-      }
-    });
+    if (adresses.length == 0) {
+      currentMarketWidget = FindAndConnectButton();
+      setState(() {});
+    }
   }
 
   @override
   void initState() {
-    currentMarketWidget = ConnectedMarketList(
-      markets: markets,
-    );
-    checkIfHasConnections();
+    currentMarketWidget = ConnectedMarketList();
     super.initState();
+    checkIfHasNoConnections();
   }
 
   @override
