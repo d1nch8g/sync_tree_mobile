@@ -48,9 +48,7 @@ class SendButton extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(12.0),
               ),
-              side: BorderSide(
-                color: Theme.of(context).backgroundColor,
-              ),
+              side: BorderSide(color: Theme.of(context).backgroundColor),
             ),
           ),
         ),

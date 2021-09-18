@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
@@ -17,7 +16,7 @@ class _DynamicBalanceState extends State<DynamicBalance> {
         if (memoryBalance == 0) {
           this.balance = 'Balance - 0';
         } else {
-          this.balance = memoryBalance.toString();
+          this.balance = 'Main: ${memoryBalance.toString()}';
         }
       });
     }

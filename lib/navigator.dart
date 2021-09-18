@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 
@@ -109,7 +108,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
             backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(
-            label: 'wallet',
+            label: 'wallets',
             icon: Icon(Icons.account_balance_wallet_outlined),
             backgroundColor: Theme.of(context).backgroundColor,
           ),

@@ -27,7 +27,9 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
   void loadBalancesFromStorage() async {
     marketBalance = await Storage.loadMarketBalance(this.widget.info.adress);
     mainBalance = await Storage.loadMainBalance();
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   checkIfWalletIsNotConnected() async {
@@ -58,9 +60,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
       tradeBarsWidget = Container();
     } else {
       tradeBarsAreOpen = true;
-      tradeBarsWidget = TradeBars(
-        info: widget.info,
-      );
+      tradeBarsWidget = TradeBars();
     }
     setState(() {});
   }
@@ -90,9 +90,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
         closeOpenTradeBars();
       },
     );
-    tradeBarsWidget = TradeBars(
-      info: widget.info,
-    );
+    tradeBarsWidget = TradeBars();
     setState(() {});
   }
 

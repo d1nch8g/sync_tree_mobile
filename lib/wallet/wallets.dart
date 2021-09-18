@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/wallet/markets.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -104,25 +105,6 @@ class FindAndConnectButton extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ConnectedMarketList extends StatelessWidget {
-  final List<MarketInfo> markets;
-  ConnectedMarketList({required this.markets});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: markets.length,
-      itemBuilder: (context, index) {
-        var info = markets[index];
-        return Padding(
-          padding: EdgeInsets.all(8),
-          child: Container(),
-        );
-      },
     );
   }
 }
