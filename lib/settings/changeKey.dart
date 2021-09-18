@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:clipboard/clipboard.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
-import 'package:sync_tree_modile_ui/password.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 void removeOldWalletInfoFromStorage() async {
   var wallets = await Storage.loadConnectedWallets();
@@ -18,14 +19,9 @@ class ChangeKeyTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        passwordCheck(
-          context,
-          () {
-            showDialog(
-              context: context,
-              builder: (_) => ChangeKeyOverlay(),
-            );
-          },
+        showDialog(
+          context: context,
+          builder: (_) => ChangeKeyOverlay(),
         );
       },
       leading: Icon(
@@ -197,6 +193,13 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
             });
           });
         });
+        showTopSnackBar(
+          context,
+          CustomSnackBar.error(
+            message: 'Wrong key format, check spaces',
+            textStyle: Theme.of(context).textTheme.headline2!,
+          ),
+        );
       });
     }
   }

@@ -209,7 +209,8 @@ class BuyOverlayState extends State<BuyOverlay>
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline1,
                     ),
-                    SizedBox(height: 14),
+                    Divider(color: Theme.of(context).focusColor),
+                    SizedBox(height: 6),
                     Text(
                       'To buy `${this.widget.info.name}` set the offer and recieve values.',
                       textAlign: TextAlign.start,
