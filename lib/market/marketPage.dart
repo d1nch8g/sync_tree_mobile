@@ -145,48 +145,55 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
               ),
             ],
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.38),
-          Row(
-            children: [
-              SizedBox(width: 22),
-              Container(
-                height: 26,
-                child: Image.network(this.widget.info.imageLink),
-              ),
-              SizedBox(width: 12),
-              Text(
-                this.widget.info.name,
-                style: TextStyle(
-                  color: Color.fromRGBO(234, 246, 255, 1.0),
-                  fontSize: 26,
-                  fontFamily: 'Hind',
+          // TODO here should be widget with bars
+          // SizedBox(height: MediaQuery.of(context).size.height * 0.38),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 14, 0, 0),
+            child: Row(
+              children: [
+                SizedBox(width: 22),
+                Container(
+                  height: 26,
+                  child: Image.network(this.widget.info.imageLink),
                 ),
-              ),
-              Spacer(),
-              AnimatedSwitcher(
-                duration: Duration(milliseconds: 377),
-                child: Text(
-                  marketBalance.toString(),
+                SizedBox(width: 12),
+                Text(
+                  this.widget.info.name,
                   style: TextStyle(
                     color: Color.fromRGBO(234, 246, 255, 1.0),
-                    fontSize: 24,
+                    fontSize: 26,
                     fontFamily: 'Hind',
                   ),
-                  key: UniqueKey(),
                 ),
-              ),
-              SizedBox(width: 22),
-            ],
+                Spacer(),
+                AnimatedSwitcher(
+                  duration: Duration(milliseconds: 377),
+                  child: Text(
+                    marketBalance.toString(),
+                    style: TextStyle(
+                      color: Color.fromRGBO(234, 246, 255, 1.0),
+                      fontSize: 24,
+                      fontFamily: 'Hind',
+                    ),
+                    key: UniqueKey(),
+                  ),
+                ),
+                SizedBox(width: 22),
+              ],
+            ),
           ),
           Divider(
             color: Theme.of(context).focusColor,
             indent: 12,
             endIndent: 12,
           ),
-          InfoContent(
-            info: widget.info,
-            mainBalance: mainBalance,
-            marketBalance: marketBalance,
+          Expanded(
+            child: InfoContent(
+              info: widget.info,
+              mainBalance: mainBalance,
+              marketBalance: marketBalance,
+            ),
           ),
           AnimatedSwitcher(
             duration: Duration(

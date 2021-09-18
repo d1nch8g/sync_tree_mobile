@@ -13,48 +13,52 @@ class InfoContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          'Operation count: ' + info.operationCount.toString(),
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        Text(
-          'Active buys: ' + info.getAllBuys().length.toString(),
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        Text(
-          'Active sells: ' + info.getAllSells().length.toString(),
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        Text(
-          'Max buy: ' + mainBalance.toString(),
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        Text(
-          'Max sell: ' + marketBalance.toString(),
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        Text(
-          'Input fee: ' + info.inputFee.toString() + '%',
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        Text(
-          'Output fee: ' + info.outputFee.toString() + '%',
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        Text(
-          'Working time: ' + info.workTime,
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        Divider(),
-        Text(
-          this.info.description,
-          style: Theme.of(context).textTheme.subtitle2,
-          overflow: TextOverflow.fade,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(22, 12, 22, 12),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Operation count: ' + info.operationCount.toString(),
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Active buys: ' + info.getAllBuys().length.toString(),
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Active sells: ' + info.getAllSells().length.toString(),
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Max buy: ' + mainBalance.toString(),
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Max sell: ' + marketBalance.toString(),
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Input fee: ' + info.inputFee.toString() + '%',
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Output fee: ' + info.outputFee.toString() + '%',
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            'Working time: ' + info.workTime,
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Divider(),
+          Text(
+            this.info.description,
+            style: Theme.of(context).textTheme.subtitle2,
+            overflow: TextOverflow.fade,
+          ),
+        ],
+      ),
     );
   }
 }
