@@ -139,8 +139,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       showTopSnackBar(
         context,
         CustomSnackBar.error(
-          message: 'Unable to find user with that adress',
-          //backgroundColor: Theme.of(context).hoverColor,
+          message: 'Unable to find user with that adress!',
           textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );

@@ -43,9 +43,14 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
         showTopSnackBar(
           context,
           CustomSnackBar.success(
-            message: 'Wallet connected',
+            message: 'Wallet connected!',
             backgroundColor: Theme.of(context).hoverColor,
             textStyle: Theme.of(context).textTheme.headline2!,
+            icon: const Icon(
+              Icons.fact_check_outlined,
+              color: const Color(0x15000000),
+              size: 120,
+            ),
           ),
         );
       });

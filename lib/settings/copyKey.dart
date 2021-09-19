@@ -14,9 +14,15 @@ class CopyKeyTile extends StatelessWidget {
         showTopSnackBar(
           context,
           CustomSnackBar.success(
-            message: 'Key copied to clipboard',
+            message: 'Key copied to clipboard!',
             backgroundColor: Theme.of(context).hoverColor,
             textStyle: Theme.of(context).textTheme.headline2!,
+            icon: const Icon(
+              Icons.file_copy_rounded,
+              color: const Color(0x15000000),
+              size: 100,
+            ),
+            iconRotationAngle: 18,
           ),
         );
         FlutterClipboard.copy(keys.allKeysString);

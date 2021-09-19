@@ -186,7 +186,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
       showTopSnackBar(
         context,
         CustomSnackBar.success(
-          message: 'new key saved',
+          message: 'New key saved!',
           backgroundColor: Theme.of(context).backgroundColor,
           icon: Icon(
             Icons.vpn_key_rounded,
@@ -211,7 +211,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
         showTopSnackBar(
           context,
           CustomSnackBar.error(
-            message: 'Wrong key format, check spaces',
+            message: 'Wrong key format! Check input.',
             textStyle: Theme.of(context).textTheme.headline2!,
           ),
         );

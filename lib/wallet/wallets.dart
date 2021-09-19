@@ -69,9 +69,14 @@ class FindAndConnectButton extends StatelessWidget {
           showTopSnackBar(
             context,
             CustomSnackBar.error(
-              message: 'Here you can find markets and connect them',
+              message: 'Find markets and connect them on this page.',
               backgroundColor: Theme.of(context).hoverColor,
               textStyle: Theme.of(context).textTheme.headline2!,
+              icon: const Icon(
+                Icons.list_alt_rounded,
+                color: const Color(0x15000000),
+                size: 120,
+              ),
             ),
           );
         },

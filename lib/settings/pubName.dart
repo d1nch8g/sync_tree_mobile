@@ -48,6 +48,16 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
   final TextEditingController textController = TextEditingController();
 
   void onComplete() async {
+    if (textController.text == '') {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: 'There is no name!',
+          textStyle: Theme.of(context).textTheme.headline2!,
+        ),
+      );
+      return;
+    }
     var errorFound = Filter.operateCheck(textController.text);
     if (errorFound == '') {
       var previousName = await Storage.loadPublicName();

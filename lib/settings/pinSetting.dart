@@ -79,7 +79,7 @@ class SetPinOverlayState extends State<SetPinOverlay>
       showTopSnackBar(
         context,
         CustomSnackBar.error(
-          message: 'enter or remove pin',
+          message: 'Enter or remove pin!',
           textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );
@@ -98,7 +98,7 @@ class SetPinOverlayState extends State<SetPinOverlay>
     showTopSnackBar(
       context,
       CustomSnackBar.success(
-        message: 'pin has been set',
+        message: 'Pin has been set!',
         backgroundColor: Theme.of(context).backgroundColor,
         icon: Icon(
           Icons.lock_outline_rounded,
@@ -124,7 +124,7 @@ class SetPinOverlayState extends State<SetPinOverlay>
       showTopSnackBar(
         context,
         CustomSnackBar.error(
-          message: 'Pin has been removed',
+          message: 'Pin has been removed!',
           backgroundColor: Theme.of(context).backgroundColor,
           icon: Icon(
             Icons.lock_open_rounded,
