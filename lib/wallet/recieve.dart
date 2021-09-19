@@ -80,7 +80,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
     showTopSnackBar(
       context,
       CustomSnackBar.success(
-        message: 'Key is copied!\nNow you can paste it.',
+        message: 'Adress is copied!\nPaste it as a text.',
         backgroundColor: Theme.of(context).hoverColor,
         textStyle: Theme.of(context).textTheme.headline2!,
         icon: const Icon(

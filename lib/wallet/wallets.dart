@@ -1,7 +1,5 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/wallet/markets.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
