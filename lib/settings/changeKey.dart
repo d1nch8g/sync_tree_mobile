@@ -179,9 +179,23 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
       });
       removeOldWalletInfoFromStorage();
       Future.delayed(Duration(milliseconds: 377), () {
+        // TODO do something with that stuff
         Navigator.pop(context);
         UserCalls.updateSelfInformation();
       });
+      showTopSnackBar(
+        context,
+        CustomSnackBar.success(
+          message: 'new key saved',
+          backgroundColor: Theme.of(context).backgroundColor,
+          icon: Icon(
+            Icons.vpn_key_rounded,
+            size: 90,
+            color: Theme.of(context).cardColor,
+          ),
+          textStyle: Theme.of(context).textTheme.headline2!,
+        ),
+      );
       return;
     } catch (e) {
       setState(() {

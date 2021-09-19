@@ -79,8 +79,7 @@ class SetPinOverlayState extends State<SetPinOverlay>
       showTopSnackBar(
         context,
         CustomSnackBar.error(
-          message: 'There is no pin',
-          //backgroundColor: Theme.of(context).hoverColor,
+          message: 'enter or remove pin',
           textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );
@@ -96,6 +95,29 @@ class SetPinOverlayState extends State<SetPinOverlay>
         Navigator.pop(context);
       });
     });
+    showTopSnackBar(
+      context,
+      CustomSnackBar.success(
+        message: 'pin has been set',
+        backgroundColor: Theme.of(context).backgroundColor,
+        icon: Icon(
+          Icons.lock_outline_rounded,
+          color: lighten(Theme.of(context).backgroundColor),
+          size: 120,
+        ),
+        textStyle: Theme.of(context).textTheme.headline2!,
+      ),
+    );
+  }
+
+  Color lighten(Color color, [double amount = .1]) {
+    assert(amount >= 0 && amount <= 1);
+
+    final hsl = HSLColor.fromColor(color);
+    final hslLight =
+        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+
+    return hslLight.toColor();
   }
 
   void removePassword() async {
@@ -114,6 +136,11 @@ class SetPinOverlayState extends State<SetPinOverlay>
         CustomSnackBar.error(
           message: 'Pin has been removed',
           backgroundColor: Theme.of(context).backgroundColor,
+          icon: Icon(
+            Icons.lock_open_rounded,
+            color: lighten(Theme.of(context).backgroundColor),
+            size: 120,
+          ),
           textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );
