@@ -1,6 +1,8 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class RecieveButton extends StatelessWidget {
   @override
@@ -74,6 +76,20 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
         }
       });
     });
+
+    showTopSnackBar(
+      context,
+      CustomSnackBar.success(
+        message: 'Key is copied!\nNow you can paste it.',
+        backgroundColor: Theme.of(context).hoverColor,
+        textStyle: Theme.of(context).textTheme.headline2!,
+        icon: const Icon(
+          Icons.copy_all_rounded,
+          color: const Color(0x15000000),
+          size: 120,
+        ),
+      ),
+    );
   }
 
   @override

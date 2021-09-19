@@ -13,8 +13,8 @@ class CopyKeyTile extends StatelessWidget {
         var keys = await Storage.loadKeys();
         showTopSnackBar(
           context,
-          CustomSnackBar.success(
-            message: 'Key copied to clipboard!',
+          CustomSnackBar.error(
+            message: 'Key copied to clipboard.\nDont share this key!',
             backgroundColor: Theme.of(context).hoverColor,
             textStyle: Theme.of(context).textTheme.headline2!,
             icon: const Icon(
