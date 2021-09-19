@@ -49,6 +49,12 @@ class WalletTile extends StatefulWidget {
 }
 
 class _WalletTileState extends State<WalletTile> {
+  double opacity = 1;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -63,6 +69,11 @@ class _WalletTileState extends State<WalletTile> {
                 openColor: Theme.of(context).backgroundColor,
                 transitionDuration: Duration(milliseconds: 610),
                 closedBuilder: (context, action) {
+                  Future.delayed(Duration(microseconds: 377), () {
+                    setState(() {
+                      opacity = 1;
+                    });
+                  });
                   return Container(
                     height: 126,
                     width: MediaQuery.of(context).size.width * 0.62,
@@ -85,6 +96,11 @@ class _WalletTileState extends State<WalletTile> {
                   );
                 },
                 openBuilder: (context, action) {
+                  Future.delayed(Duration(microseconds: 377), () {
+                    setState(() {
+                      opacity = 0;
+                    });
+                  });
                   return ConnectedWalletPage(closeContainer: () {
                     action();
                   });
@@ -92,7 +108,8 @@ class _WalletTileState extends State<WalletTile> {
               ),
             ],
           ),
-          AnimatedSwitcher(
+          AnimatedOpacity(
+            opacity: opacity,
             duration: Duration(milliseconds: 610),
             child: Row(
               children: [
