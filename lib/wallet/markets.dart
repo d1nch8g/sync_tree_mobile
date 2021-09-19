@@ -42,14 +42,13 @@ class _ConnectedMarketListState extends State<ConnectedMarketList> {
 }
 
 class WalletTile extends StatefulWidget {
-  MarketInfo info;
+  final MarketInfo info;
   WalletTile({required this.info});
   @override
   _WalletTileState createState() => _WalletTileState();
 }
 
 class _WalletTileState extends State<WalletTile> {
-  double opacity = 1;
   @override
   void initState() {
     super.initState();
@@ -68,12 +67,12 @@ class _WalletTileState extends State<WalletTile> {
                 closedColor: Theme.of(context).backgroundColor,
                 openColor: Theme.of(context).backgroundColor,
                 transitionDuration: Duration(milliseconds: 610),
+                closedShape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(14.0),
+                  ),
+                ),
                 closedBuilder: (context, action) {
-                  Future.delayed(Duration(microseconds: 377), () {
-                    setState(() {
-                      opacity = 1;
-                    });
-                  });
                   return Container(
                     height: 126,
                     width: MediaQuery.of(context).size.width * 0.62,
@@ -91,16 +90,11 @@ class _WalletTileState extends State<WalletTile> {
                     ),
                     decoration: BoxDecoration(
                       color: Theme.of(context).backgroundColor,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(14),
                     ),
                   );
                 },
                 openBuilder: (context, action) {
-                  Future.delayed(Duration(microseconds: 377), () {
-                    setState(() {
-                      opacity = 0;
-                    });
-                  });
                   return ConnectedWalletPage(closeContainer: () {
                     action();
                   });
@@ -108,21 +102,17 @@ class _WalletTileState extends State<WalletTile> {
               ),
             ],
           ),
-          AnimatedOpacity(
-            opacity: opacity,
-            duration: Duration(milliseconds: 610),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 63,
-                  backgroundColor: Theme.of(context).focusColor,
-                  child: Container(
-                    child: Image.network(widget.info.imageLink),
-                    height: 102,
-                  ),
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 63,
+                backgroundColor: Theme.of(context).focusColor,
+                child: Container(
+                  child: Image.network(widget.info.imageLink),
+                  height: 98,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),

@@ -133,37 +133,26 @@ class _MarketPageState extends State<MarketPage> {
                 FocusScope.of(context).requestFocus(focuser);
               },
               child: Container(
-                height: 32,
+                height: 46,
+                width: 76,
                 child: Icon(
                   Icons.keyboard_alt_outlined,
+                  size: 42,
                   color: Theme.of(context).focusColor,
                 ),
                 decoration: BoxDecoration(
                   color: Theme.of(context).hoverColor,
                   borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(18),
-                    bottomRight: Radius.circular(18),
+                    topLeft: Radius.circular(38),
+                    topRight: Radius.circular(38),
+                  ),
+                  border: Border.all(
+                    color: Theme.of(context).backgroundColor,
+                    width: 0.74,
                   ),
                 ),
               ),
             ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //   FocusScope.of(context).requestFocus(focuser);
-            //   },
-            //   child: Icon(
-            //     Icons.keyboard_alt_outlined,
-            //     color: Colors.white,
-            //   ),
-            //   style: ElevatedButton.styleFrom(
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(33.0),
-            //     ),
-            //     padding: EdgeInsets.all(20),
-            //     primary: Theme.of(context).hoverColor,
-            //     onPrimary: Theme.of(context).focusColor,
-            //   ),
-            // ),
           ),
         ],
       ),
