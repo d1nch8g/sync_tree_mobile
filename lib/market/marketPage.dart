@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
 import 'package:sync_tree_modile_ui/market/buyOverlay.dart';
-import 'package:sync_tree_modile_ui/market/tradeChart.dart';
+import 'package:sync_tree_modile_ui/market/trades.dart';
 import 'package:sync_tree_modile_ui/market/sellOverlay.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -10,7 +10,6 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 class MarketModalSheet extends StatefulWidget {
   final MarketInfo info;
   MarketModalSheet({required this.info});
-
   @override
   State<MarketModalSheet> createState() => _MarketModalSheetState();
 }
@@ -32,11 +31,12 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
     }
   }
 
-  checkIfWalletIsNotConnected() async {
+  void checkIfWalletIsNotConnected() async {
     var currentWallets = await Storage.loadConnectedWallets();
     if (!currentWallets.contains(this.widget.info.adress)) {
       currentButtons = ConnectButton(connect: () async {
         setConnectedOverlay();
+        setState(() {});
         var currentWallets = await Storage.loadConnectedWallets();
         currentWallets.add(this.widget.info.adress);
         Storage.saveConnectedWalletsAdressesList(currentWallets);
@@ -65,7 +65,9 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
       tradeBarsWidget = Container();
     } else {
       tradeBarsAreOpen = true;
-      tradeBarsWidget = TradeBars();
+      tradeBarsWidget = TradeBars(
+        info: widget.info,
+      );
     }
     setState(() {});
   }
@@ -95,8 +97,9 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
         closeOpenTradeBars();
       },
     );
-    tradeBarsWidget = TradeBars();
-    setState(() {});
+    tradeBarsWidget = TradeBars(
+      info: widget.info,
+    );
   }
 
   @override

@@ -187,13 +187,12 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
         context,
         CustomSnackBar.success(
           message: 'New key saved!',
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).hoverColor,
           icon: Icon(
-            Icons.vpn_key_rounded,
+            Icons.sd_storage_rounded,
             size: 120,
             color: const Color(0x15000000),
           ),
-          iconRotationAngle: -32,
           textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );
