@@ -190,9 +190,10 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
           backgroundColor: Theme.of(context).backgroundColor,
           icon: Icon(
             Icons.vpn_key_rounded,
-            size: 90,
-            color: Theme.of(context).cardColor,
+            size: 120,
+            color: const Color(0x15000000),
           ),
+          iconRotationAngle: -32,
           textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );

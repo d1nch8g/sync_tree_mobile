@@ -102,22 +102,12 @@ class SetPinOverlayState extends State<SetPinOverlay>
         backgroundColor: Theme.of(context).backgroundColor,
         icon: Icon(
           Icons.lock_outline_rounded,
-          color: lighten(Theme.of(context).backgroundColor),
+          color: const Color(0x15000000),
           size: 120,
         ),
         textStyle: Theme.of(context).textTheme.headline2!,
       ),
     );
-  }
-
-  Color lighten(Color color, [double amount = .1]) {
-    assert(amount >= 0 && amount <= 1);
-
-    final hsl = HSLColor.fromColor(color);
-    final hslLight =
-        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
-
-    return hslLight.toColor();
   }
 
   void removePassword() async {
@@ -138,7 +128,7 @@ class SetPinOverlayState extends State<SetPinOverlay>
           backgroundColor: Theme.of(context).backgroundColor,
           icon: Icon(
             Icons.lock_open_rounded,
-            color: lighten(Theme.of(context).backgroundColor),
+            color: const Color(0x15000000),
             size: 120,
           ),
           textStyle: Theme.of(context).textTheme.headline2!,
