@@ -4,18 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 
 class TradeBars extends StatefulWidget {
-  final String adress;
-  TradeBars({required this.adress});
+  final MarketInfo info;
+  TradeBars({
+    required this.info,
+  });
 
   @override
   State<TradeBars> createState() => _TradeBarsState();
 }
 
 class _TradeBarsState extends State<TradeBars> {
-  late MarketInfo info;
+  late MarketInfo info = widget.info;
 
   startUpdatingMarketInfo() async {
-    info = await InfoCalls.marketInfo(base64.decode(widget.adress));
+    info = await InfoCalls.marketInfo(base64.decode(widget.info.adress));
     setState(() {});
     Future.delayed(Duration(seconds: 1), () {
       startUpdatingMarketInfo();
@@ -95,13 +97,14 @@ class SingleTradeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.35,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 3.2, 12, 3.2),
+        padding: const EdgeInsets.fromLTRB(0, 3.2, 0, 3.2),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('o:$offer/r:$recieve'),
+            Text('o:$offer/ r:$recieve'),
             Text('ratio: $amount     '.substring(0, 12)),
           ],
         ),

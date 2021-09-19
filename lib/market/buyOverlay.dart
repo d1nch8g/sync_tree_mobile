@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_mobile_logic/net/user_calls.dart';
 import 'package:sync_tree_modile_ui/connection.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class BuyOverlay extends StatefulWidget {
   final MarketInfo info;
@@ -33,20 +35,39 @@ class BuyOverlayState extends State<BuyOverlay>
         int.parse(offerController.text),
       );
       if (operated) {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (_) => BuySuccedOverlay(succedMessage: 'Order placed'),
+        showTopSnackBar(
+          context,
+          CustomSnackBar.success(
+            message: 'Buy order placed!',
+            backgroundColor: Theme.of(context).hoverColor,
+            textStyle: Theme.of(context).textTheme.headline2!,
+            icon: const Icon(
+              Icons.playlist_add_check_rounded,
+              color: const Color(0x15000000),
+              size: 120,
+            ),
+            iconRotationAngle: 8,
+          ),
         );
+        Navigator.pop(context);
         Future.delayed(Duration(milliseconds: 377), () {
           UserCalls.updateSelfInformation();
         });
+      } else {
+        showTopSnackBar(
+          context,
+          CustomSnackBar.error(
+            message: 'Order error!\nRemove active orders.',
+            textStyle: Theme.of(context).textTheme.headline2!,
+          ),
+        );
       }
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (_) => ConnectionErrorOverlay(
-          errorMessage: 'Unable to connect with buy request!',
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: 'Order error!\nConnection failed.',
+          textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );
     }
