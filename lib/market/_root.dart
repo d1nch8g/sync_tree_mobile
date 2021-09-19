@@ -177,17 +177,17 @@ class MarketTileList extends StatelessWidget {
               color: Theme.of(context).cardColor,
             );
           }
-          var mkt = markets[index - 1];
+          var info = markets[index - 1];
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Image.network(mkt.imageLink),
+                leading: Image.network(info.imageLink),
                 onTap: () {
                   showMaterialModalBottomSheet(
                     context: context,
                     builder: (context) => MarketModalSheet(
-                      info: mkt,
+                      info: info,
                     ),
                   );
                 },
@@ -195,17 +195,14 @@ class MarketTileList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      mkt.name,
+                      info.name,
                       style: Theme.of(context).textTheme.headline5,
                     ),
-                    Text(
-                      'count: ' + mkt.operationCount.toString() + ' ',
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
+                    DynamicBalance(adress: info.adress),
                   ],
                 ),
                 subtitle: Text(
-                  mkt.description.substring(0, 85),
+                  info.description.substring(0, 85),
                   maxLines: 2,
                   style: Theme.of(context).textTheme.headline6,
                 ),
@@ -241,6 +238,36 @@ class NoSearchResults extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class DynamicBalance extends StatefulWidget {
+  final String adress;
+  DynamicBalance({required this.adress});
+  @override
+  _DynamicBalanceState createState() => _DynamicBalanceState();
+}
+
+class _DynamicBalanceState extends State<DynamicBalance> {
+  late String balance = '0';
+
+  updateBalance() async {
+    balance = (await Storage.loadMarketBalance(widget.adress)).toString();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateBalance();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      balance,
+      style: Theme.of(context).textTheme.headline5,
     );
   }
 }

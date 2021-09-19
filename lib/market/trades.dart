@@ -18,8 +18,12 @@ class _TradeBarsState extends State<TradeBars> {
 
   startUpdatingMarketInfo() async {
     info = await InfoCalls.marketInfo(base64.decode(widget.info.adress));
-    setState(() {});
-    Future.delayed(Duration(seconds: 1), () {
+    if (mounted) {
+      setState(() {});
+    } else {
+      return;
+    }
+    Future.delayed(Duration(milliseconds: 1597), () {
       startUpdatingMarketInfo();
     });
   }
@@ -32,24 +36,27 @@ class _TradeBarsState extends State<TradeBars> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.38,
-      width: MediaQuery.of(context).size.width * 0.90,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          TradeView(
-            name: 'BUYS',
-            trades: info.getAllBuys(),
-          ),
-          VerticalDivider(
-            color: Theme.of(context).focusColor,
-          ),
-          TradeView(
-            name: 'SELLS',
-            trades: info.getAllSells(),
-          ),
-        ],
+    return AnimatedSwitcher(
+      duration: Duration(milliseconds: 89),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.38,
+        width: MediaQuery.of(context).size.width * 0.90,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TradeView(
+              name: 'BUYS',
+              trades: info.getAllBuys(),
+            ),
+            VerticalDivider(
+              color: Theme.of(context).focusColor,
+            ),
+            TradeView(
+              name: 'SELLS',
+              trades: info.getAllSells(),
+            ),
+          ],
+        ),
       ),
     );
   }
