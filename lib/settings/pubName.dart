@@ -90,6 +90,14 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
           ),
         );
       }
+    } else {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: errorFound,
+          textStyle: Theme.of(context).textTheme.headline2!,
+        ),
+      );
     }
   }
 
