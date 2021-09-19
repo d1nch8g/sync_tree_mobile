@@ -40,6 +40,7 @@ class _ConnectedMarketListState extends State<ConnectedMarketList> {
               Row(
                 children: [
                   SizedBox(width: 110),
+                  // TODO openContainer on that widget
                   Container(
                     height: 126,
                     width: MediaQuery.of(context).size.width * 0.62,

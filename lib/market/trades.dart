@@ -5,10 +5,7 @@ import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 
 class TradeBars extends StatefulWidget {
   final MarketInfo info;
-  TradeBars({
-    required this.info,
-  });
-
+  TradeBars({required this.info});
   @override
   State<TradeBars> createState() => _TradeBarsState();
 }
