@@ -49,9 +49,26 @@ class WalletTile extends StatefulWidget {
 }
 
 class _WalletTileState extends State<WalletTile> {
+  double animatedHeight = 126;
   @override
   void initState() {
     super.initState();
+  }
+
+  increaseContainer() {
+    Future.delayed(Duration(milliseconds: 34), () {
+      setState(() {
+        animatedHeight = 126;
+      });
+    });
+  }
+
+  decreaseContainer() {
+    Future.delayed(Duration(milliseconds: 34), () {
+      setState(() {
+        animatedHeight = 92;
+      });
+    });
   }
 
   @override
@@ -73,6 +90,7 @@ class _WalletTileState extends State<WalletTile> {
                   ),
                 ),
                 closedBuilder: (context, action) {
+                  increaseContainer();
                   return Container(
                     height: 126,
                     width: MediaQuery.of(context).size.width * 0.62,
@@ -95,6 +113,7 @@ class _WalletTileState extends State<WalletTile> {
                   );
                 },
                 openBuilder: (context, action) {
+                  decreaseContainer();
                   return ConnectedWalletPage(closeContainer: () {
                     action();
                   });
@@ -102,17 +121,17 @@ class _WalletTileState extends State<WalletTile> {
               ),
             ],
           ),
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 63,
-                backgroundColor: Theme.of(context).focusColor,
-                child: Container(
-                  child: Image.network(widget.info.imageLink),
-                  height: 98,
-                ),
+          AnimatedContainer(
+            duration: Duration(milliseconds: 377),
+            height: animatedHeight,
+            child: CircleAvatar(
+              radius: 63,
+              backgroundColor: Theme.of(context).focusColor,
+              child: Container(
+                child: Image.network(widget.info.imageLink),
+                height: 98,
               ),
-            ],
+            ),
           ),
         ],
       ),

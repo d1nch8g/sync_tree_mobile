@@ -232,7 +232,7 @@ class NoSearchResults extends StatelessWidget {
         children: [
           Icon(
             Icons.search_off_rounded,
-            size: MediaQuery.of(context).size.width * 0.24,
+            size: MediaQuery.of(context).size.width * 0.32,
           ),
           SizedBox(
             height: 18,
