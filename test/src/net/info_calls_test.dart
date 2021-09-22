@@ -40,7 +40,7 @@ void main() {
     SharedPreferences.setMockInitialValues({
       'keys': nicotinKeys,
     });
-    var messages = await InfoCalls.messages(base64.decode(testMarketAdress));
+    var messages = await InfoCalls.messages(base64.decode(testAlcoholAdress));
     if (messages.length != 0) {
       fail('there should not be any messages on that user');
     }

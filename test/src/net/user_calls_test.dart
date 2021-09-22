@@ -4,6 +4,7 @@ import 'package:sync_tree_modile_ui/src/src.dart';
 
 import 'test_data.dart';
 
+setAlcoParameters() {}
 void main() {
   test('Create success', () async {
     var keys = Keys.generate();
@@ -32,25 +33,24 @@ void main() {
       'keys': alcoholKeys,
       'name': 'Alcohol',
     });
-    var updated = await UserCalls.update('Alcohol');
-    if (updated == false) {
+    var updated = await UserCalls.update();
+    if (!updated) {
       fail('user infotmation should be updated');
     }
   });
   test('Update fail', () async {
     SharedPreferences.setMockInitialValues({
       'keys': alcoholKeys,
-      'name': 'Alcohol',
+      'name': 'longlonglonglonglonglonglonglonglonglonglonglongname',
     });
-    var updated = await UserCalls.update('Alcohol');
-    if (updated == false) {
-      fail('user infotmation should be updated');
+    var updated = await UserCalls.update();
+    if (updated) {
+      fail('user infotmation should not be updated');
     }
   });
-  test('send main call', () async {
+  test('Send success', () async {
     SharedPreferences.setMockInitialValues({
       'keys': alcoholKeys,
-      'publicName': 'Alcohol',
       'balance': 10,
     });
     var nicoKeys = Keys.fromSingleString(multiKeyStirng: nicotinKeys);
@@ -75,36 +75,70 @@ void main() {
       }
     });
   });
-  test('send message call', () async {
+  test('Send fail', () async {
     SharedPreferences.setMockInitialValues({
       'keys': alcoholKeys,
-      'publicName': 'Alcohol',
+      'balance': 100000000000,
     });
-    var operated = await UserCalls.message(testMarketAdress, 'hola');
+    var nicoKeys = Keys.fromSingleString(multiKeyStirng: nicotinKeys);
+    var operated = await UserCalls.send(
+      100000000000,
+      nicoKeys.personal.public.getAdressBase64(),
+    );
+    if (operated) {
+      fail('this transaction should not be operated $operated');
+    }
+  });
+  test('Message success', () async {
+    SharedPreferences.setMockInitialValues({
+      'keys': alcoholKeys,
+    });
+    var operated = await UserCalls.message(testAlcoholAdress, 'hola');
     if (operated == false) {
       fail('the message is not delivered');
     }
   });
-  test('buy call', () async {
+  test('Buy success', () async {
     SharedPreferences.setMockInitialValues({
       'keys': alcoholKeys,
-      'publicName': 'Alcohol',
-      'balance': 10,
     });
-    var operated = await UserCalls.sell(testMarketAdress, 10, 10);
-    if (operated == false) {
-      fail('the buy call was not operated');
+    var operated = await UserCalls.buy(testAlcoholAdress, 10, 10);
+    if (!operated) {
+      fail('this trade should be operated');
+    }
+    UserCalls.cancelTrade(testAlcoholAdress);
+  });
+  test('Buy fail', () async {
+    SharedPreferences.setMockInitialValues({
+      'keys': alcoholKeys,
+    });
+    var operated = await UserCalls.buy(testAlcoholAdress, 10, 10000000000);
+    if (operated) {
+      UserCalls.cancelTrade(testAlcoholAdress);
+      fail('this trade should not be operated');
     }
   });
-  test('sell call', () async {
+  test('Sell success', () async {
     SharedPreferences.setMockInitialValues({
       'keys': alcoholKeys,
-      'publicName': 'Alcohol',
-      'balance': 10,
     });
-    var operated = await UserCalls.buy(testMarketAdress, 10, 10);
+    var operated = await UserCalls.sell(testAlcoholAdress, 10, 10);
     if (operated == false) {
-      fail('the sell call was not operated');
+      fail('this trade should be operated');
     }
+    UserCalls.cancelTrade(testAlcoholAdress);
+  });
+  test('Sell fail', () async {
+    SharedPreferences.setMockInitialValues({
+      'keys': alcoholKeys,
+    });
+    var operated = await UserCalls.sell(testAlcoholAdress, 10, 1000000000000);
+    if (operated) {
+      UserCalls.cancelTrade(testAlcoholAdress);
+      fail('this trade should not be operated');
+    }
+  });
+  test('CancelTrade success', () {
+    UserCalls.cancelTrade(testAlcoholAdress);
   });
 }

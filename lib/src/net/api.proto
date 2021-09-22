@@ -79,8 +79,6 @@ message InfOut{
 }
 
 
-
-
 service User{
     rpc Create(UserRequests.Create) returns (Response);
     rpc Update(UserRequests.Update) returns (Response);

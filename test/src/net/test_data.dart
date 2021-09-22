@@ -1,5 +1,3 @@
-var testMarketAdress =
-    '''AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/Pw==''';
 
 var testNicotinAdress =
     '''lproB8nRtPn4kjmRQtdpongRukRgFjmNe2PXOD7mZw9JxO/by1fdGDbV1vYUX/Hzce8oF9z7rTPYa1No5ZkGwA==''';

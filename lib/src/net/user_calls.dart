@@ -36,9 +36,10 @@ class UserCalls {
     }
   }
 
-  static Future<bool> update(String name) async {
+  static Future<bool> update() async {
     try {
       var keys = await Storage.loadKeys();
+      var name = await Storage.loadPublicName();
       var sign = await keys.personal.private.signList([
         keys.personal.public.bytes,
         keys.message.public.bytes,
