@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import '../src/src.dart';

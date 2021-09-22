@@ -7,8 +7,6 @@ import 'package:pointycastle/pointycastle.dart';
 import 'package:basic_utils/basic_utils.dart';
 import 'package:pointycastle/random/fortuna_random.dart';
 
-//TODO move all logic with signing crypting and etc to keys
-
 class KeyPair {
   late final PrivateKey private;
   late final PublicKey public;
