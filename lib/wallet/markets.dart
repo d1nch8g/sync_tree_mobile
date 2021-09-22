@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_modile_ui/src/src.dart';
 import 'package:sync_tree_modile_ui/wallet/walletPage.dart';
 
@@ -17,7 +16,7 @@ class _ConnectedMarketListState extends State<ConnectedMarketList> {
   void updateMarketsInfo() async {
     var marketAdresses = await Storage.loadConnectedWallets();
     marketAdresses.forEach((adress) async {
-      var info = await InfoCalls.marketInfo(base64.decode(adress));
+      var info = await InfoCalls.marketInfo(adress);
       markets.add(info);
       setState(() {});
     });

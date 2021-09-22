@@ -1,6 +1,5 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_modile_ui/src/src.dart';
 import 'package:sync_tree_modile_ui/connection.dart';
 import 'package:sync_tree_modile_ui/password.dart';
@@ -223,7 +222,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
 
   void onSendButtonPress() async {
     try {
-      var succeded = await UserCalls.sendMain(
+      var succeded = await UserCalls.send(
         int.parse(amountTextController.text),
         adressTextController.text,
       );

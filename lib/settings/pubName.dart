@@ -62,7 +62,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
     if (errorFound == '') {
       var previousName = await Storage.loadPublicName();
       try {
-        var nameChangedSuccessfully = await UserCalls.updateName(
+        var nameChangedSuccessfully = await UserCalls.update(
           textController.text,
         );
         if (nameChangedSuccessfully) {

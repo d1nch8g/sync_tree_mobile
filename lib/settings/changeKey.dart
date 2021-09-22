@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:clipboard/clipboard.dart';
+import 'package:sync_tree_modile_ui/navigator.dart';
 import 'package:sync_tree_modile_ui/src/src.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -181,7 +182,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
       Future.delayed(Duration(milliseconds: 377), () {
         // TODO do something with that stuff
         Navigator.pop(context);
-        UserCalls.updateSelfInformation();
+        updateSelfInformation();
       });
       showTopSnackBar(
         context,

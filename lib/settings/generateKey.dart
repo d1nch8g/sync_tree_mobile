@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:sync_tree_modile_ui/navigator.dart';
 import 'package:sync_tree_modile_ui/src/src.dart';
 import 'package:sync_tree_modile_ui/password.dart';
 import 'package:sync_tree_modile_ui/settings/changeKey.dart';
@@ -116,7 +117,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
       );
       removeOldWalletInfoFromStorage();
       Future.delayed(Duration(milliseconds: 377), () {
-        UserCalls.updateSelfInformation();
+        updateSelfInformation();
       });
     });
     Future.delayed(Duration(milliseconds: 1597), () {
