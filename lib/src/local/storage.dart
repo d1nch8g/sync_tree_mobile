@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile_logic/local/crypto.dart';
-import 'package:sync_tree_modile_ui/src/local/stream.dart';
+
+import 'stream.dart';
+import 'crypto.dart';
 
 class Storage {
   static void saveKeys(String keys) async {
