@@ -7,7 +7,8 @@ def countlines(start, lines=0, header=True, begin_start=None):
     for file in os.listdir(start):
         file = os.path.join(start, file)
         if os.path.isfile(file):
-            if file.endswith('.dart') and not file.endswith('.pb.go'):
+            bad_extensions = ('.pb.dart', 'pbenum.dart', 'pbgrpc.dart', 'pbjson.dart')
+            if file.endswith('.dart') and not file.endswith(bad_extensions):
                 with open(file, 'r') as f:
                     newlines = f.readlines()
                     newlines = len(newlines)
