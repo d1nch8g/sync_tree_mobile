@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_modile_ui/src/src.dart';
 import 'package:sync_tree_modile_ui/connection.dart';
 import 'package:sync_tree_modile_ui/market/marketPage.dart';

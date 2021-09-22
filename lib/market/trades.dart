@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_logic/net/info_calls.dart';
+import 'package:sync_tree_modile_ui/src/net/info_calls.dart';
 
 class TradeBars extends StatefulWidget {
   final MarketInfo info;
@@ -14,7 +14,7 @@ class _TradeBarsState extends State<TradeBars> {
   late MarketInfo info = widget.info;
 
   startUpdatingMarketInfo() async {
-    info = await InfoCalls.marketInfo(base64.decode(widget.info.adress));
+    info = await InfoCalls.marketInfo(widget.info.adress);
     if (mounted) {
       setState(() {});
     } else {
@@ -43,14 +43,14 @@ class _TradeBarsState extends State<TradeBars> {
           children: [
             TradeView(
               name: 'BUYS',
-              trades: info.getAllBuys(),
+              trades: info.buys,
             ),
             VerticalDivider(
               color: Theme.of(context).focusColor,
             ),
             TradeView(
               name: 'SELLS',
-              trades: info.getAllSells(),
+              trades: info.sells,
             ),
           ],
         ),
@@ -60,7 +60,7 @@ class _TradeBarsState extends State<TradeBars> {
 }
 
 class TradeView extends StatelessWidget {
-  final List<SingleTrade> trades;
+  final List<Trade> trades;
   final String name;
   late List<Widget> tradeList = [];
   TradeView({

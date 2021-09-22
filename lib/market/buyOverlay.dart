@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sync_tree_mobile_logic/net/info_calls.dart';
-import 'package:sync_tree_mobile_logic/net/user_calls.dart';
+import 'package:sync_tree_modile_ui/navigator.dart';
+import 'package:sync_tree_modile_ui/src/src.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -50,7 +50,7 @@ class BuyOverlayState extends State<BuyOverlay>
         );
         Navigator.pop(context);
         Future.delayed(Duration(milliseconds: 377), () {
-          UserCalls.updateSelfInformation();
+          updateSelfInformation();
         });
       } else {
         showTopSnackBar(

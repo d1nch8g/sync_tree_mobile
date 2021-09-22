@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'package:sync_tree_modile_ui/src/src.dart';
 import 'package:sync_tree_modile_ui/market/buyOverlay.dart';
 import 'package:sync_tree_modile_ui/market/trades.dart';
@@ -177,8 +176,8 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
               ),
               Text(
                 'Operation count: ${widget.info.operationCount.toString()}\n'
-                'Active buys: ${widget.info.getAllBuys().length.toString()}\n'
-                'Active sells: ${widget.info.getAllSells().length.toString()}\n'
+                'Active buys: ${widget.info.activeBuys.toString()}\n'
+                'Active sells: ${widget.info.activeSells.toString()}\n'
                 'Max buy: ${mainBalance.toString()}\n'
                 'Max sell: ${marketBalance.toString()}\n'
                 'Input fee: ${widget.info.inputFee.toString()}%\n'
