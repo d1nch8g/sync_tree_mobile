@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_modile_ui/src/src.dart';
+import '../src/src.dart';
 
 import 'test_data.dart';
 
@@ -102,19 +104,26 @@ void main() {
     SharedPreferences.setMockInitialValues({
       'keys': alcoholKeys,
     });
-    var operated = await UserCalls.buy(testAlcoholAdress, 10, 10);
+    await UserCalls.cancelTrade(base64Encode(dummyMarketAdress1));
+    var operated = await UserCalls.buy(
+      base64Encode(dummyMarketAdress1),
+      10,
+      10,
+    );
     if (!operated) {
       fail('this trade should be operated');
     }
-    UserCalls.cancelTrade(testAlcoholAdress);
   });
   test('Buy fail', () async {
     SharedPreferences.setMockInitialValues({
       'keys': alcoholKeys,
     });
-    var operated = await UserCalls.buy(testAlcoholAdress, 10, 10000000000);
+    var operated = await UserCalls.buy(
+      base64Encode(dummyMarketAdress1),
+      10,
+      10000000000,
+    );
     if (operated) {
-      UserCalls.cancelTrade(testAlcoholAdress);
       fail('this trade should not be operated');
     }
   });
@@ -122,23 +131,39 @@ void main() {
     SharedPreferences.setMockInitialValues({
       'keys': alcoholKeys,
     });
-    var operated = await UserCalls.sell(testAlcoholAdress, 10, 10);
-    if (operated == false) {
+    await UserCalls.cancelTrade(base64Encode(dummyMarketAdress1));
+    var operated = await UserCalls.sell(
+      base64Encode(dummyMarketAdress1),
+      10,
+      10,
+    );
+    if (!operated) {
       fail('this trade should be operated');
     }
-    UserCalls.cancelTrade(testAlcoholAdress);
   });
   test('Sell fail', () async {
+    // errre find
     SharedPreferences.setMockInitialValues({
       'keys': alcoholKeys,
     });
-    var operated = await UserCalls.sell(testAlcoholAdress, 10, 1000000000000);
+    var operated = await UserCalls.sell(
+      base64Encode(dummyMarketAdress1),
+      10,
+      1000000000000,
+    );
     if (operated) {
-      UserCalls.cancelTrade(testAlcoholAdress);
       fail('this trade should not be operated');
     }
   });
-  test('CancelTrade success', () {
-    UserCalls.cancelTrade(testAlcoholAdress);
+  test('CancelTrade success', () async {
+    SharedPreferences.setMockInitialValues({
+      'keys': alcoholKeys,
+    });
+    var cancelled = await UserCalls.cancelTrade(
+      base64Encode(dummyMarketAdress1),
+    );
+    if (!cancelled) {
+      fail('trades not cancelled');
+    }
   });
 }

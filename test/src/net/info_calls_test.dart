@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_modile_ui/src/src.dart';
+import '../src/src.dart';
 
 import 'test_data.dart';
 
@@ -19,7 +19,8 @@ void main() {
     }
   });
   test('info market', () async {
-    var marketInfo = await InfoCalls.marketInfo(testNicotinAdress);
+    var adress = base64Encode(dummyMarketAdress1);
+    var marketInfo = await InfoCalls.marketInfo(adress);
     if (marketInfo.name != 'Bitcoin Ftem') {
       fail('the name of that market should be bitcoin ftem ${marketInfo.name}');
     }

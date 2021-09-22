@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:sync_tree_modile_ui/src/src.dart';
-import 'package:sync_tree_modile_ui/password.dart';
+import '../src/src.dart';
+import '../password.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 

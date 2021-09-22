@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_modile_ui/src/src.dart';
+import 'package:sync_tree_mobile_ui/src/src.dart';
+
 
 import 'stream.dart';
 import 'crypto.dart';

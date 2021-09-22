@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sync_tree_modile_ui/src/src.dart';
+import '../src/src.dart';
 
 final testKey = '''-----BEGIN RSA PRIVATE KEY-----
 MIIJKAIBAAKCAgEAhUXHmg6f7DdeYeqjEczFq7TzDSJvWFeZ0AppJC9UXAa6ZC/q

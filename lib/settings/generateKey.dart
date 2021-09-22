@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:sync_tree_modile_ui/navigator.dart';
-import 'package:sync_tree_modile_ui/src/src.dart';
-import 'package:sync_tree_modile_ui/password.dart';
-import 'package:sync_tree_modile_ui/settings/changeKey.dart';
-import 'package:sync_tree_modile_ui/start/hello.dart';
+import '../navigator.dart';
+import '../src/src.dart';
+import '../password.dart';
+import '../settings/changeKey.dart';
+import '../start/hello.dart';
 
 class GenerateKeyTile extends StatelessWidget {
   showKeyGenerationOverlay(context) {

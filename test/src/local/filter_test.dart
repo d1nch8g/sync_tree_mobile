@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sync_tree_modile_ui/src/src.dart';
+import '../src/src.dart';
 
 void main() {
   test('filter profanity check', () {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_modile_ui/src/src.dart';
-import 'package:sync_tree_modile_ui/market/buyOverlay.dart';
-import 'package:sync_tree_modile_ui/market/trades.dart';
-import 'package:sync_tree_modile_ui/market/sellOverlay.dart';
+import '../src/src.dart';
+import '../market/buyOverlay.dart';
+import '../market/trades.dart';
+import '../market/sellOverlay.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 

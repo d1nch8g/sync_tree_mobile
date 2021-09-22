@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_modile_ui/src/src.dart';
-import 'package:sync_tree_modile_ui/connection.dart';
-import 'package:sync_tree_modile_ui/market/marketPage.dart';
+import '../src/src.dart';
+import '../connection.dart';
+import '../market/marketPage.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MarketPage extends StatefulWidget {

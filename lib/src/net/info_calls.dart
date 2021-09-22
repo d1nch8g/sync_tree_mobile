@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:sync_tree_modile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/src.dart';
 
 import 'api.pb.dart';
 import 'api.pbgrpc.dart';
