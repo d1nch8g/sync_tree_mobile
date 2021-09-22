@@ -15,12 +15,14 @@ final channel = ClientChannel(
     ),
   ),
 );
+
 final infoStub = InfoClient(
   channel,
   options: CallOptions(
     timeout: Duration(seconds: 1),
   ),
 );
+
 final userStub = UserClient(
   channel,
   options: CallOptions(
