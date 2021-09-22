@@ -13,20 +13,20 @@ void main() {
       'publicName': 'Alcohol',
       'balance': 10,
     });
-    var hasTrades = await InfoCalls.hasTrades(testMarketAdress);
+    var hasTrades = await InfoCalls.hasTrades(testAlcoholAdress);
     if (hasTrades != false) {
       fail('there should not be any trades on that adress');
     }
   });
   test('info market', () async {
-    var marketInfo = await InfoCalls.marketInfo(testMarketAdress);
+    var marketInfo = await InfoCalls.marketInfo(testNicotinAdress);
     if (marketInfo.name != 'Bitcoin Ftem') {
-      fail('the name of that market should be bitcoin ftem');
+      fail('the name of that market should be bitcoin ftem ${marketInfo.name}');
     }
   });
   test('info search', () async {
-    var foundMarkets = await InfoCalls.searchMarkets('ftem');
-    if (foundMarkets.length != 2) {
+    var foundMarkets = await InfoCalls.searchMarkets('Ftem');
+    if (foundMarkets.length != 4) {
       fail('the length of found markets should be equal to 2');
     }
   });
