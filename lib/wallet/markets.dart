@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/net/info_calls.dart';
-import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/src/src.dart';
 import 'package:sync_tree_modile_ui/wallet/walletPage.dart';
 
 class ConnectedMarketList extends StatefulWidget {

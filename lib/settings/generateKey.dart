@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/src/src.dart';
 import 'package:sync_tree_modile_ui/password.dart';
 import 'package:sync_tree_modile_ui/settings/changeKey.dart';
 import 'package:sync_tree_modile_ui/start/hello.dart';

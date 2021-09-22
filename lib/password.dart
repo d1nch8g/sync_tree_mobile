@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/src/src.dart';
 
 void passwordCheck(context, Function onSucess) async {
   var pwd = await Storage.loadPassword();

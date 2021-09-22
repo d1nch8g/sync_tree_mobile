@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:clipboard/clipboard.dart';
-import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/src/src.dart';
 import 'package:sync_tree_modile_ui/connection.dart';
 
 class KeySave extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_logic/sync_tree_modile_logic.dart';
+import 'package:sync_tree_modile_ui/src/src.dart';
 import 'package:sync_tree_modile_ui/connection.dart';
 import 'package:sync_tree_modile_ui/password.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
