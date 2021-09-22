@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_modile_ui/navigator.dart';
 import 'package:sync_tree_modile_ui/src/src.dart';
 
 class DynamicBalance extends StatefulWidget {
@@ -25,7 +26,7 @@ class _DynamicBalanceState extends State<DynamicBalance> {
   @override
   void initState() {
     super.initState();
-    UserCalls.updateSelfInformation();
+    updateSelfInformation();
     updateBalance();
     Storage.createTriggerSubscription(
       trigger: Trigger.mainBalanceUpdate,

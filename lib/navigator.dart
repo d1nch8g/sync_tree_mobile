@@ -15,6 +15,14 @@ var firstLaunchRoutMap = <String, WidgetBuilder>{
   '/keys': (BuildContext context) => KeySave(),
 };
 
+updateSelfInformation() async {
+  var keys = await Storage.loadKeys();
+  var info = await InfoCalls.userInfo(
+    keys.personal.public.getAdressBase64(),
+  );
+  Storage.updateSelfInformation(info: info);
+}
+
 class PrimaryPage extends StatefulWidget {
   @override
   _PrimaryPageState createState() => _PrimaryPageState();
@@ -57,14 +65,6 @@ class _PrimaryPageState extends State<PrimaryPage> {
         curve: Curves.easeOut,
       );
     });
-  }
-
-  updateSelfInformation() async {
-    var keys = await Storage.loadKeys();
-    var info = await InfoCalls.userInfo(
-      keys.personal.public.getAdressBase64(),
-    );
-    Storage.updateSelfInformation(info: info);
   }
 
   @override
