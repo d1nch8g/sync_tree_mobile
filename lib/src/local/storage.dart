@@ -2,17 +2,7 @@ import 'dart:async';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile_logic/local/crypto.dart';
-
-var storageStreamController = StreamController<Trigger>.broadcast();
-var storageStream = storageStreamController.stream;
-
-enum Trigger {
-  publicNameUpdate,
-  mainBalanceUpdate,
-  marketBalanceUpdate,
-  marketMessagesUpdate,
-  moveToMarketPage,
-}
+import 'package:sync_tree_modile_ui/src/local/stream.dart';
 
 class Storage {
   static void saveKeys(String keys) async {

@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_logic/local/storage.dart';
-import 'package:sync_tree_mobile_logic/net/api.pb.dart';
 
 import 'api.pb.dart';
 import 'api.pbgrpc.dart';
