@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile_logic/src.dart';
+import 'package:sync_tree_modile_ui/src/src.dart';
 
 import 'test_data.dart';
 
@@ -21,7 +21,7 @@ void main() {
       'keys': alcoholKeys,
       'publicName': 'Alcohol',
     });
-    var updated = await UserCalls.updateName('Alcohol');
+    var updated = await UserCalls.update('Alcohol');
     if (updated == false) {
       fail('user infotmation should be updated');
     }
@@ -41,7 +41,7 @@ void main() {
       trigger: Trigger.mainBalanceUpdate,
       onTriggerEvent: trigger,
     );
-    var operated = await UserCalls.sendMain(
+    var operated = await UserCalls.send(
       1,
       nicoKeys.personal.public.getAdressBase64(),
     );
@@ -59,7 +59,7 @@ void main() {
       'keys': alcoholKeys,
       'publicName': 'Alcohol',
     });
-    var operated = await UserCalls.sendMessage(testMarketAdress, 'hola');
+    var operated = await UserCalls.message(testMarketAdress, 'hola');
     if (operated == false) {
       fail('the message is not delivered');
     }

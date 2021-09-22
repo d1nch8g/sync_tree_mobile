@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sync_tree_mobile_logic/src.dart';
+import 'package:sync_tree_modile_ui/src/src.dart';
 
 import 'test_data.dart';
 
@@ -13,15 +13,13 @@ void main() {
       'publicName': 'Alcohol',
       'balance': 10,
     });
-    var hasTrades = await InfoCalls.selfActiveTradesByAdress(testMarketAdress);
+    var hasTrades = await InfoCalls.hasTrades(testMarketAdress);
     if (hasTrades != false) {
       fail('there should not be any trades on that adress');
     }
   });
   test('info market', () async {
-    var marketInfo = await InfoCalls.marketInfo(
-      base64.decode(testMarketAdress),
-    );
+    var marketInfo = await InfoCalls.marketInfo(testMarketAdress);
     if (marketInfo.name != 'Bitcoin Ftem') {
       fail('the name of that market should be bitcoin ftem');
     }
