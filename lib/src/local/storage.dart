@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sync_tree_modile_ui/src/src.dart';
 
 import 'stream.dart';
 import 'crypto.dart';
@@ -114,5 +116,24 @@ class Storage {
         onTriggerEvent();
       }
     });
+  }
+
+  static void addConnectedMarket(String adress) async {
+    var connectedAdresses = await Storage.loadConnectedWallets();
+    connectedAdresses.add(adress);
+    Storage.saveConnectedWalletsAdressesList(connectedAdresses);
+  }
+
+  static void updateSelfInformation({required UserInfo info}) {
+    saveMainBalance(info.balance);
+    info.marketBalances.forEach((marketBalance) {
+      var adressString = base64Encode(marketBalance.adress);
+      saveMarketBalanceByAdress(
+        adressString,
+        marketBalance.balance,
+      );
+      addConnectedMarket(adressString);
+    });
+    savePublicName(info.name);
   }
 }

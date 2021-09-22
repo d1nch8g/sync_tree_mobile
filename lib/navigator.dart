@@ -59,6 +59,14 @@ class _PrimaryPageState extends State<PrimaryPage> {
     });
   }
 
+  updateSelfInformation() async {
+    var keys = await Storage.loadKeys();
+    var info = await InfoCalls.userInfo(
+      keys.personal.public.getAdressBase64(),
+    );
+    Storage.updateSelfInformation(info: info);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -66,7 +74,6 @@ class _PrimaryPageState extends State<PrimaryPage> {
       initialPage: bottomBarIndex,
     );
     checkFirstLaunch();
-    UserCalls.updateSelfInformation();
     Storage.createTriggerSubscription(
       trigger: Trigger.moveToMarketPage,
       onTriggerEvent: () {
