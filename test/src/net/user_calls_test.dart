@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../src/src.dart';
+import 'package:sync_tree_mobile_ui/src/src.dart';
+
 
 import 'test_data.dart';
 
