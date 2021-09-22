@@ -152,8 +152,8 @@ class InfoCalls {
 
   static Future<List<String>> messages(Uint8List marketAdress) async {
     var keys = await Storage.loadKeys();
-    final response = await stub.infoMessages(
-      InfoMessagesRequest(
+    final response = await infoStub.messages(
+      InfIn_UserMarketAdresses(
         userAdress: keys.personal.public.getAdressBytes(),
         marketAdress: marketAdress,
       ),
