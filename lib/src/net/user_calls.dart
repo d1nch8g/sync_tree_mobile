@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:fixnum/fixnum.dart';
 import 'package:sync_tree_mobile_logic/local/storage.dart';
-import 'package:sync_tree_mobile_logic/net/info_calls.dart';
 import 'api.pb.dart';
 import 'api.pbgrpc.dart';
 import 'api.dart';
@@ -101,7 +100,7 @@ class UserCalls {
     );
   }
 
-  static Future<bool> sell(String marketAdress, int recieve, int offer) async {
+  static Future sell(String marketAdress, int recieve, int offer) async {
     var keys = await Storage.loadKeys();
     var bytesMarketAdress = base64.decode(marketAdress);
     var sign = await keys.personal.private.signList([
@@ -110,8 +109,8 @@ class UserCalls {
       recieve,
       offer,
     ]);
-    final response = await stub.userSell(
-      UserSellRequest(
+    await userStub.sell(
+      UserRequests_Sell(
         publicKey: keys.personal.public.bytes,
         adress: bytesMarketAdress,
         recieve: Int64(recieve),
@@ -119,43 +118,21 @@ class UserCalls {
         sign: sign,
       ),
     );
-    return response.passed;
   }
 
-  static Future<bool> cancelTrade(String marketAdress) async {
+  static Future cancelTrade(String marketAdress) async {
     var keys = await Storage.loadKeys();
     var bytesMarketAdress = base64.decode(marketAdress);
     var sign = await keys.personal.private.signList([
       keys.personal.public.bytes,
       bytesMarketAdress,
     ]);
-    final response = await stub.userCancelTrade(
-      UserCancelTradeRequest(
+    await userStub.cancelTrade(
+      UserRequests_CancelTrade(
         publicKey: keys.personal.public.bytes,
         marketAdress: bytesMarketAdress,
         sign: sign,
       ),
     );
-    return response.passed;
-  }
-
-  static void updateSelfInformation() async {
-    var firstLaunch = await Storage.checkIfFirstLaunch();
-    if (!firstLaunch) {
-      var keys = await Storage.loadKeys();
-      try {
-        var selfInfo = await InfoCalls.userInfo(
-          keys.personal.public.getAdressBase64(),
-        );
-        Storage.saveMainBalance(selfInfo.balance);
-        Storage.savePublicName(selfInfo.name);
-        selfInfo.marketBalances.forEach((marketBalance) {
-          Storage.saveMarketBalanceByAdress(
-            base64.encode(marketBalance.adress),
-            marketBalance.balance,
-          );
-        });
-      } catch (e) {}
-    }
   }
 }
