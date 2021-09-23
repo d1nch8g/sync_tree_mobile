@@ -156,7 +156,7 @@ class _ConnectedMarketListState extends State<ConnectedMarketList> {
   @override
   void initState() {
     super.initState();
-    updateMarketsInfo();
+    updateMarketsInfo(); 
   }
 
   @override
