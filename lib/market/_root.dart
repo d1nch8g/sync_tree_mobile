@@ -139,7 +139,6 @@ class MarketTileList extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: ListView.builder(
-        // shrinkWrap: true,
         itemCount: markets.length + 1,
         padding: EdgeInsets.all(3.0),
         itemBuilder: (context, index) {
@@ -153,12 +152,12 @@ class MarketTileList extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Image.network(info.imageLink),
-                //     CachedNetworkImage(
-                //   imageUrl: info.imageLink,
-                //   placeholder: (context, url) => CircularProgressIndicator(),
-                //   errorWidget: (context, url, error) => Icon(Icons.error),
-                // ),
+                leading: CachedNetworkImage(
+                  imageUrl: info.imageLink,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  width: 53,
+                ),
                 onTap: () {
                   showMaterialModalBottomSheet(
                     context: context,

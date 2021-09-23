@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../src/src.dart';
 import '../market/buyOverlay.dart';
@@ -141,8 +142,13 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
                 child: Row(
                   children: [
                     Container(
-                      height: 26,
-                      child: Image.network(this.widget.info.imageLink),
+                      child: CachedNetworkImage(
+                        imageUrl: this.widget.info.imageLink,
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        width: 29,
+                      ),
                     ),
                     SizedBox(width: 12),
                     Text(

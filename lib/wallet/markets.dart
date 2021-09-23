@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../src/src.dart';
 import '../wallet/walletPage.dart';
@@ -29,6 +30,8 @@ class _ConnectedMarketListState extends State<ConnectedMarketList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      reverse: true,
+      shrinkWrap: true,
       itemCount: markets.length,
       itemBuilder: (context, index) {
         var info = markets[index];
@@ -125,7 +128,11 @@ class _WalletTileState extends State<WalletTile> {
               radius: 63,
               backgroundColor: Theme.of(context).focusColor,
               child: Container(
-                child: Image.network(widget.info.imageLink),
+                child: CachedNetworkImage(
+                  imageUrl: widget.info.imageLink,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
                 height: 98,
               ),
             ),
