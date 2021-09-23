@@ -1,45 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../src/src.dart';
-import '../wallet/walletPage.dart';
-
-class ConnectedMarketList extends StatefulWidget {
-  @override
-  State<ConnectedMarketList> createState() => _ConnectedMarketListState();
-}
-
-class _ConnectedMarketListState extends State<ConnectedMarketList> {
-  late List<MarketInfo> markets = [];
-
-  void updateMarketsInfo() async {
-    var marketAdresses = await Storage.loadConnectedWallets();
-    marketAdresses.forEach((adress) async {
-      var info = await InfoCalls.marketInfo(adress);
-      markets.add(info);
-      setState(() {});
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    updateMarketsInfo();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      reverse: true,
-      shrinkWrap: true,
-      itemCount: markets.length,
-      itemBuilder: (context, index) {
-        var info = markets[index];
-        return WalletTile(info: info);
-      },
-    );
-  }
-}
+import 'package:sync_tree_mobile_ui/src/src.dart';
+import 'package:sync_tree_mobile_ui/wallet/walletPage.dart';
 
 class WalletTile extends StatefulWidget {
   final MarketInfo info;
