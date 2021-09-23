@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../src/src.dart';
 import '../connection.dart';
@@ -60,95 +61,61 @@ class _MarketPageState extends State<MarketPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Stack(
+      child: Column(
         children: [
-          Column(
-            children: [
-              Icon(
-                Icons.stacked_line_chart_rounded,
-                size: MediaQuery.of(context).size.height * 0.15,
-                color: Theme.of(context).hintColor,
+          Icon(
+            Icons.stacked_line_chart_rounded,
+            size: MediaQuery.of(context).size.height * 0.15,
+            color: Theme.of(context).hintColor,
+          ),
+          Divider(),
+          Expanded(
+            child: AnimatedSwitcher(
+              child: marketsWidget,
+              duration: Duration(milliseconds: 377),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: TextField(
+              controller: searchController,
+              style: TextStyle(
+                color: Theme.of(context).cardColor,
               ),
-              Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: TextField(
-                  controller: searchController,
-                  style: TextStyle(
-                    color: Theme.of(context).cardColor,
-                  ),
-                  onEditingComplete: () async {
+              onEditingComplete: () async {
+                updateMarketList();
+                FocusScope.of(context).unfocus();
+                Storage.saveSearchCache(searchController.text);
+              },
+              focusNode: focuser,
+              cursorColor: Theme.of(context).cardColor,
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  borderSide: BorderSide(color: Theme.of(context).cardColor),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  borderSide: BorderSide(color: Theme.of(context).cardColor),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  borderSide: BorderSide(color: Theme.of(context).cardColor),
+                ),
+                labelStyle: TextStyle(
+                  color: Theme.of(context).cardColor,
+                ),
+                labelText: 'type market name',
+                hoverColor: Theme.of(context).cardColor,
+                fillColor: Theme.of(context).cardColor,
+                focusColor: Theme.of(context).cardColor,
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.search_rounded),
+                  color: Theme.of(context).cardColor,
+                  onPressed: () {
                     updateMarketList();
                     FocusScope.of(context).unfocus();
-                    Storage.saveSearchCache(searchController.text);
                   },
-                  focusNode: focuser,
-                  cursorColor: Theme.of(context).cardColor,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      borderSide:
-                          BorderSide(color: Theme.of(context).cardColor),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      borderSide:
-                          BorderSide(color: Theme.of(context).cardColor),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      borderSide:
-                          BorderSide(color: Theme.of(context).cardColor),
-                    ),
-                    labelStyle: TextStyle(
-                      color: Theme.of(context).cardColor,
-                    ),
-                    labelText: 'type market name',
-                    hoverColor: Theme.of(context).cardColor,
-                    fillColor: Theme.of(context).cardColor,
-                    focusColor: Theme.of(context).cardColor,
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.search_rounded),
-                      color: Theme.of(context).cardColor,
-                      onPressed: () {
-                        updateMarketList();
-                        FocusScope.of(context).unfocus();
-                      },
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: AnimatedSwitcher(
-                  child: marketsWidget,
-                  duration: Duration(milliseconds: 377),
-                ),
-              ),
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(focuser);
-              },
-              child: Container(
-                height: 46,
-                width: 76,
-                child: Icon(
-                  Icons.keyboard_alt_outlined,
-                  size: 42,
-                  color: Theme.of(context).focusColor,
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).hoverColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(38),
-                    topRight: Radius.circular(38),
-                  ),
-                  border: Border.all(
-                    color: Theme.of(context).backgroundColor,
-                    width: 0.74,
-                  ),
                 ),
               ),
             ),
@@ -172,7 +139,7 @@ class MarketTileList extends StatelessWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: ListView.builder(
-        shrinkWrap: true,
+        // shrinkWrap: true,
         itemCount: markets.length + 1,
         padding: EdgeInsets.all(3.0),
         itemBuilder: (context, index) {
@@ -187,6 +154,11 @@ class MarketTileList extends StatelessWidget {
             children: [
               ListTile(
                 leading: Image.network(info.imageLink),
+                //     CachedNetworkImage(
+                //   imageUrl: info.imageLink,
+                //   placeholder: (context, url) => CircularProgressIndicator(),
+                //   errorWidget: (context, url, error) => Icon(Icons.error),
+                // ),
                 onTap: () {
                   showMaterialModalBottomSheet(
                     context: context,

@@ -16,6 +16,7 @@ dependencies:
   modal_bottom_sheet: ^2.0.0
   top_snackbar_flutter: ^1.0.0
   animations: ^2.0.1
+  cached_network_image: ^3.1.0
   # ANOTHER dependencies
   pointycastle: ^3.1.1
   basic_utils: ^3.1.0
@@ -35,10 +36,11 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "sync.png"
+  image_path: "icon.png"
 
 flutter_native_splash:
   color: "#2a2a72"
+  image: icon.png
 
 # flutter pub run flutter_native_splash:create
 flutter:

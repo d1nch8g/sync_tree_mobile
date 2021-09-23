@@ -97,8 +97,8 @@ class _WalletTileState extends State<WalletTile> {
                         Text(widget.info.name),
                         Text(widget.info.workTime),
                         Text(
-                          'Fee - in: ${widget.info.inputFee.toString()}% '
-                          'out: ${widget.info.outputFee.toString()}%',
+                          'Fee in: ${(widget.info.inputFee / 100).toString()}% '
+                          'out: ${(widget.info.outputFee / 100).toString()}%',
                         ),
                         DynamicMarketBalance(adress: widget.info.adress),
                       ],

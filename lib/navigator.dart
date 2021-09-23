@@ -85,7 +85,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).focusColor,
       body: SizedBox.expand(
         child: PageView(

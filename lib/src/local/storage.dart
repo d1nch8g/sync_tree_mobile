@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile_ui/src/src.dart';
 
-
 import 'stream.dart';
 import 'crypto.dart';
 
@@ -121,7 +120,9 @@ class Storage {
 
   static void addConnectedMarket(String adress) async {
     var connectedAdresses = await Storage.loadConnectedWallets();
-    connectedAdresses.add(adress);
+    if (!connectedAdresses.contains(adress)) {
+      connectedAdresses.add(adress);
+    }
     Storage.saveConnectedWalletsAdressesList(connectedAdresses);
   }
 
