@@ -2,7 +2,7 @@
     package="com.example.sync_tree_mobile_ui">
    <application
         android:label="sync_tree_mobile_ui"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
