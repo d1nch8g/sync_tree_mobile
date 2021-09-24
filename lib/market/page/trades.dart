@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import '../src/net/info_calls.dart';
+import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
 class TradeBars extends StatefulWidget {
   final MarketInfo info;

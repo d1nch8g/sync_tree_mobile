@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_ui/markets/frame.dart';
+import 'package:sync_tree_mobile_ui/market/frame.dart';
 import '../src/src.dart';
 
 import 'wallet/_root.dart';

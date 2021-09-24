@@ -1,11 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../src/src.dart';
-import '../market/buyOverlay.dart';
-import '../market/trades.dart';
-import '../market/sellOverlay.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
+import 'package:sync_tree_mobile_ui/wallet/_root.dart';
 
 class MarketModalSheet extends StatefulWidget {
   final MarketInfo info;
@@ -108,6 +105,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
     setConnectedOverlay();
     loadBalancesFromStorage();
     Storage.createTriggerSubscription(
+      
       trigger: Trigger.marketBalanceUpdate,
       onTriggerEvent: () {
         loadBalancesFromStorage();

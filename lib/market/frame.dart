@@ -3,6 +3,7 @@ import 'package:sync_tree_mobile_ui/markets/list.dart';
 import 'package:sync_tree_mobile_ui/markets/logo.dart';
 import 'package:sync_tree_mobile_ui/markets/norez.dart';
 import 'package:sync_tree_mobile_ui/markets/textField.dart';
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
 class MarketPage extends StatefulWidget {
@@ -35,9 +36,16 @@ class _MarketPageState extends State<MarketPage> {
     }
   }
 
+  void loadCachedSearch() async {
+    controller.text = await Storage.loadSeachCache();
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
+    loadCachedSearch();
+    updateMarketList();
   }
 
   @override
