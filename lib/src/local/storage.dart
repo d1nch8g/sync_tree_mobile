@@ -75,9 +75,19 @@ class Storage {
     triggerStorageEvent(trigger: Trigger.marketBalanceUpdate);
   }
 
-  static Future<int> loadMarketBalance(String adress) async {
+  static Future<int> loadMarketBalanceInt(String adress) async {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getInt(adress) ?? 0;
+  }
+
+  static Future<String> loadMarketBalance(String adress, int delimiter) async {
+    var limiter = 10;
+    for (var i = 0; i < delimiter; i++) {
+      limiter = limiter * 10;
+    }
+    var prefs = await SharedPreferences.getInstance();
+    var intBalance = prefs.getInt(adress) ?? 0;
+    return (intBalance.toDouble() / limiter.toDouble()).toString();
   }
 
   static void savePublicName(String name) async {

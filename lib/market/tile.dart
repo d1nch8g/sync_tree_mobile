@@ -24,10 +24,10 @@ class _MarketTileState extends State<MarketTile> {
     imageLink = info.imageLink;
     description = info.description;
     marketName = info.name;
-    int intBalance = await Storage.loadMarketBalance(
+    int intBalance = await Storage.loadMarketBalanceInt(
       this.widget.marketAdress,
     );
-    marketBalance = (intBalance.toDouble() / info.delimiter).toString();
+    marketBalance = (intBalance.toDouble() / 10).toString();
     setState(() {});
   }
 

@@ -26,7 +26,7 @@ class _MarketModalSheetState extends State<MarketModalSheet> {
   int mainBalance = 0;
 
   void loadBalancesFromStorage() async {
-    marketBalance = await Storage.loadMarketBalance(this.widget.info.adress);
+    marketBalance = await Storage.loadMarketBalanceInt(this.widget.info.adress);
     mainBalance = await Storage.loadMainBalance();
     if (mounted) {
       setState(() {});

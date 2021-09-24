@@ -116,7 +116,7 @@ class DynamicMarketBalance extends StatefulWidget {
 class _DynamicMarketBalanceState extends State<DynamicMarketBalance> {
   String balance = '';
   void setBalance() async {
-    balance = (await Storage.loadMarketBalance(widget.adress)).toString();
+    balance = (await Storage.loadMarketBalanceInt(widget.adress)).toString();
     setState(() {});
   }
 
