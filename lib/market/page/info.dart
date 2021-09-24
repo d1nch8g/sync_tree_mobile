@@ -1,2 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
+
+class MarketInfo extends StatefulWidget {
+  final MarketInfo info;
+  MarketInfo({required this.info});
+  @override
+  State<MarketInfo> createState() => _MarketInfoState();
+}
+
+class _MarketInfoState extends State<MarketInfo> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
