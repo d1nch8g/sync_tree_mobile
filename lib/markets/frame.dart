@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/markets/list.dart';
 import 'package:sync_tree_mobile_ui/markets/logo.dart';
 import 'package:sync_tree_mobile_ui/markets/norez.dart';
 import 'package:sync_tree_mobile_ui/markets/textField.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
-class MaretPage extends StatefulWidget {
+class MarketPage extends StatefulWidget {
   @override
-  State<MaretPage> createState() => _MaretPageState();
+  State<MarketPage> createState() => _MarketPageState();
 }
 
-class _MaretPageState extends State<MaretPage> {
+class _MarketPageState extends State<MarketPage> {
   final TextEditingController controller = TextEditingController();
   final FocusNode focuser = FocusNode();
 
   Widget mainSearchWidget = Center();
-  List<MarketInfo> markets = [];
 
   void updateMarketList() async {
     try {
@@ -24,7 +24,9 @@ class _MaretPageState extends State<MaretPage> {
           mainSearchWidget = NoSearchResults();
         });
       } else {
-        
+        setState(() {
+          mainSearchWidget = MarketList(marketAdresses: markets);
+        });
       }
     } catch (e) {
       setState(() {
@@ -45,9 +47,11 @@ class _MaretPageState extends State<MaretPage> {
         children: [
           MarketLogo(),
           Divider(),
-          AnimatedSwitcher(
-            duration: Duration(milliseconds: 144),
-            child: mainSearchWidget,
+          Expanded(
+            child: AnimatedSwitcher(
+              duration: Duration(milliseconds: 144),
+              child: mainSearchWidget,
+            ),
           ),
           Divider(),
           MarketTextField(

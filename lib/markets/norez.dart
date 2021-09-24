@@ -32,7 +32,7 @@ class ConnectionError extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            Icons.search_off_rounded,
+            Icons.wifi_off_rounded,
             size: MediaQuery.of(context).size.width * 0.32,
           ),
           SizedBox(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/markets/frame.dart';
 import '../src/src.dart';
 
-import 'market/_root.dart';
 import 'wallet/_root.dart';
 import 'settings/_root.dart';
 import 'start/hello.dart';
@@ -85,7 +85,6 @@ class _PrimaryPageState extends State<PrimaryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).focusColor,
       body: SizedBox.expand(
         child: PageView(
