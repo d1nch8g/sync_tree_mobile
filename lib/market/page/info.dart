@@ -30,6 +30,7 @@ class _MarketInfoWidgetState extends State<MarketInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Row(
           children: [
@@ -54,11 +55,36 @@ class _MarketInfoWidgetState extends State<MarketInfoWidget> {
         Divider(
           color: Theme.of(context).focusColor,
         ),
-        Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Text(
-            widget.info.description,
-            style: Theme.of(context).textTheme.bodyText2,
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                'Input fee: ${widget.info.inputFee / 100}%\n'
+                'Buys count: ${widget.info.activeBuys}\n'
+                'Operations: ${widget.info.operationCount}',
+              ),
+            ),
+            Expanded(
+              child: Text(
+                'Output fee: ${widget.info.outputFee / 100}%\n'
+                'Sells count: ${widget.info.activeSells}\n'
+                '${widget.info.workTime}',
+              ),
+            )
+          ],
+        ),
+        Divider(
+          color: Theme.of(context).focusColor,
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Text(
+              widget.info.description,
+              style: Theme.of(context).textTheme.bodyText2,
+              softWrap: true,
+              overflow: TextOverflow.fade,
+            ),
           ),
         ),
       ],
