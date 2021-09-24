@@ -18,7 +18,7 @@ class MarketTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         style: TextStyle(
-          color: Theme.of(context).focusColor,
+          color: Theme.of(context).cardColor,
         ),
         onEditingComplete: () async {
           updateMarketList();
@@ -28,30 +28,30 @@ class MarketTextField extends StatelessWidget {
           Storage.saveSearchCache(x);
         },
         focusNode: focuser,
-        cursorColor: Theme.of(context).focusColor,
+        cursorColor: Theme.of(context).cardColor,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(color: Theme.of(context).focusColor),
+            borderSide: BorderSide(color: Theme.of(context).cardColor),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(color: Theme.of(context).focusColor),
+            borderSide: BorderSide(color: Theme.of(context).cardColor),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(color: Theme.of(context).focusColor),
+            borderSide: BorderSide(color: Theme.of(context).cardColor),
           ),
           labelStyle: TextStyle(
-            color: Theme.of(context).focusColor,
+            color: Theme.of(context).cardColor,
           ),
           labelText: 'type market name',
-          hoverColor: Theme.of(context).focusColor,
-          fillColor: Theme.of(context).focusColor,
-          focusColor: Theme.of(context).focusColor,
+          hoverColor: Theme.of(context).cardColor,
+          fillColor: Theme.of(context).cardColor,
+          focusColor: Theme.of(context).cardColor,
           suffixIcon: IconButton(
             icon: Icon(Icons.search_rounded),
-            color: Theme.of(context).focusColor,
+            color: Theme.of(context).cardColor,
             onPressed: () {
               updateMarketList();
               FocusScope.of(context).unfocus();

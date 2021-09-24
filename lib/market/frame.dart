@@ -57,18 +57,12 @@ class _MarketPageState extends State<MarketPage> {
             ),
           ),
           Divider(),
-          Container(
-            color: Theme.of(context).backgroundColor,
-            child: MarketTextField(
-              controller: controller,
-              focuser: focuser,
-              updateMarketList: () {
-                updateMarketList();
-              },
-            ),
-          ),
-          Container(
-            color: Theme.of(context).backgroundColor,
+          MarketTextField(
+            controller: controller,
+            focuser: focuser,
+            updateMarketList: () {
+              updateMarketList();
+            },
           ),
         ],
       ),
