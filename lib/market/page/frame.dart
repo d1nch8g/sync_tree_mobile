@@ -19,7 +19,7 @@ class _MarketModalPageState extends State<MarketModalPage> {
   showHideTrades() {
     if (tradesHeight == 0) {
       tradesHeight = 320;
-      icon = Icons.group_work_sharp;
+      icon = Icons.album_rounded;
       setState(() {});
     } else {
       tradesHeight = 0;
