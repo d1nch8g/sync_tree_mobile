@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:sync_tree_mobile_ui/markets/page/frame.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
@@ -11,20 +13,21 @@ class MarketTile extends StatefulWidget {
 }
 
 class _MarketTileState extends State<MarketTile> {
+  late MarketInfo info;
   String imageLink = '';
   String description = '';
   String marketName = '';
   String marketBalance = '0';
 
   updateTileContent() async {
-    var info = await InfoCalls.marketInfo(this.widget.marketAdress);
+    info = await InfoCalls.marketInfo(this.widget.marketAdress);
     imageLink = info.imageLink;
     description = info.description;
     marketName = info.name;
-    marketBalance = (await Storage.loadMarketBalance(
+    int intBalance = await Storage.loadMarketBalance(
       this.widget.marketAdress,
-    ))
-        .toString();
+    );
+    marketBalance = (intBalance.toDouble() / info.delimiter).toString();
     setState(() {});
   }
 
@@ -62,6 +65,12 @@ class _MarketTileState extends State<MarketTile> {
         maxLines: 4,
         style: Theme.of(context).textTheme.caption,
       ),
+      onTap: () {
+        showMaterialModalBottomSheet(
+          context: context,
+          builder: (context) => MarketModalSheet(info: info),
+        );
+      },
     );
   }
 }
