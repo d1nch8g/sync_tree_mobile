@@ -51,10 +51,15 @@ class _MarketInfoWidgetState extends State<MarketInfoWidget> {
             ),
           ],
         ),
-        Text(
-          widget.info.description,
-          softWrap: true,
-          overflow: TextOverflow.fade,
+        Divider(
+          color: Theme.of(context).focusColor,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Text(
+            widget.info.description,
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
         ),
       ],
     );

@@ -35,13 +35,8 @@ class _MarketModalPageState extends State<MarketModalPage> {
               height: tradesHeight,
               child: Container(),
             ),
-            // Expanded(
-            //   child: MarketInfoWidget(info: widget.info),
-            // ),
-            Text(
-              widget.info.description,
-              softWrap: true,
-              overflow: TextOverflow.fade,
+            Expanded(
+              child: MarketInfoWidget(info: widget.info),
             ),
             Spacer(),
             TextButton(
