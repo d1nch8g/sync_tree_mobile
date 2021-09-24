@@ -6,12 +6,29 @@ import '../../src/src.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
+class SellButton extends StatelessWidget {
+  final MarketInfo info;
+  SellButton({required this.info});
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (_) => SellOverlay(
+            info: info,
+          ),
+        );
+      },
+      child: Text(' buy'),
+    );
+  }
+}
+
 class SellOverlay extends StatefulWidget {
   final MarketInfo info;
-  final int marketBalance;
   SellOverlay({
     required this.info,
-    required this.marketBalance,
   });
 
   @override
@@ -85,9 +102,11 @@ class SellOverlayState extends State<SellOverlay>
   late Widget offerWidget;
   final TextEditingController offerController = TextEditingController();
   final FocusNode offerFocusNode = FocusNode();
+  
   void finishOfferTyping() async {
+    var marketBalance = await Storage.loadMarketBalanceInt(widget.info.adress);
     if (offerController.text == '' ||
-        int.parse(offerController.text) > widget.marketBalance ||
+        int.parse(offerController.text) > marketBalance ||
         int.parse(offerController.text) == 0) {
       offerWidget = Icon(
         Icons.cancel_rounded,
