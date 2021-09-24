@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:sync_tree_mobile_ui/market/page/xxx.dart';
+import 'package:sync_tree_mobile_ui/market/page/frame.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
@@ -24,10 +24,11 @@ class _MarketTileState extends State<MarketTile> {
     imageLink = info.imageLink;
     description = info.description;
     marketName = info.name;
-    int intBalance = await Storage.loadMarketBalanceInt(
+    marketBalance = await Storage.loadMarketBalance(
       this.widget.marketAdress,
+      info.delimiter,
     );
-    marketBalance = (intBalance.toDouble() / 10).toString();
+    print(info.delimiter);
     setState(() {});
   }
 
@@ -68,7 +69,7 @@ class _MarketTileState extends State<MarketTile> {
       onTap: () {
         showMaterialModalBottomSheet(
           context: context,
-          builder: (context) => MarketModalSheet(info: info),
+          builder: (context) => MarketModalPage(info: info),
         );
       },
     );
