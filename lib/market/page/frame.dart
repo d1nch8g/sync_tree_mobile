@@ -28,9 +28,9 @@ class _MarketModalPageState extends State<MarketModalPage> {
         children: [
           SizedBox(height: 32),
           AnimatedContainer(
-            duration: Duration(milliseconds: 610),
+            duration: Duration(milliseconds: 370),
             height: tradesHeight,
-            child: TradeBars(info: widget.info),
+            child: Container(),
           ),
           Expanded(
             child: Column(
