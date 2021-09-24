@@ -20,7 +20,7 @@ class SellButton extends StatelessWidget {
           ),
         );
       },
-      child: Text(' buy'),
+      child: Text('sell'),
     );
   }
 }
