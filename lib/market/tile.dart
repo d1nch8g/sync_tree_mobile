@@ -28,7 +28,6 @@ class _MarketTileState extends State<MarketTile> {
       this.widget.marketAdress,
       info.delimiter,
     );
-    print(info.delimiter);
     setState(() {});
   }
 
@@ -41,10 +40,13 @@ class _MarketTileState extends State<MarketTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CachedNetworkImage(
-        imageUrl: imageLink,
-        placeholder: (context, url) => CircularProgressIndicator(),
-        errorWidget: (context, url, error) => Icon(Icons.error),
+      leading: Container(
+        height: 54,
+        child: CachedNetworkImage(
+          imageUrl: imageLink,
+          placeholder: (context, url) => CircularProgressIndicator(),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+        ),
       ),
       title: Row(
         children: [

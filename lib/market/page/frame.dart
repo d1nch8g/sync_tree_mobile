@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/market/page/trades.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
 class MarketModalPage extends StatefulWidget {
@@ -10,7 +11,7 @@ class MarketModalPage extends StatefulWidget {
 
 class _MarketModalPageState extends State<MarketModalPage> {
   Widget buttons = Center();
-  Widget trades = Center();
+  double tradesHeight = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +26,32 @@ class _MarketModalPageState extends State<MarketModalPage> {
       ),
       child: Column(
         children: [
+          SizedBox(height: 32),
           AnimatedContainer(
             duration: Duration(milliseconds: 610),
-            child: trades,
+            height: tradesHeight,
+            child: TradeBars(info: widget.info),
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Text('coca cola'),
+              ],
+            ),
+          ),
+          SafeArea(
+            child: TextButton(
+              onPressed: () {
+                if (tradesHeight == 0) {
+                  tradesHeight = 320;
+                  setState(() {});
+                } else {
+                  tradesHeight = 0;
+                  setState(() {});
+                }
+              },
+              child: Text('fold'),
+            ),
           ),
         ],
       ),
