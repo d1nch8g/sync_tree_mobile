@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/market/page/buy.dart';
-import 'package:sync_tree_mobile_ui/markets/page/sellOverlay.dart';
-import 'package:sync_tree_mobile_ui/markets/page/trades.dart';
+import 'package:sync_tree_mobile_ui/market/page/sell.dart';
+import 'package:sync_tree_mobile_ui/market/page/trades.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
