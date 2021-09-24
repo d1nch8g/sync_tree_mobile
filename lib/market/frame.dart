@@ -58,6 +58,7 @@ class _MarketPageState extends State<MarketPage> {
           ),
           Divider(),
           MarketTextField(
+            key: UniqueKey(),
             controller: controller,
             focuser: focuser,
             updateMarketList: () {

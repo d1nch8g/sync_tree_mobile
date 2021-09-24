@@ -9,7 +9,8 @@ class MarketTextField extends StatelessWidget {
     required this.controller,
     required this.focuser,
     required this.updateMarketList,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
