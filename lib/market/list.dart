@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:sync_tree_mobile_ui/market/tile.dart';
 
 class MarketList extends StatelessWidget {
   final List<String> marketAdresses;
@@ -7,6 +9,23 @@ class MarketList extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return AnimationLimiter(
+      child: ListView.builder(
+        itemCount: marketAdresses.length,
+        itemBuilder: (BuildContext context, int index) {
+          return AnimationConfiguration.staggeredList(
+            position: index,
+            child: SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(
+                child: MarketTile(
+                  marketAdress: marketAdresses[index],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

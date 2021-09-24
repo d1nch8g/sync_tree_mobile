@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_ui/markets/list.dart';
-import 'package:sync_tree_mobile_ui/markets/logo.dart';
-import 'package:sync_tree_mobile_ui/markets/norez.dart';
-import 'package:sync_tree_mobile_ui/markets/textField.dart';
+import 'package:sync_tree_mobile_ui/market/list.dart';
+import 'package:sync_tree_mobile_ui/market/logo.dart';
+import 'package:sync_tree_mobile_ui/market/norez.dart';
+import 'package:sync_tree_mobile_ui/market/textField.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
