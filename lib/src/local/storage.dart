@@ -81,7 +81,7 @@ class Storage {
   }
 
   static Future<String> loadMarketBalance(String adress, int delimiter) async {
-    var limiter = 10;
+    var limiter = 1;
     for (var i = 0; i < delimiter; i++) {
       limiter = limiter * 10;
     }
