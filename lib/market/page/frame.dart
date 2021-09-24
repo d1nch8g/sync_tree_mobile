@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/market/page/info.dart';
 import 'package:sync_tree_mobile_ui/market/page/trades.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
@@ -28,29 +29,30 @@ class _MarketModalPageState extends State<MarketModalPage> {
         children: [
           SizedBox(height: 32),
           AnimatedContainer(
+            curve: Curves.ease,
             duration: Duration(milliseconds: 370),
             height: tradesHeight,
             child: Container(),
           ),
           Expanded(
-            child: Column(
-              children: [
-                Text('coca cola'),
-              ],
-            ),
+            child: MarketInfoWidget(info: widget.info),
           ),
-          SafeArea(
-            child: TextButton(
-              onPressed: () {
-                if (tradesHeight == 0) {
-                  tradesHeight = 320;
-                  setState(() {});
-                } else {
-                  tradesHeight = 0;
-                  setState(() {});
-                }
-              },
-              child: Text('fold'),
+          Container(
+            color: Theme.of(context).backgroundColor,
+            width: MediaQuery.of(context).size.width,
+            child: SafeArea(
+              child: TextButton(
+                onPressed: () {
+                  if (tradesHeight == 0) {
+                    tradesHeight = 320;
+                    setState(() {});
+                  } else {
+                    tradesHeight = 0;
+                    setState(() {});
+                  }
+                },
+                child: Text('fold'),
+              ),
             ),
           ),
         ],

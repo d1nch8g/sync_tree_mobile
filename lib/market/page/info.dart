@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
 class MarketInfoWidget extends StatefulWidget {
@@ -10,9 +11,20 @@ class MarketInfoWidget extends StatefulWidget {
 }
 
 class _MarketInfoWidgetState extends State<MarketInfoWidget> {
+  String balance = '0';
+
+  updateBalance() async {
+    balance = await Storage.loadMarketBalance(
+      widget.info.adress,
+      widget.info.delimiter,
+    );
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
+    updateBalance();
   }
 
   @override
@@ -25,8 +37,24 @@ class _MarketInfoWidgetState extends State<MarketInfoWidget> {
               imageUrl: widget.info.imageLink,
               placeholder: (context, url) => CircularProgressIndicator(),
               errorWidget: (context, url, error) => Icon(Icons.error),
+              width: 48,
+            ),
+            SizedBox(width: 18),
+            Text(
+              widget.info.name,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            Spacer(),
+            Text(
+              balance,
+              style: Theme.of(context).textTheme.headline2,
             ),
           ],
+        ),
+        Text(
+          widget.info.description,
+          softWrap: true,
+          overflow: TextOverflow.fade,
         ),
       ],
     );
