@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
 class MarketTile extends StatefulWidget {
   final String marketAdress;
@@ -8,8 +11,57 @@ class MarketTile extends StatefulWidget {
 }
 
 class _MarketTileState extends State<MarketTile> {
+  String imageLink = '';
+  String description = '';
+  String marketName = '';
+  String marketBalance = '0';
+
+  updateTileContent() async {
+    var info = await InfoCalls.marketInfo(this.widget.marketAdress);
+    imageLink = info.imageLink;
+    description = info.description;
+    marketName = info.name;
+    marketBalance = (await Storage.loadMarketBalance(
+      this.widget.marketAdress,
+    ))
+        .toString();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateTileContent();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ListTile(
+      leading: CachedNetworkImage(
+        imageUrl: imageLink,
+        placeholder: (context, url) => CircularProgressIndicator(),
+        errorWidget: (context, url, error) => Icon(Icons.error),
+      ),
+      title: Row(
+        children: [
+          Text(
+            marketName,
+            maxLines: 1,
+            style: Theme.of(context).textTheme.headline5,
+          ),
+          Spacer(),
+          Text(
+            marketBalance,
+            maxLines: 1,
+            style: Theme.of(context).textTheme.headline5,
+          ),
+        ],
+      ),
+      subtitle: Text(
+        description,
+        maxLines: 4,
+        style: Theme.of(context).textTheme.caption,
+      ),
+    );
   }
 }

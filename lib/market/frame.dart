@@ -19,6 +19,7 @@ class _MarketPageState extends State<MarketPage> {
 
   void updateMarketList() async {
     try {
+      controller.text = await Storage.loadSeachCache();
       var markets = await InfoCalls.searchMarkets(controller.text);
       if (markets.length == 0) {
         setState(() {
@@ -36,15 +37,9 @@ class _MarketPageState extends State<MarketPage> {
     }
   }
 
-  void loadCachedSearch() async {
-    controller.text = await Storage.loadSeachCache();
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    loadCachedSearch();
     updateMarketList();
   }
 

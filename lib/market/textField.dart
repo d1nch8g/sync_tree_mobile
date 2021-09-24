@@ -23,7 +23,9 @@ class MarketTextField extends StatelessWidget {
         onEditingComplete: () async {
           updateMarketList();
           FocusScope.of(context).unfocus();
-          Storage.saveSearchCache(controller.text);
+        },
+        onChanged: (x) async {
+          Storage.saveSearchCache(x);
         },
         focusNode: focuser,
         cursorColor: Theme.of(context).cardColor,

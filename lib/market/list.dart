@@ -9,22 +9,27 @@ class MarketList extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return AnimationLimiter(
-      child: ListView.builder(
-        itemCount: marketAdresses.length,
-        itemBuilder: (BuildContext context, int index) {
-          return AnimationConfiguration.staggeredList(
-            position: index,
-            child: SlideAnimation(
-              verticalOffset: 50.0,
-              child: FadeInAnimation(
-                child: MarketTile(
-                  marketAdress: marketAdresses[index],
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: AnimationLimiter(
+        child: ListView.builder(
+          shrinkWrap: true,
+          reverse: true,
+          itemCount: marketAdresses.length,
+          itemBuilder: (BuildContext context, int index) {
+            return AnimationConfiguration.staggeredList(
+              position: index,
+              child: SlideAnimation(
+                verticalOffset: 50.0,
+                child: FadeInAnimation(
+                  child: MarketTile(
+                    marketAdress: marketAdresses[index],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
