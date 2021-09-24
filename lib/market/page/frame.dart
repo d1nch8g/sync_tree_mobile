@@ -38,7 +38,6 @@ class _MarketModalPageState extends State<MarketModalPage> {
             Expanded(
               child: MarketInfoWidget(info: widget.info),
             ),
-            Spacer(),
             TextButton(
               onPressed: () {
                 if (tradesHeight == 0) {
