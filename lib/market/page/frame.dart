@@ -10,6 +10,7 @@ class MarketModalPage extends StatefulWidget {
 
 class _MarketModalPageState extends State<MarketModalPage> {
   Widget buttons = Center();
+  Widget trades = Center();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class _MarketModalPageState extends State<MarketModalPage> {
         children: [
           AnimatedContainer(
             duration: Duration(milliseconds: 610),
-            child: Center(),
+            child: trades,
           ),
         ],
       ),
