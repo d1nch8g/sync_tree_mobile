@@ -38,26 +38,24 @@ class _MarketPageState extends State<MarketPage> {
   }
 
   double height = 0;
-  double bottomHeight = 0;
+  double bottomNavBarPadHeight = 0;
 
   updateBottomHeight() async {
-    bottomHeight = await Storage.loadBottomPadding();
+    bottomNavBarPadHeight = await Storage.loadBottomPadding();
   }
 
   @override
   void initState() {
     super.initState();
     updateMarketList();
+    updateBottomHeight();
   }
 
   @override
   Widget build(BuildContext context) {
     var kbsize = MediaQuery.of(context).viewInsets.bottom;
     if (kbsize > 0) {
-      var bottomBarHeight = context.findRenderObject();
-      kbsize = kbsize -
-          kBottomNavigationBarHeight -
-          MediaQuery.of(context).padding.bottomLeft.dx;
+      kbsize = kbsize - kBottomNavigationBarHeight - bottomNavBarPadHeight;
     }
     return SafeArea(
       child: Column(
