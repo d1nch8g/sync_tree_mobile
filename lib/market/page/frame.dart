@@ -48,7 +48,7 @@ class _MarketModalPageState extends State<MarketModalPage> {
         padding: const EdgeInsets.all(18.0),
         child: Column(
           children: [
-            SizedBox(height: 32),
+            SizedBox(height: 12),
             AnimatedContainer(
               curve: Curves.ease,
               duration: Duration(milliseconds: 377),

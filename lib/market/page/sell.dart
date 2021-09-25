@@ -250,7 +250,7 @@ class SellOverlayState extends State<SellOverlay>
                     Divider(color: Theme.of(context).focusColor),
                     SizedBox(height: 6),
                     Text(
-                      'To buy `${this.widget.info.name}` set the offer and recieve values.',
+                      'To sell `${this.widget.info.name}` set the offer and recieve values.',
                       textAlign: TextAlign.start,
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
