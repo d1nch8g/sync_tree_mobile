@@ -137,7 +137,7 @@ class SellOverlayState extends State<SellOverlay>
         },
       );
       offerWidget = FinishedValueWidget(
-        topText: 'Sync tree main',
+        topText: '${this.widget.info.name}',
         recieveValueText: 'Offer: ${offerController.text}',
       );
       this.offerFixed = true;
