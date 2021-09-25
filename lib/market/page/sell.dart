@@ -387,10 +387,10 @@ class BuySuccedOverlay extends StatefulWidget {
   final String succedMessage;
   BuySuccedOverlay({required this.succedMessage});
   @override
-  State<StatefulWidget> createState() => BuySuccedOverlayState();
+  State<StatefulWidget> createState() => SuccessOverlay();
 }
 
-class BuySuccedOverlayState extends State<BuySuccedOverlay>
+class SuccessOverlay extends State<BuySuccedOverlay>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> scaleAnimation;

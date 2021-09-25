@@ -62,6 +62,7 @@ class _MarketInfoWidgetState extends State<MarketInfoWidget> {
                 'Input fee: ${widget.info.inputFee / 100}%\n'
                 'Buys count: ${widget.info.activeBuys}\n'
                 'Operations: ${widget.info.operationCount}',
+                style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
             Expanded(
@@ -69,6 +70,7 @@ class _MarketInfoWidgetState extends State<MarketInfoWidget> {
                 'Output fee: ${widget.info.outputFee / 100}%\n'
                 'Sells count: ${widget.info.activeSells}\n'
                 '${widget.info.workTime}',
+                style: Theme.of(context).textTheme.bodyText2,
               ),
             )
           ],
