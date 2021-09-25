@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile_ui/src/src.dart';
 
@@ -147,5 +148,25 @@ class Storage {
       addConnectedMarket(adressString);
     });
     savePublicName(info.name);
+  }
+
+  static void saveKeyboardSize(context) async {
+    var prefs = await SharedPreferences.getInstance();
+    var kbsize = prefs.getDouble('kbsize');
+    if (kbsize == null) {
+      while (true) {
+        bool stopIt = false;
+        Future.delayed(Duration(milliseconds: 34), () {
+          var checkedSize = MediaQuery.of(context).viewInsets.bottom;
+          if (checkedSize != 0) {
+            prefs.setDouble('kbsize', checkedSize);
+            stopIt = true;
+          }
+        });
+        if (stopIt == true) {
+          break;
+        }
+      }
+    }
   }
 }
