@@ -46,7 +46,7 @@ class _MarketPageState extends State<MarketPage> {
     focuser.addListener(() {
       // TODO figure out how to set appropriate resize size //
       if (height == 0) {
-        height = 200;
+        height = 208;
       } else {
         height = 0;
       }
@@ -60,14 +60,13 @@ class _MarketPageState extends State<MarketPage> {
       child: Column(
         children: [
           MarketLogo(),
-          Divider(),
+          Divider(color: Theme.of(context).cardColor),
           Expanded(
             child: AnimatedSwitcher(
               duration: Duration(milliseconds: 144),
               child: mainSearchWidget,
             ),
           ),
-          Divider(),
           MarketTextField(
             controller: controller,
             focuser: focuser,
