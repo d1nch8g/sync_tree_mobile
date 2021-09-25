@@ -37,17 +37,27 @@ class _MarketPageState extends State<MarketPage> {
     }
   }
 
+  double height = 0;
+
   @override
   void initState() {
     super.initState();
     updateMarketList();
+    focuser.addListener(() {
+      // TODO figure out how to set appropriate resize size //
+      if (height == 0) {
+        height = 200;
+      } else {
+        height = 0;
+      }
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
-        key: UniqueKey(),
         children: [
           MarketLogo(),
           Divider(),
@@ -59,12 +69,16 @@ class _MarketPageState extends State<MarketPage> {
           ),
           Divider(),
           MarketTextField(
-            key: UniqueKey(),
             controller: controller,
             focuser: focuser,
             updateMarketList: () {
               updateMarketList();
             },
+          ),
+          AnimatedContainer(
+            duration: Duration(milliseconds: 377),
+            curve: Curves.ease,
+            height: height,
           ),
         ],
       ),
