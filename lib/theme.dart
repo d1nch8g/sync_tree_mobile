@@ -93,7 +93,7 @@ class App extends StatelessWidget {
         ),
       ),
       home: LoadingScreen(),
-      routes: firstLaunchRoutMap,
+      routes: routeMap,
     );
   }
 }

@@ -8,7 +8,7 @@ import 'start/hello.dart';
 import 'start/name.dart';
 import 'start/keys.dart';
 
-var firstLaunchRoutMap = <String, WidgetBuilder>{
+var routeMap = <String, WidgetBuilder>{
   '/main': (BuildContext context) => PrimaryPage(),
   '/hello': (BuildContext context) => IntroPage(),
   '/name': (BuildContext context) => NameCreation(),

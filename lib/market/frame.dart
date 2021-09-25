@@ -47,6 +47,7 @@ class _MarketPageState extends State<MarketPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+        key: UniqueKey(),
         children: [
           MarketLogo(),
           Divider(),
