@@ -54,6 +54,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
         curve: Curves.easeOut,
       );
     });
+    Storage.saveBottomPadding(padding: MediaQuery.of(context).padding.bottom);
   }
 
   moveToSearchPage() {

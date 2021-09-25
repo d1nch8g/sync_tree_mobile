@@ -38,6 +38,11 @@ class _MarketPageState extends State<MarketPage> {
   }
 
   double height = 0;
+  double bottomHeight = 0;
+
+  updateBottomHeight() async {
+    bottomHeight = await Storage.loadBottomPadding();
+  }
 
   @override
   void initState() {

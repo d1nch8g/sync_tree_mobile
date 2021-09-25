@@ -155,7 +155,7 @@ class Storage {
     prefs.setDouble('bottompadding', padding);
   }
 
-  static Future<double> getBottomPadding() async {
+  static Future<double> loadBottomPadding() async {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getDouble('bottompadding') ?? 0;
   }
