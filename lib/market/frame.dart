@@ -43,18 +43,17 @@ class _MarketPageState extends State<MarketPage> {
   void initState() {
     super.initState();
     updateMarketList();
-    focuser.addListener(() {
-      if (height == 0) {
-        height = 208;
-      } else {
-        height = 0;
-      }
-      setState(() {});
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    var kbsize = MediaQuery.of(context).viewInsets.bottom;
+    if (kbsize > 0) {
+      var bottomBarHeight = context.findRenderObject();
+      kbsize = kbsize -
+          kBottomNavigationBarHeight -
+          MediaQuery.of(context).padding.bottomLeft.dx;
+    }
     return SafeArea(
       child: Column(
         children: [
@@ -76,7 +75,7 @@ class _MarketPageState extends State<MarketPage> {
           AnimatedContainer(
             duration: Duration(milliseconds: 377),
             curve: Curves.ease,
-            height: height,
+            height: kbsize,
           ),
         ],
       ),

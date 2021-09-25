@@ -102,6 +102,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        key: GlobalKey(debugLabel: 'bottombar'),
         type: BottomNavigationBarType.shifting,
         fixedColor: Theme.of(context).focusColor,
         unselectedItemColor: Theme.of(context).focusColor,
