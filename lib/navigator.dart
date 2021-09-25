@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/market/frame.dart';
+import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import '../src/src.dart';
 
 import 'wallet/_root.dart';
@@ -84,47 +85,49 @@ class _PrimaryPageState extends State<PrimaryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).focusColor,
-      body: SizedBox.expand(
-        child: PageView(
-          physics: NeverScrollableScrollPhysics(),
-          controller: bottomBarController,
-          onPageChanged: (index) {
-            setState(() => bottomBarIndex = index);
-          },
-          children: <Widget>[
-            MarketPage(),
-            WalletPage(),
-            SettingsPage(),
+    return KeyboardSizeProvider(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).focusColor,
+        body: SizedBox.expand(
+          child: PageView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: bottomBarController,
+            onPageChanged: (index) {
+              setState(() => bottomBarIndex = index);
+            },
+            children: <Widget>[
+              MarketPage(),
+              WalletPage(),
+              SettingsPage(),
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.shifting,
+          fixedColor: Theme.of(context).focusColor,
+          unselectedItemColor: Theme.of(context).focusColor,
+          currentIndex: bottomBarIndex,
+          enableFeedback: true,
+          onTap: onTap,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              label: 'markets',
+              icon: Icon(Icons.query_stats_rounded),
+              backgroundColor: Theme.of(context).backgroundColor,
+            ),
+            BottomNavigationBarItem(
+              label: 'wallets',
+              icon: Icon(Icons.account_balance_wallet_outlined),
+              backgroundColor: Theme.of(context).backgroundColor,
+            ),
+            BottomNavigationBarItem(
+              label: 'settings',
+              icon: Icon(Icons.settings),
+              backgroundColor: Theme.of(context).backgroundColor,
+            ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.shifting,
-        fixedColor: Theme.of(context).focusColor,
-        unselectedItemColor: Theme.of(context).focusColor,
-        currentIndex: bottomBarIndex,
-        enableFeedback: true,
-        onTap: onTap,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            label: 'markets',
-            icon: Icon(Icons.query_stats_rounded),
-            backgroundColor: Theme.of(context).backgroundColor,
-          ),
-          BottomNavigationBarItem(
-            label: 'wallets',
-            icon: Icon(Icons.account_balance_wallet_outlined),
-            backgroundColor: Theme.of(context).backgroundColor,
-          ),
-          BottomNavigationBarItem(
-            label: 'settings',
-            icon: Icon(Icons.settings),
-            backgroundColor: Theme.of(context).backgroundColor,
-          ),
-        ],
       ),
     );
   }
