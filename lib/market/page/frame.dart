@@ -13,17 +13,17 @@ class MarketModalPage extends StatefulWidget {
 
 class _MarketModalPageState extends State<MarketModalPage> {
   late Widget buttons;
-  double tradesHeight = 0;
+  double tradesHeight = 320;
   IconData icon = Icons.info_rounded;
 
   showHideTrades() {
     if (tradesHeight == 0) {
       tradesHeight = 320;
-      icon = Icons.album_rounded;
+      icon = Icons.info_rounded;
       setState(() {});
     } else {
       tradesHeight = 0;
-      icon = Icons.info_rounded;
+      icon = Icons.album_rounded;
       setState(() {});
     }
   }
