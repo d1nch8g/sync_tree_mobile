@@ -149,4 +149,14 @@ class Storage {
     });
     savePublicName(info.name);
   }
+
+  static void saveBottomPadding({required double padding}) async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setDouble('bottompadding', padding);
+  }
+
+  static Future<double> getBottomPadding() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getDouble('bottompadding') ?? 0;
+  }
 }
