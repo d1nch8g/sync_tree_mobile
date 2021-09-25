@@ -34,8 +34,6 @@ class _TradeBarsState extends State<TradeBars> {
     return AnimatedSwitcher(
       duration: Duration(milliseconds: 89),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.38,
-        width: MediaQuery.of(context).size.width * 0.90,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
