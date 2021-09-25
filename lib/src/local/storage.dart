@@ -149,29 +149,4 @@ class Storage {
     });
     savePublicName(info.name);
   }
-
-  static void saveKeyboardSize(context) async {
-    var prefs = await SharedPreferences.getInstance();
-    var kbsize = prefs.getDouble('kbsize');
-    if (kbsize == null) {
-      while (true) {
-        bool stopIt = false;
-        Future.delayed(Duration(milliseconds: 34), () {
-          var checkedSize = MediaQuery.of(context).viewInsets.bottom;
-          if (checkedSize != 0) {
-            prefs.setDouble('kbsize', checkedSize);
-            stopIt = true;
-          }
-        });
-        if (stopIt == true) {
-          break;
-        }
-      }
-    }
-  }
-
-  static Future<double> getKeyboardSize(context) async {
-    var prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble('kbsize') ?? 207;
-  }
 }
