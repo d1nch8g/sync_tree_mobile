@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/market/page/buy.dart';
 import 'package:sync_tree_mobile_ui/market/page/info.dart';
 import 'package:sync_tree_mobile_ui/market/page/sell.dart';
+import 'package:sync_tree_mobile_ui/market/page/trades.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
 class MarketModalPage extends StatefulWidget {
@@ -53,7 +54,7 @@ class _MarketModalPageState extends State<MarketModalPage> {
               curve: Curves.ease,
               duration: Duration(milliseconds: 377),
               height: tradesHeight,
-              child: Container(),
+              child: TradeBars(info: widget.info),
             ),
             Expanded(
               child: MarketInfoWidget(info: widget.info),

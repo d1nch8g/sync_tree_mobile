@@ -77,7 +77,7 @@ class _MarketPageState extends State<MarketPage> {
           ),
           AnimatedContainer(
             duration: Duration(milliseconds: 377),
-            curve: Curves.ease,
+            curve: Curves.easeOutCubic,
             height: kbsize,
           ),
         ],

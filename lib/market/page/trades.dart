@@ -63,7 +63,9 @@ class TradeView extends StatelessWidget {
     required this.trades,
     required this.name,
   }) {
-    tradeList.add(Text(name));
+    tradeList.add(Expanded(
+      child: Text(name),
+    ));
     trades.forEach((trade) {
       tradeList.add(SingleTradeView(
         offer: trade.offer,
@@ -75,11 +77,9 @@ class TradeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: tradeList,
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: tradeList,
     );
   }
 }
