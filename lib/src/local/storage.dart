@@ -170,7 +170,8 @@ class Storage {
     }
   }
 
-  static void getKeyboardSize(context) async {
-    
+  static Future<double> getKeyboardSize(context) async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getDouble('kbsize') ?? 207;
   }
 }
