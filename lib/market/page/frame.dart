@@ -71,8 +71,16 @@ class _MarketModalPageState extends State<MarketModalPage> {
                     },
                     key: UniqueKey(),
                     iconSize: 52,
-                    color: Color.fromRGBO(234, 246, 255, 1.0),
+                    color: Theme.of(context).focusColor,
                     icon: Icon(icon),
+                  ),
+                  transitionBuilder: (
+                    Widget child,
+                    Animation<double> animation,
+                  ) =>
+                      ScaleTransition(
+                    scale: animation,
+                    child: child,
                   ),
                 ),
                 SellButton(info: widget.info),

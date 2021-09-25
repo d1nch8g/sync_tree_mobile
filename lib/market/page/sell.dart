@@ -303,7 +303,9 @@ class InputTextField extends StatelessWidget {
       style: TextStyle(
         color: Theme.of(context).focusColor,
       ),
-      keyboardType: TextInputType.numberWithOptions(),
+      keyboardType: TextInputType.numberWithOptions(
+        decimal: true,
+      ),
       cursorColor: Theme.of(context).focusColor,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
