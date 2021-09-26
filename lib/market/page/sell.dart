@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import '../../navigator.dart';
 import '../../src/src.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -30,7 +31,6 @@ class SellOverlay extends StatefulWidget {
   SellOverlay({
     required this.info,
   });
-
   @override
   State<StatefulWidget> createState() => SellOverlayState();
 }
@@ -47,8 +47,14 @@ class SellOverlayState extends State<SellOverlay>
     try {
       var operated = await UserCalls.sell(
         widget.info.adress,
-        int.parse(recieveController.text),
-        int.parse(offerController.text),
+        Balance.fromString(
+          balance: recieveController.text,
+          delimiter: 2,
+        ),
+        Balance.fromString(
+          balance: offerController.text,
+          delimiter: widget.info.delimiter,
+        ),
       );
       if (operated) {
         showTopSnackBar(
@@ -102,7 +108,7 @@ class SellOverlayState extends State<SellOverlay>
   late Widget offerWidget;
   final TextEditingController offerController = TextEditingController();
   final FocusNode offerFocusNode = FocusNode();
-  
+
   void finishOfferTyping() async {
     var marketBalance = await Storage.loadMarketBalanceInt(widget.info.adress);
     if (offerController.text == '' ||
