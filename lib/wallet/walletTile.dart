@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/src.dart';
 import 'package:sync_tree_mobile_ui/wallet/walletPage.dart';
 
@@ -66,7 +67,10 @@ class _WalletTileState extends State<WalletTile> {
                           'Fee in: ${(widget.info.inputFee / 100).toString()}% '
                           'out: ${(widget.info.outputFee / 100).toString()}%',
                         ),
-                        DynamicMarketBalance(adress: widget.info.adress),
+                        DynamicMarketBalance(
+                          adress: widget.info.adress,
+                          delimiter: widget.info.delimiter,
+                        ),
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -108,7 +112,11 @@ class _WalletTileState extends State<WalletTile> {
 
 class DynamicMarketBalance extends StatefulWidget {
   final String adress;
-  DynamicMarketBalance({required this.adress});
+  final int delimiter;
+  DynamicMarketBalance({
+    required this.adress,
+    required this.delimiter,
+  });
   @override
   _DynamicMarketBalanceState createState() => _DynamicMarketBalanceState();
 }
@@ -116,7 +124,10 @@ class DynamicMarketBalance extends StatefulWidget {
 class _DynamicMarketBalanceState extends State<DynamicMarketBalance> {
   String balance = '';
   void setBalance() async {
-    balance = (await Storage.loadMarketBalanceInt(widget.adress)).toString();
+    balance = await Balance.marketBalance(
+      adress: widget.adress,
+      delimiter: widget.delimiter,
+    );
     setState(() {});
   }
 

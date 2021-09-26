@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:sync_tree_mobile_ui/navigator.dart';
+import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/wallet/walletTile.dart';
 import '../src/src.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -190,13 +191,13 @@ class _DynamicBalanceState extends State<DynamicBalance> {
   String balance = '';
 
   void updateBalance() async {
-    var memoryBalance = await Storage.loadMainBalance();
+    var balance = await Balance.mainBalance();
     if (mounted) {
       setState(() {
-        if (memoryBalance == 0) {
+        if (balance == '0') {
           this.balance = 'Balance - 0';
         } else {
-          this.balance = 'Main: ${memoryBalance.toString()}';
+          this.balance = balance;
         }
       });
     }

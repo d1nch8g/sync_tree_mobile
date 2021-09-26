@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sync_tree_mobile_ui/market/page/sell.dart';
+import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import '../../navigator.dart';
 import '../../src/src.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -46,10 +47,18 @@ class BuyOverlayState extends State<BuyOverlay>
   late Widget switchingBottomButtons;
   void placeOrder() async {
     try {
+      var recieveMarket = Balance.fromString(
+        balance: recieveController.text,
+        delimiter: widget.info.delimiter,
+      );
+      var offerMain = Balance.fromString(
+        balance: offerController.text,
+        delimiter: 2,
+      );
       var operated = await UserCalls.buy(
         widget.info.adress,
-        int.parse(recieveController.text),
-        int.parse(offerController.text),
+        recieveMarket,
+        offerMain,
       );
       if (operated) {
         showTopSnackBar(
@@ -104,10 +113,14 @@ class BuyOverlayState extends State<BuyOverlay>
   final TextEditingController offerController = TextEditingController();
   final FocusNode offerFocusNode = FocusNode();
   void finishOfferTyping() async {
+    var offerMain = Balance.fromString(
+      balance: offerController.text,
+      delimiter: 2,
+    );
     var mainBalance = await Storage.loadMainBalance();
     if (offerController.text == '' ||
-        int.parse(offerController.text) > mainBalance ||
-        int.parse(offerController.text) == 0) {
+        offerMain > mainBalance ||
+        offerMain == 0) {
       offerWidget = Icon(
         Icons.cancel_rounded,
         color: Theme.of(context).focusColor,
@@ -150,8 +163,11 @@ class BuyOverlayState extends State<BuyOverlay>
   final TextEditingController recieveController = TextEditingController();
   final FocusNode recieveFocusNode = FocusNode();
   void finishRecieveTyping() {
-    if (recieveController.text == '' ||
-        double.parse(recieveController.text) == 0) {
+    var recieveMarket = Balance.fromString(
+      balance: recieveController.text,
+      delimiter: widget.info.delimiter,
+    );
+    if (recieveController.text == '' || recieveMarket == 0) {
       recieveWidget = Icon(
         Icons.cancel_rounded,
         color: Theme.of(context).focusColor,
