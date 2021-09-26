@@ -88,14 +88,9 @@ class Storage {
     return prefs.getInt(adress) ?? 0;
   }
 
-  static Future<String> loadMarketBalance(String adress, int delimiter) async {
-    var limiter = 1;
-    for (var i = 0; i < delimiter; i++) {
-      limiter = limiter * 10;
-    }
+  static Future<int> loadMarketBalance(String adress) async {
     var prefs = await SharedPreferences.getInstance();
-    var intBalance = prefs.getInt(adress) ?? 0;
-    return (intBalance.toDouble() / limiter.toDouble()).toString();
+    return prefs.getInt(adress) ?? 0;
   }
 
   static void savePublicName(String name) async {
