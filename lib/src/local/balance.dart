@@ -1,6 +1,6 @@
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 
-class Balance {
+class ViewBalance {
   static String tooString({
     required int balance,
     required int delimiter,
@@ -24,10 +24,16 @@ class Balance {
     return (doubleBalance * divider).round();
   }
 
-  static Future<String> stringMainBalance() async {
+  static Future<String> mainBalance() async {
     var bal = await Storage.loadMainBalance();
     return tooString(balance: bal, delimiter: 2);
   }
 
-  
+  static Future<String> marketBalance({
+    required String adress,
+    required int delimiter,
+  }) async {
+    var bal = await Storage.loadMarketBalance(adress);
+    return tooString(balance: bal, delimiter: delimiter);
+  }
 }

@@ -25,7 +25,7 @@ class _MarketTileState extends State<MarketTile> {
     imageLink = info.imageLink;
     description = info.description;
     marketName = info.name;
-    marketBalance = Balance.tooString(
+    marketBalance = ViewBalance.tooString(
       balance: await Storage.loadMarketBalance(this.widget.marketAdress),
       delimiter: info.delimiter,
     );

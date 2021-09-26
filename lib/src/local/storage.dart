@@ -83,11 +83,6 @@ class Storage {
     });
   }
 
-  static Future<int> loadMarketBalanceInt(String adress) async {
-    var prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(adress) ?? 0;
-  }
-
   static Future<int> loadMarketBalance(String adress) async {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getInt(adress) ?? 0;
