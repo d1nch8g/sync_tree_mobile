@@ -4,8 +4,8 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class ConnectButton extends StatefulWidget {
-  final String marketAdress;
-  ConnectButton({required this.marketAdress});
+  final String adress;
+  ConnectButton({required this.adress});
   @override
   State<ConnectButton> createState() => _ConnectButtonState();
 }
@@ -13,19 +13,13 @@ class ConnectButton extends StatefulWidget {
 class _ConnectButtonState extends State<ConnectButton> {
   Widget connectButton = Container();
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: Duration(milliseconds: 377),
-      child: TextButton(
+  checkConnection() async {
+    var connected = await Storage.checkIfMarketConnected(widget.adress);
+    if (!connected) {
+      connectButton = TextButton(
         child: Text('connect'),
         onPressed: () {
-          Storage.addConnectedMarket(widget.marketAdress);
+          Storage.addConnectedMarket(widget.adress);
           showTopSnackBar(
             context,
             CustomSnackBar.success(
@@ -41,7 +35,21 @@ class _ConnectButtonState extends State<ConnectButton> {
             ),
           );
         },
-      ),
+      );
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: Duration(milliseconds: 377),
+      child: connectButton,
     );
   }
 }
