@@ -41,7 +41,7 @@ class _ConnectionButtonState extends State<ConnectionButton> {
   detachWallet() async {
     Storage.removeConnectedMarket(widget.adress);
     setState(() {
-      buttonText = 'connect';
+      buttonText = 'attach';
       currentFunction = () {
         connectWallet();
       };
@@ -72,7 +72,7 @@ class _ConnectionButtonState extends State<ConnectionButton> {
       });
     } else {
       setState(() {
-        buttonText = 'connect';
+        buttonText = 'attach';
         currentFunction = () {
           connectWallet();
         };
