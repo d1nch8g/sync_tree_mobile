@@ -27,7 +27,7 @@ class _MarketModalPageState extends State<MarketModalPage> {
     } else {
       tradesHeight = 0;
       icon = Icons.album_rounded;
-      sellWidget = ConnectButton(adress: widget.info.adress);
+      sellWidget = ConnectionButton(adress: widget.info.adress);
       setState(() {});
     }
   }

@@ -3,50 +3,29 @@ import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-class ConnectButton extends StatefulWidget {
+class ConnectionButton extends StatefulWidget {
   final String adress;
-  ConnectButton({required this.adress});
+  ConnectionButton({required this.adress});
   @override
-  State<ConnectButton> createState() => _ConnectButtonState();
+  State<ConnectionButton> createState() => _ConnectionButtonState();
 }
 
-class _ConnectButtonState extends State<ConnectButton> {
-  String buttonText = 'detach';
-  Function connectFunction = () {};
+class _ConnectionButtonState extends State<ConnectionButton> {
+  String buttonText = '';
+  Function currentFunction = () {};
 
   connectWallet() async {
     Storage.addConnectedMarket(widget.adress);
-    buttonText = 'connect';
-    connectFunction = () {
-      detachWallet();
-    };
-    showTopSnackBar(
-      context,
-      CustomSnackBar.error(
-        message: 'Removed from wallets!',
-        textStyle: Theme.of(context).textTheme.headline2!,
-        icon: const Icon(
-          Icons.account_balance_wallet_rounded,
-          color: const Color(0x15000000),
-          size: 100,
-        ),
-        iconRotationAngle: 18,
-      ),
-    );
-    setState(() {});
-  }
-
-  detachWallet() async {
-    Storage.removeConnectedMarket(widget.adress);
-    buttonText = 'detach';
-    connectFunction = () {
-      connectWallet();
-    };
+    setState(() {
+      buttonText = 'detach';
+      currentFunction = () {
+        detachWallet();
+      };
+    });
     showTopSnackBar(
       context,
       CustomSnackBar.success(
         message: 'Wallet connected!',
-        backgroundColor: Theme.of(context).hoverColor,
         textStyle: Theme.of(context).textTheme.headline2!,
         icon: const Icon(
           Icons.account_balance_wallet_rounded,
@@ -56,23 +35,48 @@ class _ConnectButtonState extends State<ConnectButton> {
         iconRotationAngle: 18,
       ),
     );
-    setState(() {});
+  }
+
+  detachWallet() async {
+    Storage.removeConnectedMarket(widget.adress);
+    setState(() {
+      buttonText = 'connect';
+      currentFunction = () {
+        connectWallet();
+      };
+    });
+    showTopSnackBar(
+      context,
+      CustomSnackBar.error(
+        message: 'Wallet detached!',
+        textStyle: Theme.of(context).textTheme.headline2!,
+        icon: const Icon(
+          Icons.account_balance_wallet_rounded,
+          color: const Color(0x15000000),
+          size: 100,
+        ),
+        iconRotationAngle: 18,
+      ),
+    );
   }
 
   checkConnection() async {
     var connected = await Storage.checkIfMarketConnected(widget.adress);
     if (connected) {
-      buttonText = 'detach';
-      connectFunction = () {
-        connectWallet();
-      };
+      setState(() {
+        buttonText = 'detach';
+        currentFunction = () {
+          detachWallet();
+        };
+      });
     } else {
-      buttonText = 'connect';
-      connectFunction = () {
-        detachWallet();
-      };
+      setState(() {
+        buttonText = 'connect';
+        currentFunction = () {
+          connectWallet();
+        };
+      });
     }
-    setState(() {});
   }
 
   @override
@@ -89,7 +93,7 @@ class _ConnectButtonState extends State<ConnectButton> {
         key: UniqueKey(),
         child: Text(buttonText),
         onPressed: () {
-          connectFunction();
+          currentFunction();
         },
       ),
     );

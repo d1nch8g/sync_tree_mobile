@@ -146,7 +146,9 @@ class Storage {
 
   static void removeConnectedMarket(String adress) async {
     var connectedAdresses = await Storage.loadConnectedWallets();
+    print(connectedAdresses);
     connectedAdresses.remove(adress);
+    print(connectedAdresses);
     Storage.saveConnectedWalletsAdressesList(connectedAdresses);
   }
 
