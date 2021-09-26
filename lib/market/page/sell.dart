@@ -110,7 +110,7 @@ class SellOverlayState extends State<SellOverlay>
   final FocusNode offerFocusNode = FocusNode();
 
   void finishOfferTyping() async {
-    var marketBalance = await Storage.loadMarketBalanceInt(widget.info.adress);
+    var marketBalance = await Storage.loadMarketBalance(widget.info.adress);
     if (offerController.text == '' ||
         int.parse(offerController.text) > marketBalance ||
         int.parse(offerController.text) == 0) {
