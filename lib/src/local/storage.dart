@@ -181,4 +181,9 @@ class Storage {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getDouble('bottompadding') ?? 0;
   }
+
+  static Future<String> loadSelfAdress() async {
+    var keys = await Storage.loadKeys();
+    return keys.personal.public.getAdressBase64();
+  }
 }

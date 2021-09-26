@@ -26,6 +26,7 @@ class _ConnectionButtonState extends State<ConnectionButton> {
       context,
       CustomSnackBar.success(
         message: 'Wallet connected!',
+        backgroundColor: Theme.of(context).hoverColor,
         textStyle: Theme.of(context).textTheme.headline2!,
         icon: const Icon(
           Icons.account_balance_wallet_rounded,
