@@ -1,6 +1,6 @@
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 
-class ViewBalance {
+class Balance {
   static String tooString({
     required int balance,
     required int delimiter,

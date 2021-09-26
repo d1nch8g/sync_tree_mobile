@@ -24,7 +24,7 @@ class _MarketTileState extends State<MarketTile> {
     imageLink = info.imageLink;
     description = info.description;
     marketName = info.name;
-    marketBalance = await ViewBalance.marketBalance(
+    marketBalance = await Balance.marketBalance(
       adress: info.adress,
       delimiter: info.delimiter,
     );

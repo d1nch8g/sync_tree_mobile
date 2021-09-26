@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
@@ -14,9 +15,9 @@ class _MarketInfoWidgetState extends State<MarketInfoWidget> {
   String balance = '0';
 
   updateBalance() async {
-    balance = await Storage.loadMarketBalance(
-      widget.info.adress,
-      widget.info.delimiter,
+    balance = await Balance.marketBalance(
+      adress: widget.info.adress,
+      delimiter: widget.info.delimiter,
     );
     setState(() {});
   }
