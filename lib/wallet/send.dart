@@ -1,5 +1,6 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import '../src/src.dart';
 import '../connection.dart';
 import '../password.dart';
@@ -149,8 +150,11 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
 
   void onAmountTypingEnd() async {
     var storageBalance = await Storage.loadMainBalance();
-    if (amountTextController.text == '' ||
-        int.parse(amountTextController.text) == 0) {
+    var sendAmountInt = Balance.fromString(
+      balance: amountTextController.text,
+      delimiter: 2,
+    );
+    if (amountTextController.text == '' || sendAmountInt == 0) {
       setState(() {
         amountWidget = Icon(
           Icons.help_outline_rounded,
@@ -170,7 +174,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
       });
       return;
     }
-    if (int.parse(amountTextController.text) > storageBalance) {
+    if (sendAmountInt > storageBalance) {
       setState(() {
         amountWidget = Icon(
           Icons.do_disturb_alt_rounded,

@@ -48,15 +48,18 @@ class Storage {
     return prefs.getString('password') ?? '';
   }
 
-  static void saveMainBalance(double balance) async {
+  static void saveMainBalance(int balance) async {
     var prefs = await SharedPreferences.getInstance();
-    prefs.setDouble('balance', balance);
+    prefs.setInt('balance', balance);
     triggerStorageEvent(trigger: Trigger.mainBalanceUpdate);
   }
 
   static Future<int> loadMainBalance() async {
     var prefs = await SharedPreferences.getInstance();
-    return prefs.getInt('balance') ?? 0;
+    var recievedInt = prefs.getInt('balance') ?? 0;
+    print(recievedInt);
+    print(recievedInt is int);
+    return recievedInt;
   }
 
   static void saveConnectedWalletsAdressesList(List<String> wallets) async {
@@ -151,7 +154,7 @@ class Storage {
   }
 
   static void updateSelfInformation({required UserInfo info}) {
-    saveMainBalance(info.balance.toDouble());
+    saveMainBalance(info.balance.toInt());
     info.marketBalances.forEach((marketBalance) {
       var adressString = base64Encode(marketBalance.adress);
       saveMarketBalanceByAdress(
