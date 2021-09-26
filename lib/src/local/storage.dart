@@ -144,6 +144,12 @@ class Storage {
     }
   }
 
+  static void removeConnectedMarket(String adress) async {
+    var connectedAdresses = await Storage.loadConnectedWallets();
+    connectedAdresses.remove(adress);
+    Storage.saveConnectedWalletsAdressesList(connectedAdresses);
+  }
+
   static void updateSelfInformation({required UserInfo info}) {
     saveMainBalance(info.balance);
     info.marketBalances.forEach((marketBalance) {

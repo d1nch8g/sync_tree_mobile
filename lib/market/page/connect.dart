@@ -16,10 +16,36 @@ class _ConnectButtonState extends State<ConnectButton> {
 
   connectWallet() async {
     Storage.addConnectedMarket(widget.adress);
+    buttonText = 'connect';
+    connectFunction = () {
+      detachWallet();
+    };
+    showTopSnackBar(
+      context,
+      CustomSnackBar.error(
+        message: 'Removed from wallets!',
+        textStyle: Theme.of(context).textTheme.headline2!,
+        icon: const Icon(
+          Icons.account_balance_wallet_rounded,
+          color: const Color(0x15000000),
+          size: 100,
+        ),
+        iconRotationAngle: 18,
+      ),
+    );
+    setState(() {});
+  }
+
+  detachWallet() async {
+    Storage.removeConnectedMarket(widget.adress);
+    buttonText = 'detach';
+    connectFunction = () {
+      connectWallet();
+    };
     showTopSnackBar(
       context,
       CustomSnackBar.success(
-        message: 'Added to wallets!',
+        message: 'Wallet connected!',
         backgroundColor: Theme.of(context).hoverColor,
         textStyle: Theme.of(context).textTheme.headline2!,
         icon: const Icon(
@@ -36,13 +62,23 @@ class _ConnectButtonState extends State<ConnectButton> {
   checkConnection() async {
     var connected = await Storage.checkIfMarketConnected(widget.adress);
     if (connected) {
-      
+      buttonText = 'detach';
+      connectFunction = () {
+        connectWallet();
+      };
+    } else {
+      buttonText = 'connect';
+      connectFunction = () {
+        detachWallet();
+      };
     }
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
+    checkConnection();
   }
 
   @override
@@ -50,6 +86,7 @@ class _ConnectButtonState extends State<ConnectButton> {
     return AnimatedSwitcher(
       duration: Duration(milliseconds: 377),
       child: TextButton(
+        key: UniqueKey(),
         child: Text(buttonText),
         onPressed: () {
           connectFunction();
