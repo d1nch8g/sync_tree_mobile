@@ -111,9 +111,13 @@ class SellOverlayState extends State<SellOverlay>
 
   void finishOfferTyping() async {
     var marketBalance = await Storage.loadMarketBalance(widget.info.adress);
+    var offerInt = Balance.fromString(
+      balance: offerController.text,
+      delimiter: widget.info.delimiter,
+    );
     if (offerController.text == '' ||
-        int.parse(offerController.text) > marketBalance ||
-        int.parse(offerController.text) == 0) {
+        offerInt > marketBalance ||
+        offerInt == 0) {
       offerWidget = Icon(
         Icons.cancel_rounded,
         color: Theme.of(context).focusColor,

@@ -24,6 +24,8 @@ class Balance {
     return (doubleBalance * divider).round();
   }
 
+  
+
   static Future<String> mainBalance() async {
     var bal = await Storage.loadMainBalance();
     return tooString(balance: bal, delimiter: 2);
