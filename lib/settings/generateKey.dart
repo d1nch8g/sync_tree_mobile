@@ -115,7 +115,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
           }
         },
       );
-      removeOldWalletInfoFromStorage();
+      Storage.removeAllWallets();
       Future.delayed(Duration(milliseconds: 377), () {
         updateSelfInformation();
       });

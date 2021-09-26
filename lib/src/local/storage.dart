@@ -168,7 +168,6 @@ class Storage {
         adressString,
         marketBalance.balance,
       );
-      addConnectedMarket(adressString);
     });
     savePublicName(info.name);
   }
