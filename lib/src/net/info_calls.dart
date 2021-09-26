@@ -69,6 +69,20 @@ class MarketInfo {
     required this.activeSells,
     required this.delimiter,
   });
+  double intToDouble(int balance) {
+    var divider = 1;
+    for (var i = 0; i < delimiter; i++) {
+      divider = divider * 10;
+    }
+    return balance / divider;
+  }
+  int doubleToInt(double balance) {
+    var divider = 1;
+    for (var i = 0; i < delimiter; i++) {
+      divider = divider * 10;
+    }
+    return (balance * divider).round();
+  }
 }
 
 /// # ATTENTION
