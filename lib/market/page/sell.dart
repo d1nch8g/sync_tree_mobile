@@ -111,13 +111,13 @@ class SellOverlayState extends State<SellOverlay>
 
   void finishOfferTyping() async {
     var marketBalance = await Storage.loadMarketBalance(widget.info.adress);
-    var offerInt = Balance.fromString(
+    var marketOffer = Balance.fromString(
       balance: offerController.text,
       delimiter: widget.info.delimiter,
     );
     if (offerController.text == '' ||
-        offerInt > marketBalance ||
-        offerInt == 0) {
+        marketOffer > marketBalance ||
+        marketOffer == 0) {
       offerWidget = Icon(
         Icons.cancel_rounded,
         color: Theme.of(context).focusColor,
@@ -159,8 +159,11 @@ class SellOverlayState extends State<SellOverlay>
   final TextEditingController recieveController = TextEditingController();
   final FocusNode recieveFocusNode = FocusNode();
   void finishRecieveTyping() {
-    if (recieveController.text == '' ||
-        int.parse(recieveController.text) == 0) {
+    var mainRecieve = Balance.fromString(
+      balance: recieveController.text,
+      delimiter: 2,
+    );
+    if (recieveController.text == '' || mainRecieve == 0) {
       recieveWidget = Icon(
         Icons.cancel_rounded,
         color: Theme.of(context).focusColor,
