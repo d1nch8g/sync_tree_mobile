@@ -66,7 +66,13 @@ class _MarketModalPageState extends State<MarketModalPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                BuyButton(info: widget.info),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: AnimatedSwitcher(
+                    duration: Duration(milliseconds: 144),
+                    child: BuyButton(info: widget.info),
+                  ),
+                ),
                 AnimatedSwitcher(
                   duration: Duration(milliseconds: 377),
                   child: IconButton(
@@ -87,9 +93,12 @@ class _MarketModalPageState extends State<MarketModalPage> {
                     child: child,
                   ),
                 ),
-                AnimatedSwitcher(
-                  duration: Duration(milliseconds: 144),
-                  child: sellWidget,
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: AnimatedSwitcher(
+                    duration: Duration(milliseconds: 377),
+                    child: sellWidget,
+                  ),
                 ),
               ],
             ),

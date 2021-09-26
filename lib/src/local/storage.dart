@@ -128,14 +128,20 @@ class Storage {
     });
   }
 
-  static Future<bool> addConnectedMarket(String adress) async {
+  static Future<bool> checkIfMarketConnected(String adress) async {
+    var connectedAdresses = await Storage.loadConnectedWallets();
+    if (connectedAdresses.contains(adress)) {
+      return true;
+    }
+    return false;
+  }
+
+  static void addConnectedMarket(String adress) async {
     var connectedAdresses = await Storage.loadConnectedWallets();
     if (!connectedAdresses.contains(adress)) {
       connectedAdresses.add(adress);
       Storage.saveConnectedWalletsAdressesList(connectedAdresses);
-      return true;
     }
-    return false;
   }
 
   static void updateSelfInformation({required UserInfo info}) {
