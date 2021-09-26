@@ -1,6 +1,6 @@
 
 
-double intToDouble(int number, int delimiter) {
+double toVisible(int number, int delimiter) {
   var divider = 1;
   for (var i = 0; i < delimiter; i++) {
     divider = divider * 10;
@@ -8,7 +8,7 @@ double intToDouble(int number, int delimiter) {
   return number / divider;
 }
 
-int doubleToInt(double number, int delimiter) {
+int fromInput(double number, int delimiter) {
   var divider = 1;
   for (var i = 0; i < delimiter; i++) {
     divider = divider * 10;
