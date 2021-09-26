@@ -11,32 +11,32 @@ class ConnectButton extends StatefulWidget {
 }
 
 class _ConnectButtonState extends State<ConnectButton> {
-  Widget connectButton = Container();
+  String buttonText = 'detach';
+  Function connectFunction = () {};
+
+  connectWallet() async {
+    Storage.addConnectedMarket(widget.adress);
+    showTopSnackBar(
+      context,
+      CustomSnackBar.success(
+        message: 'Added to wallets!',
+        backgroundColor: Theme.of(context).hoverColor,
+        textStyle: Theme.of(context).textTheme.headline2!,
+        icon: const Icon(
+          Icons.account_balance_wallet_rounded,
+          color: const Color(0x15000000),
+          size: 100,
+        ),
+        iconRotationAngle: 18,
+      ),
+    );
+    setState(() {});
+  }
 
   checkConnection() async {
     var connected = await Storage.checkIfMarketConnected(widget.adress);
-    if (!connected) {
-      connectButton = TextButton(
-        child: Text('connect'),
-        onPressed: () {
-          Storage.addConnectedMarket(widget.adress);
-          showTopSnackBar(
-            context,
-            CustomSnackBar.success(
-              message: 'Added to wallets!',
-              backgroundColor: Theme.of(context).hoverColor,
-              textStyle: Theme.of(context).textTheme.headline2!,
-              icon: const Icon(
-                Icons.account_balance_wallet_rounded,
-                color: const Color(0x15000000),
-                size: 100,
-              ),
-              iconRotationAngle: 18,
-            ),
-          );
-        },
-      );
-      setState(() {});
+    if (connected) {
+      
     }
   }
 
@@ -49,7 +49,12 @@ class _ConnectButtonState extends State<ConnectButton> {
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
       duration: Duration(milliseconds: 377),
-      child: connectButton,
+      child: TextButton(
+        child: Text(buttonText),
+        onPressed: () {
+          connectFunction();
+        },
+      ),
     );
   }
 }
