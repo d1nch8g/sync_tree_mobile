@@ -16,7 +16,7 @@ class Balance {
     required String balance,
     required int delimiter,
   }) {
-    var doubleBalance = double.parse(balance);
+    var doubleBalance = double.parse(balance.replaceAll(',', '.'));
     var divider = 1;
     for (var i = 0; i < delimiter; i++) {
       divider = divider * 10;

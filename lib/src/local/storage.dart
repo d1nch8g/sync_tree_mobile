@@ -57,8 +57,6 @@ class Storage {
   static Future<int> loadMainBalance() async {
     var prefs = await SharedPreferences.getInstance();
     var recievedInt = prefs.getInt('balance') ?? 0;
-    print(recievedInt);
-    print(recievedInt is int);
     return recievedInt;
   }
 
