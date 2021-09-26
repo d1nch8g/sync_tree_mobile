@@ -5,14 +5,14 @@ import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-class CancelTradeWidget extends StatefulWidget {
+class CancelButton extends StatefulWidget {
   final String adress;
-  CancelTradeWidget({required this.adress});
+  CancelButton({required this.adress});
   @override
-  _CancelTradeWidgetState createState() => _CancelTradeWidgetState();
+  _CancelButtonState createState() => _CancelButtonState();
 }
 
-class _CancelTradeWidgetState extends State<CancelTradeWidget> {
+class _CancelButtonState extends State<CancelButton> {
   Widget button = Container();
 
   cancelTrades() async {
@@ -53,23 +53,26 @@ class _CancelTradeWidgetState extends State<CancelTradeWidget> {
   checkIfUserHasTrades() async {
     var has = await InfoCalls.hasTrades(widget.adress);
     if (has) {
-      button = TextButton(
-        child: Text('cancel'),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (_) => CancelTradeOverlay(cancelTrades: () {
-              cancelTrades();
-            }),
-          );
-        },
-      );
+      setState(() {
+        button = TextButton(
+          child: Text('cancel'),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) => CancelTradeOverlay(cancelTrades: () {
+                cancelTrades();
+              }),
+            );
+          },
+        );
+      });
     }
   }
 
   @override
   void initState() {
     super.initState();
+    checkIfUserHasTrades();
   }
 
   @override
@@ -128,9 +131,10 @@ class CancelTradeOverlayState extends State<CancelTradeOverlay>
             child: Padding(
               padding: const EdgeInsets.fromLTRB(24, 22, 24, 22),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'CANCEL ORDER',
+                    'CANCEL TRADE',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline1,
                   ),
@@ -139,11 +143,12 @@ class CancelTradeOverlayState extends State<CancelTradeOverlay>
                   Text(
                     'If you want to cancel active order, and get the offer '
                     'back press the button below.',
-                    textAlign: TextAlign.start,
+                    textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
-                  SizedBox(height: 6),
+                  SizedBox(height: 18),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       TextButton(
                         child: Text('close'),

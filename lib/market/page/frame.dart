@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/market/page/buy.dart';
+import 'package:sync_tree_mobile_ui/market/page/cancel.dart';
 import 'package:sync_tree_mobile_ui/market/page/connect.dart';
 import 'package:sync_tree_mobile_ui/market/page/info.dart';
 import 'package:sync_tree_mobile_ui/market/page/sell.dart';
@@ -17,17 +18,20 @@ class _MarketModalPageState extends State<MarketModalPage> {
   double tradesHeight = 320;
   IconData icon = Icons.info_rounded;
   late Widget sellWidget;
+  late Widget buyWidget;
 
   showHideTrades() {
     if (tradesHeight == 0) {
       tradesHeight = 320;
       icon = Icons.info_rounded;
       sellWidget = SellButton(info: this.widget.info);
+      buyWidget = BuyButton(info: widget.info);
       setState(() {});
     } else {
       tradesHeight = 0;
       icon = Icons.album_rounded;
       sellWidget = ConnectionButton(adress: widget.info.adress);
+      buyWidget = CancelButton(adress: widget.info.adress);
       setState(() {});
     }
   }
@@ -35,6 +39,7 @@ class _MarketModalPageState extends State<MarketModalPage> {
   @override
   void initState() {
     sellWidget = SellButton(info: this.widget.info);
+    buyWidget = BuyButton(info: widget.info);
     super.initState();
   }
 
@@ -70,7 +75,7 @@ class _MarketModalPageState extends State<MarketModalPage> {
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: AnimatedSwitcher(
                     duration: Duration(milliseconds: 144),
-                    child: BuyButton(info: widget.info),
+                    child: buyWidget,
                   ),
                 ),
                 AnimatedSwitcher(
