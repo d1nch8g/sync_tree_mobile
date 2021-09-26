@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:sync_tree_mobile_ui/market/page/frame.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
-import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
 class MarketTile extends StatefulWidget {
@@ -29,7 +28,7 @@ class _MarketTileState extends State<MarketTile> {
       adress: info.adress,
       delimiter: info.delimiter,
     );
-    marketBalance = setState(() {});
+    setState(() {});
   }
 
   @override
