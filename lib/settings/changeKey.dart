@@ -7,14 +7,6 @@ import '../src/src.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-void removeOldWalletInfoFromStorage() async {
-  var wallets = await Storage.loadConnectedWallets();
-  Storage.saveConnectedWalletsAdressesList([]);
-  wallets.forEach((wallet) {
-    Storage.saveMarketBalanceByAdress(wallet, 0);
-  });
-}
-
 class ChangeKeyTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -178,7 +170,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
       setState(() {
         buttonToAnimate = SucessButton();
       });
-      removeOldWalletInfoFromStorage();
+      Storage.removeAllWallets();
       Future.delayed(Duration(milliseconds: 377), () {
         // TODO do something with that stuff
         Navigator.pop(context);

@@ -75,6 +75,14 @@ class Storage {
     triggerStorageEvent(trigger: Trigger.marketBalanceUpdate);
   }
 
+  static void removeAllWallets() async {
+    var wallets = await Storage.loadConnectedWallets();
+    Storage.saveConnectedWalletsAdressesList([]);
+    wallets.forEach((wallet) {
+      Storage.saveMarketBalanceByAdress(wallet, 0);
+    });
+  }
+
   static Future<int> loadMarketBalanceInt(String adress) async {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getInt(adress) ?? 0;
