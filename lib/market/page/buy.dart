@@ -151,7 +151,7 @@ class BuyOverlayState extends State<BuyOverlay>
   final FocusNode recieveFocusNode = FocusNode();
   void finishRecieveTyping() {
     if (recieveController.text == '' ||
-        int.parse(recieveController.text) == 0) {
+        double.parse(recieveController.text) == 0) {
       recieveWidget = Icon(
         Icons.cancel_rounded,
         color: Theme.of(context).focusColor,
