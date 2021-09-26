@@ -8,14 +8,14 @@ import 'stream.dart';
 import 'crypto.dart';
 
 class Storage {
-  static void saveKeys(String keys) async {
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setString('keys', keys);
-  }
-
   static Future<bool> checkIfFirstLaunch() async {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getBool('fl') ?? true;
+  }
+
+  static void saveKeys(String keys) async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString('keys', keys);
   }
 
   static void firstLauchComplete() async {
@@ -48,15 +48,15 @@ class Storage {
     return prefs.getString('password') ?? '';
   }
 
-  static void saveMainBalance(int balance) async {
+  static void saveMainBalance(double balance) async {
     var prefs = await SharedPreferences.getInstance();
-    prefs.setInt('balance', balance);
+    prefs.setDouble('balance', balance);
     triggerStorageEvent(trigger: Trigger.mainBalanceUpdate);
   }
 
-  static Future<int> loadMainBalance() async {
+  static Future<double> loadMainBalance() async {
     var prefs = await SharedPreferences.getInstance();
-    return prefs.getInt('balance') ?? 0;
+    return prefs.getDouble('balance') ?? 0;
   }
 
   static void saveConnectedWalletsAdressesList(List<String> wallets) async {
@@ -161,7 +161,7 @@ class Storage {
   }
 
   static void updateSelfInformation({required UserInfo info}) {
-    saveMainBalance(info.balance);
+    saveMainBalance(info.balance.toDouble());
     info.marketBalances.forEach((marketBalance) {
       var adressString = base64Encode(marketBalance.adress);
       saveMarketBalanceByAdress(
