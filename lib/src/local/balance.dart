@@ -1,3 +1,5 @@
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+
 class Balance {
   static String tooString({
     required int balance,
@@ -21,4 +23,11 @@ class Balance {
     }
     return (doubleBalance * divider).round();
   }
+
+  static Future<String> stringMainBalance() async {
+    var bal = await Storage.loadMainBalance();
+    return tooString(balance: bal, delimiter: 2);
+  }
+
+  
 }

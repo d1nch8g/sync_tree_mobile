@@ -54,9 +54,9 @@ class Storage {
     triggerStorageEvent(trigger: Trigger.mainBalanceUpdate);
   }
 
-  static Future<double> loadMainBalance() async {
+  static Future<int> loadMainBalance() async {
     var prefs = await SharedPreferences.getInstance();
-    return prefs.getDouble('balance') ?? 0;
+    return prefs.getInt('balance') ?? 0;
   }
 
   static void saveConnectedWalletsAdressesList(List<String> wallets) async {
