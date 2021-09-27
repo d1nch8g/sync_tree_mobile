@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/src.dart';
-import 'package:sync_tree_mobile_ui/wallet/walletPage.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
 
 class WalletTile extends StatefulWidget {
   final MarketInfo info;
