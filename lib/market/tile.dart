@@ -44,7 +44,8 @@ class _MarketTileState extends State<MarketTile> {
         height: 54,
         child: CachedNetworkImage(
           imageUrl: imageLink,
-          placeholder: (context, url) => CircularProgressIndicator(),
+          progressIndicatorBuilder: (context, url, downloadProgress) =>
+              CircularProgressIndicator(value: downloadProgress.progress),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ),
       ),

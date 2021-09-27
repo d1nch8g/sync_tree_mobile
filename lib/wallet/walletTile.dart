@@ -21,9 +21,11 @@ class _WalletTileState extends State<WalletTile> {
 
   increaseContainer() {
     Future.delayed(Duration(milliseconds: 34), () {
-      setState(() {
-        animatedHeight = 126;
-      });
+      if (mounted) {
+        setState(() {
+          animatedHeight = 126;
+        });
+      }
     });
   }
 
