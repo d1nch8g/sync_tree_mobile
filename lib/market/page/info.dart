@@ -33,6 +33,7 @@ class _MarketInfoWidgetState extends State<MarketInfoWidget> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
+        SizedBox(height: 8),
         Row(
           children: [
             CachedNetworkImage(
