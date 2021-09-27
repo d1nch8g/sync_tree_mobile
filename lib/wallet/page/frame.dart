@@ -51,7 +51,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
             bottom: false,
           ),
           Divider(color: Theme.of(context).focusColor),
-          ChatMessages(),
+          ChatMessages(adress: widget.info.adress),
           Divider(color: Theme.of(context).focusColor),
           ChatTextField(),
           AnimatedContainer(

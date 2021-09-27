@@ -11,15 +11,18 @@ class ChatMessages extends StatefulWidget {
 class _ChatMessagesState extends State<ChatMessages> {
   List<String> messages = [];
 
-  loadAllMessages() async {
-    Storage.loadMessages(widget.adress);
+  updateMessages() async {
+    messages = await Storage.loadMessages(widget.adress);
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        children: [],
+      child: ListView.builder(
+        itemCount: messages.length,
+        itemBuilder: (context, index) {
+          return Text('yo');
+        },
       ),
     );
   }
