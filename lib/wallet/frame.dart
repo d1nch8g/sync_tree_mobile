@@ -41,6 +41,7 @@ class _WalletPageState extends State<WalletPage> {
             size: MediaQuery.of(context).size.height * 0.15,
             color: Theme.of(context).hintColor,
           ),
+          DynamicBalance(),
           Divider(),
           Text(
             'connected wallets',
