@@ -18,6 +18,7 @@ dependencies:
   animations: ^2.0.1
   cached_network_image: ^3.1.0
   flutter_staggered_animations: ^1.0.0
+  flutter_chat_bubble: ^2.0.0
   # ANOTHER dependencies
   pointycastle: ^3.1.1
   basic_utils: ^3.1.0

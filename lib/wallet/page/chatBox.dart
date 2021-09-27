@@ -37,3 +37,24 @@ class _ChatMessagesState extends State<ChatMessages> {
     );
   }
 }
+
+class MarketMessageBox extends StatelessWidget {
+  final String message;
+  MarketMessageBox({required this.message});
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        
+      ),
+    );
+  }
+}
+
+class UserMessageBox extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
