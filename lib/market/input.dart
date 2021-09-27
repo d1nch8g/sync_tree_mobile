@@ -27,32 +27,32 @@ class MarketTextField extends StatelessWidget {
         },
         focusNode: focuser,
         style: TextStyle(
-          color: Theme.of(context).cardColor,
+          color: Theme.of(context).backgroundColor,
         ),
-        cursorColor: Theme.of(context).cardColor,
+        cursorColor: Theme.of(context).backgroundColor,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(color: Theme.of(context).cardColor),
+            borderSide: BorderSide(color: Theme.of(context).backgroundColor),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(color: Theme.of(context).cardColor),
+            borderSide: BorderSide(color: Theme.of(context).backgroundColor),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(color: Theme.of(context).cardColor),
+            borderSide: BorderSide(color: Theme.of(context).backgroundColor),
           ),
           labelStyle: TextStyle(
-            color: Theme.of(context).cardColor,
+            color: Theme.of(context).backgroundColor,
           ),
           labelText: 'type market name',
-          hoverColor: Theme.of(context).cardColor,
-          fillColor: Theme.of(context).cardColor,
-          focusColor: Theme.of(context).cardColor,
+          hoverColor: Theme.of(context).backgroundColor,
+          fillColor: Theme.of(context).backgroundColor,
+          focusColor: Theme.of(context).backgroundColor,
           suffixIcon: IconButton(
             icon: Icon(Icons.search_rounded),
-            color: Theme.of(context).cardColor,
+            color: Theme.of(context).backgroundColor,
             onPressed: () {
               updateMarketList();
               FocusScope.of(context).unfocus();
