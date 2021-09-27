@@ -13,6 +13,7 @@ class _TradeViewState extends State<TradeView> {
   @override
   void initState() {
     super.initState();
+    print(widget.info.sells);
   }
 
   @override
