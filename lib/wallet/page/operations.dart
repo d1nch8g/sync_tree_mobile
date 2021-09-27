@@ -23,7 +23,7 @@ class WalletOperations extends StatelessWidget {
             iconSize: 36,
             color: Theme.of(context).backgroundColor,
             splashRadius: 56,
-            icon: Icon(Icons.backspace_rounded),
+            icon: Icon(Icons.account_balance_wallet_rounded),
           ),
         ),
         TextButton(
