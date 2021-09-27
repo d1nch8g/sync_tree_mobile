@@ -20,7 +20,9 @@ class ConnectedWalletPage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              WalletInfo(),
+              WalletInfo(
+                info: info,
+              ),
               Divider(),
               Expanded(
                 child: WalletChat(),
