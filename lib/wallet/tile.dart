@@ -82,9 +82,12 @@ class _WalletTileState extends State<WalletTile> {
                 },
                 openBuilder: (context, action) {
                   decreaseContainer();
-                  return ConnectedWalletPage(closeContainer: () {
-                    action();
-                  });
+                  return ConnectedWalletPage(
+                    closeContainer: () {
+                      action();
+                    },
+                    info: widget.info,
+                  );
                 },
               ),
             ],
