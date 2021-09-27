@@ -11,7 +11,7 @@ class SendButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(4.0),
       child: ElevatedButton(
         onPressed: () {
           passwordCheck(
@@ -25,7 +25,7 @@ class SendButton extends StatelessWidget {
           );
         },
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(6.0),
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.29,
             child: Column(
@@ -430,7 +430,9 @@ class _AmountTextFieldState extends State<AmountTextField> {
   Widget build(BuildContext context) {
     return TextField(
       controller: this.widget.controller,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.numberWithOptions(
+        decimal: true,
+      ),
       style: TextStyle(
         color: Theme.of(context).focusColor,
       ),

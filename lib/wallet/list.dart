@@ -29,23 +29,26 @@ class _WalletsListState extends State<WalletsList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      reverse: true,
-      shrinkWrap: true,
-      itemCount: markets.length,
-      itemBuilder: (context, index) {
-        var info = markets[index];
-        return AnimationConfiguration.staggeredList(
-          position: index,
-          duration: const Duration(seconds: 1),
-          child: SlideAnimation(
-            verticalOffset: 100.0,
-            child: FlipAnimation(
-              child: WalletTile(info: info),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: ListView.builder(
+        reverse: true,
+        shrinkWrap: true,
+        itemCount: markets.length,
+        itemBuilder: (context, index) {
+          var info = markets[index];
+          return AnimationConfiguration.staggeredList(
+            position: index,
+            duration: const Duration(seconds: 1),
+            child: SlideAnimation(
+              verticalOffset: 100.0,
+              child: FlipAnimation(
+                child: WalletTile(info: info),
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

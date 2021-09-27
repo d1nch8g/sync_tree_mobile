@@ -8,7 +8,7 @@ class RecieveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(4.0),
       child: ElevatedButton(
         onPressed: () {
           showDialog(
@@ -17,7 +17,7 @@ class RecieveButton extends StatelessWidget {
           );
         },
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(6.0),
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.29,
             child: Column(
