@@ -17,18 +17,14 @@ class WalletOperations extends StatelessWidget {
             ),
           ),
         ),
-        CircleAvatar(
-          backgroundColor: Theme.of(context).focusColor,
-          radius: 26,
-          child: IconButton(
-            onPressed: () {
-              closeWallet();
-            },
-            iconSize: 36,
-            color: Theme.of(context).backgroundColor,
-            splashRadius: 56,
-            icon: Icon(Icons.account_balance_wallet_rounded),
-          ),
+        IconButton(
+          onPressed: () {
+            closeWallet();
+          },
+          iconSize: 52,
+          color: Theme.of(context).focusColor,
+          splashRadius: 38,
+          icon: Icon(Icons.arrow_drop_down_circle_rounded),
         ),
         Expanded(
           child: Center(

@@ -22,6 +22,12 @@ class _WalletInfoState extends State<WalletInfo> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    updateBalance();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 320,
@@ -47,6 +53,7 @@ class _WalletInfoState extends State<WalletInfo> {
               ),
             ],
           ),
+          Divider(color: Theme.of(context).focusColor),
         ],
       ),
     );
