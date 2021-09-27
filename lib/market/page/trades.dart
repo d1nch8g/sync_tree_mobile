@@ -20,7 +20,7 @@ class _TradeViewState extends State<TradeView> {
     return Row(
       children: [
         TradeBars(
-          name: 'BUYS',
+          isBuy: true,
           trades: widget.info.buys,
           offerDelimiter: 2,
           recieveDelimiter: widget.info.delimiter,
@@ -29,7 +29,7 @@ class _TradeViewState extends State<TradeView> {
           color: Theme.of(context).focusColor,
         ),
         TradeBars(
-          name: 'SELLS',
+          isBuy: false,
           trades: widget.info.sells,
           offerDelimiter: widget.info.delimiter,
           recieveDelimiter: 2,
@@ -43,13 +43,20 @@ class TradeBars extends StatelessWidget {
   final List<Trade> trades;
   final int offerDelimiter;
   final int recieveDelimiter;
-  final String name;
+  final bool isBuy;
+  late String name;
   TradeBars({
     required this.trades,
     required this.offerDelimiter,
     required this.recieveDelimiter,
-    required this.name,
-  });
+    required this.isBuy,
+  }) {
+    if (isBuy) {
+      this.name = 'BUYS';
+    } else {
+      this.name = 'SELLS';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +70,7 @@ class TradeBars extends StatelessWidget {
             ),
           ),
           Flexible(
-            flex: 12,
+            flex: 14,
             child: ListView.separated(
               padding: EdgeInsets.all(0),
               itemCount: trades.length,
