@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/market/list.dart';
-import 'package:sync_tree_mobile_ui/market/logo.dart';
 import 'package:sync_tree_mobile_ui/market/norez.dart';
 import 'package:sync_tree_mobile_ui/market/input.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
@@ -60,7 +59,11 @@ class _MarketPageState extends State<MarketPage> {
     return SafeArea(
       child: Column(
         children: [
-          MarketLogo(),
+          Icon(
+            Icons.stacked_line_chart_rounded,
+            size: MediaQuery.of(context).size.height * 0.15,
+            color: Theme.of(context).hintColor,
+          ),
           Divider(color: Theme.of(context).cardColor),
           Expanded(
             child: AnimatedSwitcher(
