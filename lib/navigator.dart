@@ -3,7 +3,7 @@ import 'package:sync_tree_mobile_ui/market/frame.dart';
 import '../src/src.dart';
 
 import 'wallet/frame.dart';
-import 'settings/_root.dart';
+import 'settings/frame.dart';
 import 'start/hello.dart';
 import 'start/name.dart';
 import 'start/keys.dart';

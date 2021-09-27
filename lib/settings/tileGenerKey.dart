@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../navigator.dart';
 import '../src/src.dart';
 import '../password.dart';
-import '../settings/changeKey.dart';
+import 'tileChangeKey.dart';
 import '../start/hello.dart';
 
 class GenerateKeyTile extends StatelessWidget {
