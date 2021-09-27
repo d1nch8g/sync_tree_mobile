@@ -56,7 +56,12 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
                 child: WalletChat(),
               ),
               ChatTextField(),
-              Divider(),
+              AnimatedContainer(
+                duration: Duration(milliseconds: 377),
+                curve: Curves.easeOutCubic,
+                height: kbsize,
+              ),
+              Divider(color: Theme.of(context).focusColor),
               WalletOperations(
                 closeWallet: () {
                   widget.closeContainer();
