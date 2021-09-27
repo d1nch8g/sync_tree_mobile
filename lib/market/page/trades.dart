@@ -78,19 +78,27 @@ class TradeBars extends StatelessWidget {
                 return Divider(color: Theme.of(context).focusColor);
               },
               itemBuilder: (context, index) {
-                var buy = trades[index];
+                var trade = trades[index];
                 var offer = Balance.tooString(
-                  balance: buy.offer,
+                  balance: trade.offer,
                   delimiter: offerDelimiter,
                 );
                 var recieve = Balance.tooString(
-                  balance: buy.recieve,
+                  balance: trade.recieve,
                   delimiter: recieveDelimiter,
                 );
+                var ratio = 0.0;
+                if (isBuy) {
+                  ratio = trade.offer / trade.recieve;
+                } else {
+                  ratio = trade.recieve / trade.offer;
+                }
+                var strRatio = ratio.toString().substring(0, 9);
                 return Center(
                   child: Text(
                     'O: $offer\n'
-                    'R: $recieve',
+                    'D: $recieve\n'
+                    'R: $strRatio',
                   ),
                 );
               },
