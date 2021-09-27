@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/wallet/list.dart';
+import 'package:sync_tree_mobile_ui/wallet/norez.dart';
+import 'package:sync_tree_mobile_ui/wallet/recieve.dart';
+import 'package:sync_tree_mobile_ui/wallet/send.dart';
 
 class WalletPage extends StatefulWidget {
   @override
@@ -11,14 +16,14 @@ class _WalletPageState extends State<WalletPage> {
   void checkIfHasNoConnections() async {
     var adresses = await Storage.loadConnectedWallets();
     if (adresses.length == 0) {
-      currentMarketWidget = FindAndConnectButton();
+      currentMarketWidget = NoConnectedWallets();
       setState(() {});
     }
   }
 
   @override
   void initState() {
-    currentMarketWidget = ConnectedMarketList();
+    currentMarketWidget = WalletsList();
     super.initState();
     checkIfHasNoConnections();
   }

@@ -4,12 +4,12 @@ import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/tile.dart';
 
-class ConnectedMarketList extends StatefulWidget {
+class WalletsList extends StatefulWidget {
   @override
-  State<ConnectedMarketList> createState() => _ConnectedMarketListState();
+  State<WalletsList> createState() => _WalletsListState();
 }
 
-class _ConnectedMarketListState extends State<ConnectedMarketList> {
+class _WalletsListState extends State<WalletsList> {
   late List<MarketInfo> markets = [];
 
   void updateMarketsInfo() async {
