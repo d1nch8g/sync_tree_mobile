@@ -37,16 +37,7 @@ class _WalletsListState extends State<WalletsList> {
         itemCount: markets.length,
         itemBuilder: (context, index) {
           var info = markets[index];
-          return AnimationConfiguration.staggeredList(
-            position: index,
-            duration: const Duration(seconds: 1),
-            child: SlideAnimation(
-              verticalOffset: 100.0,
-              child: FlipAnimation(
-                child: WalletTile(info: info),
-              ),
-            ),
-          );
+          return WalletTile(info: info);
         },
       ),
     );
