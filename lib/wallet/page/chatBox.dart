@@ -13,14 +13,24 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   updateMessages() async {
     messages = await Storage.loadMessages(widget.adress);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateMessages();
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemCount: messages.length,
+        itemCount: messages.length + 1,
         itemBuilder: (context, index) {
+          if (index == 0) {
+            return Text('Hola!');
+          }
           return Text('yo');
         },
       ),
