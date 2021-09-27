@@ -118,6 +118,12 @@ class InfoCalls {
         recieve: buy.recieve.toInt(),
       ));
     });
+    response.sells.forEach((sell) {
+      sells.add(Trade(
+        offer: sell.offer.toInt(),
+        recieve: sell.recieve.toInt(),
+      ));
+    });
     final MarketInfo marketInfo = MarketInfo(
       adress: marketAdress,
       name: response.name,
