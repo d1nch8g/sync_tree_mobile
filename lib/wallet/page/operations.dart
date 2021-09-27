@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
 
 class WalletOperations extends StatelessWidget {
-  const WalletOperations({Key? key}) : super(key: key);
+  final Function closeWallet;
+  WalletOperations({required this.closeWallet});
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         TextButton(
           onPressed: () {},
-          child: Text('input'),
+          child: Text('deposit'),
+        ),
+        CircleAvatar(
+          backgroundColor: Theme.of(context).focusColor,
+          radius: 26,
+          child: IconButton(
+            onPressed: () {
+              closeWallet();
+            },
+            iconSize: 36,
+            color: Theme.of(context).backgroundColor,
+            splashRadius: 56,
+            icon: Icon(Icons.backspace_rounded),
+          ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: Text('withdrawal'),
         ),
       ],
     );

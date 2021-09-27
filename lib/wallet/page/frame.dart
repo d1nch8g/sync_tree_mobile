@@ -26,7 +26,11 @@ class ConnectedWalletPage extends StatelessWidget {
                 child: WalletChat(),
               ),
               Divider(),
-              WalletOperations(),
+              WalletOperations(
+                closeWallet: () {
+                  closeContainer();
+                },
+              ),
             ],
           ),
         ),
