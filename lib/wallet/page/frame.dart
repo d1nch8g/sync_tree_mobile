@@ -1,19 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/chatBox.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/chatText.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/info.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/operations.dart';
 
-class ConnectedWalletPage extends StatelessWidget {
+class ConnectedWalletPage extends StatefulWidget {
   final MarketInfo info;
   final Function closeContainer;
   ConnectedWalletPage({
     required this.closeContainer,
     required this.info,
   });
+
+  @override
+  State<ConnectedWalletPage> createState() => _ConnectedWalletPageState();
+}
+
+class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
+  final FocusNode focuser = FocusNode();
+  double height = 0;
+  double bottomNavBarPadHeight = 0;
+
+  updateBottomHeight() async {
+    bottomNavBarPadHeight = await Storage.loadBottomPadding();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateBottomHeight();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var kbsize = MediaQuery.of(context).viewInsets.bottom;
+    if (kbsize > 0) {
+      kbsize = kbsize - kBottomNavigationBarHeight - bottomNavBarPadHeight;
+    }
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: false,
@@ -23,7 +48,7 @@ class ConnectedWalletPage extends StatelessWidget {
           child: Column(
             children: [
               WalletInfo(
-                info: info,
+                info: widget.info,
               ),
               Divider(),
               Container(
@@ -34,7 +59,7 @@ class ConnectedWalletPage extends StatelessWidget {
               Divider(),
               WalletOperations(
                 closeWallet: () {
-                  closeContainer();
+                  widget.closeContainer();
                 },
               ),
             ],

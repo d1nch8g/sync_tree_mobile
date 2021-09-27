@@ -13,8 +13,9 @@ class MarketPage extends StatefulWidget {
 class _MarketPageState extends State<MarketPage> {
   final TextEditingController controller = TextEditingController();
   final FocusNode focuser = FocusNode();
-
   Widget mainSearchWidget = Center();
+  double height = 0;
+  double bottomNavBarPadHeight = 0;
 
   void updateMarketList() async {
     try {
@@ -35,9 +36,6 @@ class _MarketPageState extends State<MarketPage> {
       });
     }
   }
-
-  double height = 0;
-  double bottomNavBarPadHeight = 0;
 
   updateBottomHeight() async {
     bottomNavBarPadHeight = await Storage.loadBottomPadding();
