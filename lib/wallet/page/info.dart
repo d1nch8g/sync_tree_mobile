@@ -29,34 +29,26 @@ class _WalletInfoState extends State<WalletInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
         children: [
-          Row(
-            children: [
-              CachedNetworkImage(
-                imageUrl: widget.info.imageLink,
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-                width: 48,
-              ),
-              SizedBox(width: 18),
-              Text(
-                widget.info.name,
-                style: Theme.of(context).textTheme.headline2,
-              ),
-              Spacer(),
-              Text(
-                balance,
-                style: Theme.of(context).textTheme.headline2,
-              ),
-            ],
+          CachedNetworkImage(
+            imageUrl: widget.info.imageLink,
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+            width: 48,
           ),
-          Divider(color: Theme.of(context).focusColor),
-          SizedBox(height: 8),
-          Row(
-            children: [],
-          )
+          SizedBox(width: 18),
+          Text(
+            widget.info.name,
+            style: Theme.of(context).textTheme.headline2,
+          ),
+          Spacer(),
+          Text(
+            balance,
+            style: Theme.of(context).textTheme.headline2,
+          ),
         ],
       ),
     );

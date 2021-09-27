@@ -44,10 +44,15 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          WalletInfo(
-            info: widget.info,
+          SafeArea(
+            child: WalletInfo(
+              info: widget.info,
+            ),
+            bottom: false,
           ),
-          Divider(),
+          Divider(color: Theme.of(context).focusColor),
+          ChatMessages(),
+          Divider(color: Theme.of(context).focusColor),
           ChatTextField(),
           AnimatedContainer(
             duration: Duration(milliseconds: 377),

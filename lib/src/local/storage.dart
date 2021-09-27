@@ -177,4 +177,20 @@ class Storage {
     var keys = await Storage.loadKeys();
     return keys.personal.public.getAdressBase64();
   }
+
+  static void addMessage({
+    required String message,
+    required String adress,
+  }) async {
+    var prefs = await SharedPreferences.getInstance();
+    var messages = prefs.getStringList('msgs$adress') ?? [];
+    messages.add(message);
+    prefs.setStringList('msgs$adress', messages);
+  }
+
+  static Future<List<String>> loadMessages(String adress) async {
+    var prefs = await SharedPreferences.getInstance();
+    var messages = prefs.getStringList('msgs$adress') ?? [];
+    return messages;
+  }
 }
