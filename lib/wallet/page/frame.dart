@@ -24,7 +24,8 @@ class ConnectedWalletPage extends StatelessWidget {
                 info: info,
               ),
               Divider(),
-              Expanded(
+              Container(
+                height: MediaQuery.of(context).size.height * 0.38,
                 child: WalletChat(),
               ),
               Divider(),

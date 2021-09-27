@@ -29,8 +29,7 @@ class _WalletInfoState extends State<WalletInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 320,
+    return Expanded(
       child: Column(
         children: [
           Row(
@@ -54,6 +53,20 @@ class _WalletInfoState extends State<WalletInfo> {
             ],
           ),
           Divider(color: Theme.of(context).focusColor),
+          SizedBox(height: 8),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(
+                child: Text(
+                  'WORKTIME: ${widget.info.workTime}\n'
+                  '${widget.info.description}',
+                  style: Theme.of(context).textTheme.bodyText2,
+                  overflow: TextOverflow.fade,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
