@@ -58,12 +58,11 @@ class _MarketModalPageState extends State<MarketModalPage> {
         padding: const EdgeInsets.all(18.0),
         child: Column(
           children: [
-            SizedBox(height: 12),
             AnimatedContainer(
               curve: Curves.ease,
               duration: Duration(milliseconds: 377),
               height: tradesHeight,
-              child: TradeBars(info: widget.info),
+              child: TradeView(info: widget.info),
             ),
             Expanded(
               child: MarketInfoWidget(info: widget.info),
