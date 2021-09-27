@@ -9,9 +9,13 @@ class WalletOperations extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        TextButton(
-          onPressed: () {},
-          child: Text('deposit'),
+        Expanded(
+          child: Center(
+            child: TextButton(
+              onPressed: () {},
+              child: Text(' deposit '),
+            ),
+          ),
         ),
         CircleAvatar(
           backgroundColor: Theme.of(context).focusColor,
@@ -26,9 +30,13 @@ class WalletOperations extends StatelessWidget {
             icon: Icon(Icons.account_balance_wallet_rounded),
           ),
         ),
-        TextButton(
-          onPressed: () {},
-          child: Text('withdrawal'),
+        Expanded(
+          child: Center(
+            child: TextButton(
+              onPressed: () {},
+              child: Text('withdrawal'),
+            ),
+          ),
         ),
       ],
     );
