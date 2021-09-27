@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/chat.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/info.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/operations.dart';
 
 class ConnectedWalletPage extends StatelessWidget {
   final Function closeContainer;
@@ -7,47 +10,20 @@ class ConnectedWalletPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).hoverColor,
-      body: Center(
-        child: TextButton(
-          child: Text('close'),
-          onPressed: () {
-            closeContainer();
-          },
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              WalletInfo(),
+              Divider(),
+              WalletChat(),
+              Divider(),
+              WalletOperations(),
+            ],
+          ),
         ),
       ),
     );
-  }
-}
-
-class ChatMessages extends StatefulWidget {
-  @override
-  _ChatMessagesState createState() => _ChatMessagesState();
-}
-
-class _ChatMessagesState extends State<ChatMessages> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class ChatTextField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class BottomInfoPanel extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class WithdrawalDepositButtons extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
