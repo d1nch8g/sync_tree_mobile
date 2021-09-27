@@ -18,9 +18,6 @@ class MarketTextField extends StatelessWidget {
       padding: const EdgeInsets.all(6.0),
       child: TextField(
         controller: controller,
-        style: TextStyle(
-          color: Theme.of(context).cardColor,
-        ),
         onEditingComplete: () async {
           updateMarketList();
           FocusScope.of(context).unfocus();
@@ -29,6 +26,9 @@ class MarketTextField extends StatelessWidget {
           Storage.saveSearchCache(x);
         },
         focusNode: focuser,
+        style: TextStyle(
+          color: Theme.of(context).cardColor,
+        ),
         cursorColor: Theme.of(context).cardColor,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
