@@ -47,7 +47,7 @@ class _WalletTileState extends State<WalletTile> {
             children: [
               SizedBox(width: 110),
               OpenContainer(
-                closedColor: Theme.of(context).hoverColor,
+                closedColor: Theme.of(context).backgroundColor,
                 openColor: Theme.of(context).backgroundColor,
                 transitionDuration: Duration(milliseconds: 610),
                 closedShape: const RoundedRectangleBorder(
@@ -76,7 +76,6 @@ class _WalletTileState extends State<WalletTile> {
                       ],
                     ),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).hoverColor,
                       borderRadius: BorderRadius.circular(14),
                     ),
                   );
