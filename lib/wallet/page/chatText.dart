@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ChatTextField extends StatelessWidget {
-  
+  //todo получить публичный ключ маркета, зашифровать им сообщение и научиться его отправлять
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+      padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
       child: TextField(
         style: TextStyle(
           color: Theme.of(context).focusColor,

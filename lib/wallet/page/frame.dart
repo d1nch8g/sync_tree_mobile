@@ -37,39 +37,32 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
   Widget build(BuildContext context) {
     var kbsize = MediaQuery.of(context).viewInsets.bottom;
     if (kbsize > 0) {
-      kbsize = kbsize - kBottomNavigationBarHeight - bottomNavBarPadHeight;
+      kbsize = kbsize - 64 - bottomNavBarPadHeight;
     }
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              WalletInfo(
-                info: widget.info,
-              ),
-              Divider(),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.38,
-                child: WalletChat(),
-              ),
-              ChatTextField(),
-              AnimatedContainer(
-                duration: Duration(milliseconds: 377),
-                curve: Curves.easeOutCubic,
-                height: kbsize,
-              ),
-              Divider(color: Theme.of(context).focusColor),
-              WalletOperations(
-                closeWallet: () {
-                  widget.closeContainer();
-                },
-              ),
-            ],
+      body: Column(
+        children: [
+          WalletInfo(
+            info: widget.info,
           ),
-        ),
+          Divider(),
+          ChatTextField(),
+          AnimatedContainer(
+            duration: Duration(milliseconds: 377),
+            curve: Curves.easeOutCubic,
+            height: kbsize,
+          ),
+          WalletOperations(
+            closeWallet: () {
+              widget.closeContainer();
+            },
+          ),
+          SizedBox(
+            height: bottomNavBarPadHeight,
+          )
+        ],
       ),
     );
   }
