@@ -45,6 +45,9 @@ class SendButton extends StatelessWidget {
           ),
         ),
         style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+            Theme.of(context).backgroundColor,
+          ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
