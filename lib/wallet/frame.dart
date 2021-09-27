@@ -43,11 +43,6 @@ class _WalletPageState extends State<WalletPage> {
           ),
           DynamicBalance(),
           Divider(),
-          Text(
-            'connected wallets',
-            style: Theme.of(context).textTheme.headline4,
-          ),
-          Divider(),
           Expanded(
             child: AnimatedSwitcher(
               duration: Duration(milliseconds: 377),
