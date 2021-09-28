@@ -33,11 +33,14 @@ class _WalletInfoState extends State<WalletInfo> {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          CachedNetworkImage(
-            imageUrl: widget.info.imageLink,
-            placeholder: (context, url) => CircularProgressIndicator(),
-            errorWidget: (context, url, error) => Icon(Icons.error),
-            width: 48,
+          Hero(
+            tag: 'logo',
+            child: CachedNetworkImage(
+              imageUrl: widget.info.imageLink,
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+              width: 48,
+            ),
           ),
           SizedBox(width: 18),
           Text(

@@ -21,6 +21,10 @@ class _ChatMessagesState extends State<ChatMessages> {
     }
   }
 
+  uploadMessages() async {
+    
+  }
+
   @override
   void initState() {
     super.initState();
