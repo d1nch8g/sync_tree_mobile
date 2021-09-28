@@ -46,6 +46,14 @@ class _ChatMessagesState extends State<ChatMessages> {
       );
     }
     if (mounted) {
+      messages = List.from(messages.reversed);
+      if (messages.length == 0) {
+        messages.add(
+          'Do not send your private key to anyone!\n'
+          'Check market ratio, operation count and adress before'
+          ' start of any transaction processing.',
+        );
+      }
       setState(() {});
     }
   }
@@ -74,31 +82,10 @@ class _ChatMessagesState extends State<ChatMessages> {
     return Expanded(
       child: ListView.builder(
         reverse: true,
-        padding: EdgeInsets.all(0),
-        itemCount: messages.length + 1,
+        padding: EdgeInsets.all(2),
+        itemCount: messages.length,
         itemBuilder: (context, index) {
-          if (index == 0) {
-            return ChatBubble(
-              clipper: ChatBubbleClipper10(
-                type: BubbleType.receiverBubble,
-              ),
-              alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(top: 20),
-              backGroundColor: Theme.of(context).cardColor,
-              child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.7,
-                ),
-                child: Text(
-                  'Do not send your private key to anyone!\n'
-                  'Check market ratio, operation count and adress before'
-                  ' start of any transaction processing.',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            );
-          }
-          var mes = messages[index - 1];
+          var mes = messages[index];
           if (mes.startsWith('u')) {
             return ChatBubble(
               clipper: ChatBubbleClipper10(
@@ -112,29 +99,30 @@ class _ChatMessagesState extends State<ChatMessages> {
                   maxWidth: MediaQuery.of(context).size.width * 0.7,
                 ),
                 child: Text(
-                  messages[index - 1].substring(1),
+                  messages[index].substring(1),
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            );
+          } else {
+            return ChatBubble(
+              clipper: ChatBubbleClipper10(
+                type: BubbleType.receiverBubble,
+              ),
+              alignment: Alignment.topLeft,
+              margin: EdgeInsets.only(top: 20),
+              backGroundColor: Theme.of(context).cardColor,
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                ),
+                child: Text(
+                  messages[index],
                   style: TextStyle(color: Colors.white),
                 ),
               ),
             );
           }
-          return ChatBubble(
-            clipper: ChatBubbleClipper10(
-              type: BubbleType.receiverBubble,
-            ),
-            alignment: Alignment.topLeft,
-            margin: EdgeInsets.only(top: 20),
-            backGroundColor: Theme.of(context).cardColor,
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.7,
-              ),
-              child: Text(
-                messages[index - 1],
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          );
         },
       ),
     );
