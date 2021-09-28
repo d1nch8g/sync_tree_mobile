@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sync_tree_mobile_ui/src/src.dart';
 
-
 final testKey = '''-----BEGIN RSA PRIVATE KEY-----
 MIIJKAIBAAKCAgEAhUXHmg6f7DdeYeqjEczFq7TzDSJvWFeZ0AppJC9UXAa6ZC/q
 iAewXEndgadbsCdSGCbYqAeUiUJ13JarH5dBsZSMAIXzQRjaLehfNEGgXlHPpmqt
@@ -168,16 +167,6 @@ void main() {
       fail('sign generated incorrectly');
     }
   });
-  test('public encrypt, private decrypt', () async {
-    var band = Keys.fromSingleString(multiKeyStirng: testKey);
-    var untouchedMessage = 'some text';
-    var encryptedMessage = await band.message.public.encrypt(untouchedMessage);
-    var decryptedMessage = await band.message.private.decrypt(encryptedMessage);
-    if (decryptedMessage != untouchedMessage ||
-        encryptedMessage == untouchedMessage) {
-      fail('some error in ecnryption/decryption module');
-    }
-  });
   test('public key from bytes', () async {
     var band = Keys.fromSingleString(multiKeyStirng: testKey);
     var priv = PublicKey.fromBytes(bytes: band.message.public.bytes);
@@ -211,5 +200,19 @@ void main() {
         keys.personal.public.toString() != keys.personal.public.toString()) {
       fail('some error importing/exporting keys from/to single string line');
     }
+  });
+  test('encrypt decrypt', () async {
+    var band = Keys.fromSingleString(multiKeyStirng: testKey);
+    var untouched = 'some text';
+    var encrypted = await band.message.public.encrypt(untouched);
+    var decrypted = await band.message.private.decrypt(encrypted);
+    if (decrypted != untouched || encrypted == untouched) {
+      fail('some error in ecnryption/decryption module');
+    }
+    var pubAsBytes = band.message.public.bytes;
+    var pubFromBytes = PublicKey.fromBytes(bytes: pubAsBytes);
+    var encryptedPartTwo = await pubFromBytes.encrypt(untouched);
+    var decryptedPartTwo = await band.message.private.decrypt(encryptedPartTwo);
+    fail(decryptedPartTwo);
   });
 }

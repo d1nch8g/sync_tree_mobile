@@ -132,7 +132,7 @@ class PublicKey {
   }
 
   Future<String> encrypt(String message) async {
-    var key = CryptoUtils.rsaPublicKeyFromPemPkcs1(pem);
+    var key = CryptoUtils.rsaPublicKeyFromDERBytes(bytes);
     var encrypted = CryptoUtils.rsaEncrypt(message, key);
     return encrypted;
   }
