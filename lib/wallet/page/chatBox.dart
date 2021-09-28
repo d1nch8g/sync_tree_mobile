@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_5.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_10.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 
 class ChatMessages extends StatefulWidget {
@@ -17,12 +16,15 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   updateMessages() async {
     messages = await Storage.loadMessages(widget.adress);
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
   void initState() {
     super.initState();
+    updateMessages();
   }
 
   @override
@@ -34,7 +36,7 @@ class _ChatMessagesState extends State<ChatMessages> {
         itemBuilder: (context, index) {
           if (index == 0) {
             return ChatBubble(
-              clipper: ChatBubbleClipper5(
+              clipper: ChatBubbleClipper10(
                 type: BubbleType.receiverBubble,
               ),
               alignment: Alignment.topLeft,
