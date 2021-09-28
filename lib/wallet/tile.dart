@@ -92,19 +92,22 @@ class _WalletTileState extends State<WalletTile> {
               ),
             ],
           ),
-          CircleAvatar(
-            radius: 63,
-            backgroundColor: Theme.of(context).focusColor,
-            child: Container(
-              child: Hero(
-                tag: 'logo',
-                child: CachedNetworkImage(
-                  imageUrl: widget.info.imageLink,
-                  placeholder: (context, url) => CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 377),
+            child: CircleAvatar(
+              radius: 63,
+              backgroundColor: Theme.of(context).focusColor,
+              child: Container(
+                child: Hero(
+                  tag: 'logo',
+                  child: CachedNetworkImage(
+                    imageUrl: widget.info.imageLink,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
                 ),
+                height: 98,
               ),
-              height: 98,
             ),
           ),
         ],

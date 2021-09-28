@@ -3,6 +3,8 @@ import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_10.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
+import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 
 class ChatMessages extends StatefulWidget {
   final String adress;
@@ -16,13 +18,12 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   updateMessages() async {
     messages = await Storage.loadMessages(widget.adress);
+    try {
+      var loadedMessages = InfoCalls.messages(widget.adress);
+    } catch (e) {}
     if (mounted) {
       setState(() {});
     }
-  }
-
-  uploadMessages() async {
-    
   }
 
   @override

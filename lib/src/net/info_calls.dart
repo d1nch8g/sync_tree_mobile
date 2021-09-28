@@ -154,12 +154,13 @@ class InfoCalls {
     return markets;
   }
 
-  static Future<List<String>> messages(Uint8List marketAdress) async {
+  static Future<List<String>> messages(String marketAdress) async {
     var keys = await Storage.loadKeys();
+
     final response = await infoStub.messages(
       InfIn_UserMarketAdresses(
         userAdress: keys.personal.public.getAdressBytes(),
-        marketAdress: marketAdress,
+        marketAdress: base64Decode(marketAdress),
       ),
     );
     return response.messages;
