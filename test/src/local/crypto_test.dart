@@ -99,6 +99,7 @@ o3gnbI/EetfK2V+uJKuRAZCwGCDs/6zVqEolJsBVnd/7ouJASBuf5GaeZDp3VJpH
 LZNPvu2a1GXXBZAjK+K2uVamdATF5EofhTh0Mk44dZlicEMLDEdcYVzANs346Cny
 lRklcGJo1HNFJVOzTVq8kcYiEWU3teU4pwIDAQAB
 -----END RSA PUBLIC KEY-----''';
+
 void main() {
   test('generate key band', () async {
     var keys = Keys.generate();
