@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:fixnum/fixnum.dart';
 import 'package:sync_tree_mobile_ui/src/src.dart';
@@ -84,20 +85,27 @@ class UserCalls {
     }
   }
 
-  static Future<bool> message(String marketAdress, String message) async {
+  static Future<bool> message({
+    required String marketAdress,
+    required String message,
+    required Uint8List marketMesKey,
+  }) async {
     try {
+      var key = PublicKey.fromBytes(bytes: marketMesKey);
+      var encryptedMessage = await key.encrypt(message);
       var keys = await Storage.loadKeys();
       var bytesMarketAdress = base64Decode(marketAdress);
+
       var sign = await keys.personal.private.signList([
         keys.personal.public.bytes,
         bytesMarketAdress,
-        message.codeUnits,
+        encryptedMessage.codeUnits,
       ]);
       await userStub.message(
         UserRequests_Message(
           publicKey: keys.personal.public.bytes,
           adress: bytesMarketAdress,
-          message: message,
+          message: encryptedMessage.codeUnits,
           sign: sign,
         ),
       );

@@ -34,8 +34,6 @@ class ChatTextField extends StatelessWidget {
 
   void sendMessage(context, String message) async {
     //try {
-    var key = PublicKey.fromBytes(bytes: marketMesKey);
-    var encryptedMessage = await key.encrypt(message);
     var delivered = await UserCalls.message(marketAdress, encryptedMessage);
     print(encryptedMessage);
     print(encryptedMessage.codeUnits);
