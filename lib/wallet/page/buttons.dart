@@ -12,7 +12,9 @@ class WalletOperations extends StatelessWidget {
         Expanded(
           child: Center(
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                
+              },
               child: Text(' deposit '),
             ),
           ),
