@@ -33,18 +33,16 @@ class ChatTextField extends StatelessWidget {
   }
 
   void sendMessage(context, String message) async {
-    //try {
-    var delivered = await UserCalls.message(marketAdress, encryptedMessage);
-    print(encryptedMessage);
-    print(encryptedMessage.codeUnits);
-    print(String.fromCharCodes(encryptedMessage.codeUnits));
+    var delivered = await UserCalls.message(
+      marketAdress: marketAdress,
+      marketMesKey: marketMesKey,
+      message: message,
+    );
     if (!delivered) {
       showNotDeliveredSnackBar(context);
+      return;
     }
-    // } catch (e) {
-    //   print(e);
-    //   showNotDeliveredSnackBar(context);
-    // }
+    
   }
 
   @override
