@@ -90,7 +90,7 @@ class InfoCalls {
     return UserInfo(
       name: response.publicName,
       balance: response.balance.toInt(),
-      mesKey: response.messageKey as Uint8List,
+      mesKey: Uint8List.fromList(response.messageKey),
       marketBalances: balances,
     );
   }
