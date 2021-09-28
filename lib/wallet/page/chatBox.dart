@@ -73,6 +73,7 @@ class _ChatMessagesState extends State<ChatMessages> {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
+        reverse: true,
         padding: EdgeInsets.all(0),
         itemCount: messages.length + 1,
         itemBuilder: (context, index) {
@@ -92,6 +93,26 @@ class _ChatMessagesState extends State<ChatMessages> {
                   'Do not send your private key to anyone!\n'
                   'Check market ratio, operation count and adress before'
                   ' start of any transaction processing.',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            );
+          }
+          var mes = messages[index - 1];
+          if (mes.startsWith('u')) {
+            return ChatBubble(
+              clipper: ChatBubbleClipper10(
+                type: BubbleType.sendBubble,
+              ),
+              alignment: Alignment.topRight,
+              margin: EdgeInsets.only(top: 20),
+              backGroundColor: Theme.of(context).hoverColor,
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                ),
+                child: Text(
+                  messages[index - 1].substring(1),
                   style: TextStyle(color: Colors.white),
                 ),
               ),

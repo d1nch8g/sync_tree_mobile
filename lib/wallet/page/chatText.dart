@@ -42,7 +42,7 @@ class ChatTextField extends StatelessWidget {
     );
     if (delivered) {
       Storage.addMessage(
-        message: message,
+        message: 'u' + message,
         adress: marketAdress,
       );
       return;
