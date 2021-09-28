@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_ui/src/local/crypto.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -34,6 +32,9 @@ class ChatTextField extends StatelessWidget {
   }
 
   void sendMessage(context, String message) async {
+    if (message == '') {
+      return;
+    }
     var delivered = await UserCalls.message(
       marketAdress: marketAdress,
       marketMesKey: marketMesKey,
@@ -90,6 +91,7 @@ class ChatTextField extends StatelessWidget {
         ),
         onEditingComplete: () {
           sendMessage(context, controller.text);
+          FocusScope.of(context).unfocus();
         },
       ),
     );

@@ -90,12 +90,12 @@ class PrivateKey {
           byteArray.add(byte);
         });
       }
-      List<Type> supprtedTypes = [
-        String,
-        Uint8List,
-        int,
+      List<bool> supprtedTypes = [
+        singleListValue is String,
+        singleListValue is Uint8List,
+        singleListValue is int,
       ];
-      if (supprtedTypes.contains(singleListValue.runtimeType)) {
+      if (!supprtedTypes.contains(true)) {
         throw Exception(
           'You are passing not supported type to operation of '
           'concatenation: ${singleListValue.runtimeType}',

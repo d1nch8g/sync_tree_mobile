@@ -97,7 +97,23 @@ class _ChatMessagesState extends State<ChatMessages> {
               ),
             );
           }
-          return Text('yo');
+          return ChatBubble(
+            clipper: ChatBubbleClipper10(
+              type: BubbleType.receiverBubble,
+            ),
+            alignment: Alignment.topLeft,
+            margin: EdgeInsets.only(top: 20),
+            backGroundColor: Theme.of(context).cardColor,
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.7,
+              ),
+              child: Text(
+                messages[index - 1],
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          );
         },
       ),
     );
