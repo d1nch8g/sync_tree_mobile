@@ -163,6 +163,10 @@ class InfoCalls {
         marketAdress: base64Decode(marketAdress),
       ),
     );
-    return response.messages;
+    List<String> msgs = [];
+    response.messages.forEach((mesBytes) {
+      msgs.add(String.fromCharCodes(mesBytes));
+    });
+    return msgs;
   }
 }

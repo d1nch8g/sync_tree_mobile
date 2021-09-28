@@ -91,7 +91,7 @@ class UserCalls {
       var sign = await keys.personal.private.signList([
         keys.personal.public.bytes,
         bytesMarketAdress,
-        message,
+        message.codeUnits,
       ]);
       await userStub.message(
         UserRequests_Message(

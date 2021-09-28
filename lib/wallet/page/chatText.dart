@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -36,6 +37,9 @@ class ChatTextField extends StatelessWidget {
     var key = PublicKey.fromBytes(bytes: marketMesKey);
     var encryptedMessage = await key.encrypt(message);
     var delivered = await UserCalls.message(marketAdress, encryptedMessage);
+    print(encryptedMessage);
+    print(encryptedMessage.codeUnits);
+    print(String.fromCharCodes(encryptedMessage.codeUnits));
     if (!delivered) {
       showNotDeliveredSnackBar(context);
     }

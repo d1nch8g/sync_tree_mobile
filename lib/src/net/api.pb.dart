@@ -560,13 +560,13 @@ class InfOut_Adresses extends $pb.GeneratedMessage {
 
 class InfOut_Messages extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'InfOut.Messages', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
-    ..pPS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'messages')
+    ..p<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'messages', $pb.PbFieldType.PY)
     ..hasRequiredFields = false
   ;
 
   InfOut_Messages._() : super();
   factory InfOut_Messages({
-    $core.Iterable<$core.String>? messages,
+    $core.Iterable<$core.List<$core.int>>? messages,
   }) {
     final _result = create();
     if (messages != null) {
@@ -596,7 +596,7 @@ class InfOut_Messages extends $pb.GeneratedMessage {
   static InfOut_Messages? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$core.String> get messages => $_getList(0);
+  $core.List<$core.List<$core.int>> get messages => $_getList(0);
 }
 
 class InfOut_HasTrades extends $pb.GeneratedMessage {
@@ -1007,7 +1007,7 @@ class UserRequests_Message extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserRequests.Message', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
     ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'PublicKey', $pb.PbFieldType.OY, protoName: 'PublicKey')
     ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Adress', $pb.PbFieldType.OY, protoName: 'Adress')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Message', protoName: 'Message')
+    ..a<$core.List<$core.int>>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Message', $pb.PbFieldType.OY, protoName: 'Message')
     ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Sign', $pb.PbFieldType.OY, protoName: 'Sign')
     ..hasRequiredFields = false
   ;
@@ -1016,7 +1016,7 @@ class UserRequests_Message extends $pb.GeneratedMessage {
   factory UserRequests_Message({
     $core.List<$core.int>? publicKey,
     $core.List<$core.int>? adress,
-    $core.String? message,
+    $core.List<$core.int>? message,
     $core.List<$core.int>? sign,
   }) {
     final _result = create();
@@ -1074,9 +1074,9 @@ class UserRequests_Message extends $pb.GeneratedMessage {
   void clearAdress() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get message => $_getSZ(2);
+  $core.List<$core.int> get message => $_getN(2);
   @$pb.TagNumber(3)
-  set message($core.String v) { $_setString(2, v); }
+  set message($core.List<$core.int> v) { $_setBytes(2, v); }
   @$pb.TagNumber(3)
   $core.bool hasMessage() => $_has(2);
   @$pb.TagNumber(3)
@@ -1930,7 +1930,7 @@ class MarketRequests_Reply extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'MarketRequests.Reply', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'api'), createEmptyInstance: create)
     ..a<$core.List<$core.int>>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'PublicKey', $pb.PbFieldType.OY, protoName: 'PublicKey')
     ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Adress', $pb.PbFieldType.OY, protoName: 'Adress')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Message', protoName: 'Message')
+    ..a<$core.List<$core.int>>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Message', $pb.PbFieldType.OY, protoName: 'Message')
     ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'Sign', $pb.PbFieldType.OY, protoName: 'Sign')
     ..hasRequiredFields = false
   ;
@@ -1939,7 +1939,7 @@ class MarketRequests_Reply extends $pb.GeneratedMessage {
   factory MarketRequests_Reply({
     $core.List<$core.int>? publicKey,
     $core.List<$core.int>? adress,
-    $core.String? message,
+    $core.List<$core.int>? message,
     $core.List<$core.int>? sign,
   }) {
     final _result = create();
@@ -1997,9 +1997,9 @@ class MarketRequests_Reply extends $pb.GeneratedMessage {
   void clearAdress() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get message => $_getSZ(2);
+  $core.List<$core.int> get message => $_getN(2);
   @$pb.TagNumber(3)
-  set message($core.String v) { $_setString(2, v); }
+  set message($core.List<$core.int> v) { $_setBytes(2, v); }
   @$pb.TagNumber(3)
   $core.bool hasMessage() => $_has(2);
   @$pb.TagNumber(3)
