@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/crypto.dart';
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -38,11 +39,14 @@ class ChatTextField extends StatelessWidget {
       marketMesKey: marketMesKey,
       message: message,
     );
-    if (!delivered) {
-      showNotDeliveredSnackBar(context);
+    if (delivered) {
+      Storage.addMessage(
+        message: message,
+        adress: marketAdress,
+      );
       return;
     }
-    
+    showNotDeliveredSnackBar(context);
   }
 
   @override

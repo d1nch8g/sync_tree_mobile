@@ -95,7 +95,6 @@ class UserCalls {
       var encryptedMessage = await key.encrypt(message);
       var keys = await Storage.loadKeys();
       var bytesMarketAdress = base64Decode(marketAdress);
-
       var sign = await keys.personal.private.signList([
         keys.personal.public.bytes,
         bytesMarketAdress,

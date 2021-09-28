@@ -95,7 +95,12 @@ void main() {
     SharedPreferences.setMockInitialValues({
       'keys': alcoholKeys,
     });
-    var operated = await UserCalls.message(testAlcoholAdress, 'hola');
+    var keys = Keys.fromSingleString(multiKeyStirng: alcoholKeys);
+    var operated = await UserCalls.message(
+      marketAdress: base64Encode(dummyMarketAdress1),
+      marketMesKey: keys.message.public.bytes,
+      message: 'coca cola',
+    );
     if (operated == false) {
       fail('the message is not delivered');
     }
