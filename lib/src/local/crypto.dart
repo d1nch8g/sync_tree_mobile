@@ -90,6 +90,17 @@ class PrivateKey {
           byteArray.add(byte);
         });
       }
+      List<Type> supprtedTypes = [
+        String,
+        Uint8List,
+        int,
+      ];
+      if (supprtedTypes.contains(singleListValue.runtimeType)) {
+        throw Exception(
+          'You are passing not supported type to operation of '
+          'concatenation: ${singleListValue.runtimeType}',
+        );
+      }
     });
     return Uint8List.fromList(byteArray);
   }

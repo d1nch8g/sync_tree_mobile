@@ -93,18 +93,19 @@ class UserCalls {
     try {
       var key = PublicKey.fromBytes(bytes: marketMesKey);
       var encryptedMessage = await key.encrypt(message);
+      var mesBytes = Uint8List.fromList(encryptedMessage.codeUnits);
       var keys = await Storage.loadKeys();
       var bytesMarketAdress = base64Decode(marketAdress);
       var sign = await keys.personal.private.signList([
         keys.personal.public.bytes,
         bytesMarketAdress,
-        encryptedMessage.codeUnits,
+        mesBytes,
       ]);
       await userStub.message(
         UserRequests_Message(
           publicKey: keys.personal.public.bytes,
           adress: bytesMarketAdress,
-          message: encryptedMessage.codeUnits,
+          message: mesBytes,
           sign: sign,
         ),
       );
