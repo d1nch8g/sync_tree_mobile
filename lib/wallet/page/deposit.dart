@@ -69,7 +69,8 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                   ),
                   Divider(color: Theme.of(context).focusColor),
                   Text(
-                    'Type the amount you want to deposit.',
+                    'This button will create deposit request for market,'
+                    ' add amount and send that message.',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),

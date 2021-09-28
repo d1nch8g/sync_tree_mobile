@@ -20,6 +20,8 @@ class ConnectedWalletPage extends StatefulWidget {
   State<ConnectedWalletPage> createState() => _ConnectedWalletPageState();
 }
 
+bool resizekb = true;
+
 class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
   final FocusNode focuser = FocusNode();
   double height = 0;
@@ -37,9 +39,12 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
 
   @override
   Widget build(BuildContext context) {
-    var kbsize = MediaQuery.of(context).viewInsets.bottom;
-    if (kbsize > 0) {
-      kbsize = kbsize - 64 - bottomNavBarPadHeight;
+    var kbsize = 0.0;
+    if (resizekb == true) {
+      var kbsize = MediaQuery.of(context).viewInsets.bottom;
+      if (kbsize > 0) {
+        kbsize = kbsize - 64 - bottomNavBarPadHeight;
+      }
     }
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -71,7 +76,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
           ),
           SizedBox(
             height: bottomNavBarPadHeight,
-          )
+          ),
         ],
       ),
     );
