@@ -1,10 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_10.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
-import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class ChatMessages extends StatefulWidget {
   final String adress;
@@ -18,18 +21,52 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   updateMessages() async {
     messages = await Storage.loadMessages(widget.adress);
+    var keys = await Storage.loadKeys();
     try {
-      var loadedMessages = InfoCalls.messages(widget.adress);
-    } catch (e) {}
+      var loadedMessages = await InfoCalls.messages(widget.adress);
+      for (var i = messages.length; i < loadedMessages.length; i++) {
+        var mes = loadedMessages[i].substring(0);
+        var decrypted = await keys.message.private.decrypt(mes);
+        Storage.addMessage(message: decrypted, adress: widget.adress);
+        messages.add(decrypted);
+      }
+    } catch (e) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: 'Unable to load new messages!',
+          textStyle: Theme.of(context).textTheme.headline2!,
+          icon: const Icon(
+            Icons.playlist_add_check_rounded,
+            color: const Color(0x15000000),
+            size: 120,
+          ),
+          iconRotationAngle: 8,
+        ),
+      );
+    }
     if (mounted) {
       setState(() {});
     }
+  }
+
+  startUpdating() {
+    const oneSec = Duration(seconds: 1);
+    Timer.periodic(oneSec, (Timer t) {
+      if (mounted) {
+        print('updaing');
+        updateMessages();
+      } else {
+        t.cancel();
+      }
+    });
   }
 
   @override
   void initState() {
     super.initState();
     updateMessages();
+    startUpdating();
   }
 
   @override

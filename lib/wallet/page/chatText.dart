@@ -1,7 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 class ChatTextField extends StatelessWidget {
-  //todo получить публичный ключ маркета, зашифровать им сообщение и научиться его отправлять
+  final Uint8List marketMesKey;
+  ChatTextField({required this.marketMesKey});
+
+  sendMessage(String message) {
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
