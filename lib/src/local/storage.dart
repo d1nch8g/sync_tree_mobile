@@ -78,9 +78,11 @@ class Storage {
 
   static void removeAllWallets() async {
     var wallets = await Storage.loadConnectedWallets();
+    var prefs = await SharedPreferences.getInstance();
     Storage.saveConnectedWalletsAdressesList([]);
     wallets.forEach((wallet) {
       Storage.saveMarketBalanceByAdress(wallet, 0);
+      prefs.setStringList('msgs$wallet', []);
     });
   }
 
