@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
@@ -53,7 +55,10 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
           Divider(color: Theme.of(context).focusColor),
           ChatMessages(adress: widget.info.adress),
           Divider(color: Theme.of(context).focusColor),
-          ChatTextField(),
+          ChatTextField(
+            marketAdress: widget.info.adress,
+            marketMesKey: widget.info.messageKey as Uint8List,
+          ),
           AnimatedContainer(
             duration: Duration(milliseconds: 377),
             curve: Curves.easeOutCubic,

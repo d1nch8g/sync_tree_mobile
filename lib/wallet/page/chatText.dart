@@ -1,13 +1,48 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/crypto.dart';
+import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class ChatTextField extends StatelessWidget {
+  final String marketAdress;
   final Uint8List marketMesKey;
-  ChatTextField({required this.marketMesKey});
+  final TextEditingController controller = TextEditingController();
+  ChatTextField({
+    required this.marketMesKey,
+    required this.marketAdress,
+  });
 
-  sendMessage(String message) {
-    
+  void showNotDeliveredSnackBar(context) {
+    showTopSnackBar(
+      context,
+      CustomSnackBar.error(
+        message: 'Unable to send message!',
+        textStyle: Theme.of(context).textTheme.headline2!,
+        icon: const Icon(
+          Icons.message_rounded,
+          color: const Color(0x15000000),
+          size: 120,
+        ),
+        iconRotationAngle: 8,
+      ),
+    );
+  }
+
+  void sendMessage(context, String message) async {
+    //try {
+    var key = PublicKey.fromBytes(bytes: marketMesKey);
+    var encryptedMessage = await key.encrypt(message);
+    var delivered = await UserCalls.message(marketAdress, encryptedMessage);
+    if (!delivered) {
+      showNotDeliveredSnackBar(context);
+    }
+    // } catch (e) {
+    //   print(e);
+    //   showNotDeliveredSnackBar(context);
+    // }
   }
 
   @override
@@ -15,6 +50,7 @@ class ChatTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
       child: TextField(
+        controller: controller,
         style: TextStyle(
           color: Theme.of(context).focusColor,
         ),
@@ -43,10 +79,14 @@ class ChatTextField extends StatelessWidget {
             icon: Icon(Icons.send),
             color: Theme.of(context).focusColor,
             onPressed: () {
+              sendMessage(context, controller.text);
               FocusScope.of(context).unfocus();
             },
           ),
         ),
+        onEditingComplete: () {
+          sendMessage(context, controller.text);
+        },
       ),
     );
   }

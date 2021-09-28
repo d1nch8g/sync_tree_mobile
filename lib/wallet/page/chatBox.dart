@@ -37,7 +37,7 @@ class _ChatMessagesState extends State<ChatMessages> {
           message: 'Unable to load new messages!',
           textStyle: Theme.of(context).textTheme.headline2!,
           icon: const Icon(
-            Icons.playlist_add_check_rounded,
+            Icons.message_rounded,
             color: const Color(0x15000000),
             size: 120,
           ),
