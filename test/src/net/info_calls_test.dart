@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile_ui/src/src.dart';
 
-
 import 'test_data.dart';
 
 void main() {
@@ -28,8 +27,9 @@ void main() {
   });
   test('info search', () async {
     var foundMarkets = await InfoCalls.searchMarkets('Ftem');
-    if (foundMarkets.length != 4) {
-      fail('the length of found markets should be equal to 2');
+    if (foundMarkets.length != 7) {
+      fail('the length of found markets should b'
+          'e equal to 2/${foundMarkets.length}');
     }
   });
   test('info user', () async {

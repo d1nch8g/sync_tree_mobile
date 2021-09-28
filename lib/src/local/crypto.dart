@@ -37,10 +37,10 @@ class KeyPair {
     final myPublic = pair.publicKey as RSAPublicKey;
     final myPrivate = pair.privateKey as RSAPrivateKey;
     this.private = PrivateKey.fromPEM(
-      pem: CryptoUtils.encodeRSAPrivateKeyToPemPkcs1(myPrivate),
+      pem: CryptoUtils.encodeRSAPrivateKeyToPem(myPrivate),
     );
     this.public = PublicKey.fromPEM(
-      pem: CryptoUtils.encodeRSAPublicKeyToPemPkcs1(myPublic),
+      pem: CryptoUtils.encodeRSAPublicKeyToPem(myPublic),
     );
   }
 }
@@ -48,16 +48,18 @@ class KeyPair {
 class PrivateKey {
   late String pem;
   late Uint8List bytes;
+  late RSAPrivateKey key;
 
   PrivateKey.fromBytes({required Uint8List bytes}) {
     this.bytes = bytes;
-    var key = CryptoUtils.rsaPrivateKeyFromDERBytesPkcs1(bytes);
-    this.pem = CryptoUtils.encodeRSAPrivateKeyToPemPkcs1(key);
+    this.key = CryptoUtils.rsaPrivateKeyFromDERBytes(bytes);
+    this.pem = CryptoUtils.encodeRSAPrivateKeyToPem(key);
   }
 
   PrivateKey.fromPEM({required String pem}) {
     this.pem = pem;
     this.bytes = CryptoUtils.getBytesFromPEMString(pem);
+    this.key = CryptoUtils.rsaPrivateKeyFromPem(pem);
   }
 
   Uint8List intToBytes(int value) {
@@ -65,7 +67,6 @@ class PrivateKey {
   }
 
   Future<Uint8List> signData(Uint8List data) async {
-    var key = CryptoUtils.rsaPrivateKeyFromPemPkcs1(pem);
     var sign = CryptoUtils.rsaSign(key, data, algorithmName: 'SHA-512/RSA');
     return sign;
   }
@@ -101,7 +102,6 @@ class PrivateKey {
   }
 
   Future<String> decrypt(String encrypted) async {
-    var key = CryptoUtils.rsaPrivateKeyFromPemPkcs1(pem);
     var decrypted = CryptoUtils.rsaDecrypt(encrypted, key);
     return decrypted;
   }
@@ -110,16 +110,18 @@ class PrivateKey {
 class PublicKey {
   late String pem;
   late Uint8List bytes;
+  late RSAPublicKey key;
 
   PublicKey.fromBytes({required Uint8List bytes}) {
     this.bytes = bytes;
-    var key = CryptoUtils.rsaPublicKeyFromDERBytesPkcs1(bytes);
+    this.key = CryptoUtils.rsaPublicKeyFromDERBytes(bytes);
     this.pem = CryptoUtils.encodeRSAPublicKeyToPem(key);
   }
 
   PublicKey.fromPEM({required String pem}) {
     this.pem = pem;
     this.bytes = CryptoUtils.getBytesFromPEMString(pem);
+    this.key = CryptoUtils.rsaPublicKeyFromPem(pem);
   }
 
   Uint8List getAdressBytes() {
@@ -132,7 +134,6 @@ class PublicKey {
   }
 
   Future<String> encrypt(String message) async {
-    var key = CryptoUtils.rsaPublicKeyFromDERBytes(bytes);
     var encrypted = CryptoUtils.rsaEncrypt(message, key);
     return encrypted;
   }

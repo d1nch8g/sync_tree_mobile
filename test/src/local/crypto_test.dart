@@ -202,17 +202,12 @@ void main() {
     }
   });
   test('encrypt decrypt', () async {
-    var band = Keys.fromSingleString(multiKeyStirng: testKey);
+    var band = Keys.generate();
     var untouched = 'some text';
     var encrypted = await band.message.public.encrypt(untouched);
     var decrypted = await band.message.private.decrypt(encrypted);
     if (decrypted != untouched || encrypted == untouched) {
       fail('some error in ecnryption/decryption module');
     }
-    var pubAsBytes = band.message.public.bytes;
-    var pubFromBytes = PublicKey.fromBytes(bytes: pubAsBytes);
-    var encryptedPartTwo = await pubFromBytes.encrypt(untouched);
-    var decryptedPartTwo = await band.message.private.decrypt(encryptedPartTwo);
-    fail(decryptedPartTwo);
   });
 }
