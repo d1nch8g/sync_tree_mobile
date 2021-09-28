@@ -87,7 +87,7 @@ class UserCalls {
   static Future<bool> message(String marketAdress, String message) async {
     try {
       var keys = await Storage.loadKeys();
-      var bytesMarketAdress = base64.decode(marketAdress);
+      var bytesMarketAdress = base64Decode(marketAdress);
       var sign = await keys.personal.private.signList([
         keys.personal.public.bytes,
         bytesMarketAdress,

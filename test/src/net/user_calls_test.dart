@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sync_tree_mobile_ui/src/src.dart';
 
-
 import 'test_data.dart';
 
 setAlcoParameters() {}
