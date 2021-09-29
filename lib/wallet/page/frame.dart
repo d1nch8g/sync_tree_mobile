@@ -39,12 +39,12 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
 
   @override
   Widget build(BuildContext context) {
-    var kbsize = 0.0;
-    if (resizekb == true) {
-      var kbsize = MediaQuery.of(context).viewInsets.bottom;
-      if (kbsize > 0) {
-        kbsize = kbsize - 64 - bottomNavBarPadHeight;
-      }
+    var kbsize = MediaQuery.of(context).viewInsets.bottom;
+    if (kbsize > 0) {
+      kbsize = kbsize - 64 - bottomNavBarPadHeight;
+    }
+    if (resizekb == false) {
+      kbsize = 0.0;
     }
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,

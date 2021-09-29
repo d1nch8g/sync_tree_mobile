@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
 
 class DepositButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
+        resizekb = false;
         showDialog(
           context: context,
           builder: (_) => GetAdressOverlay(),
-        );
+        ).whenComplete(() {
+          resizekb = true;
+        });
       },
       child: Text('deposit'),
     );
@@ -22,24 +26,26 @@ class GetAdressOverlay extends StatefulWidget {
 
 class GetAdressOverlayState extends State<GetAdressOverlay>
     with SingleTickerProviderStateMixin {
-  late AnimationController controller;
+  late AnimationController animController;
   late Animation<double> scaleAnimation;
+  final TextEditingController controller = TextEditingController();
+  
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(
+    animController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 377),
     );
     scaleAnimation = CurvedAnimation(
-      parent: controller,
+      parent: animController,
       curve: Curves.decelerate,
     );
-    controller.addListener(() {
+    animController.addListener(() {
       setState(() {});
     });
-    controller.forward();
+    animController.forward();
   }
 
   @override
@@ -50,7 +56,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.80,
+            width: MediaQuery.of(context).size.width * 0.82,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -58,7 +64,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(32, 22, 32, 22),
+              padding: const EdgeInsets.fromLTRB(22, 22, 22, 22),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -69,12 +75,71 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                   ),
                   Divider(color: Theme.of(context).focusColor),
                   Text(
-                    'This button will create deposit request for market,'
-                    ' add amount and send that message.',
+                    'Type the amount to deposit.',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: 18),
+                  TextField(
+                    controller: controller,
+                    keyboardType: TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                    style: TextStyle(
+                      color: Theme.of(context).focusColor,
+                    ),
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).focusColor,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).focusColor,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).focusColor,
+                        ),
+                      ),
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).focusColor,
+                      ),
+                      hoverColor: Theme.of(context).focusColor,
+                      fillColor: Theme.of(context).focusColor,
+                      focusColor: Theme.of(context).focusColor,
+                      suffixIcon: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.cancel_rounded),
+                            color: Theme.of(context).focusColor,
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.check_circle_rounded),
+                            color: Theme.of(context).focusColor,
+                          ),
+                        ],
+                      ),
+                    ),
+                    cursorColor: Theme.of(context).focusColor,
+                  ),
+                  SizedBox(height: 18),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('close'),
+                  ),
                 ],
               ),
             ),
