@@ -5,14 +5,9 @@ import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_10.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_5.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_7.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class ChatMessages extends StatefulWidget {
   final String adress;
@@ -30,25 +25,27 @@ class _ChatMessagesState extends State<ChatMessages> {
   Key startKey = UniqueKey();
 
   updateMessages() async {
-    messages = await Storage.loadMessages(widget.adress);
+    var curMessages = await Storage.loadMessages(widget.adress);
     var keys = await Storage.loadKeys();
     var loadedMessages = await InfoCalls.messages(widget.adress);
-    for (var i = messages.length; i < loadedMessages.length; i++) {
+    for (var i = curMessages.length; i < loadedMessages.length; i++) {
       var mes = loadedMessages[i].substring(0);
       var decrypted = await keys.message.private.decrypt(mes);
       Storage.addMessage(message: decrypted, adress: widget.adress);
-      messages.add(decrypted);
+      curMessages.add(decrypted);
     }
     if (mounted) {
-      messages = List.from(messages.reversed);
-      if (messages.length == 0) {
-        messages.add(
+      curMessages = List.from(curMessages.reversed);
+      if (curMessages.length == 0) {
+        curMessages.add(
           'Do not send your private key to anyone!\n'
           'Check market ratio, operation count and adress before'
           ' start of any transaction processing.',
         );
       }
-      setState(() {});
+      if (curMessages != messages) {
+        setState(() {});
+      }
     }
   }
 
