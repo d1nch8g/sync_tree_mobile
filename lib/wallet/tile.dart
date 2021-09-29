@@ -13,7 +13,7 @@ class WalletTile extends StatefulWidget {
 }
 
 class _WalletTileState extends State<WalletTile> {
-  double animatedHeight = 126;
+  double scale = 1;
   @override
   void initState() {
     super.initState();
@@ -23,7 +23,7 @@ class _WalletTileState extends State<WalletTile> {
     Future.delayed(Duration(milliseconds: 34), () {
       if (mounted) {
         setState(() {
-          animatedHeight = 126;
+          scale = 1;
         });
       }
     });
@@ -32,7 +32,7 @@ class _WalletTileState extends State<WalletTile> {
   decreaseContainer() {
     Future.delayed(Duration(milliseconds: 34), () {
       setState(() {
-        animatedHeight = 92;
+        scale = 0.75;
       });
     });
   }
@@ -92,19 +92,21 @@ class _WalletTileState extends State<WalletTile> {
               ),
             ],
           ),
-          CircleAvatar(
-            radius: 63,
-            backgroundColor: Theme.of(context).focusColor,
-            child: Container(
-              child: Hero(
-                tag: 'logo',
+          AnimatedScale(
+            scale: scale,
+            duration: Duration(milliseconds: 144),
+            curve: Curves.easeOut,
+            child: CircleAvatar(
+              radius: 63,
+              backgroundColor: Theme.of(context).focusColor,
+              child: Container(
                 child: CachedNetworkImage(
                   imageUrl: widget.info.imageLink,
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
+                height: 98,
               ),
-              height: 98,
             ),
           ),
         ],

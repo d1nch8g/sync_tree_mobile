@@ -155,7 +155,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                 ),
                 child: Text(
                   messages[index].substring(2),
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Theme.of(context).focusColor),
                 ),
               ),
             );
@@ -173,7 +173,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                 ),
                 child: Text(
                   messages[index],
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Theme.of(context).focusColor),
                 ),
               ),
             );
