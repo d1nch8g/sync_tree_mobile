@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_10.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_5.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_7.dart';
+import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -92,19 +96,23 @@ class _ChatMessagesState extends State<ChatMessages> {
           var mes = messages[index];
           if (mes.startsWith('DR')) {
             return ChatBubble(
-              clipper: ChatBubbleClipper10(
+              clipper: ChatBubbleClipper7(
                 type: BubbleType.sendBubble,
               ),
               alignment: Alignment.topRight,
               margin: EdgeInsets.only(top: 20),
-              backGroundColor: Theme.of(context).hoverColor,
+              backGroundColor: Color(0xff00E676),
               child: Container(
                 constraints: BoxConstraints(
                   maxWidth: MediaQuery.of(context).size.width * 0.7,
                 ),
                 child: Text(
-                  messages[index].substring(2),
-                  style: TextStyle(color: Colors.white),
+                  'Deposit request: ' +
+                      Balance.tooString(
+                        balance: int.parse(messages[index].substring(2)),
+                        delimiter: widget.delimiter,
+                      ),
+                  style: TextStyle(color: Theme.of(context).cardColor),
                 ),
               ),
             );
