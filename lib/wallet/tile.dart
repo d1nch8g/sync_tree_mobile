@@ -20,7 +20,7 @@ class _WalletTileState extends State<WalletTile> {
   }
 
   increaseContainer() {
-    Future.delayed(Duration(milliseconds: 34), () {
+    Future.delayed(Duration(milliseconds: 21), () {
       if (mounted) {
         setState(() {
           scale = 1;
@@ -30,7 +30,7 @@ class _WalletTileState extends State<WalletTile> {
   }
 
   decreaseContainer() {
-    Future.delayed(Duration(milliseconds: 34), () {
+    Future.delayed(Duration(milliseconds: 21), () {
       setState(() {
         scale = 0.75;
       });
@@ -94,8 +94,8 @@ class _WalletTileState extends State<WalletTile> {
           ),
           AnimatedScale(
             scale: scale,
-            duration: Duration(milliseconds: 144),
-            curve: Curves.easeOut,
+            duration: Duration(milliseconds: 244),
+            curve: Curves.decelerate,
             child: CircleAvatar(
               radius: 63,
               backgroundColor: Theme.of(context).focusColor,
