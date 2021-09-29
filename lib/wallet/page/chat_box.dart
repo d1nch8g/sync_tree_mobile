@@ -27,32 +27,17 @@ class ChatMessages extends StatefulWidget {
 
 class _ChatMessagesState extends State<ChatMessages> {
   List<String> messages = [];
+  Key startKey = UniqueKey();
 
   updateMessages() async {
     messages = await Storage.loadMessages(widget.adress);
     var keys = await Storage.loadKeys();
-    try {
-      var loadedMessages = await InfoCalls.messages(widget.adress);
-      for (var i = messages.length; i < loadedMessages.length; i++) {
-        var mes = loadedMessages[i].substring(0);
-        var decrypted = await keys.message.private.decrypt(mes);
-        Storage.addMessage(message: decrypted, adress: widget.adress);
-        messages.add(decrypted);
-      }
-    } catch (e) {
-      showTopSnackBar(
-        context,
-        CustomSnackBar.error(
-          message: 'Unable to load new messages!',
-          textStyle: Theme.of(context).textTheme.headline2!,
-          icon: const Icon(
-            Icons.message_rounded,
-            color: const Color(0x15000000),
-            size: 120,
-          ),
-          iconRotationAngle: 8,
-        ),
-      );
+    var loadedMessages = await InfoCalls.messages(widget.adress);
+    for (var i = messages.length; i < loadedMessages.length; i++) {
+      var mes = loadedMessages[i].substring(0);
+      var decrypted = await keys.message.private.decrypt(mes);
+      Storage.addMessage(message: decrypted, adress: widget.adress);
+      messages.add(decrypted);
     }
     if (mounted) {
       messages = List.from(messages.reversed);
@@ -89,96 +74,99 @@ class _ChatMessagesState extends State<ChatMessages> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.builder(
-        reverse: true,
-        padding: EdgeInsets.all(2),
-        itemCount: messages.length,
-        itemBuilder: (context, index) {
-          var mes = messages[index];
-          if (mes.startsWith('DR')) {
-            return ChatBubble(
-              clipper: ChatBubbleClipper4(
-                type: BubbleType.sendBubble,
-              ),
-              alignment: Alignment.topRight,
-              margin: EdgeInsets.only(top: 20),
-              backGroundColor: Color(0xff00E676),
-              child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+      child: AnimatedSwitcher(
+        duration: Duration(milliseconds: 377),
+        child: ListView.builder(
+          reverse: true,
+          padding: EdgeInsets.all(2),
+          itemCount: messages.length,
+          itemBuilder: (context, index) {
+            var mes = messages[index];
+            if (mes.startsWith('DR')) {
+              return ChatBubble(
+                clipper: ChatBubbleClipper4(
+                  type: BubbleType.sendBubble,
                 ),
-                child: Text(
-                  'Deposit request: ' +
-                      Balance.tooString(
-                        balance: int.parse(messages[index].substring(2)),
-                        delimiter: widget.delimiter,
-                      ),
-                  style: TextStyle(color: Theme.of(context).cardColor),
+                alignment: Alignment.topRight,
+                margin: EdgeInsets.only(top: 20),
+                backGroundColor: Color(0xff00E676),
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.7,
+                  ),
+                  child: Text(
+                    'Deposit request: ' +
+                        Balance.tooString(
+                          balance: int.parse(messages[index].substring(2)),
+                          delimiter: widget.delimiter,
+                        ),
+                    style: TextStyle(color: Theme.of(context).cardColor),
+                  ),
                 ),
-              ),
-            );
-          }
-          if (mes.startsWith('WR')) {
-            return ChatBubble(
-              clipper: ChatBubbleClipper4(
-                type: BubbleType.sendBubble,
-              ),
-              alignment: Alignment.topRight,
-              margin: EdgeInsets.only(top: 20),
-              backGroundColor: Theme.of(context).hintColor,
-              child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+              );
+            }
+            if (mes.startsWith('WR')) {
+              return ChatBubble(
+                clipper: ChatBubbleClipper4(
+                  type: BubbleType.sendBubble,
                 ),
-                child: Text(
-                  'Withdrawal request: ' +
-                      Balance.tooString(
-                        balance: int.parse(messages[index].substring(2)),
-                        delimiter: widget.delimiter,
-                      ),
-                  style: TextStyle(color: Theme.of(context).cardColor),
+                alignment: Alignment.topRight,
+                margin: EdgeInsets.only(top: 20),
+                backGroundColor: Theme.of(context).hintColor,
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.7,
+                  ),
+                  child: Text(
+                    'Withdrawal request: ' +
+                        Balance.tooString(
+                          balance: int.parse(messages[index].substring(2)),
+                          delimiter: widget.delimiter,
+                        ),
+                    style: TextStyle(color: Theme.of(context).cardColor),
+                  ),
                 ),
-              ),
-            );
-          }
-          if (mes.startsWith('uu')) {
-            return ChatBubble(
-              clipper: ChatBubbleClipper10(
-                type: BubbleType.sendBubble,
-              ),
-              alignment: Alignment.topRight,
-              margin: EdgeInsets.only(top: 20),
-              backGroundColor: Theme.of(context).hoverColor,
-              child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+              );
+            }
+            if (mes.startsWith('uu')) {
+              return ChatBubble(
+                clipper: ChatBubbleClipper10(
+                  type: BubbleType.sendBubble,
                 ),
-                child: Text(
-                  messages[index].substring(2),
-                  style: TextStyle(color: Theme.of(context).focusColor),
+                alignment: Alignment.topRight,
+                margin: EdgeInsets.only(top: 20),
+                backGroundColor: Theme.of(context).hoverColor,
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.7,
+                  ),
+                  child: Text(
+                    messages[index].substring(2),
+                    style: TextStyle(color: Theme.of(context).focusColor),
+                  ),
                 ),
-              ),
-            );
-          } else {
-            return ChatBubble(
-              clipper: ChatBubbleClipper10(
-                type: BubbleType.receiverBubble,
-              ),
-              alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(top: 20),
-              backGroundColor: Theme.of(context).cardColor,
-              child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+              );
+            } else {
+              return ChatBubble(
+                clipper: ChatBubbleClipper10(
+                  type: BubbleType.receiverBubble,
                 ),
-                child: Text(
-                  messages[index],
-                  style: TextStyle(color: Theme.of(context).focusColor),
+                alignment: Alignment.topLeft,
+                margin: EdgeInsets.only(top: 20),
+                backGroundColor: Theme.of(context).cardColor,
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.7,
+                  ),
+                  child: Text(
+                    messages[index],
+                    style: TextStyle(color: Theme.of(context).focusColor),
+                  ),
                 ),
-              ),
-            );
-          }
-        },
+              );
+            }
+          },
+        ),
       ),
     );
   }
