@@ -7,6 +7,7 @@ import 'package:sync_tree_mobile_ui/wallet/page/chat_box.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/chat_input.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/deposit.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/info.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/withdrawal.dart';
 
 class ConnectedWalletPage extends StatefulWidget {
   final MarketInfo info;
@@ -93,9 +94,8 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
               ),
               Expanded(
                 child: Center(
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text('withdrawal'),
+                  child: WithdrawalButton(
+                    info: widget.info,
                   ),
                 ),
               ),

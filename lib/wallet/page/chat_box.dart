@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_10.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_5.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_7.dart';
@@ -96,7 +97,7 @@ class _ChatMessagesState extends State<ChatMessages> {
           var mes = messages[index];
           if (mes.startsWith('DR')) {
             return ChatBubble(
-              clipper: ChatBubbleClipper7(
+              clipper: ChatBubbleClipper4(
                 type: BubbleType.sendBubble,
               ),
               alignment: Alignment.topRight,
@@ -108,6 +109,29 @@ class _ChatMessagesState extends State<ChatMessages> {
                 ),
                 child: Text(
                   'Deposit request: ' +
+                      Balance.tooString(
+                        balance: int.parse(messages[index].substring(2)),
+                        delimiter: widget.delimiter,
+                      ),
+                  style: TextStyle(color: Theme.of(context).cardColor),
+                ),
+              ),
+            );
+          }
+          if (mes.startsWith('WR')) {
+            return ChatBubble(
+              clipper: ChatBubbleClipper4(
+                type: BubbleType.sendBubble,
+              ),
+              alignment: Alignment.topRight,
+              margin: EdgeInsets.only(top: 20),
+              backGroundColor: Theme.of(context).hintColor,
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                ),
+                child: Text(
+                  'Withdrawal request: ' +
                       Balance.tooString(
                         balance: int.parse(messages[index].substring(2)),
                         delimiter: widget.delimiter,
@@ -130,7 +154,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                   maxWidth: MediaQuery.of(context).size.width * 0.7,
                 ),
                 child: Text(
-                  messages[index].substring(1),
+                  messages[index].substring(2),
                   style: TextStyle(color: Colors.white),
                 ),
               ),

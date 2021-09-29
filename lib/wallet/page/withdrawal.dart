@@ -9,9 +9,9 @@ import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-class DepositButton extends StatelessWidget {
+class WithdrawalButton extends StatelessWidget {
   final MarketInfo info;
-  DepositButton({required this.info});
+  WithdrawalButton({required this.info});
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -19,26 +19,26 @@ class DepositButton extends StatelessWidget {
         resizekb = false;
         showDialog(
           context: context,
-          builder: (_) => DepositOverlay(
+          builder: (_) => WithdrawalOverlay(
             info: info,
           ),
         ).whenComplete(() {
           resizekb = true;
         });
       },
-      child: Text('deposit'),
+      child: Text('withdrawal'),
     );
   }
 }
 
-class DepositOverlay extends StatefulWidget {
+class WithdrawalOverlay extends StatefulWidget {
   final MarketInfo info;
-  DepositOverlay({required this.info});
+  WithdrawalOverlay({required this.info});
   @override
-  State<StatefulWidget> createState() => DepositOverlayState();
+  State<StatefulWidget> createState() => WithdrawalOverlayState();
 }
 
-class DepositOverlayState extends State<DepositOverlay>
+class WithdrawalOverlayState extends State<WithdrawalOverlay>
     with SingleTickerProviderStateMixin {
   late AnimationController animController;
   late Animation<double> scaleAnimation;
@@ -58,7 +58,7 @@ class DepositOverlayState extends State<DepositOverlay>
       balance: controller.text,
       delimiter: widget.info.delimiter,
     );
-    var mes = 'DR$bal';
+    var mes = 'WR$bal';
     var delivered = await UserCalls.message(
       marketAdress: widget.info.adress,
       marketMesKey: Uint8List.fromList(widget.info.messageKey),
@@ -66,13 +66,14 @@ class DepositOverlayState extends State<DepositOverlay>
     );
     if (delivered) {
       Storage.addMessage(
-        message: 'DR$bal',
+        message: 'WR$bal',
         adress: widget.info.adress,
       );
       showTopSnackBar(
         context,
         CustomSnackBar.success(
-          message: 'Deposit request delivered!',
+          message: 'Withdrawal request delivered!',
+          backgroundColor: Theme.of(context).hintColor,
           textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );
@@ -119,7 +120,7 @@ class DepositOverlayState extends State<DepositOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'DEPOSIT',
+                    'WITHDRAWAL',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline1,
                   ),
