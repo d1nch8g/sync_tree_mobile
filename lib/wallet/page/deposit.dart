@@ -1,7 +1,17 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/balance.dart';
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
+import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class DepositButton extends StatelessWidget {
+  final MarketInfo info;
+  DepositButton({required this.info});
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -9,7 +19,9 @@ class DepositButton extends StatelessWidget {
         resizekb = false;
         showDialog(
           context: context,
-          builder: (_) => GetAdressOverlay(),
+          builder: (_) => GetAdressOverlay(
+            info: info,
+          ),
         ).whenComplete(() {
           resizekb = true;
         });
@@ -20,6 +32,8 @@ class DepositButton extends StatelessWidget {
 }
 
 class GetAdressOverlay extends StatefulWidget {
+  final MarketInfo info;
+  GetAdressOverlay({required this.info});
   @override
   State<StatefulWidget> createState() => GetAdressOverlayState();
 }
@@ -29,7 +43,43 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
   late AnimationController animController;
   late Animation<double> scaleAnimation;
   final TextEditingController controller = TextEditingController();
-  
+
+  void deposit(context) async {
+    if (controller.text == '') {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: 'No input sum!',
+          textStyle: Theme.of(context).textTheme.headline2!,
+        ),
+      );
+    }
+    var bal = Balance.fromString(
+      balance: controller.text,
+      delimiter: widget.info.delimiter,
+    );
+    var mes = 'DR$bal';
+    var delivered = await UserCalls.message(
+      marketAdress: widget.info.adress,
+      marketMesKey: Uint8List.fromList(widget.info.messageKey),
+      message: mes,
+    );
+    if (delivered) {
+      Storage.addMessage(
+        message: 'DR$bal',
+        adress: widget.info.adress,
+      );
+      showTopSnackBar(
+        context,
+        CustomSnackBar.success(
+          message: 'Deposit request delivered!',
+          textStyle: Theme.of(context).textTheme.headline2!,
+        ),
+      );
+      Navigator.pop(context);
+      return;
+    }
+  }
 
   @override
   void initState() {
@@ -75,7 +125,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                   ),
                   Divider(color: Theme.of(context).focusColor),
                   Text(
-                    'Type the amount to deposit.',
+                    'Enter amount.',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),
@@ -113,22 +163,12 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                       hoverColor: Theme.of(context).focusColor,
                       fillColor: Theme.of(context).focusColor,
                       focusColor: Theme.of(context).focusColor,
-                      suffixIcon: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(Icons.cancel_rounded),
-                            color: Theme.of(context).focusColor,
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.check_circle_rounded),
-                            color: Theme.of(context).focusColor,
-                          ),
-                        ],
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          deposit(context);
+                        },
+                        icon: Icon(Icons.check_circle_rounded),
+                        color: Theme.of(context).focusColor,
                       ),
                     ),
                     cursorColor: Theme.of(context).focusColor,

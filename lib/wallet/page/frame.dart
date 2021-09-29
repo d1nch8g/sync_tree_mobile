@@ -5,8 +5,8 @@ import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/chat_box.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/chat_input.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/deposit.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/info.dart';
-import 'package:sync_tree_mobile_ui/wallet/page/buttons.dart';
 
 class ConnectedWalletPage extends StatefulWidget {
   final MarketInfo info;
@@ -58,7 +58,10 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
             bottom: false,
           ),
           Divider(color: Theme.of(context).focusColor),
-          ChatMessages(adress: widget.info.adress),
+          ChatMessages(
+            adress: widget.info.adress,
+            delimiter: widget.info.delimiter,
+          ),
           Divider(color: Theme.of(context).focusColor),
           ChatTextField(
             marketAdress: widget.info.adress,
@@ -69,10 +72,34 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
             curve: Curves.easeOutCubic,
             height: kbsize,
           ),
-          WalletOperations(
-            closeWallet: () {
-              widget.closeContainer();
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                child: Center(
+                  child: DepositButton(
+                    info: widget.info,
+                  ),
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  widget.closeContainer();
+                },
+                iconSize: 52,
+                color: Theme.of(context).focusColor,
+                splashRadius: 38,
+                icon: Icon(Icons.arrow_drop_down_circle_rounded),
+              ),
+              Expanded(
+                child: Center(
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Text('withdrawal'),
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(
             height: bottomNavBarPadHeight,

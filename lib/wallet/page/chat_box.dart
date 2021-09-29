@@ -11,7 +11,11 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class ChatMessages extends StatefulWidget {
   final String adress;
-  ChatMessages({required this.adress});
+  final int delimiter;
+  ChatMessages({
+    required this.adress,
+    required this.delimiter,
+  });
   @override
   State<ChatMessages> createState() => _ChatMessagesState();
 }
@@ -86,7 +90,26 @@ class _ChatMessagesState extends State<ChatMessages> {
         itemCount: messages.length,
         itemBuilder: (context, index) {
           var mes = messages[index];
-          if (mes.startsWith('u')) {
+          if (mes.startsWith('DR')) {
+            return ChatBubble(
+              clipper: ChatBubbleClipper10(
+                type: BubbleType.sendBubble,
+              ),
+              alignment: Alignment.topRight,
+              margin: EdgeInsets.only(top: 20),
+              backGroundColor: Theme.of(context).hoverColor,
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width * 0.7,
+                ),
+                child: Text(
+                  messages[index].substring(2),
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            );
+          }
+          if (mes.startsWith('uu')) {
             return ChatBubble(
               clipper: ChatBubbleClipper10(
                 type: BubbleType.sendBubble,
