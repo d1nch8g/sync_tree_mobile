@@ -43,7 +43,8 @@ class _ChatMessagesState extends State<ChatMessages> {
           ' start of any transaction processing.',
         );
       }
-      if (curMessages != messages) {
+      if (curMessages.length != messages.length) {
+        messages = curMessages;
         setState(() {});
       }
     }
@@ -53,7 +54,6 @@ class _ChatMessagesState extends State<ChatMessages> {
     const oneSec = Duration(seconds: 1);
     Timer.periodic(oneSec, (Timer t) {
       if (mounted) {
-        print('updaing');
         updateMessages();
       } else {
         t.cancel();
@@ -74,6 +74,7 @@ class _ChatMessagesState extends State<ChatMessages> {
       child: AnimatedSwitcher(
         duration: Duration(milliseconds: 377),
         child: ListView.builder(
+          key: UniqueKey(),
           reverse: true,
           padding: EdgeInsets.all(2),
           itemCount: messages.length,

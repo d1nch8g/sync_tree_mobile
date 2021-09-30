@@ -53,11 +53,23 @@ class WithdrawalOverlayState extends State<WithdrawalOverlay>
           textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );
+      return;
     }
     var bal = Balance.fromString(
       balance: controller.text,
       delimiter: widget.info.delimiter,
     );
+    var balStorage = await Storage.loadMarketBalance(widget.info.adress);
+    if (balStorage < bal) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: 'Not enough for withdrawal!',
+          textStyle: Theme.of(context).textTheme.headline2!,
+        ),
+      );
+      return;
+    }
     var mes = 'WR$bal';
     var delivered = await UserCalls.message(
       marketAdress: widget.info.adress,
