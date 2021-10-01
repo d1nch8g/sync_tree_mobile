@@ -143,7 +143,7 @@ class MarketHelpOverlayState extends State<MarketHelpOverlay>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'MARKET INFO',
+                    'INFO',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline1,
                   ),
@@ -152,7 +152,12 @@ class MarketHelpOverlayState extends State<MarketHelpOverlay>
                     height: MediaQuery.of(context).size.height * 0.32,
                     child: SingleChildScrollView(
                       child: Text(
-                        ' This is wallet page. Here you can find all of your connected wallets and ',
+                        '   This is wallet page. Here you can find all of your connected wallets and process different operaions related to that markets.\n   Please! Check markets wether you trust them or not, you can check those parameters:\n'
+                        '•‎ Market name\n'
+                        '•‎ Market adress\n'
+                        '•‎ Operation count\n'
+                        'Market names and adresses are always unique, but '
+                        'criminals can try to fake it. Check them patiently.',
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.fade,
                         style: Theme.of(context).textTheme.bodyText2,
