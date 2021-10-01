@@ -47,11 +47,6 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
         duration: Duration(milliseconds: 320),
         curve: Curves.easeOut,
       );
-      if (index == 2) {
-        button = Container();
-      } else {
-        button = FloatingButton(closeContainer: widget.closeContainer);
-      }
     });
   }
 
@@ -119,13 +114,6 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
             height: kbsize,
           ),
         ],
-      ),
-      floatingActionButton: AnimatedSwitcher(
-        duration: Duration(milliseconds: 610),
-        child: Align(
-          alignment: Alignment.bottomRight,
-          child: button,
-        ),
       ),
       bottomNavigationBar: FloatingNavbar(
         backgroundColor: Theme.of(context).cardColor,

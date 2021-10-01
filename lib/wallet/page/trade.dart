@@ -19,14 +19,14 @@ class TradePage extends StatelessWidget {
         Divider(color: Theme.of(context).focusColor),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(14.0),
             child: SingleChildScrollView(
               child: Text(
-                'You can place buy and sell orders on this page. '
+                '   You can place buy and sell orders on this page. '
                 'You need to set the offer and recieve amounts to '
                 'place the order. If order is not operated instantly, '
                 'you can cancel it any time you want. You can not place '
-                'more then order lump sum.',
+                'more then order at the same time.',
                 style: Theme.of(context).textTheme.bodyText2,
                 softWrap: true,
                 overflow: TextOverflow.fade,
