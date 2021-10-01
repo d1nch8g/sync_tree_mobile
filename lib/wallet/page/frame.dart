@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/info.dart';
 
 class ConnectedWalletPage extends StatefulWidget {
   final MarketInfo info;
@@ -18,14 +21,35 @@ bool resizekb = true;
 
 class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
   int curIdx = 0;
-  final double iconSize = 36;
-  final double spaceBetweenIcons = 18;
+  String balance = '0';
+
+  updateBalance() async {
+    balance = await Balance.marketBalance(
+      adress: widget.info.adress,
+      delimiter: widget.info.delimiter,
+    );
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateBalance();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          TopLogoBalance(
+            balance: balance,
+            info: widget.info,
+          ),
+        ],
+      ),
       floatingActionButton: IconButton(
         icon: Icon(Icons.cancel),
         iconSize: 42,
@@ -66,54 +90,50 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
   }
 }
 
-class NewWidget extends StatelessWidget {
-  const NewWidget({
+class TopLogoBalance extends StatelessWidget {
+  const TopLogoBalance({
     Key? key,
-    required this.iconSize,
-    required this.spaceBetweenIcons,
-    required this.widget,
+    required this.info,
+    required this.balance,
   }) : super(key: key);
 
-  final double iconSize;
-  final double spaceBetweenIcons;
-  final ConnectedWalletPage widget;
+  final MarketInfo info;
+  final String balance;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(height: 9),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.info),
-          iconSize: iconSize,
-          color: Colors.white,
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              children: [
+                SizedBox(width: 8),
+                CachedNetworkImage(
+                  imageUrl: info.imageLink,
+                  placeholder: (context, url) => CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  width: 48,
+                ),
+                SizedBox(width: 18),
+                Text(
+                  info.name,
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                Spacer(),
+                Text(
+                  balance,
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+                SizedBox(width: 8),
+              ],
+            ),
+            Divider(color: Theme.of(context).focusColor)
+          ],
         ),
-        SizedBox(height: spaceBetweenIcons),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.chat),
-          iconSize: iconSize,
-          color: Colors.white,
-        ),
-        SizedBox(height: spaceBetweenIcons),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.query_stats_rounded),
-          iconSize: iconSize,
-          color: Colors.white,
-        ),
-        SizedBox(height: spaceBetweenIcons),
-        IconButton(
-          onPressed: () {
-            widget.closeContainer();
-          },
-          icon: Icon(Icons.cancel_rounded),
-          iconSize: iconSize,
-          color: Colors.white,
-        ),
-      ],
+      ),
     );
   }
 }
