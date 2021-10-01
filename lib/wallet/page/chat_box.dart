@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_10.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
@@ -23,6 +22,9 @@ class ChatMessages extends StatefulWidget {
 class _ChatMessagesState extends State<ChatMessages> {
   List<String> messages = [];
   Key startKey = UniqueKey();
+  String firstMessage = 'Do not send your private key to anyone!\n'
+      'Check market ratio, operation count and adress before'
+      ' start of any transaction processing.';
 
   updateMessages() async {
     var curMessages = await Storage.loadMessages(widget.adress);
@@ -37,11 +39,7 @@ class _ChatMessagesState extends State<ChatMessages> {
     if (mounted) {
       curMessages = List.from(curMessages.reversed);
       if (curMessages.length == 0) {
-        curMessages.add(
-          'Do not send your private key to anyone!\n'
-          'Check market ratio, operation count and adress before'
-          ' start of any transaction processing.',
-        );
+        curMessages.add(firstMessage);
       }
       if (curMessages.length != messages.length) {
         messages = curMessages;
@@ -128,7 +126,7 @@ class _ChatMessagesState extends State<ChatMessages> {
             }
             if (mes.startsWith('uu')) {
               return ChatBubble(
-                clipper: ChatBubbleClipper10(
+                clipper: ChatBubbleClipper4(
                   type: BubbleType.sendBubble,
                 ),
                 alignment: Alignment.topRight,
@@ -146,7 +144,7 @@ class _ChatMessagesState extends State<ChatMessages> {
               );
             } else {
               return ChatBubble(
-                clipper: ChatBubbleClipper10(
+                clipper: ChatBubbleClipper4(
                   type: BubbleType.receiverBubble,
                 ),
                 alignment: Alignment.topLeft,
