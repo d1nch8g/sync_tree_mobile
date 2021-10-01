@@ -35,11 +35,18 @@ class _SearchLogoState extends State<SearchLogo> {
               style: Theme.of(context).textTheme.headline5,
             ),
             Text(
-              'Connected: 2',
+              'Owned: 1',
               textAlign: TextAlign.left,
               style: Theme.of(context).textTheme.headline5,
             ),
           ],
+        ),
+        Spacer(),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(
+            Icons.help_rounded,
+          ),
         ),
       ],
     );
