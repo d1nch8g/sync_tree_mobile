@@ -22,8 +22,11 @@ class TradePage extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
               child: Text(
-                'You can place buy and sell orders on this page.'
-                '',
+                'You can place buy and sell orders on this page. '
+                'You need to set the offer and recieve amounts to '
+                'place the order. If order is not operated instantly, '
+                'you can cancel it any time you want. You can not place '
+                'more then order lump sum.',
                 style: Theme.of(context).textTheme.bodyText2,
                 softWrap: true,
                 overflow: TextOverflow.fade,
