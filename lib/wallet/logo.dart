@@ -152,16 +152,7 @@ class MarketHelpOverlayState extends State<MarketHelpOverlay>
                     height: MediaQuery.of(context).size.height * 0.32,
                     child: SingleChildScrollView(
                       child: Text(
-                        ' This is market search page. Here you can find new '
-                        'markets, connect them (attach as a wallet), place '
-                        'buy or sell orders and cancel active orders. '
-                        'Be carefull, buy only trusted assets, on markets '
-                        'which are verified.\n'
-                        ' Sync tree system provides conditions for all markets '
-                        'equally, without any fee and blocking policy, but '
-                        'the resposibility for traded assets is laying on '
-                        'users.\n'
-                        ' Be sure to double check your markets.',
+                        ' This is wallet page. Here you can find all of your connected wallets and ',
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.fade,
                         style: Theme.of(context).textTheme.bodyText2,
