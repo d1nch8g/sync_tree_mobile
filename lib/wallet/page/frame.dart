@@ -88,12 +88,12 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
             backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(
-            label: 'io',
+            label: 'deposit',
             icon: Icon(Icons.change_circle_rounded),
             backgroundColor: Theme.of(context).backgroundColor,
           ),
           BottomNavigationBarItem(
-            label: 'settings',
+            label: 'market',
             icon: Icon(Icons.settings),
             backgroundColor: Theme.of(context).backgroundColor,
           ),
