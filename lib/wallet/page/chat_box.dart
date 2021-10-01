@@ -22,9 +22,10 @@ class ChatMessages extends StatefulWidget {
 class _ChatMessagesState extends State<ChatMessages> {
   List<String> messages = [];
   Key startKey = UniqueKey();
-  String firstMessage = 'Do not send your private key to anyone!\n'
-      'Check market ratio, operation count and adress before'
-      ' start of any transaction processing.';
+  String firstMessage = 'This is market page. Here you can process deposit'
+      ' and withdrawal operations. Before start of any transaction processing '
+      'check market ratio and operation count. The decision to trust is on '
+      'your own risk!';
 
   updateMessages() async {
     var curMessages = await Storage.loadMessages(widget.adress);
@@ -41,7 +42,8 @@ class _ChatMessagesState extends State<ChatMessages> {
       if (curMessages.length == 0) {
         curMessages.add(firstMessage);
       }
-      if (curMessages.length != messages.length) {
+      if (curMessages.length != messages.length ||
+          curMessages[0] != messages[0]) {
         messages = curMessages;
         setState(() {});
       }
