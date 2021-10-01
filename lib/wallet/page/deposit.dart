@@ -169,11 +169,6 @@ class DepositOverlayState extends State<DepositOverlay>
                     style: Theme.of(context).textTheme.headline1,
                   ),
                   Divider(color: Theme.of(context).focusColor),
-                  Text(
-                    'Enter amount.',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
                   SizedBox(height: 18),
                   TextField(
                     controller: controller,
@@ -363,11 +358,6 @@ class WithdrawalOverlayState extends State<WithdrawalOverlay>
                     style: Theme.of(context).textTheme.headline1,
                   ),
                   Divider(color: Theme.of(context).focusColor),
-                  Text(
-                    'Enter amount.',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
                   SizedBox(height: 18),
                   TextField(
                     controller: controller,
@@ -399,6 +389,8 @@ class WithdrawalOverlayState extends State<WithdrawalOverlay>
                       labelStyle: TextStyle(
                         color: Theme.of(context).focusColor,
                       ),
+                      hintText: 'enter amount',
+                      hintStyle: Theme.of(context).textTheme.overline,
                       hoverColor: Theme.of(context).focusColor,
                       fillColor: Theme.of(context).focusColor,
                       focusColor: Theme.of(context).focusColor,
