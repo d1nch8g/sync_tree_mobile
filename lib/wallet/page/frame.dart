@@ -76,28 +76,29 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Expanded(
-                child: Center(
-                  child: DepositButton(
-                    info: widget.info,
-                  ),
-                ),
+              IconButton(
+                onPressed: () {},
+                iconSize: 48,
+                color: Theme.of(context).focusColor,
+                splashRadius: 38,
+                icon: Icon(Icons.info_rounded),
+              ),
+              LowIconBuilder(
+                icon: Icons.chat,
+                onPressed: () {},
+              ),
+              LowIconBuilder(
+                icon: Icons.bar_chart_rounded,
+                onPressed: () {},
               ),
               IconButton(
                 onPressed: () {
                   widget.closeContainer();
                 },
-                iconSize: 52,
+                iconSize: 48,
                 color: Theme.of(context).focusColor,
                 splashRadius: 38,
-                icon: Icon(Icons.arrow_drop_down_circle_rounded),
-              ),
-              Expanded(
-                child: Center(
-                  child: WithdrawalButton(
-                    info: widget.info,
-                  ),
-                ),
+                icon: Icon(Icons.cancel_rounded),
               ),
             ],
           ),
@@ -105,6 +106,32 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
             height: bottomNavBarPadHeight,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class LowIconBuilder extends StatelessWidget {
+  final IconData icon;
+  final Function onPressed;
+  LowIconBuilder({
+    required this.icon,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      radius: 22,
+      backgroundColor: Theme.of(context).focusColor,
+      child: IconButton(
+        onPressed: () {
+          onPressed();
+        },
+        iconSize: 25,
+        color: Theme.of(context).backgroundColor,
+        splashRadius: 38,
+        icon: Icon(icon),
       ),
     );
   }

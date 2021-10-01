@@ -3,9 +3,11 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:sync_tree_mobile_ui/market/tile.dart';
 
 class MarketList extends StatelessWidget {
+  final Key key;
   final List<String> marketAdresses;
   MarketList({
     required this.marketAdresses,
+    required this.key,
   });
   @override
   Widget build(BuildContext context) {

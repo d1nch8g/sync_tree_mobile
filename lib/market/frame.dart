@@ -18,18 +18,34 @@ class _MarketPageState extends State<MarketPage> {
   double height = 0;
   double bottomNavBarPadHeight = 0;
   List<String> markets = [];
+  int connected = 0;
+  int owned = 0;
 
   void updateMarketList() async {
     try {
       controller.text = await Storage.loadSeachCache();
       markets = await InfoCalls.searchMarkets(controller.text);
+      connected = 0;
+      owned = 0;
       if (markets.length == 0) {
         setState(() {
           mainSearchWidget = NoSearchResults();
         });
       } else {
         setState(() {
-          mainSearchWidget = MarketList(marketAdresses: markets);
+          mainSearchWidget = MarketList(
+            key: UniqueKey(),
+            marketAdresses: markets,
+          );
+        });
+        markets.forEach((element) async {
+          if (await Storage.checkIfMarketConnected(element)) {
+            connected += 1;
+          }
+          var bal = await Storage.loadMarketBalance(element);
+          if (bal != 0) {
+            owned += 1;
+          }
         });
       }
     } catch (e) {
@@ -59,8 +75,10 @@ class _MarketPageState extends State<MarketPage> {
     return SafeArea(
       child: Column(
         children: [
-          SearchLogo(
+          MarketLogo(
             marketAdresses: markets,
+            connected: connected,
+            owned: owned,
           ),
           Divider(color: Theme.of(context).cardColor),
           Expanded(

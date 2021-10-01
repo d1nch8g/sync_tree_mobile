@@ -1,39 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 
-class SearchLogo extends StatefulWidget {
+class MarketLogo extends StatelessWidget {
   final List<String> marketAdresses;
-  SearchLogo({required this.marketAdresses});
-  @override
-  _SearchLogoState createState() => _SearchLogoState();
-}
-
-class _SearchLogoState extends State<SearchLogo> {
-  int owned = 0;
-  int connected = 0;
-
-  updateAdresses() {
-    widget.marketAdresses.forEach((adress) async {
-      var isConnected = await Storage.checkIfMarketConnected(adress);
-      var loadedBalance = await Storage.loadMarketBalance(adress);
-      if (isConnected) {
-        setState(() {
-          connected += 1;
-        });
-      }
-      if (loadedBalance != 0) {
-        setState(() {
-          owned += 1;
-        });
-      }
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    updateAdresses();
-  }
+  final int connected;
+  final int owned;
+  MarketLogo({
+    required this.marketAdresses,
+    required this.connected,
+    required this.owned,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +32,7 @@ class _SearchLogoState extends State<SearchLogo> {
             AnimatedSwitcher(
               duration: Duration(milliseconds: 377),
               child: Text(
-                'Found: ${widget.marketAdresses.length}',
+                'Found: ${marketAdresses.length}',
                 key: UniqueKey(),
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.headline5,
