@@ -17,11 +17,12 @@ class _MarketPageState extends State<MarketPage> {
   Widget mainSearchWidget = Center();
   double height = 0;
   double bottomNavBarPadHeight = 0;
+  List<String> markets = [];
 
   void updateMarketList() async {
     try {
       controller.text = await Storage.loadSeachCache();
-      var markets = await InfoCalls.searchMarkets(controller.text);
+      markets = await InfoCalls.searchMarkets(controller.text);
       if (markets.length == 0) {
         setState(() {
           mainSearchWidget = NoSearchResults();
@@ -58,7 +59,9 @@ class _MarketPageState extends State<MarketPage> {
     return SafeArea(
       child: Column(
         children: [
-          SearchLogo(),
+          SearchLogo(
+            marketAdresses: markets,
+          ),
           Divider(color: Theme.of(context).cardColor),
           Expanded(
             child: AnimatedSwitcher(
