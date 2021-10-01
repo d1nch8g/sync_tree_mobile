@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/deposit.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/info.dart';
@@ -25,6 +26,11 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
   late PageController bottomBarController;
   String balance = '0';
   Widget button = Container();
+  double bottomNavBarPadHeight = 0;
+
+  updateBottomHeight() async {
+    bottomNavBarPadHeight = await Storage.loadBottomPadding();
+  }
 
   @override
   void dispose() {
@@ -58,6 +64,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
 
   @override
   void initState() {
+    updateBottomHeight();
     button = FloatingButton(closeContainer: widget.closeContainer);
     super.initState();
     updateBalance();
@@ -68,6 +75,10 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
 
   @override
   Widget build(BuildContext context) {
+    var kbsize = MediaQuery.of(context).viewInsets.bottom;
+    if (kbsize > 0) {
+      kbsize = kbsize - kBottomNavigationBarHeight - 120;
+    }
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: false,
@@ -97,6 +108,11 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
                 ],
               ),
             ),
+          ),
+          AnimatedContainer(
+            duration: Duration(milliseconds: 377),
+            curve: Curves.ease,
+            height: kbsize,
           ),
         ],
       ),
