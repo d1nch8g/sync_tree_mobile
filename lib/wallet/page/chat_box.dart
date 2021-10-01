@@ -29,9 +29,9 @@ class _ChatMessagesState extends State<ChatMessages> {
       'your own risk!';
 
   updateMessages() async {
-    var curMessages = await Storage.loadMessages(widget.adress);
     var keys = await Storage.loadKeys();
     var loadedMessages = await InfoCalls.messages(widget.adress);
+    var curMessages = await Storage.loadMessages(widget.adress);
     if (loadedMessages.length > curMessages.length) {
       for (var i = curMessages.length; i < loadedMessages.length; i++) {
         var mes = loadedMessages[i].substring(0);
