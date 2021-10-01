@@ -197,6 +197,7 @@ class DepositOverlayState extends State<DepositOverlay>
                           color: Theme.of(context).focusColor,
                         ),
                       ),
+                      labelText: 'enter amount',
                       labelStyle: TextStyle(
                         color: Theme.of(context).focusColor,
                       ),
@@ -265,7 +266,7 @@ class WithdrawalOverlayState extends State<WithdrawalOverlay>
   late Animation<double> scaleAnimation;
   final TextEditingController controller = TextEditingController();
 
-  void deposit(context) async {
+  void withdrawal(context) async {
     if (controller.text == '') {
       showTopSnackBar(
         context,
@@ -386,17 +387,17 @@ class WithdrawalOverlayState extends State<WithdrawalOverlay>
                           color: Theme.of(context).focusColor,
                         ),
                       ),
+                      labelText: 'enter amount',
                       labelStyle: TextStyle(
                         color: Theme.of(context).focusColor,
                       ),
-                      hintText: 'enter amount',
                       hintStyle: Theme.of(context).textTheme.overline,
                       hoverColor: Theme.of(context).focusColor,
                       fillColor: Theme.of(context).focusColor,
                       focusColor: Theme.of(context).focusColor,
                       suffixIcon: IconButton(
                         onPressed: () {
-                          deposit(context);
+                          withdrawal(context);
                         },
                         icon: Icon(Icons.check_circle_rounded),
                         color: Theme.of(context).focusColor,

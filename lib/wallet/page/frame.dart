@@ -6,6 +6,7 @@ import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/deposit.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/info.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/trade.dart';
 
 class ConnectedWalletPage extends StatefulWidget {
   final MarketInfo info;
@@ -79,6 +80,9 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
     if (kbsize > 0) {
       kbsize = kbsize - kBottomNavigationBarHeight - 120;
     }
+    if (resizekb == false) {
+      kbsize = 0;
+    }
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: false,
@@ -98,7 +102,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
                 },
                 children: <Widget>[
                   InfoPage(info: widget.info),
-                  Container(),
+                  TradePage(info: widget.info),
                   DepositPage(
                     info: widget.info,
                     closeContainer: () {
