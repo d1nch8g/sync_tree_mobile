@@ -52,7 +52,7 @@ class _WalletLogoState extends State<WalletLogo> {
             AnimatedSwitcher(
               duration: Duration(milliseconds: 377),
               child: Text(
-                'SyncTree balance: $mainBalance',
+                'Balance: $mainBalance',
                 key: UniqueKey(),
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.headline5,
@@ -164,6 +164,7 @@ class MarketHelpOverlayState extends State<MarketHelpOverlay>
                       ),
                     ),
                   ),
+                  Divider(color: Theme.of(context).focusColor),
                   SizedBox(height: 12),
                   TextButton(
                     child: Text('close'),

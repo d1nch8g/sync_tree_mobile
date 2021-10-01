@@ -3,9 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
-import 'package:sync_tree_mobile_ui/wallet/page/chat_box.dart';
-import 'package:sync_tree_mobile_ui/wallet/page/chat_input.dart';
-import 'package:sync_tree_mobile_ui/wallet/page/info.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/chat/chat_box.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/chat/chat_input.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/chat/info.dart';
 
 class ConnectedWalletPage extends StatefulWidget {
   final MarketInfo info;
