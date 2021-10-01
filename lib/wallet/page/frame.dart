@@ -1,7 +1,5 @@
-import 'dart:typed_data';
-
+import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 
 class ConnectedWalletPage extends StatefulWidget {
@@ -19,86 +17,95 @@ class ConnectedWalletPage extends StatefulWidget {
 bool resizekb = true;
 
 class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
-  int bottomBarIndex = 0;
-  late PageController bottomBarController;
-
-  @override
-  void dispose() {
-    bottomBarController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    bottomBarController = PageController(
-      initialPage: bottomBarIndex,
-    );
-  }
-
-  void onTap(int index) {
-    setState(() {
-      bottomBarIndex = index;
-      bottomBarController.animateToPage(
-        index,
-        duration: Duration(milliseconds: 320),
-        curve: Curves.easeOut,
-      );
-    });
-    Storage.saveBottomPadding(padding: MediaQuery.of(context).padding.bottom);
-  }
+  int curIdx = 0;
+  final double iconSize = 36;
+  final double spaceBetweenIcons = 18;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: false,
-      floatingActionButton: IconButton(
-        icon: Icon(Icons.arrow_drop_down_circle_rounded),
-        iconSize: 52,
-        color: Theme.of(context).focusColor,
-        onPressed: () {
-          widget.closeContainer();
+      bottomNavigationBar: FloatingNavbar(
+        backgroundColor: Theme.of(context).cardColor,
+        currentIndex: curIdx,
+        onTap: (index) {
+          setState(() {
+            curIdx = index;
+          });
         },
-      ),
-      body: SizedBox.expand(
-        child: PageView(
-          physics: NeverScrollableScrollPhysics(),
-          controller: bottomBarController,
-          onPageChanged: (index) {
-            setState(() => bottomBarIndex = index);
-          },
-          children: <Widget>[
-            Container(color: Colors.purple),
-            Container(color: Colors.white),
-            Container(color: Colors.blue),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Theme.of(context).focusColor,
+        iconSize: 32,
+        fontSize: 13.5,
         unselectedItemColor: Theme.of(context).focusColor,
-        currentIndex: bottomBarIndex,
-        enableFeedback: true,
-        onTap: onTap,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            label: 'information',
-            icon: Icon(Icons.info_outlined),
-            backgroundColor: Theme.of(context).backgroundColor,
+        selectedItemColor: Theme.of(context).cardColor,
+        selectedBackgroundColor: Theme.of(context).focusColor,
+        items: [
+          FloatingNavbarItem(
+            icon: Icons.info,
+            title: 'info',
           ),
-          BottomNavigationBarItem(
-            label: 'deposit',
-            icon: Icon(Icons.change_circle_rounded),
-            backgroundColor: Theme.of(context).backgroundColor,
+          FloatingNavbarItem(
+            icon: Icons.chat,
+            title: 'deposit',
           ),
-          BottomNavigationBarItem(
-            label: 'market',
-            icon: Icon(Icons.settings),
-            backgroundColor: Theme.of(context).backgroundColor,
+          FloatingNavbarItem(
+            icon: Icons.query_stats_rounded,
+            title: 'trade',
           ),
         ],
       ),
+    );
+  }
+}
+
+class NewWidget extends StatelessWidget {
+  const NewWidget({
+    Key? key,
+    required this.iconSize,
+    required this.spaceBetweenIcons,
+    required this.widget,
+  }) : super(key: key);
+
+  final double iconSize;
+  final double spaceBetweenIcons;
+  final ConnectedWalletPage widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(height: 9),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.info),
+          iconSize: iconSize,
+          color: Colors.white,
+        ),
+        SizedBox(height: spaceBetweenIcons),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.chat),
+          iconSize: iconSize,
+          color: Colors.white,
+        ),
+        SizedBox(height: spaceBetweenIcons),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.query_stats_rounded),
+          iconSize: iconSize,
+          color: Colors.white,
+        ),
+        SizedBox(height: spaceBetweenIcons),
+        IconButton(
+          onPressed: () {
+            widget.closeContainer();
+          },
+          icon: Icon(Icons.cancel_rounded),
+          iconSize: iconSize,
+          color: Colors.white,
+        ),
+      ],
     );
   }
 }

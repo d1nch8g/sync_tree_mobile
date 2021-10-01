@@ -48,11 +48,17 @@ class NoConnectedWallets extends StatelessWidget {
             Theme.of(context).focusColor,
           ),
           backgroundColor: MaterialStateProperty.all<Color>(
-            Theme.of(context).hoverColor,
+            Theme.of(context).backgroundColor,
           ),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
+            ),
+          ),
+          side: MaterialStateProperty.all<BorderSide>(
+            BorderSide(
+              color: Theme.of(context).cardColor,
+              width: 1,
             ),
           ),
         ),
