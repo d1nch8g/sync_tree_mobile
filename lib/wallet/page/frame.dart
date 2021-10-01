@@ -20,8 +20,26 @@ class ConnectedWalletPage extends StatefulWidget {
 bool resizekb = true;
 
 class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
-  int curIdx = 0;
+  int bottomBarIndex = 0;
+  late PageController bottomBarController;
   String balance = '0';
+
+  @override
+  void dispose() {
+    bottomBarController.dispose();
+    super.dispose();
+  }
+
+  void onTap(int index) {
+    setState(() {
+      bottomBarIndex = index;
+      bottomBarController.animateToPage(
+        index,
+        duration: Duration(milliseconds: 320),
+        curve: Curves.easeOut,
+      );
+    });
+  }
 
   updateBalance() async {
     balance = await Balance.marketBalance(
@@ -35,6 +53,9 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
   void initState() {
     super.initState();
     updateBalance();
+    bottomBarController = PageController(
+      initialPage: bottomBarIndex,
+    );
   }
 
   @override
@@ -48,6 +69,25 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
             balance: balance,
             info: widget.info,
           ),
+          Expanded(
+            child: SizedBox.expand(
+              child: PageView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: bottomBarController,
+                onPageChanged: (index) {
+                  setState(() => bottomBarIndex = index);
+                },
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: InfoPage(info: widget.info),
+                  ),
+                  Container(),
+                  Container(),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButton: IconButton(
@@ -60,12 +100,8 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
       ),
       bottomNavigationBar: FloatingNavbar(
         backgroundColor: Theme.of(context).cardColor,
-        currentIndex: curIdx,
-        onTap: (index) {
-          setState(() {
-            curIdx = index;
-          });
-        },
+        currentIndex: bottomBarIndex,
+        onTap: onTap,
         iconSize: 32,
         fontSize: 13.5,
         unselectedItemColor: Theme.of(context).focusColor,

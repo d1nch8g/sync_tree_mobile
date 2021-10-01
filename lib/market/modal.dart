@@ -42,6 +42,7 @@ class _MarketModalPageState extends State<MarketModalPage> {
       child: Padding(
         padding: const EdgeInsets.all(18.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 8),
             Row(
@@ -67,25 +68,14 @@ class _MarketModalPageState extends State<MarketModalPage> {
             Divider(
               color: Theme.of(context).focusColor,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'Input fee: ${widget.info.inputFee / 100}%\n'
-                    'Buys count: ${widget.info.activeBuys}\n'
-                    'Operations: ${widget.info.operationCount}',
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    'Output fee: ${widget.info.outputFee / 100}%\n'
-                    'Sells count: ${widget.info.activeSells}\n'
-                    '${widget.info.workTime}',
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                )
-              ],
+            Text(
+              'Input fee: ${widget.info.inputFee / 100}%\n'
+              'Output fee: ${widget.info.outputFee / 100}%\n'
+              'Operations: ${widget.info.operationCount}\n'
+              'Buys count: ${widget.info.activeBuys}\n'
+              'Sells count: ${widget.info.activeSells}\n'
+              'Workday: ${widget.info.workTime}',
+              style: Theme.of(context).textTheme.bodyText2,
             ),
             Divider(
               color: Theme.of(context).focusColor,
@@ -103,7 +93,12 @@ class _MarketModalPageState extends State<MarketModalPage> {
                 ),
               ),
             ),
-            ConnectionButton(adress: widget.info.adress)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ConnectionButton(adress: widget.info.adress),
+              ],
+            )
           ],
         ),
       ),
