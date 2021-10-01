@@ -4,6 +4,7 @@ import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/wallet/list.dart';
+import 'package:sync_tree_mobile_ui/wallet/logo.dart';
 import 'package:sync_tree_mobile_ui/wallet/norez.dart';
 import 'package:sync_tree_mobile_ui/wallet/recieve.dart';
 import 'package:sync_tree_mobile_ui/wallet/send.dart';
@@ -36,12 +37,7 @@ class _WalletPageState extends State<WalletPage> {
     return SafeArea(
       child: Column(
         children: [
-          Icon(
-            Icons.account_balance_wallet,
-            size: MediaQuery.of(context).size.height * 0.15,
-            color: Theme.of(context).hintColor,
-          ),
-          DynamicBalance(),
+          WalletLogo(),
           Divider(color: Theme.of(context).cardColor),
           Expanded(
             child: AnimatedSwitcher(
@@ -59,53 +55,6 @@ class _WalletPageState extends State<WalletPage> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class DynamicBalance extends StatefulWidget {
-  @override
-  _DynamicBalanceState createState() => _DynamicBalanceState();
-}
-
-class _DynamicBalanceState extends State<DynamicBalance> {
-  String balance = '';
-
-  void updateBalance() async {
-    var balance = await Balance.mainBalance();
-    if (mounted) {
-      setState(() {
-        if (balance == '0') {
-          this.balance = 'Balance - 0';
-        } else {
-          this.balance = balance;
-        }
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    updateSelfInformation();
-    updateBalance();
-    Storage.createTriggerSubscription(
-      trigger: Trigger.mainBalanceUpdate,
-      onTriggerEvent: () {
-        updateBalance();
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      child: Text(
-        balance,
-        style: Theme.of(context).textTheme.headline3,
-        key: UniqueKey(),
-      ),
-      duration: Duration(milliseconds: 377),
     );
   }
 }

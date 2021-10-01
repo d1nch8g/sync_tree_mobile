@@ -100,7 +100,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                   ),
                   child: Text(
                     'Deposit request: ' +
-                        Balance.tooString(
+                        Balance.fromInt(
                           balance: int.parse(messages[index].substring(2)),
                           delimiter: widget.delimiter,
                         ),
@@ -123,7 +123,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                   ),
                   child: Text(
                     'Withdrawal request: ' +
-                        Balance.tooString(
+                        Balance.fromInt(
                           balance: int.parse(messages[index].substring(2)),
                           delimiter: widget.delimiter,
                         ),

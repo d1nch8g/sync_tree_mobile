@@ -72,11 +72,11 @@ class TradeBars extends StatelessWidget {
               },
               itemBuilder: (context, index) {
                 var trade = trades[index];
-                var offer = Balance.tooString(
+                var offer = Balance.fromInt(
                   balance: trade.offer,
                   delimiter: offerDelimiter,
                 );
-                var recieve = Balance.tooString(
+                var recieve = Balance.fromInt(
                   balance: trade.recieve,
                   delimiter: recieveDelimiter,
                 );

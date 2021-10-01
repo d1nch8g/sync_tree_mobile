@@ -1,21 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/balance.dart';
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 
-class MarketLogo extends StatelessWidget {
-  final List<String> marketAdresses;
-  final int connected;
-  final int owned;
-  MarketLogo({
-    required this.marketAdresses,
-    required this.connected,
-    required this.owned,
-  });
+class WalletLogo extends StatefulWidget {
+  @override
+  State<WalletLogo> createState() => _WalletLogoState();
+}
+
+class _WalletLogoState extends State<WalletLogo> {
+  String mainBalance = '0';
+  int attachedWallets = 0;
+  int ownedTOkens = 0;
+
+  updateInformation() async {
+    var bal = await Storage.loadMainBalance();
+    mainBalance = Balance.fromInt(balance: bal, delimiter: 2);
+    var connectedWallets = await Storage.loadConnectedWallets();
+    attachedWallets = connectedWallets.length;
+    connectedWallets.forEach((adress) async {
+      if ((await Storage.loadMarketBalance(adress)) != 0) {
+        ownedTOkens += 1;
+      }
+    });
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateInformation();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Icon(
-          Icons.stacked_line_chart_rounded,
+          Icons.account_balance_wallet,
           size: MediaQuery.of(context).size.height * 0.125,
           color: Theme.of(context).hintColor,
         ),
@@ -25,13 +46,13 @@ class MarketLogo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Market search',
+              'Wallets',
               style: Theme.of(context).textTheme.headline4,
             ),
             AnimatedSwitcher(
               duration: Duration(milliseconds: 377),
               child: Text(
-                'Found: ${marketAdresses.length}',
+                'SyncTree balance: $mainBalance',
                 key: UniqueKey(),
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.headline5,
@@ -40,7 +61,7 @@ class MarketLogo extends StatelessWidget {
             AnimatedSwitcher(
               duration: Duration(milliseconds: 377),
               child: Text(
-                'Connected: $connected',
+                'Attached wallets: $attachedWallets',
                 key: UniqueKey(),
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.headline5,
@@ -49,7 +70,7 @@ class MarketLogo extends StatelessWidget {
             AnimatedSwitcher(
               duration: Duration(milliseconds: 377),
               child: Text(
-                'Owned: $owned',
+                'Owned tokens: $ownedTOkens',
                 key: UniqueKey(),
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.headline5,
@@ -109,7 +130,7 @@ class MarketHelpOverlayState extends State<MarketHelpOverlay>
         child: ScaleTransition(
           scale: scaleAnimation,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.895,
+            width: MediaQuery.of(context).size.width * 0.88,
             decoration: ShapeDecoration(
               color: Theme.of(context).backgroundColor,
               shape: RoundedRectangleBorder(
@@ -117,12 +138,12 @@ class MarketHelpOverlayState extends State<MarketHelpOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(18, 32, 22, 18),
+              padding: const EdgeInsets.fromLTRB(22, 32, 22, 22),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'INFO',
+                    'MARKET INFO',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline1,
                   ),
@@ -131,7 +152,16 @@ class MarketHelpOverlayState extends State<MarketHelpOverlay>
                     height: MediaQuery.of(context).size.height * 0.32,
                     child: SingleChildScrollView(
                       child: Text(
-                        '   This is market search page. Here you can find new markets and connect connect them as a wallet. After connection you will find them on wallet page, then you will be able to process different operations with connected assets.\n   All markets have equal rights to be traded inside this system, you should check twice wether asset you are buying is trusted enough.\n   Due to unavailability of any data modification inside distributed data storage, users have to decide wether they trust any market on their own risk!\n  Please, attentively check markets you are trading on.',
+                        ' This is market search page. Here you can find new '
+                        'markets, connect them (attach as a wallet), place '
+                        'buy or sell orders and cancel active orders. '
+                        'Be carefull, buy only trusted assets, on markets '
+                        'which are verified.\n'
+                        ' Sync tree system provides conditions for all markets '
+                        'equally, without any fee and blocking policy, but '
+                        'the resposibility for traded assets is laying on '
+                        'users.\n'
+                        ' Be sure to double check your markets.',
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.fade,
                         style: Theme.of(context).textTheme.bodyText2,
