@@ -3,9 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
-import 'package:sync_tree_mobile_ui/wallet/page/chat/chat_box.dart';
-import 'package:sync_tree_mobile_ui/wallet/page/chat/chat_input.dart';
-import 'package:sync_tree_mobile_ui/wallet/page/chat/info.dart';
 
 class ConnectedWalletPage extends StatefulWidget {
   final MarketInfo info;
@@ -22,114 +19,85 @@ class ConnectedWalletPage extends StatefulWidget {
 bool resizekb = true;
 
 class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
-  final FocusNode focuser = FocusNode();
-  double height = 0;
-  double bottomNavBarPadHeight = 0;
+  int bottomBarIndex = 0;
+  late PageController bottomBarController;
 
-  updateBottomHeight() async {
-    bottomNavBarPadHeight = await Storage.loadBottomPadding();
+  @override
+  void dispose() {
+    bottomBarController.dispose();
+    super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    updateBottomHeight();
+    bottomBarController = PageController(
+      initialPage: bottomBarIndex,
+    );
+  }
+
+  void onTap(int index) {
+    setState(() {
+      bottomBarIndex = index;
+      bottomBarController.animateToPage(
+        index,
+        duration: Duration(milliseconds: 320),
+        curve: Curves.easeOut,
+      );
+    });
+    Storage.saveBottomPadding(padding: MediaQuery.of(context).padding.bottom);
   }
 
   @override
   Widget build(BuildContext context) {
-    var kbsize = MediaQuery.of(context).viewInsets.bottom;
-    if (kbsize > 0) {
-      kbsize = kbsize - 64 - bottomNavBarPadHeight;
-    }
-    if (resizekb == false) {
-      kbsize = 0.0;
-    }
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          SafeArea(
-            child: WalletInfo(
-              info: widget.info,
-            ),
-            bottom: false,
+      floatingActionButton: IconButton(
+        icon: Icon(Icons.arrow_drop_down_circle_rounded),
+        iconSize: 52,
+        color: Theme.of(context).focusColor,
+        onPressed: () {
+          widget.closeContainer();
+        },
+      ),
+      body: SizedBox.expand(
+        child: PageView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: bottomBarController,
+          onPageChanged: (index) {
+            setState(() => bottomBarIndex = index);
+          },
+          children: <Widget>[
+            Container(color: Colors.purple),
+            Container(color: Colors.white),
+            Container(color: Colors.blue),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Theme.of(context).focusColor,
+        unselectedItemColor: Theme.of(context).focusColor,
+        currentIndex: bottomBarIndex,
+        enableFeedback: true,
+        onTap: onTap,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            label: 'information',
+            icon: Icon(Icons.info_outlined),
+            backgroundColor: Theme.of(context).backgroundColor,
           ),
-          Divider(color: Theme.of(context).focusColor),
-          ChatMessages(
-            adress: widget.info.adress,
-            delimiter: widget.info.delimiter,
+          BottomNavigationBarItem(
+            label: 'io',
+            icon: Icon(Icons.change_circle_rounded),
+            backgroundColor: Theme.of(context).backgroundColor,
           ),
-          Divider(color: Theme.of(context).focusColor),
-          ChatTextField(
-            marketAdress: widget.info.adress,
-            marketMesKey: widget.info.messageKey as Uint8List,
-          ),
-          AnimatedContainer(
-            duration: Duration(milliseconds: 377),
-            curve: Curves.easeOutCubic,
-            height: kbsize,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                onPressed: () {},
-                iconSize: 48,
-                color: Theme.of(context).focusColor,
-                splashRadius: 38,
-                icon: Icon(Icons.info_rounded),
-              ),
-              LowIconBuilder(
-                icon: Icons.chat,
-                onPressed: () {},
-              ),
-              LowIconBuilder(
-                icon: Icons.bar_chart_rounded,
-                onPressed: () {},
-              ),
-              IconButton(
-                onPressed: () {
-                  widget.closeContainer();
-                },
-                iconSize: 48,
-                color: Theme.of(context).focusColor,
-                splashRadius: 38,
-                icon: Icon(Icons.cancel_rounded),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: bottomNavBarPadHeight,
+          BottomNavigationBarItem(
+            label: 'settings',
+            icon: Icon(Icons.settings),
+            backgroundColor: Theme.of(context).backgroundColor,
           ),
         ],
-      ),
-    );
-  }
-}
-
-class LowIconBuilder extends StatelessWidget {
-  final IconData icon;
-  final Function onPressed;
-  LowIconBuilder({
-    required this.icon,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: 22,
-      backgroundColor: Theme.of(context).focusColor,
-      child: IconButton(
-        onPressed: () {
-          onPressed();
-        },
-        iconSize: 25,
-        color: Theme.of(context).backgroundColor,
-        splashRadius: 38,
-        icon: Icon(icon),
       ),
     );
   }
