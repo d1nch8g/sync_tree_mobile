@@ -78,10 +78,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
                   setState(() => bottomBarIndex = index);
                 },
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: InfoPage(info: widget.info),
-                  ),
+                  InfoPage(info: widget.info),
                   Container(),
                   Container(),
                 ],
