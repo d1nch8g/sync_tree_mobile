@@ -3,6 +3,7 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/deposit.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/info.dart';
 
 class ConnectedWalletPage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
   int bottomBarIndex = 0;
   late PageController bottomBarController;
   String balance = '0';
+  Widget button = Container();
 
   @override
   void dispose() {
@@ -38,6 +40,11 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
         duration: Duration(milliseconds: 320),
         curve: Curves.easeOut,
       );
+      if (index == 2) {
+        button = Container();
+      } else {
+        button = FloatingButton(closeContainer: widget.closeContainer);
+      }
     });
   }
 
@@ -51,6 +58,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
 
   @override
   void initState() {
+    button = FloatingButton(closeContainer: widget.closeContainer);
     super.initState();
     updateBalance();
     bottomBarController = PageController(
@@ -80,20 +88,24 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
                 children: <Widget>[
                   InfoPage(info: widget.info),
                   Container(),
-                  Container(),
+                  DepositPage(
+                    info: widget.info,
+                    closeContainer: () {
+                      widget.closeContainer();
+                    },
+                  ),
                 ],
               ),
             ),
           ),
         ],
       ),
-      floatingActionButton: IconButton(
-        icon: Icon(Icons.cancel),
-        iconSize: 42,
-        color: Theme.of(context).focusColor,
-        onPressed: () {
-          widget.closeContainer();
-        },
+      floatingActionButton: AnimatedSwitcher(
+        duration: Duration(milliseconds: 610),
+        child: Align(
+          alignment: Alignment.bottomRight,
+          child: button,
+        ),
       ),
       bottomNavigationBar: FloatingNavbar(
         backgroundColor: Theme.of(context).cardColor,
@@ -167,6 +179,23 @@ class TopLogoBalance extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class FloatingButton extends StatelessWidget {
+  final Function closeContainer;
+  FloatingButton({required this.closeContainer});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.cancel),
+      iconSize: 42,
+      color: Theme.of(context).focusColor,
+      onPressed: () {
+        closeContainer();
+      },
     );
   }
 }
