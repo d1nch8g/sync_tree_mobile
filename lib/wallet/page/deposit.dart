@@ -23,6 +23,7 @@ class DepositPage extends StatelessWidget {
           adress: info.adress,
           delimiter: info.delimiter,
         ),
+        SizedBox(height: 8),
         ChatTextField(
           marketMesKey: Uint8List.fromList(info.messageKey),
           marketAdress: info.adress,
