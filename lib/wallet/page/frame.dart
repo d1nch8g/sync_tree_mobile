@@ -26,6 +26,14 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       resizeToAvoidBottomInset: false,
+      floatingActionButton: IconButton(
+        icon: Icon(Icons.cancel),
+        iconSize: 42,
+        color: Theme.of(context).focusColor,
+        onPressed: () {
+          widget.closeContainer();
+        },
+      ),
       bottomNavigationBar: FloatingNavbar(
         backgroundColor: Theme.of(context).cardColor,
         currentIndex: curIdx,
@@ -45,12 +53,12 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
             title: 'info',
           ),
           FloatingNavbarItem(
-            icon: Icons.chat,
-            title: 'deposit',
-          ),
-          FloatingNavbarItem(
             icon: Icons.query_stats_rounded,
             title: 'trade',
+          ),
+          FloatingNavbarItem(
+            icon: Icons.chat,
+            title: 'deposit',
           ),
         ],
       ),
