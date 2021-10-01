@@ -18,10 +18,10 @@ class _InfoPageState extends State<InfoPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Input fee: ${widget.info.inputFee / 100}%\n'
-            'Buys count: ${widget.info.activeBuys}\n'
-            'Operations: ${widget.info.operationCount}\n'
             'Output fee: ${widget.info.outputFee / 100}%\n'
+            'Input fee:    ${widget.info.inputFee / 100}%\n'
+            'Operations: ${widget.info.operationCount}\n'
+            'Buys count: ${widget.info.activeBuys}\n'
             'Sells count: ${widget.info.activeSells}\n'
             'Workday: ${widget.info.workTime}',
             style: Theme.of(context).textTheme.bodyText2,
