@@ -20,7 +20,7 @@ class _TradeViewState extends State<TradeView> {
     return Row(
       children: [
         TradeBars(
-          isBuy: true,
+          name: 'BUYS',
           trades: widget.info.buys,
           offerDelimiter: 2,
           recieveDelimiter: widget.info.delimiter,
@@ -29,7 +29,7 @@ class _TradeViewState extends State<TradeView> {
           color: Theme.of(context).focusColor,
         ),
         TradeBars(
-          isBuy: false,
+          name: 'SELLS',
           trades: widget.info.sells,
           offerDelimiter: widget.info.delimiter,
           recieveDelimiter: 2,
@@ -43,20 +43,13 @@ class TradeBars extends StatelessWidget {
   final List<Trade> trades;
   final int offerDelimiter;
   final int recieveDelimiter;
-  final bool isBuy;
-  late String name;
+  final String name;
   TradeBars({
     required this.trades,
     required this.offerDelimiter,
     required this.recieveDelimiter,
-    required this.isBuy,
-  }) {
-    if (isBuy) {
-      this.name = 'BUYS';
-    } else {
-      this.name = 'SELLS';
-    }
-  }
+    required this.name,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +81,15 @@ class TradeBars extends StatelessWidget {
                   delimiter: recieveDelimiter,
                 );
                 var ratio = 0.0;
-                if (isBuy) {
+                if (name == 'BUYS') {
                   ratio = trade.offer / trade.recieve;
                 } else {
                   ratio = trade.recieve / trade.offer;
                 }
-                var strRatio = ratio.toString().substring(0, 9);
+                var strRatio = ratio.toString();
+                try {
+                  strRatio = strRatio.substring(0, 9);
+                } catch (e) {}
                 return Center(
                   child: Text(
                     'O: $offer\n'
