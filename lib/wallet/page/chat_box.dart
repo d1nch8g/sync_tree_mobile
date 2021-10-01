@@ -22,6 +22,7 @@ class ChatMessages extends StatefulWidget {
 class _ChatMessagesState extends State<ChatMessages> {
   List<String> messages = [];
   Key startKey = UniqueKey();
+  Duration initialDuration = Duration(milliseconds: 0);
   String firstMessage = 'This is market page. Here you can process deposit'
       ' and withdrawal operations. Before start of any transaction processing '
       'check market ratio and operation count. The decision to trust is on '
@@ -31,11 +32,13 @@ class _ChatMessagesState extends State<ChatMessages> {
     var curMessages = await Storage.loadMessages(widget.adress);
     var keys = await Storage.loadKeys();
     var loadedMessages = await InfoCalls.messages(widget.adress);
-    for (var i = curMessages.length; i < loadedMessages.length; i++) {
-      var mes = loadedMessages[i].substring(0);
-      var decrypted = await keys.message.private.decrypt(mes);
-      Storage.addMessage(message: decrypted, adress: widget.adress);
-      curMessages.add(decrypted);
+    if (loadedMessages.length > curMessages.length) {
+      for (var i = curMessages.length; i < loadedMessages.length; i++) {
+        var mes = loadedMessages[i].substring(0);
+        var decrypted = await keys.message.private.decrypt(mes);
+        Storage.addMessage(message: decrypted, adress: widget.adress);
+        curMessages.add(decrypted);
+      }
     }
     if (mounted) {
       curMessages = List.from(curMessages.reversed);
@@ -65,14 +68,17 @@ class _ChatMessagesState extends State<ChatMessages> {
   void initState() {
     super.initState();
     updateMessages();
-    startUpdating();
+    Future.delayed(Duration(milliseconds: 610), () {
+      initialDuration = Duration(milliseconds: 610);
+      startUpdating();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: AnimatedSwitcher(
-        duration: Duration(milliseconds: 377),
+        duration: initialDuration,
         child: ListView.builder(
           key: UniqueKey(),
           reverse: true,
