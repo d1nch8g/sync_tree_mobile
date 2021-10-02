@@ -62,7 +62,6 @@ class TradePage extends StatelessWidget {
   }
 }
 
-
 class TradeView extends StatefulWidget {
   final MarketInfo info;
   TradeView({required this.info});
@@ -81,7 +80,7 @@ class _TradeViewState extends State<TradeView> {
     return Row(
       children: [
         TradeBars(
-          name: 'BUYS',
+          name: 'BUYS ${widget.info.activeBuys}',
           trades: widget.info.buys,
           offerDelimiter: 2,
           recieveDelimiter: widget.info.delimiter,
@@ -90,7 +89,7 @@ class _TradeViewState extends State<TradeView> {
           color: Theme.of(context).focusColor,
         ),
         TradeBars(
-          name: 'SELLS',
+          name: 'SELLS ${widget.info.activeSells}',
           trades: widget.info.sells,
           offerDelimiter: widget.info.delimiter,
           recieveDelimiter: 2,
