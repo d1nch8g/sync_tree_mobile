@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
@@ -21,11 +22,12 @@ class TradePage extends StatefulWidget {
 }
 
 class _TradePageState extends State<TradePage> {
-  late MarketInfo updatedInfo;
+  late MarketInfo info;
 
   updateTrades() async {
-    updatedInfo = await InfoCalls.marketInfo(widget.info.adress);
-    setState(() {});
+    var newInfo = await InfoCalls.marketInfo(widget.info.adress);
+    var oldBuyRatio = info.buys[0].offer;
+    var newBuyRatio = newInfo.buys[0].offer;
   }
 
   startUpdating() {
@@ -40,7 +42,7 @@ class _TradePageState extends State<TradePage> {
 
   @override
   void initState() {
-    updatedInfo = widget.info;
+    info = widget.info;
     super.initState();
     startUpdating();
   }
@@ -53,7 +55,7 @@ class _TradePageState extends State<TradePage> {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.40,
           child: TradeView(
-            info: updatedInfo,
+            info: info,
           ),
         ),
         Divider(color: Theme.of(context).focusColor),
@@ -79,7 +81,7 @@ class _TradePageState extends State<TradePage> {
           children: [
             Expanded(
               child: Center(
-                child: BuyButton(info: updatedInfo),
+                child: BuyButton(info: info),
               ),
             ),
             FloatingButton(
@@ -87,7 +89,7 @@ class _TradePageState extends State<TradePage> {
             ),
             Expanded(
               child: Center(
-                child: SellButton(info: updatedInfo),
+                child: SellButton(info: info),
               ),
             ),
           ],
