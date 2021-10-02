@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/buy.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
-import 'package:sync_tree_mobile_ui/wallet/page/trade/buy.dart';
-import 'package:sync_tree_mobile_ui/wallet/page/trade/sell.dart';
-import 'package:sync_tree_mobile_ui/wallet/page/trade/trades.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/sell.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/trades.dart';
 
 class TradePage extends StatelessWidget {
   final MarketInfo info;
