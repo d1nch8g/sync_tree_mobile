@@ -6,6 +6,7 @@ import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/sell.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -17,12 +18,15 @@ class BuyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
+        resizekb = false;
         showDialog(
           context: context,
           builder: (_) => BuyOverlay(
             info: info,
           ),
-        );
+        ).whenComplete(() {
+          resizekb = true;
+        });;
       },
       child: Text('buy'),
     );

@@ -89,7 +89,7 @@ class DepositOverlayState extends State<DepositOverlay>
   final TextEditingController controller = TextEditingController();
 
   void deposit(context) async {
-    if (controller.text == '') {
+    if (controller.text == '' || controller.text == '0') {
       showTopSnackBar(
         context,
         CustomSnackBar.error(
@@ -97,6 +97,7 @@ class DepositOverlayState extends State<DepositOverlay>
           textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );
+      return;
     }
     var bal = Balance.fromString(
       balance: controller.text,
@@ -117,7 +118,12 @@ class DepositOverlayState extends State<DepositOverlay>
         context,
         CustomSnackBar.success(
           message: 'Deposit request delivered!',
-          textStyle: Theme.of(context).textTheme.headline2!,
+          textStyle: Theme.of(context).textTheme.headline4!,
+          icon: const Icon(
+            Icons.description_rounded,
+            color: const Color(0x15000000),
+            size: 120,
+          ),
         ),
       );
       Navigator.pop(context);
@@ -266,7 +272,7 @@ class WithdrawalOverlayState extends State<WithdrawalOverlay>
   final TextEditingController controller = TextEditingController();
 
   void withdrawal(context) async {
-    if (controller.text == '') {
+    if (controller.text == '' || controller.text == '0') {
       showTopSnackBar(
         context,
         CustomSnackBar.error(
@@ -307,7 +313,12 @@ class WithdrawalOverlayState extends State<WithdrawalOverlay>
         CustomSnackBar.success(
           message: 'Withdrawal request delivered!',
           backgroundColor: Theme.of(context).hintColor,
-          textStyle: Theme.of(context).textTheme.headline2!,
+          textStyle: Theme.of(context).textTheme.headline4!,
+          icon: const Icon(
+            Icons.description_rounded,
+            color: const Color(0x15000000),
+            size: 120,
+          ),
         ),
       );
       Navigator.pop(context);
