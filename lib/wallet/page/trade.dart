@@ -19,9 +19,7 @@ class TradePage extends StatelessWidget {
       children: [
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.40,
-          child: Expanded(
-            child: TradeView(info: info),
-          ),
+          child: TradeView(info: info),
         ),
         Divider(color: Theme.of(context).focusColor),
         Expanded(

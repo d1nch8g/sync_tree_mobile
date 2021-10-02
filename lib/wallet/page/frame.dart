@@ -96,7 +96,12 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
                   setState(() => bottomBarIndex = index);
                 },
                 children: <Widget>[
-                  InfoPage(info: widget.info),
+                  InfoPage(
+                    info: widget.info,
+                    closeContainer: () {
+                      widget.closeContainer();
+                    },
+                  ),
                   TradePage(
                     info: widget.info,
                     closeContainer: () {

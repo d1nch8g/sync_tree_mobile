@@ -1,44 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
 
-class InfoPage extends StatefulWidget {
+class InfoPage extends StatelessWidget {
   final MarketInfo info;
-  InfoPage({required this.info});
+  final Function closeContainer;
+  InfoPage({
+    required this.info,
+    required this.closeContainer,
+  });
 
-  @override
-  State<InfoPage> createState() => _InfoPageState();
-}
-
-class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          Text(
-            'Output fee: ${widget.info.outputFee / 100}%\n'
-            'Input fee:    ${widget.info.inputFee / 100}%\n'
-            'Operations: ${widget.info.operationCount}\n'
-            'Buys count: ${widget.info.activeBuys}\n'
-            'Sells count: ${widget.info.activeSells}\n'
-            'Workday: ${widget.info.workTime}',
-            style: Theme.of(context).textTheme.bodyText2,
-            softWrap: true,
-            overflow: TextOverflow.fade,
-          ),
-          Divider(color: Theme.of(context).focusColor),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Text(
-                widget.info.description,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Output fee: ${info.outputFee / 100}%\n'
+                'Input fee:    ${info.inputFee / 100}%\n'
+                'Operations: ${info.operationCount}\n'
+                'Buys count: ${info.activeBuys}\n'
+                'Sells count: ${info.activeSells}\n'
+                'Workday: ${info.workTime}',
                 style: Theme.of(context).textTheme.bodyText2,
                 softWrap: true,
                 overflow: TextOverflow.fade,
               ),
-            ),
+              Divider(color: Theme.of(context).focusColor),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Text(
+                    info.description,
+                    style: Theme.of(context).textTheme.bodyText2,
+                    softWrap: true,
+                    overflow: TextOverflow.fade,
+                  ),
+                ),
+              ),
+            ],
           ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: FloatingButton(
+              closeContainer: closeContainer,
+            ),
+          )
         ],
       ),
     );
