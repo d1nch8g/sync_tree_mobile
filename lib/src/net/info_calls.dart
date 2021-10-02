@@ -69,6 +69,19 @@ class MarketInfo {
     required this.activeSells,
     required this.delimiter,
   });
+
+  bool buysEqual({required MarketInfo info}) {
+    if (this.buys.length != info.buys.length) {
+      return false;
+    }
+    if (this.buys.length == 0 && info.buys.length == 0) {
+      return true;
+    }
+    if (this.buys[0].offer != info.buys[0].offer) {
+      return false;
+    }
+    return true;
+  }
 }
 
 /// # ATTENTION

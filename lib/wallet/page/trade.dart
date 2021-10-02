@@ -26,8 +26,7 @@ class _TradePageState extends State<TradePage> {
 
   updateTrades() async {
     var newInfo = await InfoCalls.marketInfo(widget.info.adress);
-    var oldBuyRatio = info.buys[0].offer;
-    var newBuyRatio = newInfo.buys[0].offer;
+    
   }
 
   startUpdating() {
