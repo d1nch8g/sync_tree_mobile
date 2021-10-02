@@ -151,8 +151,7 @@ class _ChatMessagesState extends State<ChatMessages> {
   }
 
   startUpdating() {
-    const oneSec = Duration(seconds: 1);
-    Timer.periodic(oneSec, (Timer t) {
+    Timer.periodic(Duration(seconds: 1), (Timer t) {
       if (mounted) {
         updateMessages();
       } else {

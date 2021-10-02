@@ -1,17 +1,50 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
+import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/buy.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/sell.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 
-class TradePage extends StatelessWidget {
+class TradePage extends StatefulWidget {
   final MarketInfo info;
   final Function closeContainer;
   TradePage({
     required this.info,
     required this.closeContainer,
   });
+
+  @override
+  State<TradePage> createState() => _TradePageState();
+}
+
+class _TradePageState extends State<TradePage> {
+  late MarketInfo updatedInfo;
+
+  updateTrades() async {
+    updatedInfo = await InfoCalls.marketInfo(widget.info.adress);
+    setState(() {});
+  }
+
+  startUpdating() {
+    Timer.periodic(Duration(seconds: 5), (Timer t) {
+      if (mounted) {
+        updateTrades();
+      } else {
+        t.cancel();
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    updatedInfo = widget.info;
+    super.initState();
+    startUpdating();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,7 +52,9 @@ class TradePage extends StatelessWidget {
       children: [
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.40,
-          child: TradeView(info: info),
+          child: TradeView(
+            info: updatedInfo,
+          ),
         ),
         Divider(color: Theme.of(context).focusColor),
         Expanded(
@@ -44,15 +79,15 @@ class TradePage extends StatelessWidget {
           children: [
             Expanded(
               child: Center(
-                child: BuyButton(info: info),
+                child: BuyButton(info: updatedInfo),
               ),
             ),
             FloatingButton(
-              closeContainer: closeContainer,
+              closeContainer: widget.closeContainer,
             ),
             Expanded(
               child: Center(
-                child: SellButton(info: info),
+                child: SellButton(info: updatedInfo),
               ),
             ),
           ],
@@ -121,40 +156,38 @@ class TradeBars extends StatelessWidget {
             color: Theme.of(context).focusColor,
           ),
           Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.all(0),
-              itemCount: trades.length,
-              separatorBuilder: (context, _) {
-                return Divider(color: Theme.of(context).focusColor);
-              },
-              itemBuilder: (context, index) {
-                var trade = trades[index];
-                var offer = Balance.fromInt(
-                  balance: trade.offer,
-                  delimiter: offerDelimiter,
-                );
-                var recieve = Balance.fromInt(
-                  balance: trade.recieve,
-                  delimiter: recieveDelimiter,
-                );
-                var ratio = 0.0;
-                if (name == 'BUYS') {
-                  ratio = trade.offer / trade.recieve;
-                } else {
-                  ratio = trade.recieve / trade.offer;
-                }
-                var strRatio = ratio.toString();
-                try {
-                  strRatio = strRatio.substring(0, 9);
-                } catch (e) {}
-                return Center(
-                  child: Text(
-                    'O: $offer\n'
-                    'D: $recieve\n'
-                    'R: $strRatio',
-                  ),
-                );
-              },
+            child: AnimatedSwitcher(
+              duration: Duration(milliseconds: 144),
+              child: ListView.separated(
+                key: UniqueKey(),
+                padding: EdgeInsets.all(0),
+                itemCount: trades.length,
+                separatorBuilder: (context, _) {
+                  return Divider(color: Theme.of(context).focusColor);
+                },
+                itemBuilder: (context, index) {
+                  var trade = trades[index];
+                  var offer = Balance.fromInt(
+                    balance: trade.offer,
+                    delimiter: offerDelimiter,
+                  );
+                  var recieve = Balance.fromInt(
+                    balance: trade.recieve,
+                    delimiter: recieveDelimiter,
+                  );
+                  var strRatio = (trade.offer / trade.recieve).toString();
+                  try {
+                    strRatio = strRatio.substring(0, 9);
+                  } catch (e) {}
+                  return Center(
+                    child: Text(
+                      'O: $offer\n'
+                      'D: $recieve\n'
+                      'R: $strRatio',
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
