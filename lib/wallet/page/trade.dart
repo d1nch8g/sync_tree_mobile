@@ -34,6 +34,24 @@ class TradePage extends StatelessWidget {
             ),
           ),
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Expanded(
+              child: Center(
+                child: BuyB(info: info),
+              ),
+            ),
+            FloatingButton(
+              closeContainer: closeContainer,
+            ),
+            Expanded(
+              child: Center(
+                child: WithdrawalButton(info: info),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
