@@ -210,6 +210,7 @@ class FloatingButton extends StatelessWidget {
     return IconButton(
       icon: Icon(Icons.cancel),
       iconSize: 42,
+      splashRadius: 32,
       color: Theme.of(context).focusColor,
       onPressed: () {
         closeContainer();

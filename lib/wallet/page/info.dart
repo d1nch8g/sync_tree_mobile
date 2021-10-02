@@ -45,10 +45,18 @@ class InfoPage extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomRight,
-            child: FloatingButton(
-              closeContainer: closeContainer,
+            child: Material(
+              borderRadius: BorderRadius.all(
+                Radius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FloatingButton(
+                  closeContainer: closeContainer,
+                ),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
