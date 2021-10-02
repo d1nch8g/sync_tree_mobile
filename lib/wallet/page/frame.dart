@@ -29,10 +29,6 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
   Widget button = Container();
   double bottomNavBarPadHeight = 0;
 
-  updateBottomHeight() async {
-    bottomNavBarPadHeight = await Storage.loadBottomPadding();
-  }
-
   @override
   void dispose() {
     bottomBarController.dispose();
@@ -50,20 +46,20 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
     });
   }
 
-  updateBalance() async {
+  updateInfo() async {
     balance = await Balance.marketBalance(
       adress: widget.info.adress,
       delimiter: widget.info.delimiter,
     );
+    bottomNavBarPadHeight = await Storage.loadBottomPadding();
     setState(() {});
   }
 
   @override
   void initState() {
-    updateBottomHeight();
+    updateInfo();
     button = FloatingButton(closeContainer: widget.closeContainer);
     super.initState();
-    updateBalance();
     bottomBarController = PageController(
       initialPage: bottomBarIndex,
     );
@@ -73,7 +69,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
   Widget build(BuildContext context) {
     var kbsize = MediaQuery.of(context).viewInsets.bottom;
     if (kbsize > 0) {
-      kbsize = kbsize - kBottomNavigationBarHeight - 120;
+      kbsize = kbsize - bottomNavBarPadHeight - 144;
     }
     if (resizekb == false) {
       kbsize = 0;

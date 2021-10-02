@@ -116,14 +116,11 @@ class TradeBars extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Flexible(child: Text(name)),
-          Flexible(
-            child: Divider(
-              color: Theme.of(context).focusColor,
-            ),
+          Text(name),
+          Divider(
+            color: Theme.of(context).focusColor,
           ),
-          Flexible(
-            flex: 14,
+          Expanded(
             child: ListView.separated(
               padding: EdgeInsets.all(0),
               itemCount: trades.length,
