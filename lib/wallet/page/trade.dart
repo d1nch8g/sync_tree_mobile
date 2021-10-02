@@ -26,7 +26,10 @@ class _TradePageState extends State<TradePage> {
 
   updateTrades() async {
     var newInfo = await InfoCalls.marketInfo(widget.info.adress);
-    
+    if (newInfo.differsFrom(info)) {
+      info = newInfo;
+      setState(() {});
+    }
   }
 
   startUpdating() {

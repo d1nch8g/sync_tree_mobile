@@ -82,6 +82,26 @@ class MarketInfo {
     }
     return true;
   }
+
+  bool sellsEqual({required MarketInfo info}) {
+    if (this.sells.length != info.sells.length) {
+      return false;
+    }
+    if (this.sells.length == 0 && info.sells.length == 0) {
+      return true;
+    }
+    if (this.sells[0].offer != info.sells[0].offer) {
+      return false;
+    }
+    return true;
+  }
+
+  bool differsFrom(MarketInfo info) {
+    if (buysEqual(info: info) && sellsEqual(info: info)) {
+      return false;
+    }
+    return true;
+  }
 }
 
 /// # ATTENTION
