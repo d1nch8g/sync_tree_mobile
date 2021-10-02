@@ -97,7 +97,12 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
                 },
                 children: <Widget>[
                   InfoPage(info: widget.info),
-                  TradePage(info: widget.info),
+                  TradePage(
+                    info: widget.info,
+                    closeContainer: () {
+                      widget.closeContainer();
+                    },
+                  ),
                   DepositPage(
                     info: widget.info,
                     closeContainer: () {

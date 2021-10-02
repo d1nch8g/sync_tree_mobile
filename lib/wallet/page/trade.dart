@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/trade/buy.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/trade/sell.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/trade/trades.dart';
 
 class TradePage extends StatelessWidget {
   final MarketInfo info;
-  TradePage({required this.info});
+  final Function closeContainer;
+  TradePage({
+    required this.info,
+    required this.closeContainer,
+  });
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,7 +46,7 @@ class TradePage extends StatelessWidget {
           children: [
             Expanded(
               child: Center(
-                child: BuyB(info: info),
+                child: BuyButton(info: info),
               ),
             ),
             FloatingButton(
@@ -47,7 +54,7 @@ class TradePage extends StatelessWidget {
             ),
             Expanded(
               child: Center(
-                child: WithdrawalButton(info: info),
+                child: SellButton(info: info),
               ),
             ),
           ],
