@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/navigator.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/wallet/list.dart';
 import 'package:sync_tree_mobile_ui/wallet/logo.dart';

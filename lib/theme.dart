@@ -22,7 +22,7 @@ class App extends StatelessWidget {
         textTheme: TextTheme(
           headline1: TextStyle(
             color: Color.fromRGBO(234, 246, 255, 1.0),
-            fontSize: 44,
+            fontSize: 36,
             fontFamily: 'Hind',
           ),
           headline2: TextStyle(

@@ -54,7 +54,7 @@ class _CancelButtonState extends State<CancelButton> {
     if (has) {
       setState(() {
         button = TextButton(
-          child: Text('cancel'),
+          child: Text('cancel trade'),
           onPressed: () {
             showDialog(
               context: context,

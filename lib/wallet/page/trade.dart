@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/buy.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/cancel.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/sell.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
@@ -23,7 +24,23 @@ class TradePage extends StatefulWidget {
 
 class _TradePageState extends State<TradePage> {
   late MarketInfo info;
-  late Widget buttons;
+  late Widget buttons = Container();
+
+  initButtons() async {
+    var hasTrades = await InfoCalls.hasTrades(widget.info.adress);
+    if (hasTrades) {
+      buttons = CancelTradeCloseButtons(
+        info: info,
+        closeContainer: widget.closeContainer,
+      );
+    } else {
+      buttons = buttons = BuySellButtons(
+        info: info,
+        closeContainer: widget.closeContainer,
+      );
+    }
+    setState(() {});
+  }
 
   updateTrades() async {
     var newInfo = await InfoCalls.marketInfo(widget.info.adress);
@@ -31,13 +48,10 @@ class _TradePageState extends State<TradePage> {
       info = newInfo;
       setState(() {});
     }
-    var hasTrades = await InfoCalls.hasTrades(widget.info.adress);
-    if (hasTrades) {
-      
-    }
   }
 
   startUpdating() {
+    updateTrades();
     Timer.periodic(Duration(seconds: 5), (Timer t) {
       if (mounted) {
         updateTrades();
@@ -50,10 +64,7 @@ class _TradePageState extends State<TradePage> {
   @override
   void initState() {
     info = widget.info;
-    buttons = BuySellButtons(
-      info: info,
-      closeContainer: widget.closeContainer,
-    );
+    initButtons();
     super.initState();
     startUpdating();
   }
@@ -88,7 +99,7 @@ class _TradePageState extends State<TradePage> {
           ),
         ),
         AnimatedSwitcher(
-          duration: Duration(milliseconds: 377),
+          duration: Duration(milliseconds: 144),
           child: buttons,
         ),
       ],
@@ -122,6 +133,38 @@ class BuySellButtons extends StatelessWidget {
         Expanded(
           child: Center(
             child: SellButton(info: info),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class CancelTradeCloseButtons extends StatelessWidget {
+  const CancelTradeCloseButtons({
+    Key? key,
+    required this.info,
+    required this.closeContainer,
+  }) : super(key: key);
+
+  final MarketInfo info;
+  final Function closeContainer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+          child: Center(
+            child: CancelButton(adress: info.adress),
+          ),
+        ),
+        Expanded(
+          child: Center(
+            child: FloatingButton(
+              closeContainer: closeContainer,
+            ),
           ),
         ),
       ],
