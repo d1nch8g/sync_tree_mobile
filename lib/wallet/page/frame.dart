@@ -91,7 +91,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
                 onPageChanged: (index) {
                   setState(() => bottomBarIndex = index);
                 },
-                children: <Widget>[
+                children: [
                   InfoPage(
                     info: widget.info,
                     closeContainer: () {

@@ -23,12 +23,17 @@ class TradePage extends StatefulWidget {
 
 class _TradePageState extends State<TradePage> {
   late MarketInfo info;
+  late Widget buttons;
 
   updateTrades() async {
     var newInfo = await InfoCalls.marketInfo(widget.info.adress);
     if (newInfo.differsFrom(info)) {
       info = newInfo;
       setState(() {});
+    }
+    var hasTrades = await InfoCalls.hasTrades(widget.info.adress);
+    if (hasTrades) {
+      
     }
   }
 
@@ -45,6 +50,10 @@ class _TradePageState extends State<TradePage> {
   @override
   void initState() {
     info = widget.info;
+    buttons = BuySellButtons(
+      info: info,
+      closeContainer: widget.closeContainer,
+    );
     super.initState();
     startUpdating();
   }
@@ -78,23 +87,42 @@ class _TradePageState extends State<TradePage> {
             ),
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              child: Center(
-                child: BuyButton(info: info),
-              ),
-            ),
-            FloatingButton(
-              closeContainer: widget.closeContainer,
-            ),
-            Expanded(
-              child: Center(
-                child: SellButton(info: info),
-              ),
-            ),
-          ],
+        AnimatedSwitcher(
+          duration: Duration(milliseconds: 377),
+          child: buttons,
+        ),
+      ],
+    );
+  }
+}
+
+class BuySellButtons extends StatelessWidget {
+  const BuySellButtons({
+    Key? key,
+    required this.info,
+    required this.closeContainer,
+  }) : super(key: key);
+
+  final MarketInfo info;
+  final Function closeContainer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+          child: Center(
+            child: BuyButton(info: info),
+          ),
+        ),
+        FloatingButton(
+          closeContainer: closeContainer,
+        ),
+        Expanded(
+          child: Center(
+            child: SellButton(info: info),
+          ),
         ),
       ],
     );
