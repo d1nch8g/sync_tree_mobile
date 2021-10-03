@@ -132,37 +132,31 @@ Future<List<String>> getMessages(String adress) async {
       }
     }
   } catch (e) {}
-  return curMessages;
+  return List.from(curMessages.reversed);
 }
 
 class _ChatMessagesState extends State<ChatMessages> {
-  late List<String> messages;
-  Key startKey = UniqueKey();
+  late List<String> messages = [];
+  Key key = UniqueKey();
   String firstMessage = 'This is market page. Here you can process deposit'
       ' and withdrawal operations. Before start of any transaction processing '
       'check market ratio and operation count. The decision to trust is on '
       'your own risk!';
 
-  rebuild() {
-    if (mounted) {
-      messages = List.from(messages.reversed);
-      if (messages.length == 0) {
-        messages.add(firstMessage);
-      }
-      if (messages.length != messages.length || messages[0] != messages[0]) {
-        messages = messages;
-        setState(() {});
-      }
-    }
-  }
-
   startUpdating() {
-    Timer.periodic(Duration(seconds: 1), (Timer t) async {
-      if (mounted) {
-        messages = await getMessages(widget.adress);
-        rebuild();
-      } else {
-        t.cancel();
+    Timer.periodic(Duration(seconds: 1), (timer) async {
+      var newMessages = await getMessages(widget.adress);
+      if (!mounted) {
+        timer.cancel();
+      }
+      if (newMessages.length == 0) {
+        return;
+      }
+      if (newMessages[0] != messages[0] ||
+          newMessages.length != messages.length) {
+        key = UniqueKey();
+        messages = newMessages;
+        setState(() {});
       }
     });
   }
@@ -170,11 +164,14 @@ class _ChatMessagesState extends State<ChatMessages> {
   @override
   void initState() {
     messages = widget.messages;
-    rebuild();
-    super.initState();
-    Future.delayed(Duration(milliseconds: 610), () {
+    if (messages.isEmpty) {
+      messages.add(firstMessage);
+      super.initState();
       startUpdating();
-    });
+      return;
+    }
+    super.initState();
+    startUpdating();
   }
 
   @override
@@ -183,6 +180,7 @@ class _ChatMessagesState extends State<ChatMessages> {
       child: AnimatedSwitcher(
         duration: Duration(milliseconds: 610),
         child: ListView.builder(
+          key: key,
           reverse: true,
           padding: EdgeInsets.all(2),
           itemCount: messages.length,
