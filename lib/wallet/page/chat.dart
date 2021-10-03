@@ -200,7 +200,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                           balance: int.parse(messages[index].substring(2)),
                           delimiter: widget.delimiter,
                         ),
-                    style: TextStyle(color: Theme.of(context).primaryColorDark),
+                    style: Theme.of(context).textTheme.headline5,
                   ),
                 ),
               );
@@ -223,7 +223,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                           balance: int.parse(messages[index].substring(2)),
                           delimiter: widget.delimiter,
                         ),
-                    style: TextStyle(color: Theme.of(context).primaryColorDark),
+                    style: Theme.of(context).textTheme.headline5,
                   ),
                 ),
               );
@@ -242,7 +242,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                   ),
                   child: Text(
                     messages[index].substring(2),
-                    style: TextStyle(color: Theme.of(context).focusColor),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               );
@@ -260,7 +260,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                   ),
                   child: Text(
                     messages[index],
-                    style: TextStyle(color: Theme.of(context).focusColor),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
               );

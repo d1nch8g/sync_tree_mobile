@@ -145,7 +145,7 @@ class CancelTradeOverlayState extends State<CancelTradeOverlay>
                     'If you want to cancel active order, and get the offer '
                     'back press the button below.',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   SizedBox(height: 18),
                   Row(

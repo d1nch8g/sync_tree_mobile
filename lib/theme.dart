@@ -7,18 +7,18 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        canvasColor: Colors.transparent,
-        backgroundColor: Color.fromRGBO(42, 42, 114, 1.0), // purple
-        focusColor: Color.fromRGBO(234, 246, 255, 1.0), // white
-        hintColor: Color.fromRGBO(255, 164, 0, 1.0), // yellow
-        hoverColor: Color.fromRGBO(0, 159, 253, 1.0), // blue
-        primaryColorDark: Color.fromRGBO(35, 37, 40, 1.0), // black
         pageTransitionsTheme: PageTransitionsTheme(
           builders: {
             TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
             TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
           },
         ),
+        canvasColor: Colors.transparent,
+        backgroundColor: Color.fromRGBO(42, 42, 114, 1.0), // purple
+        focusColor: Color.fromRGBO(234, 246, 255, 1.0), // white
+        hintColor: Color.fromRGBO(255, 164, 0, 1.0), // yellow
+        hoverColor: Color.fromRGBO(0, 159, 253, 1.0), // blue
+        primaryColorDark: Color.fromRGBO(35, 37, 40, 1.0), // black
         textTheme: TextTheme(
           headline1: TextStyle(
             color: Color.fromRGBO(234, 246, 255, 1.0),
@@ -70,7 +70,7 @@ class App extends StatelessWidget {
             fontFamily: 'Hind',
             fontWeight: FontWeight.w300,
           ),
-          bodyText2: TextStyle(
+          bodyText1: TextStyle(
             color: Color.fromRGBO(234, 246, 255, 1.0),
             fontSize: 19.6,
             fontFamily: 'Hind',

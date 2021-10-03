@@ -160,7 +160,7 @@ class MarketHelpOverlayState extends State<MarketHelpOverlay>
                         'criminals can try to fake it. Check them patiently.',
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.fade,
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                   ),

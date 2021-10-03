@@ -70,11 +70,18 @@ class _WalletTileState extends State<WalletTile> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(widget.info.name),
-                        Text(widget.info.workTime),
+                        Text(
+                          widget.info.name,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        Text(
+                          widget.info.workTime,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
                         Text(
                           'Fee in: ${(widget.info.inputFee / 100).toString()}% '
                           'out: ${(widget.info.outputFee / 100).toString()}%',
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                         DynamicMarketBalance(
                           adress: widget.info.adress,
@@ -153,6 +160,9 @@ class _DynamicMarketBalanceState extends State<DynamicMarketBalance> {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Balance: $balance');
+    return Text(
+      'Balance: $balance',
+      style: Theme.of(context).textTheme.bodyText1,
+    );
   }
 }

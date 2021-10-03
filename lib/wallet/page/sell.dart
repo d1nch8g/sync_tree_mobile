@@ -271,7 +271,7 @@ class SellOverlayState extends State<SellOverlay>
                     Text(
                       'To sell `${this.widget.info.name}` set the offer and recieve values.',
                       textAlign: TextAlign.start,
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     SizedBox(height: 22),
                     AnimatedSwitcher(

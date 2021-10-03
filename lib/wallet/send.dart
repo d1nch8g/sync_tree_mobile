@@ -305,7 +305,7 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                   Text(
                     'You can paste reciever adress from clipboard or type it.',
                     textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   SizedBox(height: 22),
                   AnimatedSwitcher(

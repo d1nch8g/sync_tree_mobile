@@ -90,7 +90,7 @@ class _TradePageState extends State<TradePage> {
                 'place the order. If order is not operated instantly, '
                 'you can cancel it any time you want. You can not place '
                 'more then order at the same time.',
-                style: Theme.of(context).textTheme.bodyText2,
+                style: Theme.of(context).textTheme.bodyText1,
                 softWrap: true,
                 overflow: TextOverflow.fade,
               ),
@@ -226,7 +226,10 @@ class TradeBars extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Text(name),
+          Text(
+            name,
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
           Divider(
             color: Theme.of(context).focusColor,
           ),
@@ -259,6 +262,7 @@ class TradeBars extends StatelessWidget {
                       'O: $offer\n'
                       'D: $recieve\n'
                       'R: $strRatio',
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   );
                 },

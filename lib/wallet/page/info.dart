@@ -26,7 +26,7 @@ class InfoPage extends StatelessWidget {
             'Buys count: ${info.activeBuys}\n'
             'Sells count: ${info.activeSells}\n'
             'Workday: ${info.workTime}',
-            style: Theme.of(context).textTheme.bodyText2,
+            style: Theme.of(context).textTheme.bodyText1,
             softWrap: true,
             overflow: TextOverflow.fade,
           ),
@@ -42,7 +42,7 @@ class InfoPage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Text(
                 info.description,
-                style: Theme.of(context).textTheme.bodyText2,
+                style: Theme.of(context).textTheme.bodyText1,
                 softWrap: true,
                 overflow: TextOverflow.fade,
               ),

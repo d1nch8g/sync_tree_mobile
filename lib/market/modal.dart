@@ -75,7 +75,7 @@ class _MarketModalPageState extends State<MarketModalPage> {
               'Buys count: ${widget.info.activeBuys}\n'
               'Sells count: ${widget.info.activeSells}\n'
               'Workday: ${widget.info.workTime}',
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             Divider(
               color: Theme.of(context).focusColor,
@@ -86,7 +86,7 @@ class _MarketModalPageState extends State<MarketModalPage> {
                 child: SingleChildScrollView(
                   child: Text(
                     widget.info.description,
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyText1,
                     softWrap: true,
                     overflow: TextOverflow.fade,
                   ),

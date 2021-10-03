@@ -134,7 +134,7 @@ class MarketHelpOverlayState extends State<MarketHelpOverlay>
                         '   This is market search page. Here you can find new markets and connect connect them as a wallet. After connection you will find them on wallet page, then you will be able to process different operations with connected assets.\n   All markets have equal rights to be traded inside this system, you should check twice wether asset you are buying is trusted enough.\n   Due to unavailability of any data modification inside distributed data storage, users have to decide wether they trust any market on their own risk!\n  Please, attentively check markets you are trading on.',
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.fade,
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
                     ),
                   ),
