@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import '../src/src.dart';
 
-import 'tileChangeKey.dart';
-import 'tileCopyKey.dart';
-import 'tileGenerKey.dart';
-import 'tileLicenses.dart';
-import 'tilePin.dart';
-import 'tilePubName.dart';
+import 'change_key.dart';
+import 'copy_key.dart';
+import 'generate_key.dart';
+import 'licenses.dart';
+import 'security.dart';
+import 'pub_name.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
