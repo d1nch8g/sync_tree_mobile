@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
 
@@ -55,7 +57,10 @@ class InfoPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            DetachButton(),
+            DetachButton(
+              closeContainer: closeContainer,
+              adress: info.adress,
+            ),
             FloatingButton(
               closeContainer: closeContainer,
             ),
@@ -67,6 +72,12 @@ class InfoPage extends StatelessWidget {
 }
 
 class DetachButton extends StatelessWidget {
+  final String adress;
+  final Function closeContainer;
+  DetachButton({
+    required this.adress,
+    required this.closeContainer,
+  });
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -74,7 +85,10 @@ class DetachButton extends StatelessWidget {
       onPressed: () {
         showDialog(
           context: context,
-          builder: (_) => DetachOverlay(),
+          builder: (_) => DetachOverlay(
+            adress: adress,
+            closeContainer: closeContainer,
+          ),
         );
       },
     );
@@ -82,6 +96,12 @@ class DetachButton extends StatelessWidget {
 }
 
 class DetachOverlay extends StatefulWidget {
+  final String adress;
+  final Function closeContainer;
+  DetachOverlay({
+    required this.adress,
+    required this.closeContainer,
+  });
   @override
   State<StatefulWidget> createState() => DetachOverlayState();
 }
@@ -152,7 +172,10 @@ class DetachOverlayState extends State<DetachOverlay>
                       TextButton(
                         child: Text('detach'),
                         onPressed: () {
-                          
+                          Navigator.pop(context);
+                          Storage.removeConnectedMarket(widget.adress);
+                          widget.closeContainer();
+                          mainStreamController.add(Trigger.walletDetached);
                         },
                       ),
                     ],

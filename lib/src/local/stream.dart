@@ -1,7 +1,7 @@
 import 'dart:async';
 
-var storageStreamController = StreamController<Trigger>.broadcast();
-var storageStream = storageStreamController.stream;
+var mainStreamController = StreamController<Trigger>.broadcast();
+var mainStream = mainStreamController.stream;
 
 enum Trigger {
   publicNameUpdate,
@@ -9,4 +9,5 @@ enum Trigger {
   marketBalanceUpdate,
   marketMessagesUpdate,
   moveToMarketPage,
+  walletDetached,
 }

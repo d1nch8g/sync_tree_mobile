@@ -115,14 +115,14 @@ class Storage {
   static void triggerStorageEvent({
     required Trigger trigger,
   }) {
-    storageStreamController.add(trigger);
+    mainStreamController.add(trigger);
   }
 
   static createTriggerSubscription({
     required Trigger trigger,
     required Function onTriggerEvent,
   }) {
-    storageStream.listen((event) {
+    mainStream.listen((event) {
       if (trigger == event) {
         onTriggerEvent();
       }
