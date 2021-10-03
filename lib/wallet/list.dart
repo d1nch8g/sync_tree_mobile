@@ -35,8 +35,8 @@ class _WalletsListState extends State<WalletsList> {
       child: ListView.builder(
         reverse: true,
         shrinkWrap: true,
-        itemCount: markets.length,
         key: UniqueKey(),
+        itemCount: markets.length,
         itemBuilder: (context, index) {
           var info = markets[index];
           return WalletTile(info: info);
