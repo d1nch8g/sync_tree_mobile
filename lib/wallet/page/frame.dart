@@ -12,10 +12,12 @@ class ConnectedWalletPage extends StatefulWidget {
   final MarketInfo info;
   final Function closeContainer;
   final int initialIndex;
+  final List<String> messages;
   ConnectedWalletPage({
     required this.closeContainer,
     required this.info,
     required this.initialIndex,
+    required this.messages,
   });
 
   @override
@@ -111,6 +113,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
                     closeContainer: () {
                       widget.closeContainer();
                     },
+                    messages: widget.messages,
                   ),
                 ],
               ),

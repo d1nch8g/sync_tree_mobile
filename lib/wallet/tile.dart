@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/src.dart';
+import 'package:sync_tree_mobile_ui/wallet/page/chat.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
 
 class WalletTile extends StatefulWidget {
@@ -15,15 +16,17 @@ class WalletTile extends StatefulWidget {
 class _WalletTileState extends State<WalletTile> {
   double scale = 1;
   late int initialIndex = 0;
+  late List<String> initialMessages = [];
 
-  loadInitialIndex() async {
+  loadInitialData() async {
     initialIndex = await Storage.loadMarketWalletPosition(widget.info.adress);
+    initialMessages = await getMessages(widget.info.adress);
   }
 
   @override
   void initState() {
     super.initState();
-    loadInitialIndex();
+    loadInitialData();
   }
 
   increaseContainer() {
@@ -96,13 +99,14 @@ class _WalletTileState extends State<WalletTile> {
                 },
                 openBuilder: (context, action) {
                   decreaseContainer();
-                  loadInitialIndex();
+                  loadInitialData();
                   return ConnectedWalletPage(
                     closeContainer: () {
                       action();
                     },
                     info: widget.info,
                     initialIndex: initialIndex,
+                    messages: initialMessages,
                   );
                 },
               ),
