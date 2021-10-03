@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/tile.dart';
 
@@ -35,6 +36,7 @@ class _WalletsListState extends State<WalletsList> {
         reverse: true,
         shrinkWrap: true,
         itemCount: markets.length,
+        key: UniqueKey(),
         itemBuilder: (context, index) {
           var info = markets[index];
           return WalletTile(info: info);

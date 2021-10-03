@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/wallet/list.dart';
 import 'package:sync_tree_mobile_ui/wallet/logo.dart';
 import 'package:sync_tree_mobile_ui/wallet/norez.dart';
@@ -27,6 +28,17 @@ class _WalletPageState extends State<WalletPage> {
     currentMarketWidget = WalletsList();
     super.initState();
     checkIfHasNoConnections();
+    Storage.createTriggerSubscription(
+      trigger: Trigger.walletDetached,
+      onTriggerEvent: () {
+        print('triggered');
+        if (mounted) {
+          checkIfHasNoConnections();
+          currentMarketWidget = WalletsList();
+          setState(() {});
+        }
+      },
+    );
   }
 
   @override
@@ -38,7 +50,7 @@ class _WalletPageState extends State<WalletPage> {
           Divider(color: Theme.of(context).cardColor),
           Expanded(
             child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 377),
+              duration: Duration(milliseconds: 1510),
               child: currentMarketWidget,
             ),
           ),
