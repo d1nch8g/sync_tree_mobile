@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_ui/settings/logo.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import '../src/src.dart';
 
@@ -48,9 +47,18 @@ class _SettingsPageState extends State<SettingsPage> {
     return SafeArea(
       child: Column(
         children: [
-          SettingsLogo(
-            pubName: name,
-            balance: balance,
+          Icon(
+            Icons.settings_applications,
+            size: MediaQuery.of(context).size.height * 0.162,
+            color: Theme.of(context).hintColor,
+          ),
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 377),
+            child: Text(
+              name,
+              style: Theme.of(context).textTheme.headline3,
+              key: UniqueKey(),
+            ),
           ),
           Divider(),
           Expanded(
