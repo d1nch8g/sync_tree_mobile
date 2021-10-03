@@ -108,52 +108,59 @@ class ChatTextField extends StatelessWidget {
 class ChatMessages extends StatefulWidget {
   final String adress;
   final int delimiter;
+  final List<String> messages;
   ChatMessages({
     required this.adress,
     required this.delimiter,
+    required this.messages,
   });
   @override
   State<ChatMessages> createState() => _ChatMessagesState();
 }
 
+Future<List<String>> getMessages(String adress) async {
+  var keys = await Storage.loadKeys();
+  var curMessages = await Storage.loadMessages(adress);
+  try {
+    var loadedMessages = await InfoCalls.messages(adress);
+    if (loadedMessages.length > curMessages.length) {
+      for (var i = curMessages.length; i < loadedMessages.length; i++) {
+        var mes = loadedMessages[i].substring(0);
+        var decrypted = await keys.message.private.decrypt(mes);
+        Storage.addMessage(message: decrypted, adress: adress);
+        curMessages.add(decrypted);
+      }
+    }
+  } catch (e) {}
+  return curMessages;
+}
+
 class _ChatMessagesState extends State<ChatMessages> {
-  List<String> messages = [];
+  late List<String> messages;
   Key startKey = UniqueKey();
-  Duration initialDuration = Duration(milliseconds: 0);
   String firstMessage = 'This is market page. Here you can process deposit'
       ' and withdrawal operations. Before start of any transaction processing '
       'check market ratio and operation count. The decision to trust is on '
       'your own risk!';
 
-  updateMessages() async {
-    var keys = await Storage.loadKeys();
-    var loadedMessages = await InfoCalls.messages(widget.adress);
-    var curMessages = await Storage.loadMessages(widget.adress);
-    if (loadedMessages.length > curMessages.length) {
-      for (var i = curMessages.length; i < loadedMessages.length; i++) {
-        var mes = loadedMessages[i].substring(0);
-        var decrypted = await keys.message.private.decrypt(mes);
-        Storage.addMessage(message: decrypted, adress: widget.adress);
-        curMessages.add(decrypted);
-      }
-    }
+  rebuild() {
     if (mounted) {
-      curMessages = List.from(curMessages.reversed);
-      if (curMessages.length == 0) {
-        curMessages.add(firstMessage);
+      messages = List.from(messages.reversed);
+      if (messages.length == 0) {
+        messages.add(firstMessage);
       }
-      if (curMessages.length != messages.length ||
-          curMessages[0] != messages[0]) {
-        messages = curMessages;
+      if (messages.length != messages.length || messages[0] != messages[0]) {
+        messages = messages;
         setState(() {});
       }
     }
   }
 
   startUpdating() {
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
+    Timer.periodic(Duration(seconds: 1), (Timer t) async {
       if (mounted) {
-        updateMessages();
+        messages = await getMessages(widget.adress);
+        rebuild();
       } else {
         t.cancel();
       }
@@ -162,10 +169,10 @@ class _ChatMessagesState extends State<ChatMessages> {
 
   @override
   void initState() {
+    messages = widget.messages;
+    rebuild();
     super.initState();
-    updateMessages();
     Future.delayed(Duration(milliseconds: 610), () {
-      initialDuration = Duration(milliseconds: 610);
       startUpdating();
     });
   }
@@ -174,9 +181,8 @@ class _ChatMessagesState extends State<ChatMessages> {
   Widget build(BuildContext context) {
     return Expanded(
       child: AnimatedSwitcher(
-        duration: initialDuration,
+        duration: Duration(milliseconds: 610),
         child: ListView.builder(
-          key: UniqueKey(),
           reverse: true,
           padding: EdgeInsets.all(2),
           itemCount: messages.length,

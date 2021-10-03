@@ -13,9 +13,11 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 class DepositPage extends StatelessWidget {
   final MarketInfo info;
   final Function closeContainer;
+  final List<String> messages;
   DepositPage({
     required this.info,
     required this.closeContainer,
+    required this.messages,
   });
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class DepositPage extends StatelessWidget {
         ChatMessages(
           adress: info.adress,
           delimiter: info.delimiter,
+          messages: messages,
         ),
         SizedBox(height: 8),
         ChatTextField(
