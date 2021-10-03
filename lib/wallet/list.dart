@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
-import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/tile.dart';
 
 class WalletsList extends StatefulWidget {
+  const WalletsList({Key? key}) : super(key: key);
   @override
   State<WalletsList> createState() => _WalletsListState();
 }

@@ -34,7 +34,9 @@ class _WalletPageState extends State<WalletPage> {
         print('triggered');
         if (mounted) {
           checkIfHasNoConnections();
-          currentMarketWidget = WalletsList();
+          currentMarketWidget = WalletsList(
+            key: UniqueKey(),
+          );
           setState(() {});
         }
       },
