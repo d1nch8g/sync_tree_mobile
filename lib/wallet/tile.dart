@@ -18,15 +18,19 @@ class _WalletTileState extends State<WalletTile> {
   late int initialIndex = 0;
   late List<String> initialMessages = [];
 
-  loadInitialData() async {
+  loadInitialIdx() async {
     initialIndex = await Storage.loadMarketWalletPosition(widget.info.adress);
+  }
+
+  loadInitialMes() async {
     initialMessages = await getMessages(widget.info.adress);
   }
 
   @override
   void initState() {
     super.initState();
-    loadInitialData();
+    loadInitialMes();
+    loadInitialIdx();
   }
 
   increaseContainer() {
@@ -99,7 +103,7 @@ class _WalletTileState extends State<WalletTile> {
                 },
                 openBuilder: (context, action) {
                   decreaseContainer();
-                  loadInitialData();
+                  loadInitialIdx();
                   return ConnectedWalletPage(
                     closeContainer: () {
                       action();

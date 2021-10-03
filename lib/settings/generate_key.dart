@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../navigator.dart';
 import '../src/src.dart';
-import '../password.dart';
 import '../start/hello.dart';
 
 class GenerateKeyTile extends StatelessWidget {
   showKeyGenerationOverlay(context) {
-    passwordCheck(context, () {
-      showDialog(
-        context: context,
-        builder: (_) => GenerateKeyOverlay(),
-      );
-    });
+    showDialog(
+      context: context,
+      builder: (_) => GenerateKeyOverlay(),
+    );
   }
 
   @override

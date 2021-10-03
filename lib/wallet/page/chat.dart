@@ -148,6 +148,7 @@ class _ChatMessagesState extends State<ChatMessages> {
       var newMessages = await getMessages(widget.adress);
       if (!mounted) {
         timer.cancel();
+        return;
       }
       if (newMessages.length == 0) {
         return;

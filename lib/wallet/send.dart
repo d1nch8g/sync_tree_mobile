@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import '../src/src.dart';
 import '../connection.dart';
-import '../password.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -14,15 +13,10 @@ class SendButton extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: ElevatedButton(
         onPressed: () {
-          passwordCheck(
-            context,
-            () {
-              showDialog(
+          showDialog(
                 context: context,
                 builder: (_) => GetAdressOverlay(),
               );
-            },
-          );
         },
         child: Padding(
           padding: const EdgeInsets.all(6.0),

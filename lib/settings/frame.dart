@@ -5,7 +5,6 @@ import 'change_key.dart';
 import 'copy_key.dart';
 import 'generate_key.dart';
 import 'licenses.dart';
-import 'security.dart';
 import 'pub_name.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -30,8 +29,6 @@ class SettingsPage extends StatelessWidget {
                 ChangeKeyTile(),
                 Divider(),
                 GenerateKeyTile(),
-                Divider(),
-                SetPinTile(),
                 Divider(),
                 PublicNameTile(),
                 Divider(),
