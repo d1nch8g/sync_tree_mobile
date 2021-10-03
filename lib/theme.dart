@@ -12,7 +12,7 @@ class App extends StatelessWidget {
         focusColor: Color.fromRGBO(234, 246, 255, 1.0), // white
         hintColor: Color.fromRGBO(255, 164, 0, 1.0), // yellow
         hoverColor: Color.fromRGBO(0, 159, 253, 1.0), // blue
-        cardColor: Color.fromRGBO(35, 37, 40, 1.0), // black
+        primaryColorDark: Color.fromRGBO(35, 37, 40, 1.0), // black
         pageTransitionsTheme: PageTransitionsTheme(
           builders: {
             TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),

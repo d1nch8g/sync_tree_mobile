@@ -49,14 +49,14 @@ class _WalletPageState extends State<WalletPage> {
       child: Column(
         children: [
           WalletLogo(),
-          Divider(color: Theme.of(context).cardColor),
+          Divider(color: Theme.of(context).primaryColorDark),
           Expanded(
             child: AnimatedSwitcher(
               duration: Duration(milliseconds: 1510),
               child: currentMarketWidget,
             ),
           ),
-          Divider(color: Theme.of(context).cardColor),
+          Divider(color: Theme.of(context).primaryColorDark),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

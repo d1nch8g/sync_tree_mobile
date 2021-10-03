@@ -200,7 +200,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                           balance: int.parse(messages[index].substring(2)),
                           delimiter: widget.delimiter,
                         ),
-                    style: TextStyle(color: Theme.of(context).cardColor),
+                    style: TextStyle(color: Theme.of(context).primaryColorDark),
                   ),
                 ),
               );
@@ -223,7 +223,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                           balance: int.parse(messages[index].substring(2)),
                           delimiter: widget.delimiter,
                         ),
-                    style: TextStyle(color: Theme.of(context).cardColor),
+                    style: TextStyle(color: Theme.of(context).primaryColorDark),
                   ),
                 ),
               );
@@ -253,7 +253,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                 ),
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.only(top: 20),
-                backGroundColor: Theme.of(context).cardColor,
+                backGroundColor: Theme.of(context).primaryColorDark,
                 child: Container(
                   constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width * 0.7,

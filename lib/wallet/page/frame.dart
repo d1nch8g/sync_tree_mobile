@@ -124,13 +124,13 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
         ],
       ),
       bottomNavigationBar: FloatingNavbar(
-        backgroundColor: Theme.of(context).cardColor,
+        backgroundColor: Theme.of(context).primaryColorDark,
         currentIndex: bottomBarIndex,
         onTap: onTap,
         iconSize: 32,
         fontSize: 13.5,
         unselectedItemColor: Theme.of(context).focusColor,
-        selectedItemColor: Theme.of(context).cardColor,
+        selectedItemColor: Theme.of(context).primaryColorDark,
         selectedBackgroundColor: Theme.of(context).focusColor,
         items: [
           FloatingNavbarItem(

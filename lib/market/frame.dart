@@ -80,7 +80,7 @@ class _MarketPageState extends State<MarketPage> {
             connected: connected,
             owned: owned,
           ),
-          Divider(color: Theme.of(context).cardColor),
+          Divider(color: Theme.of(context).primaryColorDark),
           Expanded(
             child: AnimatedSwitcher(
               duration: Duration(milliseconds: 144),
