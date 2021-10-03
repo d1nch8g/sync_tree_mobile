@@ -16,7 +16,7 @@ class PublicNameTile extends StatelessWidget {
       onTap: () {
         showDialog(
           context: context,
-          builder: (_) => GenerateKeyOverlay(),
+          builder: (_) => ChangePublicNameOverlay(),
         );
       },
       title: Text(
@@ -31,12 +31,12 @@ class PublicNameTile extends StatelessWidget {
   }
 }
 
-class GenerateKeyOverlay extends StatefulWidget {
+class ChangePublicNameOverlay extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => GenerateKeyOverlayState();
+  State<StatefulWidget> createState() => ChangePublicNameOverlayState();
 }
 
-class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
+class ChangePublicNameOverlayState extends State<ChangePublicNameOverlay>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> scaleAnimation;

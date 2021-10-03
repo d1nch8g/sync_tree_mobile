@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/settings/save_as_pwd.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import '../src/src.dart';
 
@@ -72,6 +73,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 GenerateKeyTile(),
                 Divider(),
                 PublicNameTile(),
+                Divider(),
+                SaveAsPwd(),
                 Divider(),
                 LicensesTile(),
               ],
