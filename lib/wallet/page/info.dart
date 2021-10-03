@@ -124,7 +124,7 @@ class DetachOverlayState extends State<DetachOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(50, 32, 50, 22),
+              padding: const EdgeInsets.fromLTRB(22, 32, 22, 22),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -135,11 +135,28 @@ class DetachOverlayState extends State<DetachOverlay>
                   ),
                   Divider(color: Theme.of(context).focusColor),
                   Text(
-                    'Are you sure you want to detach this wallet? It will be removed from your conncted wallets list. You can connect it any time later in search.',
+                    'Are you sure you want to detach this wallet? It will be removed from your conncted wallets list.',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline2,
                   ),
                   SizedBox(height: 4),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      TextButton(
+                        child: Text('cancel'),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      TextButton(
+                        child: Text('detach'),
+                        onPressed: () {
+                          
+                        },
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
