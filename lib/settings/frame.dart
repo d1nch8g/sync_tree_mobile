@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/settings/logo.dart';
+import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import '../src/src.dart';
 
 import 'change_key.dart';
@@ -7,18 +9,49 @@ import 'generate_key.dart';
 import 'licenses.dart';
 import 'pub_name.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  String name = '';
+  String balance = '';
+
+  displayNewData() async {
+    var loadedName = await Storage.loadPublicName();
+    var loadedBalance = await Balance.mainBalance();
+    if (mounted) {
+      setState(() {
+        name = loadedName;
+        balance = loadedBalance;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    displayNewData();
+    Storage.createTriggerSubscription(
+      trigger: Trigger.publicNameUpdate,
+      onTriggerEvent: displayNewData,
+    );
+    Storage.createTriggerSubscription(
+      trigger: Trigger.mainBalanceUpdate,
+      onTriggerEvent: displayNewData,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
         children: [
-          Icon(
-            Icons.settings_applications,
-            size: MediaQuery.of(context).size.height * 0.15,
-            color: Theme.of(context).hintColor,
+          SettingsLogo(
+            pubName: name,
+            balance: balance,
           ),
-          DynamicName(),
           Divider(),
           Expanded(
             child: ListView(
@@ -38,45 +71,6 @@ class SettingsPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class DynamicName extends StatefulWidget {
-  @override
-  _DynamicNameState createState() => _DynamicNameState();
-}
-
-class _DynamicNameState extends State<DynamicName> {
-  String name = '';
-
-  displayNewName() async {
-    var loadedName = await Storage.loadPublicName();
-    if (mounted) {
-      setState(() {
-        name = loadedName;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    displayNewName();
-    Storage.createTriggerSubscription(
-      trigger: Trigger.publicNameUpdate,
-      onTriggerEvent: displayNewName,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      child: Text(
-        name,
-        style: Theme.of(context).textTheme.headline3,
-      ),
-      duration: Duration(milliseconds: 377),
     );
   }
 }
