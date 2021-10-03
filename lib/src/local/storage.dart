@@ -195,4 +195,14 @@ class Storage {
     var messages = prefs.getStringList('msgs$adress') ?? [];
     return messages;
   }
+
+  static void saveMarketWalletPosition(String adress, int position) async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setInt('chpos$adress', position);
+  }
+
+  static Future<int> loadMarketWalletPosition(String adress) async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('chpos$adress') ?? 0;
+  }
 }

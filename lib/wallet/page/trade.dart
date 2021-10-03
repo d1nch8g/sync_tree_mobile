@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
-import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/buy.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/cancel.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
@@ -98,6 +97,7 @@ class _TradePageState extends State<TradePage> {
             ),
           ),
         ),
+        Divider(color: Theme.of(context).focusColor),
         AnimatedSwitcher(
           duration: Duration(milliseconds: 144),
           child: buttons,

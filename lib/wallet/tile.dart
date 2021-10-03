@@ -14,9 +14,16 @@ class WalletTile extends StatefulWidget {
 
 class _WalletTileState extends State<WalletTile> {
   double scale = 1;
+  late int initialIndex = 0;
+
+  loadInitialIndex() async {
+    initialIndex = await Storage.loadMarketWalletPosition(widget.info.adress);
+  }
+
   @override
   void initState() {
     super.initState();
+    loadInitialIndex();
   }
 
   increaseContainer() {
@@ -82,11 +89,13 @@ class _WalletTileState extends State<WalletTile> {
                 },
                 openBuilder: (context, action) {
                   decreaseContainer();
+                  loadInitialIndex();
                   return ConnectedWalletPage(
                     closeContainer: () {
                       action();
                     },
                     info: widget.info,
+                    initialIndex: initialIndex,
                   );
                 },
               ),

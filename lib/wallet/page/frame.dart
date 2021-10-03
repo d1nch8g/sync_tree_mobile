@@ -11,9 +11,11 @@ import 'package:sync_tree_mobile_ui/wallet/page/trade.dart';
 class ConnectedWalletPage extends StatefulWidget {
   final MarketInfo info;
   final Function closeContainer;
+  final int initialIndex;
   ConnectedWalletPage({
     required this.closeContainer,
     required this.info,
+    required this.initialIndex,
   });
 
   @override
@@ -23,10 +25,9 @@ class ConnectedWalletPage extends StatefulWidget {
 bool resizekb = true;
 
 class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
-  int bottomBarIndex = 0;
+  late int bottomBarIndex;
   late PageController bottomBarController;
   String balance = '0';
-  Widget button = Container();
   double bottomNavBarPadHeight = 0;
 
   @override
@@ -35,7 +36,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
     super.dispose();
   }
 
-  void onTap(int index) {
+  void onTap(int index) async {
     setState(() {
       bottomBarIndex = index;
       bottomBarController.animateToPage(
@@ -44,6 +45,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
         curve: Curves.easeOut,
       );
     });
+    Storage.saveMarketWalletPosition(widget.info.adress, index);
   }
 
   updateInfo() async {
@@ -57,12 +59,12 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
 
   @override
   void initState() {
-    updateInfo();
-    button = FloatingButton(closeContainer: widget.closeContainer);
-    super.initState();
+    bottomBarIndex = widget.initialIndex;
     bottomBarController = PageController(
       initialPage: bottomBarIndex,
     );
+    updateInfo();
+    super.initState();
   }
 
   @override
