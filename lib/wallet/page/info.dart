@@ -55,10 +55,10 @@ class InfoPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            DetachButton(),
             FloatingButton(
               closeContainer: closeContainer,
             ),
-            DetachButton(),
           ],
         )
       ],
@@ -71,7 +71,81 @@ class DetachButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       child: Text('detach'),
-      onPressed: () {},
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (_) => DetachOverlay(),
+        );
+      },
+    );
+  }
+}
+
+class DetachOverlay extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => DetachOverlayState();
+}
+
+class DetachOverlayState extends State<DetachOverlay>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 377),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
+    controller.addListener(() {
+      setState(() {});
+    });
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.80,
+            decoration: ShapeDecoration(
+              color: Theme.of(context).backgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(50, 32, 50, 22),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'DETACH',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                  Divider(color: Theme.of(context).focusColor),
+                  Text(
+                    'Are you sure you want to detach this wallet? It will be removed from your conncted wallets list. You can connect it any time later in search.',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  SizedBox(height: 4),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
