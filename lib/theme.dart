@@ -84,6 +84,7 @@ class App extends StatelessWidget {
               color: Color.fromRGBO(234, 246, 255, 1.0),
               width: 0.58,
             ),
+            backgroundColor: Color.fromRGBO(42, 42, 114, 1.0),
             textStyle: TextStyle(
               fontSize: 24.4,
               fontFamily: 'Hind',
