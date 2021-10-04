@@ -240,7 +240,7 @@ class _ChatMessagesState extends State<ChatMessages> {
                 ),
                 alignment: Alignment.topRight,
                 margin: EdgeInsets.only(top: 20),
-                backGroundColor: Theme.of(context).hoverColor,
+                backGroundColor: Theme.of(context).primaryColorDark,
                 child: Container(
                   constraints: BoxConstraints(
                     maxWidth: MediaQuery.of(context).size.width * 0.7,
