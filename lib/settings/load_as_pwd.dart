@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:clipboard/clipboard.dart';
 import 'package:sync_tree_mobile_ui/navigator.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -11,7 +10,6 @@ class LoadAsPwd extends StatelessWidget {
     return ListTile(
       enableFeedback: true,
       onTap: () async {
-        var keys = (await Storage.loadKeys()).allKeysString;
         showDialog(
           context: context,
           builder: (_) => LoadKeyFromPasswordsOverlay(),

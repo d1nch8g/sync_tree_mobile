@@ -52,7 +52,7 @@ class _WalletPageState extends State<WalletPage> {
           Divider(color: Theme.of(context).primaryColorDark),
           Expanded(
             child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 1510),
+              duration: Duration(milliseconds: 987),
               child: currentMarketWidget,
             ),
           ),

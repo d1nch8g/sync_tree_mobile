@@ -172,6 +172,7 @@ class InfoCalls {
       activeSells: response.activeSells.toInt(),
       delimiter: response.delimiter.toInt(),
     );
+    Storage.saveMarketInfoCache(marketInfo);
     return marketInfo;
   }
 

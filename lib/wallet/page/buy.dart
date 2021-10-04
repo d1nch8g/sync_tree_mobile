@@ -27,7 +27,6 @@ class BuyButton extends StatelessWidget {
         ).whenComplete(() {
           resizekb = true;
         });
-        ;
       },
       child: Text('buy'),
     );
