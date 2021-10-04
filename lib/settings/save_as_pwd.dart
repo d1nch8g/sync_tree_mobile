@@ -121,9 +121,9 @@ class SaveAsPasswordOverlayState extends State<SaveAsPasswordOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(42, 32, 42, 14),
+              padding: const EdgeInsets.fromLTRB(28, 32, 28, 14),
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.62,
+                width: MediaQuery.of(context).size.width * 0.7,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -134,9 +134,9 @@ class SaveAsPasswordOverlayState extends State<SaveAsPasswordOverlay>
                     ),
                     Divider(color: Theme.of(context).focusColor),
                     Text(
-                      'Press this button to copy your key to clipboard and open your system password manager.',
+                      'Press this button to copy your key to clipboard and open your system password manager. You need to save it manually (chose a username and web page name).',
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                     AnimatedSwitcher(
                       duration: Duration(milliseconds: 377),
