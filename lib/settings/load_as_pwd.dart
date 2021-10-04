@@ -48,6 +48,11 @@ class LoadKeyFromPasswordsOverlayState
 
   @override
   void initState() {
+    currentContent = QuestionContent(() {
+      setState(() {
+        currentContent = KeyCopyContent();
+      });
+    });
     super.initState();
     controller = AnimationController(
       vsync: this,
@@ -61,11 +66,6 @@ class LoadKeyFromPasswordsOverlayState
       setState(() {});
     });
     controller.forward();
-    currentContent = QuestionContent(() {
-      setState(() {
-        currentContent = KeyCopyContent();
-      });
-    });
   }
 
   @override
@@ -84,7 +84,7 @@ class LoadKeyFromPasswordsOverlayState
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(32, 32, 32, 14),
+              padding: const EdgeInsets.fromLTRB(36, 32, 36, 14),
               child: AnimatedSwitcher(
                 duration: Duration(milliseconds: 377),
                 child: currentContent,
@@ -114,7 +114,7 @@ class QuestionContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'KEY WARNING',
+          'WARNING',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline2,
         ),
@@ -162,11 +162,13 @@ class KeyCopyContent extends StatefulWidget {
 
 class _KeyCopyContentState extends State<KeyCopyContent> {
   late Widget buttonToAnimate;
+  final TextEditingController controller = TextEditingController();
 
-  onPressAttemtToChangeKeys(context) async {
-    var clipboardKeys = await FlutterClipboard.paste();
+  onPressAttemtToChangeKeys(context, String clipboardKeys) async {
     try {
-      var keysChecked = Keys.fromSingleString(multiKeyStirng: clipboardKeys);
+      var keysChecked = Keys.fromSingleString(
+        multiKeyStirng: clipboardKeys.replaceAll('*^', '\n'),
+      );
       Storage.saveKeys(keysChecked.allKeysString);
       setState(() {
         buttonToAnimate = SucessButton();
@@ -196,9 +198,38 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
         buttonToAnimate = ErrorButton();
         Future.delayed(Duration(milliseconds: 377), () {
           setState(() {
-            buttonToAnimate = PasteButton(() {
-              onPressAttemtToChangeKeys(context);
-            });
+            buttonToAnimate = Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      height: 1,
+                      width: 1,
+                      child: TextField(
+                        controller: controller,
+                        obscureText: false,
+                        autofocus: true,
+                        onEditingComplete: () {
+                          onPressAttemtToChangeKeys(context, controller.text);
+                        },
+                      ),
+                    ),
+                    Container(
+                      height: 6,
+                      width: 6,
+                      color: Color.fromRGBO(42, 42, 114, 1.0),
+                    ),
+                  ],
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('close'),
+                ),
+              ],
+            );
           });
         });
         showTopSnackBar(
@@ -215,9 +246,38 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
   @override
   void initState() {
     super.initState();
-    buttonToAnimate = PasteButton(() {
-      onPressAttemtToChangeKeys(context);
-    });
+    buttonToAnimate = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Stack(
+          children: [
+            Container(
+              height: 1,
+              width: 1,
+              child: TextField(
+                controller: controller,
+                obscureText: true,
+                autofocus: true,
+                onEditingComplete: () {
+                  onPressAttemtToChangeKeys(context, controller.text);
+                },
+              ),
+            ),
+            Container(
+              height: 6,
+              width: 6,
+              color: Color.fromRGBO(42, 42, 114, 1.0),
+            ),
+          ],
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('close'),
+        ),
+      ],
+    );
   }
 
   @override
@@ -232,7 +292,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
         ),
         Divider(color: Theme.of(context).focusColor),
         Text(
-          'Press this button to paste a key from clipboard',
+          'Export private key from passwords',
           style: Theme.of(context).textTheme.headline2,
           textAlign: TextAlign.center,
         ),

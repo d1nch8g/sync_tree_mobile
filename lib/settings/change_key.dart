@@ -83,7 +83,7 @@ class ChangeKeyOverlayState extends State<ChangeKeyOverlay>
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(32, 32, 32, 14),
+              padding: const EdgeInsets.fromLTRB(36, 32, 36, 14),
               child: AnimatedSwitcher(
                 duration: Duration(milliseconds: 377),
                 child: currentContent,

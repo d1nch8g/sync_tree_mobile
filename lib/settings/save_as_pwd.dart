@@ -47,7 +47,7 @@ class SaveAsPasswordOverlayState extends State<SaveAsPasswordOverlay>
   late Widget savePasswordWidget;
 
   startPasswordSaving() {
-    FlutterClipboard.copy(widget.keysAsString);
+    FlutterClipboard.copy(widget.keysAsString.replaceAll('\n', '*^'));
     savePasswordWidget = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
