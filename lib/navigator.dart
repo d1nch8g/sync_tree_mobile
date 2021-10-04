@@ -29,7 +29,7 @@ class PrimaryPage extends StatefulWidget {
 }
 
 class _PrimaryPageState extends State<PrimaryPage> {
-  int bottomBarIndex = 1;
+  int bottomBarIndex = 0;
   late PageController bottomBarController;
 
   void checkFirstLaunch() async {

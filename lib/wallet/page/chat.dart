@@ -277,22 +277,22 @@ class _ChatMessagesState extends State<ChatMessages> {
   }
 }
 
-class CustomBubble extends StatelessWidget {
-  final String text;
-  final Color color;
-  final bool rightSide;
-  CustomBubble({
-    required this.text,
-    required this.color,
-    required this.rightSide,
-  });
+// class CustomBubble extends StatelessWidget {
+//   final String text;
+//   final Color color;
+//   final bool rightSide;
+//   CustomBubble({
+//     required this.text,
+//     required this.color,
+//     required this.rightSide,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      child: Container(
-        
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Align(
+//       child: Container(
+
+//       ),
+//     );
+//   }
+// }
