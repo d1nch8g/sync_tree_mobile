@@ -12,20 +12,30 @@ class WalletsList extends StatefulWidget {
 class _WalletsListState extends State<WalletsList> {
   late List<MarketInfo> markets = [];
 
-  void updateMarketsInfo() async {
+  void loadCachedMarketInfo() async {
     // TODO remake that stuff
     var marketAdresses = await Storage.loadConnectedWallets();
-    marketAdresses.forEach((adress) async {
-      var info = await InfoCalls.marketInfo(adress);
-      markets.add(info);
-      setState(() {});
-    });
+    for (var i = 0; i < marketAdresses.length; i++) {
+      markets.add(
+        await Storage.loadMarketInfoCache(marketAdresses[i]),
+      );
+    }
+    setState(() {});
+  }
+
+  void updateMarketInfo() async {
+    var marketAdresses = await Storage.loadConnectedWallets();
+    for (var i = 0; i < marketAdresses.length; i++) {
+      markets[i] = await InfoCalls.marketInfo(marketAdresses[i]);
+    }
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-    updateMarketsInfo();
+    loadCachedMarketInfo();
+    updateMarketInfo();
   }
 
   @override
