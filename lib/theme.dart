@@ -27,7 +27,7 @@ class App extends StatelessWidget {
           ),
           headline2: TextStyle(
             color: Color.fromRGBO(234, 246, 255, 1.0),
-            fontSize: 26.2,
+            fontSize: 24.2,
             fontFamily: 'Hind',
             fontWeight: FontWeight.w200,
           ),

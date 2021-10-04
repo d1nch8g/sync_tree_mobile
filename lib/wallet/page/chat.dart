@@ -188,26 +188,15 @@ class _ChatMessagesState extends State<ChatMessages> {
           itemBuilder: (context, index) {
             var mes = messages[index];
             if (mes.startsWith('DR')) {
-              return ChatBubble(
-                clipper: ChatBubbleClipper4(
-                  type: BubbleType.sendBubble,
-                ),
-                alignment: Alignment.topRight,
-                margin: EdgeInsets.only(top: 20),
-                backGroundColor: Color(0xff00E676),
-                child: Container(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.7,
-                  ),
-                  child: Text(
-                    'Deposit request: ' +
-                        Balance.fromInt(
-                          balance: int.parse(messages[index].substring(2)),
-                          delimiter: widget.delimiter,
-                        ),
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ),
+              return CustomBubble(
+                text: 'Deposit request: ' +
+                    Balance.fromInt(
+                      balance: int.parse(messages[index].substring(2)),
+                      delimiter: widget.delimiter,
+                    ),
+                style: Theme.of(context).textTheme.headline5!,
+                color: Color(0xff00E676),
+                rightSide: true,
               );
             }
             if (mes.startsWith('WR')) {
@@ -277,22 +266,65 @@ class _ChatMessagesState extends State<ChatMessages> {
   }
 }
 
-// class CustomBubble extends StatelessWidget {
-//   final String text;
-//   final Color color;
-//   final bool rightSide;
-//   CustomBubble({
-//     required this.text,
-//     required this.color,
-//     required this.rightSide,
-//   });
+class CustomBubble extends StatelessWidget {
+  final String text;
+  final Color color;
+  final bool rightSide;
+  final TextStyle style;
+  CustomBubble({
+    required this.text,
+    required this.color,
+    required this.rightSide,
+    required this.style,
+  });
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Align(
-//       child: Container(
-
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    if (rightSide) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.height * 0.7,
+          child: Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  text,
+                  style: style,
+                ),
+              ),
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.height * 0.7,
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                text,
+                style: style,
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
