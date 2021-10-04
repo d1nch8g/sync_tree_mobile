@@ -13,7 +13,6 @@ class _WalletsListState extends State<WalletsList> {
   late List<MarketInfo> markets = [];
 
   void loadCachedMarketInfo() async {
-    // TODO remake that stuff
     var marketAdresses = await Storage.loadConnectedWallets();
     for (var i = 0; i < marketAdresses.length; i++) {
       markets.add(

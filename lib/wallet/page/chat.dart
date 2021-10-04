@@ -89,13 +89,13 @@ class ChatTextField extends StatelessWidget {
             color: Theme.of(context).focusColor,
             onPressed: () {
               sendMessage(context, controller.text);
-              FocusScope.of(context).unfocus();
+              //FocusScope.of(context).unfocus();
             },
           ),
         ),
         onEditingComplete: () {
           sendMessage(context, controller.text);
-          FocusScope.of(context).unfocus();
+          //FocusScope.of(context).unfocus();
         },
       ),
     );
