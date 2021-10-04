@@ -2,14 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:clipboard/clipboard.dart';
 import '../src/src.dart';
 
-class SaveAsPwd extends StatefulWidget {
-  @override
-  State<SaveAsPwd> createState() => _SaveAsPwdState();
-}
-
-class _SaveAsPwdState extends State<SaveAsPwd> {
-  Widget pwdSaver = Container();
-
+class SaveAsPwd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(

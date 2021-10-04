@@ -113,7 +113,7 @@ class QuestionContent extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'KEY WARNING',
+          'WARNING',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline2,
         ),
