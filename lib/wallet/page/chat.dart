@@ -1,9 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_bubble/bubble_type.dart';
-import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
@@ -200,63 +197,30 @@ class _ChatMessagesState extends State<ChatMessages> {
               );
             }
             if (mes.startsWith('WR')) {
-              return ChatBubble(
-                clipper: ChatBubbleClipper4(
-                  type: BubbleType.sendBubble,
-                ),
-                alignment: Alignment.topRight,
-                margin: EdgeInsets.only(top: 20),
-                backGroundColor: Theme.of(context).hintColor,
-                child: Container(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.7,
-                  ),
-                  child: Text(
-                    'Withdrawal request: ' +
-                        Balance.fromInt(
-                          balance: int.parse(messages[index].substring(2)),
-                          delimiter: widget.delimiter,
-                        ),
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                ),
+              return CustomBubble(
+                text: 'Withdrawal request: ' +
+                    Balance.fromInt(
+                      balance: int.parse(messages[index].substring(2)),
+                      delimiter: widget.delimiter,
+                    ),
+                color: Theme.of(context).hintColor,
+                rightSide: true,
+                style: Theme.of(context).textTheme.headline5!,
               );
             }
             if (mes.startsWith('uu')) {
-              return ChatBubble(
-                clipper: ChatBubbleClipper4(
-                  type: BubbleType.sendBubble,
-                ),
-                alignment: Alignment.topRight,
-                margin: EdgeInsets.only(top: 20),
-                backGroundColor: Theme.of(context).primaryColorDark,
-                child: Container(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.7,
-                  ),
-                  child: Text(
-                    messages[index].substring(2),
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ),
+              return CustomBubble(
+                text: messages[index].substring(2),
+                color: Theme.of(context).primaryColorDark,
+                rightSide: true,
+                style: Theme.of(context).textTheme.bodyText1!,
               );
             } else {
-              return ChatBubble(
-                clipper: ChatBubbleClipper4(
-                  type: BubbleType.receiverBubble,
-                ),
-                alignment: Alignment.topLeft,
-                margin: EdgeInsets.only(top: 20),
-                backGroundColor: Theme.of(context).primaryColorDark,
-                child: Container(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.7,
-                  ),
-                  child: Text(
-                    messages[index],
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ),
+              return CustomBubble(
+                text: messages[index],
+                color: Theme.of(context).primaryColorDark,
+                rightSide: false,
+                style: Theme.of(context).textTheme.bodyText1!,
               );
             }
           },
@@ -282,11 +246,39 @@ class CustomBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     if (rightSide) {
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(5.0),
+        child: Align(
+          alignment: Alignment.topRight,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.75,
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    text,
+                    style: style,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Align(
+        alignment: Alignment.topLeft,
         child: SizedBox(
-          width: MediaQuery.of(context).size.height * 0.7,
+          width: MediaQuery.of(context).size.width * 0.75,
           child: Align(
-            alignment: Alignment.topRight,
+            alignment: Alignment.topLeft,
             child: Container(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -299,28 +291,6 @@ class CustomBubble extends StatelessWidget {
                 color: color,
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
-            ),
-          ),
-        ),
-      );
-    }
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.height * 0.7,
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                text,
-                style: style,
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
             ),
           ),
         ),

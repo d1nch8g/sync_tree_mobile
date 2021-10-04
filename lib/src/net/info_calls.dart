@@ -69,7 +69,6 @@ class MarketInfo {
     required this.activeSells,
     required this.delimiter,
   });
-
   bool buysEqual({required MarketInfo info}) {
     if (this.buys.length != info.buys.length) {
       return false;

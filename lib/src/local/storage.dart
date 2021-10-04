@@ -205,4 +205,37 @@ class Storage {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getInt('chpos$adress') ?? 0;
   }
+
+  static void saveMarketInfoCache(MarketInfo info) async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString('name${info.adress}', info.name);
+    prefs.setString('description${info.adress}', info.description);
+    prefs.setString('imageLink${info.adress}', info.imageLink);
+    prefs.setString('workTime${info.adress}', info.workTime);
+    prefs.setInt('delimiter${info.adress}', info.delimiter);
+    prefs.setInt('operationCount${info.adress}', info.operationCount);
+    prefs.setInt('inputFee${info.adress}', info.inputFee);
+    prefs.setInt('outputFee${info.adress}', info.outputFee);
+    prefs.setString('messageKey${info.adress}', base64Encode(info.messageKey));
+  }
+
+  static Future<MarketInfo> loadMarketInfoCache(String adress) async {
+    var prefs = await SharedPreferences.getInstance();
+    return MarketInfo(
+      name: prefs.getString('name$adress')!,
+      messageKey: base64Decode(prefs.getString('messageKey$adress')!),
+      imageLink: prefs.getString('imageLink$adress')!,
+      description: prefs.getString('description$adress')!,
+      operationCount: prefs.getInt('operationCount$adress')!,
+      buys: [],
+      sells: [],
+      adress: adress,
+      workTime: prefs.getString('workTime$adress')!,
+      inputFee: prefs.getInt('inputFee$adress')!,
+      outputFee: prefs.getInt('outputFee$adress')!,
+      activeBuys: 0,
+      activeSells: 0,
+      delimiter: prefs.getInt('delimiter$adress')!,
+    );
+  }
 }
