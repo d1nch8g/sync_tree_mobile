@@ -10,4 +10,6 @@ enum Trigger {
   marketMessagesUpdate,
   moveToMarketPage,
   walletDetached,
+  tradeButtonsUpdate,
+  chatUpdate,
 }
