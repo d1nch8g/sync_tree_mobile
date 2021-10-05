@@ -57,13 +57,6 @@ void main() {
     });
     var nicoKeys = Keys.fromSingleString(multiKeyStirng: nicotinKeys);
     var triggerWasTriggered = false;
-    Function trigger = () {
-      triggerWasTriggered = true;
-    };
-    Storage.createTriggerSubscription(
-      trigger: Trigger.mainBalanceUpdate,
-      onTriggerEvent: trigger,
-    );
     var operated = await UserCalls.send(
       1,
       nicoKeys.personal.public.getAdressBase64(),

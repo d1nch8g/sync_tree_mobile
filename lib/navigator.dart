@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/market/frame.dart';
 import '../src/src.dart';
@@ -23,6 +25,7 @@ class PrimaryPage extends StatefulWidget {
 class _PrimaryPageState extends State<PrimaryPage> {
   int bottomBarIndex = 0;
   late PageController bottomBarController;
+  late StreamSubscription<Trigger> subscription;
 
   void checkFirstLaunch() async {
     var isFirstLaunch = await Storage.checkIfFirstLaunch();
@@ -67,12 +70,15 @@ class _PrimaryPageState extends State<PrimaryPage> {
       initialPage: bottomBarIndex,
     );
     checkFirstLaunch();
-    Storage.createTriggerSubscription(
-      trigger: Trigger.moveToMarketPage,
-      onTriggerEvent: () {
-        moveToSearchPage();
-      },
-    );
+    subscription = mainStream.listen((event) {
+      if (mounted) {
+        if (event == Trigger.moveToMarketPage) {
+          moveToSearchPage();
+        }
+      } else {
+        subscription.cancel();
+      }
+    });
   }
 
   @override
