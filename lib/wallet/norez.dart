@@ -26,9 +26,7 @@ class NoConnectedWallets extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          Storage.triggerStorageEvent(
-            trigger: Trigger.moveToMarketPage,
-          );
+          mainStreamController.add(Trigger.moveToMarketPage);
           showTopSnackBar(
             context,
             CustomSnackBar.error(

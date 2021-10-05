@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
@@ -12,6 +14,7 @@ class _WalletLogoState extends State<WalletLogo> {
   String mainBalance = '0';
   int attachedWallets = 0;
   int ownedTOkens = 0;
+  late StreamSubscription<Trigger> subscription;
 
   loadSelfInformation() async {
     var bal = await Storage.loadMainBalance();
@@ -32,14 +35,15 @@ class _WalletLogoState extends State<WalletLogo> {
   void initState() {
     super.initState();
     loadSelfInformation();
-    Storage.createTriggerSubscription(
-      trigger: Trigger.mainBalanceUpdate,
-      onTriggerEvent: () {
-        if (mounted) {
+    subscription = mainStream.listen((event) {
+      if (mounted) {
+        if (event == Trigger.mainBalanceUpdate) {
           loadSelfInformation();
         }
-      },
-    );
+      } else {
+        subscription.cancel();
+      }
+    });
   }
 
   @override
