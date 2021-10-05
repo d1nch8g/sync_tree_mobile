@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/navigator.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
@@ -29,7 +30,7 @@ class _WalletPageState extends State<WalletPage> {
 
   void startUpdatingMarketBalances() async {
     Timer.periodic(Duration(milliseconds: 987), (timer) {
-      var selfInfo = InfoCalls.selfInfo();
+      UserCalls.updateSelfInformation();
     });
   }
 

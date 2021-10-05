@@ -13,6 +13,14 @@ import 'api.dart';
 /// operated successfully or not. Alse they print errors, if there are some
 /// of them found during execution.
 class UserCalls {
+  static updateSelfInformation() async {
+  var keys = await Storage.loadKeys();
+  var info = await InfoCalls.userInfo(
+    keys.personal.public.getAdressBase64(),
+  );
+  Storage.updateSelfInformation(info: info);
+}
+
   static Future<bool> create() async {
     try {
       var publicName = await Storage.loadPublicName();
