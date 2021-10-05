@@ -42,7 +42,6 @@ class _WalletPageState extends State<WalletPage> {
   @override
   void initState() {
     startUpdatingSelfInformation();
-    currentMarketWidget = WalletsList();
     walletSubscription = mainStream.listen((event) {
       print('updating wallets');
       if (mounted) {
@@ -57,8 +56,9 @@ class _WalletPageState extends State<WalletPage> {
         walletSubscription.cancel();
       }
     });
-    super.initState();
+    currentMarketWidget = WalletsList();
     checkIfHasNoConnections();
+    super.initState();
   }
 
   @override
