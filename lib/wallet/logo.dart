@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 
 class WalletLogo extends StatefulWidget {
   @override
@@ -12,23 +13,33 @@ class _WalletLogoState extends State<WalletLogo> {
   int attachedWallets = 0;
   int ownedTOkens = 0;
 
-  updateInformation() async {
+  loadSelfInformation() async {
     var bal = await Storage.loadMainBalance();
     mainBalance = Balance.fromInt(balance: bal, delimiter: 2);
     var connectedWallets = await Storage.loadConnectedWallets();
     attachedWallets = connectedWallets.length;
+    var count = 0;
     connectedWallets.forEach((adress) async {
       if ((await Storage.loadMarketBalance(adress)) != 0) {
-        ownedTOkens += 1;
+        count += 1;
+        ownedTOkens = count;
+        setState(() {});
       }
     });
-    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-    updateInformation();
+    loadSelfInformation();
+    Storage.createTriggerSubscription(
+      trigger: Trigger.mainBalanceUpdate,
+      onTriggerEvent: () {
+        if (mounted) {
+          loadSelfInformation();
+        }
+      },
+    );
   }
 
   @override
@@ -49,32 +60,20 @@ class _WalletLogoState extends State<WalletLogo> {
               'Wallets',
               style: Theme.of(context).textTheme.headline4,
             ),
-            AnimatedSwitcher(
-              duration: Duration(milliseconds: 377),
-              child: Text(
-                'Balance: $mainBalance',
-                key: UniqueKey(),
-                textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.headline5,
-              ),
+            Text(
+              'Balance: $mainBalance',
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.headline5,
             ),
-            AnimatedSwitcher(
-              duration: Duration(milliseconds: 377),
-              child: Text(
-                'Attached wallets: $attachedWallets',
-                key: UniqueKey(),
-                textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.headline5,
-              ),
+            Text(
+              'Attached wallets: $attachedWallets',
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.headline5,
             ),
-            AnimatedSwitcher(
-              duration: Duration(milliseconds: 377),
-              child: Text(
-                'Owned tokens: $ownedTOkens',
-                key: UniqueKey(),
-                textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.headline5,
-              ),
+            Text(
+              'Owned tokens: $ownedTOkens',
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.headline5,
             ),
           ],
         ),

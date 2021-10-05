@@ -14,12 +14,13 @@ import 'api.dart';
 /// of them found during execution.
 class UserCalls {
   static updateSelfInformation() async {
-  var keys = await Storage.loadKeys();
-  var info = await InfoCalls.userInfo(
-    keys.personal.public.getAdressBase64(),
-  );
-  Storage.updateSelfInformation(info: info);
-}
+    print('update self info triggered');
+    var keys = await Storage.loadKeys();
+    var info = await InfoCalls.userInfo(
+      keys.personal.public.getAdressBase64(),
+    );
+    Storage.updateSelfInformation(info: info);
+  }
 
   static Future<bool> create() async {
     try {

@@ -28,7 +28,7 @@ class _WalletPageState extends State<WalletPage> {
     }
   }
 
-  void startUpdatingMarketBalances() async {
+  void startUpdatingSelfInformation() async {
     Timer.periodic(Duration(milliseconds: 987), (timer) {
       UserCalls.updateSelfInformation();
     });
@@ -52,6 +52,7 @@ class _WalletPageState extends State<WalletPage> {
         }
       },
     );
+    startUpdatingSelfInformation();
   }
 
   @override
