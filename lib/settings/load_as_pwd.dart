@@ -175,7 +175,7 @@ class _KeyCopyContentState extends State<KeyCopyContent> {
       Future.delayed(Duration(milliseconds: 377), () {
         // TODO do something with that stuff
         Navigator.pop(context);
-        updateSelfInformation();
+        UserCalls.updateSelfInformation();
       });
       showTopSnackBar(
         context,

@@ -79,7 +79,7 @@ class SellOverlayState extends State<SellOverlay>
         );
         Navigator.pop(context);
         Future.delayed(Duration(milliseconds: 377), () {
-          updateSelfInformation();
+          UserCalls.updateSelfInformation();
         });
       } else {
         showTopSnackBar(

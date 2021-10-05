@@ -33,7 +33,7 @@ class _CancelButtonState extends State<CancelButton> {
           iconRotationAngle: 18,
         ),
       );
-      updateSelfInformation();
+      UserCalls.updateSelfInformation();
     } else {
       showTopSnackBar(
         context,

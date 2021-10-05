@@ -113,7 +113,7 @@ class GenerateKeyOverlayState extends State<GenerateKeyOverlay>
       );
       Storage.removeAllWallets();
       Future.delayed(Duration(milliseconds: 377), () {
-        updateSelfInformation();
+        UserCalls.updateSelfInformation();
       });
     });
     Future.delayed(Duration(milliseconds: 1597), () {
