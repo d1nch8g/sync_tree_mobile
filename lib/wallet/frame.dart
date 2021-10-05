@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:sync_tree_mobile_ui/navigator.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/local/stream.dart';
-import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/list.dart';
 import 'package:sync_tree_mobile_ui/wallet/logo.dart';
@@ -19,7 +17,7 @@ class WalletPage extends StatefulWidget {
 
 class _WalletPageState extends State<WalletPage> {
   late Widget currentMarketWidget;
-  late StreamSubscription<Trigger> walletSubscription;
+  late StreamSubscription<Trigger> subscription;
 
   void checkIfHasNoConnections() async {
     var adresses = await Storage.loadConnectedWallets();
@@ -42,7 +40,7 @@ class _WalletPageState extends State<WalletPage> {
   @override
   void initState() {
     startUpdatingSelfInformation();
-    walletSubscription = mainStream.listen((event) {
+    subscription = mainStream.listen((event) {
       print('updating wallets');
       if (mounted) {
         if (event == Trigger.walletDetached) {
@@ -53,7 +51,7 @@ class _WalletPageState extends State<WalletPage> {
           setState(() {});
         }
       } else {
-        walletSubscription.cancel();
+        subscription.cancel();
       }
     });
     currentMarketWidget = WalletsList();
