@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'dart:typed_data';
 
@@ -45,6 +46,7 @@ class ChatTextField extends StatelessWidget {
       message: message,
     );
     if (delivered) {
+      mainStreamController.add(Trigger.chatUpdate);
       Storage.addMessage(
         message: 'uu' + message,
         adress: marketAdress,
@@ -139,23 +141,28 @@ class _ChatMessagesState extends State<ChatMessages> {
       ' and withdrawal operations. Before start of any transaction processing '
       'check market ratio and operation count. The decision to trust is on '
       'your own risk!';
+  late StreamSubscription<Trigger> subscription;
 
   startChatUpdating() {
-    Timer.periodic(Duration(seconds: 1), (timer) async {
-      print('chat messages updating');
-      var newMessages = await getMessages(widget.adress);
-      if (!mounted) {
-        timer.cancel();
-        return;
-      }
-      if (newMessages.length == 0) {
-        return;
-      }
-      if (newMessages[0] != messages[0] ||
-          newMessages.length != messages.length) {
-        key = UniqueKey();
-        messages = newMessages;
-        setState(() {});
+    Future.delayed(Duration(milliseconds: 987), () {
+      if (mounted) {
+        Timer.periodic(Duration(seconds: 1), (timer) async {
+          print('chat messages updating');
+          var newMessages = await getMessages(widget.adress);
+          if (!mounted) {
+            timer.cancel();
+            return;
+          }
+          if (newMessages.length == 0) {
+            return;
+          }
+          if (newMessages[0] != messages[0] ||
+              newMessages.length != messages.length) {
+            key = UniqueKey();
+            messages = newMessages;
+            setState(() {});
+          }
+        });
       }
     });
   }
@@ -171,6 +178,26 @@ class _ChatMessagesState extends State<ChatMessages> {
     }
     super.initState();
     startChatUpdating();
+    subscription = mainStream.listen((event) {
+      if (mounted) {
+        Future.delayed(Duration(microseconds: 144), () async {
+          if (event == Trigger.chatUpdate) {
+            var newMessages = await getMessages(widget.adress);
+            if (newMessages.length == 0) {
+              return;
+            }
+            if (newMessages[0] != messages[0] ||
+                newMessages.length != messages.length) {
+              key = UniqueKey();
+              messages = newMessages;
+              setState(() {});
+            }
+          }
+        });
+      } else {
+        subscription.cancel();
+      }
+    });
   }
 
   @override
