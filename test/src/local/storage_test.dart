@@ -5,10 +5,10 @@ import 'package:sync_tree_mobile_ui/src/src.dart';
 void main() {
   test('storage load value', () async {
     SharedPreferences.setMockInitialValues({
-      'password': 'abcdefg',
+      'bottompadding': 1.0,
     });
-    var loaded = await Storage.loadPassword();
-    if (loaded != 'abcdefg') {
+    var loaded = await Storage.loadBottomPadding();
+    if (loaded != 1.0) {
       fail('value loaded from prefs is not matching');
     }
   });

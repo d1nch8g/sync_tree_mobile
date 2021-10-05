@@ -38,16 +38,6 @@ class Storage {
     return Keys.fromSingleString(multiKeyStirng: keysString);
   }
 
-  static void savePassword(String password) async {
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setString('password', password);
-  }
-
-  static Future<String> loadPassword() async {
-    var prefs = await SharedPreferences.getInstance();
-    return prefs.getString('password') ?? '';
-  }
-
   static void saveMainBalance(int balance) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setInt('balance', balance);
