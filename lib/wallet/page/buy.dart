@@ -3,6 +3,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/frame.dart';
@@ -80,6 +81,7 @@ class BuyOverlayState extends State<BuyOverlay>
             iconRotationAngle: 8,
           ),
         );
+        mainStreamController.add(Trigger.tradeButtonsUpdate);
         Navigator.pop(context);
         Future.delayed(Duration(milliseconds: 377), () {
           UserCalls.updateSelfInformation();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -18,6 +19,7 @@ class _CancelButtonState extends State<CancelButton> {
     Navigator.pop(context);
     var cancelled = await UserCalls.cancelTrade(widget.adress);
     if (cancelled) {
+      mainStreamController.add(Trigger.tradeButtonsUpdate);
       showTopSnackBar(
         context,
         CustomSnackBar.success(

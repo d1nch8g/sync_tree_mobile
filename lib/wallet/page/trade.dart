@@ -71,7 +71,11 @@ class _TradePageState extends State<TradePage> {
     startUpdating();
     subscription = mainStream.listen((event) {
       if (mounted) {
-        
+        if (event == Trigger.tradeButtonsUpdate) {
+          Future.delayed(Duration(milliseconds: 144), () {
+            initButtons();
+          });
+        }
       } else {
         subscription.cancel();
       }
