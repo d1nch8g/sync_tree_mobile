@@ -127,6 +127,28 @@ class InfoCalls {
     );
   }
 
+  static Future<UserInfo> selfInfo() async {
+    var key = await Storage.loadKeys();
+    final response = await infoStub.user(
+      InfIn_Adress(adress: key.personal.public.bytes),
+    );
+    List<MarketBalance> balances = [];
+    for (var i = 0; i < response.marketAdresses.length; i++) {
+      balances.add(
+        MarketBalance(
+          adress: response.marketAdresses[i] as Uint8List,
+          balance: response.marketBalances[i].toInt(),
+        ),
+      );
+    }
+    return UserInfo(
+      name: response.publicName,
+      balance: response.balance.toInt(),
+      mesKey: Uint8List.fromList(response.messageKey),
+      marketBalances: balances,
+    );
+  }
+
   static Future<bool> hasTrades(String marketAdress) async {
     var keys = await Storage.loadKeys();
     var response = await infoStub.hasTrades(

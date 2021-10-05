@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
 import 'package:sync_tree_mobile_ui/src/local/stream.dart';
+import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
+import 'package:sync_tree_mobile_ui/src/net/user_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/list.dart';
 import 'package:sync_tree_mobile_ui/wallet/logo.dart';
 import 'package:sync_tree_mobile_ui/wallet/norez.dart';
@@ -21,6 +25,12 @@ class _WalletPageState extends State<WalletPage> {
       currentMarketWidget = NoConnectedWallets();
       setState(() {});
     }
+  }
+
+  void startUpdatingMarketBalances() async {
+    Timer.periodic(Duration(milliseconds: 987), (timer) {
+      var selfInfo = InfoCalls.in
+    });
   }
 
   @override
