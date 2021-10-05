@@ -26,6 +26,7 @@ class _TradePageState extends State<TradePage> {
   late MarketInfo info;
   late Widget buttons = Container();
   late StreamSubscription<Trigger> subscription;
+  Key key = UniqueKey();
 
   initButtons() async {
     var hasTrades = await InfoCalls.hasTrades(widget.info.adress);
@@ -46,6 +47,7 @@ class _TradePageState extends State<TradePage> {
   updateTrades() async {
     var newInfo = await InfoCalls.marketInfo(widget.info.adress);
     if (newInfo.differsFrom(info)) {
+      key = UniqueKey();
       info = newInfo;
       setState(() {});
     }
@@ -90,6 +92,7 @@ class _TradePageState extends State<TradePage> {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.40,
           child: TradeView(
+            key: key,
             info: info,
           ),
         ),
@@ -123,9 +126,9 @@ class _TradePageState extends State<TradePage> {
 
 class BuySellButtons extends StatelessWidget {
   const BuySellButtons({
-    Key? key,
     required this.info,
     required this.closeContainer,
+    Key? key,
   }) : super(key: key);
 
   final MarketInfo info;
@@ -156,9 +159,9 @@ class BuySellButtons extends StatelessWidget {
 
 class CancelTradeCloseButtons extends StatelessWidget {
   const CancelTradeCloseButtons({
-    Key? key,
     required this.info,
     required this.closeContainer,
+    Key? key,
   }) : super(key: key);
 
   final MarketInfo info;
@@ -188,7 +191,10 @@ class CancelTradeCloseButtons extends StatelessWidget {
 
 class TradeView extends StatefulWidget {
   final MarketInfo info;
-  TradeView({required this.info});
+  TradeView({
+    required this.info,
+    Key? key,
+  }) : super(key: key);
   @override
   State<TradeView> createState() => _TradeViewState();
 }
@@ -233,7 +239,8 @@ class TradeBars extends StatelessWidget {
     required this.offerDelimiter,
     required this.recieveDelimiter,
     required this.name,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +258,7 @@ class TradeBars extends StatelessWidget {
             child: AnimatedSwitcher(
               duration: Duration(milliseconds: 144),
               child: ListView.separated(
-                key: UniqueKey(),
+                key: key,
                 padding: EdgeInsets.all(0),
                 itemCount: trades.length,
                 separatorBuilder: (context, _) {

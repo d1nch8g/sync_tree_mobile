@@ -180,6 +180,7 @@ class _TopLogoBalanceState extends State<TopLogoBalance> {
       adress: widget.info.adress,
       delimiter: widget.info.delimiter,
     );
+    setState(() {});
   }
 
   @override

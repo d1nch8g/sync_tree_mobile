@@ -14,9 +14,9 @@ class SendButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           showDialog(
-                context: context,
-                builder: (_) => GetAdressOverlay(),
-              );
+            context: context,
+            builder: (_) => GetAdressOverlay(),
+          );
         },
         child: Padding(
           padding: const EdgeInsets.all(6.0),
@@ -225,8 +225,12 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
 
   void onSendButtonPress() async {
     try {
+      var sendAmount = Balance.fromString(
+        balance: amountTextController.text,
+        delimiter: 2,
+      );
       var succeded = await UserCalls.send(
-        int.parse(amountTextController.text),
+        sendAmount,
         adressTextController.text,
       );
       if (succeded) {
