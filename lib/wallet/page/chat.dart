@@ -140,8 +140,9 @@ class _ChatMessagesState extends State<ChatMessages> {
       'check market ratio and operation count. The decision to trust is on '
       'your own risk!';
 
-  startUpdating() {
+  startChatUpdating() {
     Timer.periodic(Duration(seconds: 1), (timer) async {
+      print('chat messages updating');
       var newMessages = await getMessages(widget.adress);
       if (!mounted) {
         timer.cancel();
@@ -165,11 +166,11 @@ class _ChatMessagesState extends State<ChatMessages> {
     if (messages.isEmpty) {
       messages.add(firstMessage);
       super.initState();
-      startUpdating();
+      startChatUpdating();
       return;
     }
     super.initState();
-    startUpdating();
+    startChatUpdating();
   }
 
   @override

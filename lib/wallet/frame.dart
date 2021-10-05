@@ -41,7 +41,6 @@ class _WalletPageState extends State<WalletPage> {
   void initState() {
     startUpdatingSelfInformation();
     subscription = mainStream.listen((event) {
-      print('updating wallets');
       if (mounted) {
         if (event == Trigger.walletDetached) {
           checkIfHasNoConnections();

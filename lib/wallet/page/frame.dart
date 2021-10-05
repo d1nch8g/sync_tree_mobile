@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import 'package:sync_tree_mobile_ui/src/local/storage.dart';
+import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/deposit.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/info.dart';
@@ -154,7 +157,7 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
   }
 }
 
-class TopLogoBalance extends StatelessWidget {
+class TopLogoBalance extends StatefulWidget {
   const TopLogoBalance({
     Key? key,
     required this.info,
@@ -163,6 +166,25 @@ class TopLogoBalance extends StatelessWidget {
 
   final MarketInfo info;
   final String balance;
+
+  @override
+  State<TopLogoBalance> createState() => _TopLogoBalanceState();
+}
+
+class _TopLogoBalanceState extends State<TopLogoBalance> {
+  late StreamSubscription<Trigger> subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    subscription = mainStream.listen((event) {
+      if (mounted) {
+        
+      } else {
+        subscription.cancel();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,19 +198,19 @@ class TopLogoBalance extends StatelessWidget {
               children: [
                 SizedBox(width: 8),
                 CachedNetworkImage(
-                  imageUrl: info.imageLink,
+                  imageUrl: widget.info.imageLink,
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                   width: 48,
                 ),
                 SizedBox(width: 18),
                 Text(
-                  info.name,
+                  widget.info.name,
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 Spacer(),
                 Text(
-                  balance,
+                  widget.balance,
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 SizedBox(width: 8),

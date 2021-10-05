@@ -40,8 +40,10 @@ class Storage {
 
   static void saveMainBalance(int balance) async {
     var prefs = await SharedPreferences.getInstance();
-    prefs.setInt('balance', balance);
-    mainStreamController.add(Trigger.mainBalanceUpdate);
+    if (prefs.getInt('balance') != balance) {
+      prefs.setInt('balance', balance);
+      mainStreamController.add(Trigger.mainBalanceUpdate);
+    }
   }
 
   static Future<int> loadMainBalance() async {
@@ -62,8 +64,10 @@ class Storage {
 
   static void saveMarketBalanceByAdress(String adress, int balance) async {
     var prefs = await SharedPreferences.getInstance();
-    prefs.setInt(adress, balance);
-    mainStreamController.add(Trigger.marketBalanceUpdate);
+    if (prefs.getInt('adress') != balance) {
+      prefs.setInt(adress, balance);
+      mainStreamController.add(Trigger.marketBalanceUpdate);
+    }
   }
 
   static void removeAllWallets() async {
@@ -83,8 +87,10 @@ class Storage {
 
   static void savePublicName(String name) async {
     var prefs = await SharedPreferences.getInstance();
-    prefs.setString('name', name);
-    mainStreamController.add(Trigger.publicNameUpdate);
+    if (prefs.getString('name') != name) {
+      prefs.setString('name', name);
+      mainStreamController.add(Trigger.publicNameUpdate);
+    }
   }
 
   static Future<String> loadPublicName() async {

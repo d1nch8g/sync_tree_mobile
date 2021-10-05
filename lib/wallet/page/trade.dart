@@ -51,8 +51,9 @@ class _TradePageState extends State<TradePage> {
 
   startUpdating() {
     updateTrades();
-    Timer.periodic(Duration(seconds: 5), (Timer t) {
+    Timer.periodic(Duration(milliseconds: 987), (Timer t) {
       if (mounted) {
+        print('trade info updating');
         updateTrades();
       } else {
         t.cancel();
