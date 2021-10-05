@@ -371,9 +371,15 @@ class FinishedValueWidget extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(topText),
+        Text(
+          topText,
+          style: Theme.of(context).textTheme.headline2,
+        ),
         Divider(color: Theme.of(context).focusColor),
-        Text(recieveValueText),
+        Text(
+          recieveValueText,
+          style: Theme.of(context).textTheme.headline2,
+        ),
       ],
     );
   }
