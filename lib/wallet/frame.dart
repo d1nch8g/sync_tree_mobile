@@ -29,7 +29,7 @@ class _WalletPageState extends State<WalletPage> {
 
   void startUpdatingMarketBalances() async {
     Timer.periodic(Duration(milliseconds: 987), (timer) {
-      var selfInfo = InfoCalls.in
+      var selfInfo = InfoCalls.selfInfo();
     });
   }
 
