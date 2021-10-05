@@ -41,6 +41,7 @@ class _WalletPageState extends State<WalletPage> {
 
   @override
   void initState() {
+    startUpdatingSelfInformation();
     currentMarketWidget = WalletsList();
     walletSubscription = mainStream.listen((event) {
       print('updating wallets');
@@ -58,7 +59,6 @@ class _WalletPageState extends State<WalletPage> {
     });
     super.initState();
     checkIfHasNoConnections();
-    startUpdatingSelfInformation();
   }
 
   @override
