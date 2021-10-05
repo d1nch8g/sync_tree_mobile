@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/src/local/stream.dart';
 import 'package:sync_tree_mobile_ui/src/net/info_calls.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/buy.dart';
 import 'package:sync_tree_mobile_ui/wallet/page/cancel.dart';
@@ -24,6 +25,7 @@ class TradePage extends StatefulWidget {
 class _TradePageState extends State<TradePage> {
   late MarketInfo info;
   late Widget buttons = Container();
+  late StreamSubscription<Trigger> subscription;
 
   initButtons() async {
     var hasTrades = await InfoCalls.hasTrades(widget.info.adress);
@@ -67,6 +69,13 @@ class _TradePageState extends State<TradePage> {
     initButtons();
     super.initState();
     startUpdating();
+    subscription = mainStream.listen((event) {
+      if (mounted) {
+        
+      } else {
+        subscription.cancel();
+      }
+    });
   }
 
   @override
