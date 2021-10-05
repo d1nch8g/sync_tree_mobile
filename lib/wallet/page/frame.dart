@@ -172,14 +172,25 @@ class TopLogoBalance extends StatefulWidget {
 }
 
 class _TopLogoBalanceState extends State<TopLogoBalance> {
+  late String balance;
   late StreamSubscription<Trigger> subscription;
+
+  updateBalance() async {
+    balance = await Balance.marketBalance(
+      adress: widget.info.adress,
+      delimiter: widget.info.delimiter,
+    );
+  }
 
   @override
   void initState() {
+    balance = widget.balance;
     super.initState();
     subscription = mainStream.listen((event) {
       if (mounted) {
-        
+        if (event == Trigger.marketBalanceUpdate) {
+          updateBalance();
+        }
       } else {
         subscription.cancel();
       }
@@ -210,7 +221,7 @@ class _TopLogoBalanceState extends State<TopLogoBalance> {
                 ),
                 Spacer(),
                 Text(
-                  widget.balance,
+                  balance,
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 SizedBox(width: 8),
