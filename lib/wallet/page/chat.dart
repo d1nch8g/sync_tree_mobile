@@ -20,7 +20,7 @@ class ChatTextField extends StatelessWidget {
     required this.marketAdress,
   });
 
-  void showNotDeliveredSnackBar(context) {
+  showNotDeliveredSnackBar(context) {
     showTopSnackBar(
       context,
       CustomSnackBar.error(
@@ -36,7 +36,7 @@ class ChatTextField extends StatelessWidget {
     );
   }
 
-  void sendMessage(context, String message) async {
+  sendMessage(context, String message) async {
     if (message == '') {
       return;
     }

@@ -32,7 +32,7 @@ bool resizekb = true;
 class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
   late int bottomBarIndex;
   late PageController bottomBarController;
-  String balance = '0';
+  late String balance;
   double bottomNavBarPadHeight = 0;
 
   @override
@@ -64,11 +64,11 @@ class _ConnectedWalletPageState extends State<ConnectedWalletPage> {
 
   @override
   void initState() {
+    updateInfo();
     bottomBarIndex = widget.initialIndex;
     bottomBarController = PageController(
       initialPage: bottomBarIndex,
     );
-    updateInfo();
     super.initState();
   }
 
@@ -222,6 +222,7 @@ class _TopLogoBalanceState extends State<TopLogoBalance> {
                 Spacer(),
                 Text(
                   balance,
+                  key: UniqueKey(),
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 SizedBox(width: 8),

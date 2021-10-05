@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,8 @@ class _WalletTileState extends State<WalletTile> {
   loadInitialMes() async {
     initialMessages = await getMessages(widget.info.adress);
   }
+
+  updateTileBalance() async {}
 
   @override
   void initState() {
@@ -152,6 +156,8 @@ class DynamicMarketBalance extends StatefulWidget {
 
 class _DynamicMarketBalanceState extends State<DynamicMarketBalance> {
   String balance = '';
+  late StreamSubscription<Trigger> subscription;
+
   void setBalance() async {
     balance = await Balance.marketBalance(
       adress: widget.adress,
@@ -164,12 +170,22 @@ class _DynamicMarketBalanceState extends State<DynamicMarketBalance> {
   void initState() {
     super.initState();
     setBalance();
+    subscription = mainStream.listen((event) {
+      if (mounted) {
+        if (event == Trigger.marketBalanceUpdate) {
+          setBalance();
+        }
+      } else {
+        subscription.cancel();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Text(
       'Balance: $balance',
+      key: UniqueKey(),
       style: Theme.of(context).textTheme.bodyText1,
     );
   }
