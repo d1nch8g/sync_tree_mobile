@@ -41,7 +41,7 @@ class Storage {
   static void saveMainBalance(int balance) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setInt('balance', balance);
-    triggerStorageEvent(trigger: Trigger.mainBalanceUpdate);
+    mainStreamController.add(Trigger.mainBalanceUpdate);
   }
 
   static Future<int> loadMainBalance() async {
@@ -63,7 +63,7 @@ class Storage {
   static void saveMarketBalanceByAdress(String adress, int balance) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setInt(adress, balance);
-    triggerStorageEvent(trigger: Trigger.marketBalanceUpdate);
+    mainStreamController.add(Trigger.marketBalanceUpdate);
   }
 
   static void removeAllWallets() async {
@@ -84,7 +84,7 @@ class Storage {
   static void savePublicName(String name) async {
     var prefs = await SharedPreferences.getInstance();
     prefs.setString('name', name);
-    triggerStorageEvent(trigger: Trigger.publicNameUpdate);
+    mainStreamController.add(Trigger.publicNameUpdate);
   }
 
   static Future<String> loadPublicName() async {
@@ -100,23 +100,6 @@ class Storage {
   static Future<String> loadSeachCache() async {
     var prefs = await SharedPreferences.getInstance();
     return prefs.getString('cache') ?? '';
-  }
-
-  static void triggerStorageEvent({
-    required Trigger trigger,
-  }) {
-    mainStreamController.add(trigger);
-  }
-
-  static createTriggerSubscription({
-    required Trigger trigger,
-    required Function onTriggerEvent,
-  }) {
-    mainStream.listen((event) {
-      if (trigger == event) {
-        onTriggerEvent();
-      }
-    });
   }
 
   static Future<bool> checkIfMarketConnected(String adress) async {

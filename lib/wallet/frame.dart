@@ -19,6 +19,7 @@ class WalletPage extends StatefulWidget {
 
 class _WalletPageState extends State<WalletPage> {
   late Widget currentMarketWidget;
+  late StreamSubscription<Trigger> walletSubscription;
 
   void checkIfHasNoConnections() async {
     var adresses = await Storage.loadConnectedWallets();
@@ -30,28 +31,33 @@ class _WalletPageState extends State<WalletPage> {
 
   void startUpdatingSelfInformation() async {
     Timer.periodic(Duration(milliseconds: 987), (timer) {
-      UserCalls.updateSelfInformation();
+      if (mounted) {
+        UserCalls.updateSelfInformation();
+      } else {
+        timer.cancel();
+      }
     });
   }
 
   @override
   void initState() {
     currentMarketWidget = WalletsList();
-    super.initState();
-    checkIfHasNoConnections();
-    Storage.createTriggerSubscription(
-      trigger: Trigger.walletDetached,
-      onTriggerEvent: () {
-        print('triggered');
-        if (mounted) {
+    walletSubscription = mainStream.listen((event) {
+      print('updating wallets');
+      if (mounted) {
+        if (event == Trigger.walletDetached) {
           checkIfHasNoConnections();
           currentMarketWidget = WalletsList(
             key: UniqueKey(),
           );
           setState(() {});
         }
-      },
-    );
+      } else {
+        walletSubscription.cancel();
+      }
+    });
+    super.initState();
+    checkIfHasNoConnections();
     startUpdatingSelfInformation();
   }
 
