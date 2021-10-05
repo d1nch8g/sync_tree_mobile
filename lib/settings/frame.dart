@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/settings/load_as_pwd.dart';
 import 'package:sync_tree_mobile_ui/settings/save_as_pwd.dart';
@@ -18,6 +20,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   String name = '';
   String balance = '';
+  late StreamSubscription<Trigger> subscription;
 
   displayNewData() async {
     var loadedName = await Storage.loadPublicName();
@@ -34,14 +37,16 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
     displayNewData();
-    Storage.createTriggerSubscription(
-      trigger: Trigger.publicNameUpdate,
-      onTriggerEvent: displayNewData,
-    );
-    Storage.createTriggerSubscription(
-      trigger: Trigger.mainBalanceUpdate,
-      onTriggerEvent: displayNewData,
-    );
+    subscription = mainStream.listen((event) {
+      if (mounted) {
+        if (event == Trigger.publicNameUpdate ||
+            event == Trigger.mainBalanceUpdate) {
+          displayNewData();
+        }
+      } else {
+        subscription.cancel();
+      }
+    });
   }
 
   @override
