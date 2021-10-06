@@ -1,20 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:sync_tree_mobile_ui/introduction.dart';
 import 'package:sync_tree_mobile_ui/market/frame.dart';
 import '../src/src.dart';
 
 import 'wallet/frame.dart';
 import 'settings/frame.dart';
-import 'start/hello.dart';
-import 'start/name.dart';
-import 'start/keys.dart';
 
 var routeMap = <String, WidgetBuilder>{
   '/main': (BuildContext context) => PrimaryPage(),
-  '/hello': (BuildContext context) => IntroPage(),
-  '/name': (BuildContext context) => NameCreation(),
-  '/keys': (BuildContext context) => KeySave(),
+  '/introduction': (BuildContext context) => IntroPage(),
 };
 
 class PrimaryPage extends StatefulWidget {
