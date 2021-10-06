@@ -10,7 +10,7 @@ import 'settings/frame.dart';
 
 var routeMap = <String, WidgetBuilder>{
   '/main': (BuildContext context) => PrimaryPage(),
-  '/introduction': (BuildContext context) => IntroPage(),
+  '/intro': (BuildContext context) => IntroPage(),
 };
 
 class PrimaryPage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _PrimaryPageState extends State<PrimaryPage> {
     var isFirstLaunch = await Storage.checkIfFirstLaunch();
     if (isFirstLaunch) {
       Storage.saveBottomPadding(padding: MediaQuery.of(context).padding.bottom);
-      Navigator.pushNamed(context, '/hello');
+      Navigator.pushNamed(context, '/intro');
     }
   }
 

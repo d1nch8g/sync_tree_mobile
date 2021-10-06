@@ -37,7 +37,7 @@ class IntroPage extends StatelessWidget {
             TextButton(
               child: Text('continue'),
               onPressed: () async {
-                Navigator.pushNamed(context, '/name');
+                Navigator.pushNamed(context, '/main');
                 var keys = await compute(generateKeys, true);
                 Storage.saveKeys(keys);
               },
