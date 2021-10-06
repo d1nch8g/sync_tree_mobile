@@ -2,7 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../src/src.dart';
-import '../start/hello.dart';
+
+Future<String> generateKeys(bool start) async {
+  var keys = Keys.generate();
+  return keys.allKeysString;
+}
 
 class GenerateKeyTile extends StatelessWidget {
   showKeyGenerationOverlay(context) {
