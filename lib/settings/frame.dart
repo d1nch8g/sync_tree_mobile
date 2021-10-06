@@ -10,7 +10,6 @@ import 'change_key.dart';
 import 'copy_key.dart';
 import 'generate_key.dart';
 import 'licenses.dart';
-import 'pub_name.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -77,8 +76,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 ChangeKeyTile(),
                 Divider(),
                 GenerateKeyTile(),
-                Divider(),
-                PublicNameTile(),
                 Divider(),
                 SaveAsPwd(),
                 Divider(),

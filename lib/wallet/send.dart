@@ -2,7 +2,6 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:sync_tree_mobile_ui/src/local/balance.dart';
 import '../src/src.dart';
-import '../connection.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -264,12 +263,19 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
         );
       }
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (_) => ConnectionErrorOverlay(
-          errorMessage: 'Unbale to send. Check connection.',
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: 'Unable to process send operation!',
+          icon: Icon(
+            Icons.wifi_off_rounded,
+            size: 120,
+            color: const Color(0x15000000),
+          ),
+          textStyle: Theme.of(context).textTheme.headline2!,
         ),
       );
+      return;
     }
   }
 
@@ -331,16 +337,19 @@ class GetAdressOverlayState extends State<GetAdressOverlay>
                       child: child,
                     ),
                   ),
-                  AnimatedSwitcher(
-                    duration: Duration(milliseconds: 377),
-                    child: sendWidget,
-                    transitionBuilder: (
-                      Widget child,
-                      Animation<double> animation,
-                    ) =>
-                        ScaleTransition(
-                      scale: animation,
-                      child: child,
+                  SizedBox(
+                    height: 62,
+                    child: AnimatedSwitcher(
+                      duration: Duration(milliseconds: 377),
+                      child: sendWidget,
+                      transitionBuilder: (
+                        Widget child,
+                        Animation<double> animation,
+                      ) =>
+                          ScaleTransition(
+                        scale: animation,
+                        child: child,
+                      ),
                     ),
                   ),
                 ],
