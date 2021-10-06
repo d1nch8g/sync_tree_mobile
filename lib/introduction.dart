@@ -128,43 +128,11 @@ class IntroPage extends StatelessWidget {
               size: MediaQuery.of(context).size.width * 0.40,
               color: Theme.of(context).focusColor,
             ),
-            bodyWidget: TextField(
-              controller: TextEditingController(),
-              style: TextStyle(
-                color: Theme.of(context).focusColor,
-              ),
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  borderSide: BorderSide(color: Theme.of(context).focusColor),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  borderSide: BorderSide(color: Theme.of(context).focusColor),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  borderSide: BorderSide(color: Theme.of(context).focusColor),
-                ),
-                labelStyle: TextStyle(
-                  color: Theme.of(context).focusColor,
-                ),
-                labelText: 'name',
-                hoverColor: Theme.of(context).focusColor,
-                fillColor: Theme.of(context).focusColor,
-                focusColor: Theme.of(context).focusColor,
-              ),
-              cursorColor: Theme.of(context).focusColor,
-            ),
+            body: 'Each user and market name in this system is '
+                'unique! Name check is a true way of identity verification. ',
             decoration: PageDecoration(
               titleTextStyle: Theme.of(context).textTheme.headline1!,
-            ),
-            footer: Text(
-              'Each user and market name in this system is '
-              'unique! Name check is a true way of identity verification. '
-              'Pick your\'s.',
-              style: Theme.of(context).textTheme.headline2,
-              textAlign: TextAlign.center,
+              bodyTextStyle: Theme.of(context).textTheme.headline2!,
             ),
           ),
         ],
@@ -176,6 +144,13 @@ class IntroPage extends StatelessWidget {
         done: Text('done'),
         onDone: () {
           Navigator.pushNamed(context, '/main');
+          Future.delayed(Duration(milliseconds: 144), () {
+            showDialog(
+              context: context,
+              builder: (_) => NameAndKeyOverlay(),
+              barrierDismissible: false,
+            );
+          });
         },
         skipFlex: 0,
         dotsFlex: 86,
@@ -190,6 +165,85 @@ class IntroPage extends StatelessWidget {
           ),
         ),
         controlsPadding: EdgeInsets.all(28),
+      ),
+    );
+  }
+}
+
+class NameAndKeyOverlay extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => NameAndKeyOverlayState();
+}
+
+class NameAndKeyOverlayState extends State<NameAndKeyOverlay>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 377),
+    );
+    scaleAnimation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.decelerate,
+    );
+    controller.addListener(() {
+      setState(() {});
+    });
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        color: Colors.transparent,
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.72,
+            decoration: ShapeDecoration(
+              color: Theme.of(context).backgroundColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(28.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.error_outline_rounded,
+                    size: 144,
+                    color: Theme.of(context).focusColor,
+                  ),
+                  Text(
+                    'coca cola',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline2,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextButton(
+                    child: Text(
+                      'retry',
+                      textAlign: TextAlign.center,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
